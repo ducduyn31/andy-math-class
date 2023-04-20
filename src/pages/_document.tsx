@@ -7,6 +7,11 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <footer className="footer mt-5 footer-center p-4 bg-base-300 text-base-content">
+            <div>
+                <p>Footer</p>
+            </div>
+        </footer>
       </body>
     </Html>
   )
