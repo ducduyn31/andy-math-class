@@ -3,11 +3,35 @@ import AdminUserRow, {
   AdminUserRowProps,
 } from "@/components/admin/Table/AdminUserRow";
 import { ReactPropTypes, useEffect, useState } from "react";
-import { bookDatabase } from "@/components/admin/Table/AdminBookTable";
-import { SupportFunction } from "@/layout/AdminLayout";
+import { book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
+import { SharedContext } from "@/layout/AdminLayout";
 
 faker.seed(123);
-const userDatabase = [...Array(100).keys()].map((): AdminUserRowProps => {
+
+const isCorrectEmail = (user: AdminUserRowProps, email: string) => {
+  if (email.length == 0) return true;
+  return user.email.toLowerCase().includes(email.toLowerCase());
+};
+
+const isCorrectBook = (user: AdminUserRowProps, book: string) => {
+  if (book == "any") return true;
+  if (book == "notAssigned") return user.assignedBooks.length == 0;
+  return user.assignedBooks.some((assignedBook) =>
+    assignedBook.name.toLowerCase().includes(book.toLowerCase())
+  );
+};
+
+const isCorrectStatus = (user: AdminUserRowProps, status: string) => {
+  if (status == "any") return true;
+  console.log(
+    user.enabled.toString(),
+    status.toLowerCase(),
+    user.enabled.toString() == status.toLowerCase(),
+    user.firstName
+  );
+  return user.enabled.toString() == status.toLowerCase();
+};
+const userDatabase = [...Array(87).keys()].map((): AdminUserRowProps => {
   return {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
@@ -22,14 +46,34 @@ const userDatabase = [...Array(100).keys()].map((): AdminUserRowProps => {
 });
 
 const itemPerPage = 10;
-const AdminUserTable = (props: ReactPropTypes & SupportFunction) => {
+const AdminUserTable = (props: ReactPropTypes & SharedContext) => {
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<AdminUserRowProps[]>([]);
+  const { filteredUsers } = props.filteredInput;
 
   useEffect(() => {
+    updatePaginationItem();
+  }, [page]);
+
+  const updatePaginationItem = () => {
     const start = page * itemPerPage;
     setDataset(userDatabase.slice(start, start + itemPerPage));
-  }, [page]);
+  };
+
+  useEffect(() => {
+    if (filteredUsers.isFiltering) {
+      setDataset(
+        userDatabase.filter(
+          (user) =>
+            isCorrectEmail(user, filteredUsers.email) &&
+            isCorrectBook(user, filteredUsers.book) &&
+            isCorrectStatus(user, filteredUsers.enabled)
+        )
+      );
+    } else {
+      updatePaginationItem();
+    }
+  }, [filteredUsers]);
 
   return (
     <>
@@ -49,7 +93,7 @@ const AdminUserTable = (props: ReactPropTypes & SupportFunction) => {
             <tbody>
               {dataset.map((data, index) => (
                 <AdminUserRow
-                  key={index}
+                  key={data.email}
                   firstName={data.firstName}
                   lastName={data.lastName}
                   email={data.email}
@@ -65,17 +109,21 @@ const AdminUserTable = (props: ReactPropTypes & SupportFunction) => {
 
       <div className={"flex justify-center mt-5"}>
         <div className="btn-group">
-          {[...Array(100 / itemPerPage)].map((_, i) => (
-            <input
-              key={i}
-              type={"radio"}
-              name={"options"}
-              data-title={i + 1}
-              className={"btn"}
-              defaultChecked={i == page}
-              onChange={() => setPage(i)}
-            />
-          ))}
+          {[...Array(Math.round(userDatabase.length / itemPerPage))].map(
+            (_, i) => (
+              <input
+                key={i}
+                type={"radio"}
+                name={"options"}
+                data-title={i + 1}
+                className={`btn ${
+                  filteredUsers.isFiltering ? "btn-disabled" : ""
+                }`}
+                defaultChecked={i == page}
+                onChange={() => setPage(i)}
+              />
+            )
+          )}
         </div>
       </div>
     </>
@@ -83,3 +131,5 @@ const AdminUserTable = (props: ReactPropTypes & SupportFunction) => {
 };
 
 export default AdminUserTable;
+
+export { userDatabase };

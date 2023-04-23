@@ -1,5 +1,5 @@
 import { book } from "@/components/admin/Table/AdminBookTable";
-import { SupportFunction } from "@/layout/AdminLayout";
+import { SharedContext } from "@/layout/AdminLayout";
 
 interface AdminUserRowProps {
   firstName: string;
@@ -9,7 +9,7 @@ interface AdminUserRowProps {
   enabled: boolean;
 }
 
-const AdminUserRow: React.FC<AdminUserRowProps & SupportFunction> = ({
+const AdminUserRow: React.FC<AdminUserRowProps & SharedContext> = ({
   firstName,
   lastName,
   email,

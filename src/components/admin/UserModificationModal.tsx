@@ -19,8 +19,8 @@ const UserModificationModal: React.FC<AdminUserRowProps> = ({
         id="user-modification-modal"
         className="modal-toggle"
       />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
+      <label className="modal modal-bottom sm:modal-middle">
+        <label className="modal-box" htmlFor={""}>
           <h3 className="font-bold text-lg">User modification</h3>
           <div className="form-control">
             <label className="label">
@@ -88,8 +88,8 @@ const UserModificationModal: React.FC<AdminUserRowProps> = ({
               </label>
             </div>
           </div>
-        </div>
-      </div>
+        </label>
+      </label>
     </>
   );
 };
