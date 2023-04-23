@@ -1,22 +1,27 @@
-import { book } from "@/components/admin/Table/AdminBookTable";
+import { Book } from "@/components/admin/Table/AdminBookTable";
 import { SharedContext } from "@/layout/AdminLayout";
+import toast from "react-hot-toast";
 
 interface AdminUserRowProps {
   firstName: string;
   lastName: string;
   email: string;
-  assignedBooks: book[];
+  assignedBooks: Book[];
   enabled: boolean;
 }
 
-const AdminUserRow: React.FC<AdminUserRowProps & SharedContext> = ({
+interface PropType {
+  setUserModification: SharedContext["setUserModification"];
+}
+
+const AdminUserRow = ({
   firstName,
   lastName,
   email,
   assignedBooks,
   enabled,
   setUserModification,
-}) => {
+}: AdminUserRowProps & PropType) => {
   return (
     <tr className={"hover"}>
       <th>
@@ -39,8 +44,7 @@ const AdminUserRow: React.FC<AdminUserRowProps & SharedContext> = ({
           htmlFor="user-modification-modal"
           className="flex link link-primary font-bold text-sm no-underline"
           onClick={() => {
-            console.log("setting", firstName, lastName, email);
-            setUserModification((prevState: any) => {
+            setUserModification!((prevState: any) => {
               return {
                 ...prevState,
                 firstName,
@@ -74,6 +78,7 @@ const AdminUserRow: React.FC<AdminUserRowProps & SharedContext> = ({
           type="checkbox"
           className="toggle toggle-primary"
           defaultChecked={enabled}
+          onClick={() => toast.success("Saved successfully")}
         />
       </td>
     </tr>

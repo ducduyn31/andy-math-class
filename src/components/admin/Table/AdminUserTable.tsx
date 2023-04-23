@@ -3,7 +3,7 @@ import AdminUserRow, {
   AdminUserRowProps,
 } from "@/components/admin/Table/AdminUserRow";
 import { ReactPropTypes, useEffect, useState } from "react";
-import { book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
+import { Book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
 import { SharedContext } from "@/layout/AdminLayout";
 
 faker.seed(123);
@@ -46,10 +46,16 @@ const userDatabase = [...Array(87).keys()].map((): AdminUserRowProps => {
 });
 
 const itemPerPage = 10;
-const AdminUserTable = (props: ReactPropTypes & SharedContext) => {
+const AdminUserTable = ({
+  filteredInput,
+  setUserModification,
+}: {
+  filteredInput: SharedContext["filteredInput"];
+  setUserModification: SharedContext["setUserModification"];
+}) => {
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<AdminUserRowProps[]>([]);
-  const { filteredUsers } = props.filteredInput;
+  const { filteredUsers } = filteredInput;
 
   useEffect(() => {
     updatePaginationItem();
@@ -99,7 +105,7 @@ const AdminUserTable = (props: ReactPropTypes & SharedContext) => {
                   email={data.email}
                   assignedBooks={data.assignedBooks}
                   enabled={data.enabled}
-                  {...props}
+                  setUserModification={setUserModification}
                 />
               ))}
             </tbody>
@@ -109,7 +115,7 @@ const AdminUserTable = (props: ReactPropTypes & SharedContext) => {
 
       <div className={"flex justify-center mt-5"}>
         <div className="btn-group">
-          {[...Array(Math.round(userDatabase.length / itemPerPage))].map(
+          {[...Array(Math.ceil(userDatabase.length / itemPerPage))].map(
             (_, i) => (
               <input
                 key={i}

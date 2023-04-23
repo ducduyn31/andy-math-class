@@ -4,11 +4,15 @@ import AdminMenu from "@/components/admin/AdminMenu";
 import UserModificationModal from "@/components/admin/UserModificationModal";
 import { AdminUserRowProps } from "@/components/admin/Table/AdminUserRow";
 import React, { useState } from "react";
-import userModificationModal from "@/components/admin/UserModificationModal";
 import AdminFilter from "@/components/admin/Table/AdminFilterUserPage";
+import BookModificationModal from "@/components/admin/BookModificationModal";
+import { Book } from "@/components/admin/Table/AdminBookTable";
+import { resolveValue, Toaster } from "react-hot-toast";
+import theme from "tailwindcss/defaultTheme";
 
 interface SharedContext {
   setUserModification: (...args: any[]) => any;
+  setBookModification: (...args: any[]) => any;
   currentMenu: number;
   filteredInput: {
     filteredUsers: {
@@ -32,6 +36,7 @@ const filteredInputInitial: SharedContext["filteredInput"] = {
 const AdminLayout = ({ children }) => {
   const [userModification, setUserModification] = useState<AdminUserRowProps>();
   const [currentMenu, setCurrentMenu] = useState<number>(0);
+  const [bookModification, setBookModification] = useState<Book>();
   const [filteredInput, setFilteredInput] =
     useState<SharedContext["filteredInput"]>(filteredInputInitial);
 
@@ -47,8 +52,9 @@ const AdminLayout = ({ children }) => {
           </div>
           <div className={"md:col-span-9"}>
             {React.cloneElement(children, {
-              setUserModification,
               currentMenu,
+              setUserModification,
+              setBookModification,
               filteredInput,
             })}
           </div>
@@ -57,13 +63,18 @@ const AdminLayout = ({ children }) => {
       {userModification && (
         <UserModificationModal
           key={userModification.email}
-          firstName={userModification.firstName}
-          lastName={userModification.lastName}
-          email={userModification.email}
-          enabled={userModification.enabled}
-          assignedBooks={userModification.assignedBooks}
+          user={userModification}
         />
       )}
+      {bookModification && <BookModificationModal book={bookModification} />}
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            borderRadius: "99px",
+          },
+        }}
+      />
     </section>
   );
 };

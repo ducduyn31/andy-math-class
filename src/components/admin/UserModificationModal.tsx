@@ -1,17 +1,10 @@
 import { bookDatabase } from "@/components/admin/Table/AdminBookTable";
 import { AdminUserRowProps } from "@/components/admin/Table/AdminUserRow";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
-const UserModificationModal: React.FC<AdminUserRowProps> = ({
-  firstName,
-  lastName,
-  email,
-  assignedBooks,
-  enabled,
-}) => {
-  useEffect(() => {
-    console.log("did mount", firstName, lastName, email);
-  }, []);
+const UserModificationModal = ({ user }: { user: AdminUserRowProps }) => {
+  const { firstName, lastName, email, assignedBooks, enabled } = user;
   return (
     <>
       <input
@@ -83,6 +76,7 @@ const UserModificationModal: React.FC<AdminUserRowProps> = ({
               <label
                 htmlFor="user-modification-modal"
                 className="btn btn-success"
+                onClick={() => toast.success("Saved successfully!")}
               >
                 Save
               </label>

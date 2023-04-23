@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa6b8bdb-ee4e-4da4-872f-00421513e800" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+    <list default="true" id="fa6b8bdb-ee4e-4da4-872f-00421513e800" name="Changes" comment="feat: Add filtering">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminStat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminStat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminBookTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminBookTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminUserRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminUserRow.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminUserTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminUserTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/admin/UserModificationModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/UserModificationModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layout/AdminLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/AdminLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_document.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_document.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.css" afterDir="false" />
     </list>
@@ -107,11 +106,23 @@
       <workItem from="1681877667883" duration="27923000" />
       <workItem from="1682040714812" duration="4588000" />
       <workItem from="1682082207713" duration="1000" />
-      <workItem from="1682082291242" duration="13162000" />
+      <workItem from="1682082291242" duration="21380000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: Add filtering">
+      <created>1682216833855</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1682216833855</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: Add filtering" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Add filtering" />
   </component>
 </project>
