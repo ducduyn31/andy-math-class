@@ -23,12 +23,6 @@ const isCorrectBook = (user: AdminUserRowProps, book: string) => {
 
 const isCorrectStatus = (user: AdminUserRowProps, status: string) => {
   if (status == "any") return true;
-  console.log(
-    user.enabled.toString(),
-    status.toLowerCase(),
-    user.enabled.toString() == status.toLowerCase(),
-    user.firstName
-  );
   return user.enabled.toString() == status.toLowerCase();
 };
 const userDatabase = [...Array(87).keys()].map((): AdminUserRowProps => {

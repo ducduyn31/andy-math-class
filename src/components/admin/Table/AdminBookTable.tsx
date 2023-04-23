@@ -53,6 +53,7 @@ const AdminBookTable = ({
 }) => {
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<Book[]>([]);
+  const { filteredBooks } = filteredInput;
   const updatePaginationItem = () => {
     const start = page * itemPerPage;
     setDataset(bookDatabase.slice(start, start + itemPerPage));
@@ -61,6 +62,19 @@ const AdminBookTable = ({
   useEffect(() => {
     updatePaginationItem();
   }, [page]);
+
+  useEffect(() => {
+    const filteredBookName = filteredBooks.name;
+    if (filteredBookName.length == 0) {
+      return updatePaginationItem();
+    }
+
+    setDataset((prevState) => {
+      return bookDatabase.filter((book) =>
+        book.name.toLowerCase().includes(filteredBookName.toLowerCase())
+      );
+    });
+  }, [filteredBooks]);
 
   return (
     <>
@@ -99,14 +113,31 @@ const AdminBookTable = ({
                 type={"radio"}
                 name={"options"}
                 data-title={i + 1}
-                className={`btn`}
+                className={`btn ${
+                  filteredBooks.isFiltering ? "btn-disabled" : ""
+                }`}
                 defaultChecked={i == page}
                 onChange={() => setPage(i)}
               />
             )
           )}
         </div>
-        <button className={"btn btn-primary"}>Add book</button>
+        <label
+          htmlFor="book-modification-modal"
+          className={"btn btn-primary"}
+          onClick={() =>
+            setBookModification((prevState: Book) => {
+              return {
+                ...prevState,
+                name: "",
+                chapter: [],
+                color: "",
+              };
+            })
+          }
+        >
+          Add book
+        </label>
       </div>
     </>
   );

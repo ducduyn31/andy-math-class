@@ -4,8 +4,9 @@ import toast from "react-hot-toast";
 
 const BookModificationModal = ({ book }: { book: Book }) => {
   const { name, chapter, color } = book;
+  const [bookNameInput, setBookNameInput] = useState(name);
+  const [chapterInput, setChapterInput] = useState("");
   const [localChapter, setLocalChapter] = useState(chapter);
-  const addChapterInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setLocalChapter(book.chapter);
@@ -18,11 +19,17 @@ const BookModificationModal = ({ book }: { book: Book }) => {
   };
 
   const addChapter = () => {
-    const newChapter = addChapterInput.current!.value;
+    const newChapter = chapterInput;
     setLocalChapter((prevChapter) => {
       return [...prevChapter, newChapter];
     });
   };
+
+  const resetInput = () => {
+    setBookNameInput("");
+    setChapterInput("");
+  };
+
   return (
     <>
       <input
@@ -41,7 +48,8 @@ const BookModificationModal = ({ book }: { book: Book }) => {
               type="text"
               placeholder="Type here"
               className="input input-bordered"
-              defaultValue={name}
+              value={bookNameInput}
+              onChange={(event) => setBookNameInput(event.target.value)}
             />
             <label className="label">
               <span className="label-text">Chapter</span>
@@ -76,7 +84,8 @@ const BookModificationModal = ({ book }: { book: Book }) => {
                 type="text"
                 placeholder="Add chapter"
                 className="input input-bordered"
-                ref={addChapterInput}
+                onChange={(event) => setChapterInput(event.target.value)}
+                value={chapterInput}
               />
 
               <button
@@ -88,14 +97,21 @@ const BookModificationModal = ({ book }: { book: Book }) => {
             </div>
 
             <div className="modal-action mt-5">
-              <label htmlFor="book-modification-modal" className="btn">
+              <label
+                htmlFor="book-modification-modal"
+                className="btn"
+                onClick={() => resetInput()}
+              >
                 Close
               </label>
 
               <label
                 htmlFor="book-modification-modal"
                 className="btn btn-success"
-                onClick={() => toast.success("Saved successfully")}
+                onClick={() => {
+                  resetInput();
+                  toast.success("Saved successfully");
+                }}
               >
                 Save
               </label>

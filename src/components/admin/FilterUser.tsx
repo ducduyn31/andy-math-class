@@ -3,15 +3,16 @@ import { filteredInputInitial, SharedContext } from "@/layout/AdminLayout";
 import { bookDatabase } from "@/components/admin/Table/AdminBookTable";
 import { ChangeEventHandler, useRef, useState } from "react";
 
-const AdminFilterUserPage = ({
+const FilterUser = ({
   setFilteredInput,
+  filteredUsers,
 }: {
   setFilteredInput: any;
+  filteredUsers: any;
 }) => {
   const filterBook = useRef<HTMLSelectElement>(null);
   const filterEmail = useRef<HTMLInputElement>(null);
   const filterStatus = useRef<HTMLSelectElement>(null);
-  const { filteredUsers } = filteredInputInitial;
 
   const [localFilter, setLocalFilter] =
     useState<SharedContext["filteredInput"]["filteredUsers"]>(filteredUsers);
@@ -38,7 +39,7 @@ const AdminFilterUserPage = ({
       (prevState: SharedContext["filteredInput"]["filteredUsers"]) => {
         return {
           ...prevState,
-          filteredUsers,
+          ...filteredInputInitial.filteredUsers,
         };
       }
     );
@@ -46,7 +47,7 @@ const AdminFilterUserPage = ({
     setFilteredInput((prevState: SharedContext["filteredInput"]) => {
       return {
         ...prevState,
-        filteredUsers,
+        filteredUsers: filteredInputInitial.filteredUsers,
       };
     });
   };
@@ -70,6 +71,7 @@ const AdminFilterUserPage = ({
         className="input w-full input-sm input-bordered"
         ref={filterEmail}
         onChange={filterInput}
+        defaultValue={filteredUsers.email}
       />
 
       <label className={"label"}>
@@ -79,16 +81,20 @@ const AdminFilterUserPage = ({
         className="select select-bordered select-sm w-full"
         onChange={filterInput}
         ref={filterBook}
+        defaultValue={filteredUsers.book}
       >
         <option defaultChecked={true} value={"any"}>
           Any
         </option>
+
+        <option value={"notAssigned"}>No book assigned</option>
+        <option disabled>──────────</option>
+
         {bookDatabase.map((book, i) => (
           <option key={i} value={book.name.toLowerCase()}>
             {book.name}
           </option>
         ))}
-        <option value={"notAssigned"}>No book assigned</option>
       </select>
 
       <label className={"label"}>
@@ -99,10 +105,12 @@ const AdminFilterUserPage = ({
         className="select select-bordered select-sm w-full"
         onChange={filterInput}
         ref={filterStatus}
+        defaultValue={filteredUsers.enabled}
       >
         <option defaultChecked={true} value={"any"}>
           Any
         </option>
+        <option disabled>──────────</option>
         <option value={"true"}>Enabled</option>
         <option value={"false"}>Disabled</option>
       </select>
@@ -119,4 +127,4 @@ const AdminFilterUserPage = ({
   );
 };
 
-export default AdminFilterUserPage;
+export default FilterUser;

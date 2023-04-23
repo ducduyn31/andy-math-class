@@ -4,11 +4,11 @@ import AdminMenu from "@/components/admin/AdminMenu";
 import UserModificationModal from "@/components/admin/UserModificationModal";
 import { AdminUserRowProps } from "@/components/admin/Table/AdminUserRow";
 import React, { useState } from "react";
-import AdminFilter from "@/components/admin/Table/AdminFilterUserPage";
 import BookModificationModal from "@/components/admin/BookModificationModal";
 import { Book } from "@/components/admin/Table/AdminBookTable";
 import { resolveValue, Toaster } from "react-hot-toast";
 import theme from "tailwindcss/defaultTheme";
+import AdminFilter from "@/components/admin/AdminFilter";
 
 interface SharedContext {
   setUserModification: (...args: any[]) => any;
@@ -21,6 +21,10 @@ interface SharedContext {
       book: string;
       enabled: string;
     };
+    filteredBooks: {
+      isFiltering: boolean;
+      name: string;
+    };
   };
 }
 
@@ -30,6 +34,10 @@ const filteredInputInitial: SharedContext["filteredInput"] = {
     email: "",
     book: "any",
     enabled: "any",
+  },
+  filteredBooks: {
+    isFiltering: false,
+    name: "",
   },
 };
 // @ts-ignore
@@ -48,7 +56,12 @@ const AdminLayout = ({ children }) => {
         <div className={"md:grid mt-2 md:grid-cols-12 gap-3"}>
           <div className={"md:col-span-3"}>
             <AdminMenu setCurrentMenu={setCurrentMenu} />
-            <AdminFilter setFilteredInput={setFilteredInput} />
+            <AdminFilter
+              key={currentMenu}
+              setFilterInput={setFilteredInput}
+              filteredInput={filteredInput}
+              currentMenu={currentMenu}
+            />
           </div>
           <div className={"md:col-span-9"}>
             {React.cloneElement(children, {
@@ -66,7 +79,12 @@ const AdminLayout = ({ children }) => {
           user={userModification}
         />
       )}
-      {bookModification && <BookModificationModal book={bookModification} />}
+      {bookModification && (
+        <BookModificationModal
+          book={bookModification}
+          key={bookModification.name}
+        />
+      )}
       <Toaster
         position="bottom-right"
         toastOptions={{
