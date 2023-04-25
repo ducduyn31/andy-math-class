@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa6b8bdb-ee4e-4da4-872f-00421513e800" name="Changes" comment="feat: Add filter book">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/BookModificationModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/BookModificationModal.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="fa6b8bdb-ee4e-4da4-872f-00421513e800" name="Changes" comment="feat: Add filter book" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +94,7 @@
       <workItem from="1681877667883" duration="27923000" />
       <workItem from="1682040714812" duration="4588000" />
       <workItem from="1682082207713" duration="1000" />
-      <workItem from="1682082291242" duration="26790000" />
+      <workItem from="1682082291242" duration="27407000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Add filtering">
       <created>1682216833855</created>
@@ -120,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682234924424</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: Add filter book">
+      <created>1682241248873</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682241248873</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

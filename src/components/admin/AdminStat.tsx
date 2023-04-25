@@ -1,5 +1,6 @@
 import { userDatabase } from "@/components/admin/Table/AdminUserTable";
 import { bookDatabase } from "@/components/admin/Table/AdminBookTable";
+import { questionDatabase } from "@/components/admin/Table/AdminQuestionTable";
 
 export const AdminStat = () => {
   return (
@@ -65,7 +66,7 @@ export const AdminStat = () => {
             </svg>
           </div>
           <div className="stat-title">Total questions/answers</div>
-          <div className="stat-value">4</div>
+          <div className="stat-value">{questionDatabase.length}</div>
         </div>
       </div>
     </>

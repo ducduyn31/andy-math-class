@@ -28,7 +28,7 @@ const bookDatabase: Book[] = [
   {
     name: "Precalculus",
     color: "badge-success",
-    chapter: ["Chaper 1", "Chapter 2"],
+    chapter: ["Chapter 1", "Chapter 2"],
   },
   {
     name: "Calculus I",

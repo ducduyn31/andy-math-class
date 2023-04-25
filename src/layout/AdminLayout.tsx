@@ -9,10 +9,13 @@ import { Book } from "@/components/admin/Table/AdminBookTable";
 import { resolveValue, Toaster } from "react-hot-toast";
 import theme from "tailwindcss/defaultTheme";
 import AdminFilter from "@/components/admin/AdminFilter";
+import QuestionModificationModal from "@/components/admin/QuestionModificationModal";
+import { Question } from "@/components/admin/Table/AdminQuestionTable";
 
 interface SharedContext {
   setUserModification: (...args: any[]) => any;
   setBookModification: (...args: any[]) => any;
+  setQuestionModification: (...args: any[]) => any;
   currentMenu: number;
   filteredInput: {
     filteredUsers: {
@@ -45,6 +48,7 @@ const AdminLayout = ({ children }) => {
   const [userModification, setUserModification] = useState<AdminUserRowProps>();
   const [currentMenu, setCurrentMenu] = useState<number>(0);
   const [bookModification, setBookModification] = useState<Book>();
+  const [questionModification, setQuestionModification] = useState<Question>();
   const [filteredInput, setFilteredInput] =
     useState<SharedContext["filteredInput"]>(filteredInputInitial);
 
@@ -68,6 +72,7 @@ const AdminLayout = ({ children }) => {
               currentMenu,
               setUserModification,
               setBookModification,
+              setQuestionModification,
               filteredInput,
             })}
           </div>
@@ -83,6 +88,12 @@ const AdminLayout = ({ children }) => {
         <BookModificationModal
           book={bookModification}
           key={bookModification.name}
+        />
+      )}
+      {questionModification && (
+        <QuestionModificationModal
+          key={questionModification.id}
+          question={questionModification}
         />
       )}
       <Toaster
