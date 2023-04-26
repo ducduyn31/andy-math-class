@@ -28,6 +28,11 @@ interface SharedContext {
       isFiltering: boolean;
       name: string;
     };
+    filteredQuestion: {
+      isFiltering: boolean;
+      book: string;
+      chapter: string;
+    };
   };
 }
 
@@ -41,6 +46,11 @@ const filteredInputInitial: SharedContext["filteredInput"] = {
   filteredBooks: {
     isFiltering: false,
     name: "",
+  },
+  filteredQuestion: {
+    isFiltering: false,
+    book: "any",
+    chapter: "any",
   },
 };
 // @ts-ignore

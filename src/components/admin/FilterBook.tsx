@@ -41,14 +41,12 @@ const FilterBook = ({ setFilteredInput, filteredBooks }: PropType) => {
       };
     });
 
-    setFilteredInput(
-      (prevState: SharedContext["filteredInput"]["filteredBooks"]) => {
-        return {
-          ...prevState,
-          filteredBooks: filteredInputInitial.filteredBooks,
-        };
-      }
-    );
+    setFilteredInput((prevState: SharedContext["filteredInput"]) => {
+      return {
+        ...prevState,
+        filteredBooks: filteredInputInitial.filteredBooks,
+      };
+    });
   };
 
   return (

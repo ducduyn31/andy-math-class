@@ -25,6 +25,7 @@ const AdminPage = (props: ReactPropTypes & SharedContext) => {
       return (
         <AdminQuestionTable
           setQuestionModification={props.setQuestionModification}
+          filteredInput={props.filteredInput}
         />
       );
     default:

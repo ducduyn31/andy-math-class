@@ -3,6 +3,7 @@ import { Book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
 import { faker } from "@faker-js/faker";
 import React, { useEffect, useState } from "react";
 import { SharedContext } from "@/layout/AdminLayout";
+import { update } from "lodash";
 
 interface Question {
   id?: number;
@@ -36,10 +37,15 @@ const itemPerPage = 10;
 
 interface Props {
   setQuestionModification: SharedContext["setQuestionModification"];
+  filteredInput: SharedContext["filteredInput"];
 }
-const AdminQuestionTable: React.FC<Props> = ({ setQuestionModification }) => {
+const AdminQuestionTable: React.FC<Props> = ({
+  setQuestionModification,
+  filteredInput,
+}) => {
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<Question[]>([]);
+  const { filteredQuestion } = filteredInput;
   const updatePaginationItem = () => {
     const start = page * itemPerPage;
     setDataset(questionDatabase.slice(start, start + itemPerPage));
@@ -48,6 +54,25 @@ const AdminQuestionTable: React.FC<Props> = ({ setQuestionModification }) => {
   useEffect(() => {
     updatePaginationItem();
   }, [page]);
+
+  useEffect(() => {
+    if (
+      !filteredQuestion.isFiltering ||
+      (filteredQuestion.book == "any" && filteredQuestion.chapter == "any")
+    ) {
+      return updatePaginationItem();
+    }
+    setDataset(() =>
+      questionDatabase.filter((question) => {
+        return (
+          (filteredQuestion.book == "any" ||
+            filteredQuestion.book == question.book.name) &&
+          (filteredQuestion.chapter == "any" ||
+            filteredQuestion.chapter == question.chapter)
+        );
+      })
+    );
+  }, [filteredQuestion]);
 
   return (
     <>
@@ -85,7 +110,9 @@ const AdminQuestionTable: React.FC<Props> = ({ setQuestionModification }) => {
                 type={"radio"}
                 name={"options"}
                 data-title={i + 1}
-                className={`btn`}
+                className={`btn ${
+                  filteredQuestion.isFiltering ? "btn-disabled" : ""
+                }`}
                 defaultChecked={i == page}
                 onChange={() => setPage(i)}
               />

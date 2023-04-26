@@ -1,6 +1,7 @@
 import FilterUser from "@/components/admin/FilterUser";
 import FilterBook from "@/components/admin/FilterBook";
 import { useState } from "react";
+import FilterQuestion from "@/components/admin/FilterQuestion";
 
 interface PropType {
   setFilterInput: any;
@@ -26,6 +27,13 @@ const AdminFilter: React.FC<PropType> = ({
           <FilterBook
             setFilteredInput={setFilterInput}
             filteredBooks={filteredInput.filteredBooks}
+          />
+        );
+      case 2:
+        return (
+          <FilterQuestion
+            setFilteredInput={setFilterInput}
+            filteredQuestions={filteredInput.filteredQuestion}
           />
         );
     }
