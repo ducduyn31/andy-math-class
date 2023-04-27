@@ -78,8 +78,8 @@ const UserSelectChapterModal: React.FC<Props> = ({
         className="modal-toggle"
         checked={show}
       />
-      <div className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box sm:w-12/12 sm:max-w-5xl">
           <h3 className="font-bold text-2xl">
             You have selected{" "}
             <span className={"text-success decoration-secondary-focus"}>
@@ -100,7 +100,7 @@ const UserSelectChapterModal: React.FC<Props> = ({
               </i>
             </div>
           )}
-          <div className={"grid grid-cols-3 mt-5"}>
+          <div className={"grid md:grid-cols-2 lg:grid-cols-3  mt-5"}>
             {currentBook?.chapter.map((chapter) => {
               let totalQuestion = questionDatabase.filter(
                 (question) =>

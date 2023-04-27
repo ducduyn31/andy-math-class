@@ -115,8 +115,11 @@ const FilterUser = ({
         <option value={"false"}>Disabled</option>
       </select>
 
-      <div className={"flex mt-5 justify-end"}>
-        <button className="btn btn-secondary mr-2" onClick={clearFilter}>
+      <div className={"flex mt-5 flex-col lg:flex-row md:justify-end"}>
+        <button
+          className="btn btn-secondary lg:mr-2 mb-2 lg:mb-0"
+          onClick={clearFilter}
+        >
           Clear filter
         </button>
         <button className="btn btn-primary" onClick={handleFilter}>

@@ -102,8 +102,8 @@ const AdminQuestionTable: React.FC<Props> = ({
         </div>
       </div>
 
-      <div className={"flex justify-between mt-5"}>
-        <div className="btn-group">
+      <div className={"flex sm:flex-row flex-col sm:justify-between mt-5"}>
+        <div className="btn-group sm:justify-start justify-center">
           {[...Array(Math.ceil(questionDatabase.length / itemPerPage))].map(
             (_, i) => (
               <input
@@ -113,7 +113,7 @@ const AdminQuestionTable: React.FC<Props> = ({
                 data-title={i + 1}
                 className={`btn ${
                   filteredQuestion.isFiltering ? "btn-disabled" : ""
-                }`}
+                } flex-grow`}
                 defaultChecked={i == page}
                 onChange={() => setPage(i)}
               />
@@ -122,7 +122,7 @@ const AdminQuestionTable: React.FC<Props> = ({
         </div>
         <label
           htmlFor="question-modification-modal"
-          className={"btn btn-primary"}
+          className={"btn btn-primary mt-2 sm:mt-0"}
           onClick={() =>
             setQuestionModification((prevState: Question) => {
               return {

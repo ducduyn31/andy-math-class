@@ -25,8 +25,8 @@ const UserSelectBookModal: React.FC<Props> = ({
         className="modal-toggle"
         checked={show}
       />
-      <div className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box sm:w-12/12 sm:max-w-5xl">
           <h3 className="font-bold text-2xl">
             Welcome back{" "}
             <span className={"text-primary-focus decoration-secondary-focus"}>
@@ -37,7 +37,7 @@ const UserSelectBookModal: React.FC<Props> = ({
             Please select one of the following books to continue
           </h3>
 
-          <div className={"grid grid-cols-3  mt-5"}>
+          <div className={"grid sm:grid-cols-2 md:grid-cols-3 mt-5"}>
             {bookDatabase.map((book) => (
               <label
                 key={book.name}

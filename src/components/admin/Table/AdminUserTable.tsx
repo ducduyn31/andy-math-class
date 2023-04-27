@@ -107,8 +107,8 @@ const AdminUserTable = ({
         </div>
       </div>
 
-      <div className={"flex justify-center mt-5"}>
-        <div className="btn-group">
+      <div className={"flex sm:flex-row flex-col sm:justify-center mt-5"}>
+        <div className="btn-group sm:justify-start justify-center">
           {[...Array(Math.ceil(userDatabase.length / itemPerPage))].map(
             (_, i) => (
               <input
@@ -118,7 +118,7 @@ const AdminUserTable = ({
                 data-title={i + 1}
                 className={`btn ${
                   filteredUsers.isFiltering ? "btn-disabled" : ""
-                }`}
+                } flex-grow`}
                 defaultChecked={i == page}
                 onChange={() => setPage(i)}
               />

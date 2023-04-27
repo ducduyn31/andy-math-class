@@ -104,8 +104,8 @@ const AdminBookTable = ({
         </div>
       </div>
 
-      <div className={"flex justify-between mt-5"}>
-        <div className="btn-group">
+      <div className={"flex sm:flex-row flex-col sm:justify-between mt-5"}>
+        <div className="btn-group sm:justify-start justify-center">
           {[...Array(Math.ceil(bookDatabase.length / itemPerPage))].map(
             (_, i) => (
               <input
@@ -115,7 +115,7 @@ const AdminBookTable = ({
                 data-title={i + 1}
                 className={`btn ${
                   filteredBooks.isFiltering ? "btn-disabled" : ""
-                }`}
+                } flex-grow`}
                 defaultChecked={i == page}
                 onChange={() => setPage(i)}
               />
@@ -124,7 +124,7 @@ const AdminBookTable = ({
         </div>
         <label
           htmlFor="book-modification-modal"
-          className={"btn btn-primary"}
+          className={"btn btn-primary mt-2 sm:mt-0"}
           onClick={() =>
             setBookModification((prevState: Book) => {
               return {
