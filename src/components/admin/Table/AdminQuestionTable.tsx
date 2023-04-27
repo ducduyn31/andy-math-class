@@ -30,6 +30,7 @@ const questionDatabase = [...Array(100).keys()].map((i) => {
     name: `Question ${i % 10}`,
     book: selectedBook,
     chapter: selectedChapter,
+    completed: faker.datatype.boolean(),
   };
 });
 
