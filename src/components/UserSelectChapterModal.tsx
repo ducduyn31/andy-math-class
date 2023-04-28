@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
 import { faker } from "@faker-js/faker";
 import { questionDatabase } from "@/components/admin/Table/AdminQuestionTable";
+import toast from "react-hot-toast";
 
 interface Props {
   show: boolean;
   selectedBook?: string | null;
   selectedChapter: string[];
   setSelectedChapter?: any;
+  selectedQuestions?: any;
+  setSelectedQuestions?: any;
   setStep?: any;
+  setFinished?: any;
+  setCurrentQuestion?: any;
 }
 
 const defaultProps: Props = {
@@ -20,9 +25,12 @@ const UserSelectChapterModal: React.FC<Props> = ({
   selectedBook,
   selectedChapter,
   setSelectedChapter,
+  selectedQuestions,
+  setSelectedQuestions,
   setStep,
+  setFinished,
+  setCurrentQuestion,
 }) => {
-  const [selectedQuestions, setSelectedQuestions] = useState<number>(0);
   const [currentBook, setCurrentBook] = useState<Book>();
   const [includeCompleted, setIncludeCompleted] = useState(false);
 
@@ -68,13 +76,15 @@ const UserSelectChapterModal: React.FC<Props> = ({
 
       return [...prevState, chapter];
     });
-    setSelectedQuestions((prevCount) => prevCount + numberOfQuestion * sign);
+    setSelectedQuestions(
+      (prevCount: number) => prevCount + numberOfQuestion * sign
+    );
   };
   return (
     <>
       <input
         type="checkbox"
-        id="my-modal-5"
+        id="user-select-chapter-modal"
         className="modal-toggle"
         checked={show}
       />
@@ -156,15 +166,23 @@ const UserSelectChapterModal: React.FC<Props> = ({
           </label>
           <div className="modal-action">
             <label
-              htmlFor="my-modal-5"
+              htmlFor="user-select-book-modal"
               className={`btn`}
               onClick={() => setStep(0)}
             >
               Previous
             </label>
             <label
-              htmlFor="my-modal-5"
+              htmlFor="user-select-chapter-modal"
               className={`btn ${selectedQuestions == 0 ? "btn-disabled" : ""}`}
+              onClick={() => {
+                toast.success(
+                  `Successfully loaded ${selectedQuestions} questions`
+                );
+                setCurrentQuestion(1);
+                setFinished(false);
+                setStep(3);
+              }}
             >
               Next
             </label>

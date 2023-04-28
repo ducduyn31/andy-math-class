@@ -21,7 +21,7 @@ const UserSelectBookModal: React.FC<Props> = ({
     <>
       <input
         type="checkbox"
-        id="my-modal-5"
+        id="user-select-book-modal"
         className="modal-toggle"
         checked={show}
       />
@@ -58,7 +58,7 @@ const UserSelectBookModal: React.FC<Props> = ({
           </div>
           <div className="modal-action">
             <label
-              htmlFor="my-modal-5"
+              htmlFor="user-select-book-modal"
               className={`btn ${!selectedBook ? "btn-disabled" : ""}`}
               onClick={() => setStep(1)}
             >
