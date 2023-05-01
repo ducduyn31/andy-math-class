@@ -83,12 +83,12 @@ const FilterQuestion: React.FC<PropType> = ({
           bookDatabase
             .filter((book) => book.name == selectedBook)
             .map((each) =>
-              each.chapter.map((chapter) => (
+              each.chapters.map((chapter) => (
                 <option
-                  key={chapter}
-                  defaultChecked={selectedChapter == chapter}
+                  key={chapter.id}
+                  defaultChecked={selectedChapter == chapter.name}
                 >
-                  {chapter}
+                  {chapter.name}
                 </option>
               ))
             )}

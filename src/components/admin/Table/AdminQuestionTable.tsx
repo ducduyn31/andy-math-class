@@ -1,32 +1,26 @@
 import AdminQuestionRow from "@/components/admin/Table/AdminQuestionRow";
-import { Book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
+import { bookDatabase } from "@/components/admin/Table/AdminBookTable";
 import { faker } from "@faker-js/faker";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SharedContext } from "@/layout/AdminLayout";
-import { update } from "lodash";
+import { Question } from "@/models/question";
 
-interface Question {
-  id?: number;
-  name: string;
-  book: Book;
-  chapter: string | null;
-}
-const questionDatabase = [...Array(100).keys()].map((i) => {
+const questionDatabase: Question[] = [...Array(100).keys()].map((i) => {
   const selectedBook =
     bookDatabase[
       faker.datatype.number({ min: 0, max: bookDatabase.length - 1 })
     ];
   const selectedChapter =
-    selectedBook.chapter.length > 0
-      ? selectedBook.chapter[
+    selectedBook.chapters.length > 0
+      ? selectedBook.chapters[
           faker.datatype.number({
             min: 0,
-            max: selectedBook.chapter.length - 1,
+            max: selectedBook.chapters.length - 1,
           })
         ]
       : null;
   return {
-    id: i,
+    id: `${i}`,
     name: `Question ${i % 10}`,
     book: selectedBook,
     chapter: selectedChapter,
@@ -40,6 +34,7 @@ interface Props {
   setQuestionModification: SharedContext["setQuestionModification"];
   filteredInput: SharedContext["filteredInput"];
 }
+
 const AdminQuestionTable: React.FC<Props> = ({
   setQuestionModification,
   filteredInput,
@@ -47,14 +42,14 @@ const AdminQuestionTable: React.FC<Props> = ({
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<Question[]>([]);
   const { filteredQuestion } = filteredInput;
-  const updatePaginationItem = () => {
+  const updatePaginationItem = useCallback(() => {
     const start = page * itemPerPage;
     setDataset(questionDatabase.slice(start, start + itemPerPage));
-  };
+  }, [page]);
 
   useEffect(() => {
     updatePaginationItem();
-  }, [page]);
+  }, [page, updatePaginationItem]);
 
   useEffect(() => {
     if (
@@ -69,11 +64,11 @@ const AdminQuestionTable: React.FC<Props> = ({
           (filteredQuestion.book == "any" ||
             filteredQuestion.book == question.book.name) &&
           (filteredQuestion.chapter == "any" ||
-            filteredQuestion.chapter == question.chapter)
+            filteredQuestion.chapter == question.chapter?.name)
         );
       })
     );
-  }, [filteredQuestion]);
+  }, [filteredQuestion, updatePaginationItem]);
 
   return (
     <>
@@ -143,5 +138,3 @@ const AdminQuestionTable: React.FC<Props> = ({
 
 export default AdminQuestionTable;
 export { questionDatabase };
-
-export type { Question };

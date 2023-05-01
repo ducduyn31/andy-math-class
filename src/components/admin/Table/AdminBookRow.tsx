@@ -1,23 +1,22 @@
-import { Book } from "@/components/admin/Table/AdminBookTable";
 import { SharedContext } from "@/layout/AdminLayout";
+import { Book, convertBook } from "@/models";
 
 interface PropType {
   setBookModification: SharedContext["setBookModification"];
+  book: Book;
 }
-const AdminBookRow = ({
-  name,
-  color,
-  chapter,
-  setBookModification,
-}: Book & PropType) => {
+const AdminBookRow = ({ book, setBookModification }: PropType) => {
   return (
     <tr className={"hover"}>
-      <th>{name}</th>
+      <th>{book.name}</th>
       <td>
-        {chapter.length > 0 ? (
-          chapter.map((each) => (
-            <span key={each} className={`badge badge-lg mr-1 ${color}`}>
-              {each}
+        {book.chapters.length > 0 ? (
+          book.chapters.map((each) => (
+            <span
+              key={each.name}
+              className={`badge badge-lg mr-1 ${book.color}`}
+            >
+              {each.name}
             </span>
           ))
         ) : (
@@ -30,12 +29,12 @@ const AdminBookRow = ({
           className="flex link link-primary font-bold text-sm no-underline"
           onClick={() =>
             setBookModification((prevState: Book) => {
-              return {
+              return convertBook({
                 ...prevState,
-                name,
-                chapter,
-                color,
-              };
+                name: book.name,
+                chapters: book.chapters,
+                color: book.color,
+              });
             })
           }
         >

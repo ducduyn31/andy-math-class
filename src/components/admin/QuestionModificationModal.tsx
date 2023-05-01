@@ -1,11 +1,13 @@
 import toast from "react-hot-toast";
-import { Book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
-import { Question } from "@/components/admin/Table/AdminQuestionTable";
+import { bookDatabase } from "@/components/admin/Table/AdminBookTable";
 import React, { useState } from "react";
+import { Question } from "@/models/question";
+import Image from "next/image";
 
 interface Props {
   question: Question;
 }
+
 const QuestionModificationModal: React.FC<Props> = ({ question }) => {
   const [questionName, setQuestionName] = useState(question.name);
   const [currentBook, setCurrentBook] = useState(question.book?.name);
@@ -57,15 +59,15 @@ const QuestionModificationModal: React.FC<Props> = ({ question }) => {
               {bookDatabase
                 .filter((book) => book.name == currentBook)
                 .map((book) => {
-                  if (book.chapter.length == 0)
+                  if (book.chapters.length == 0)
                     return (
                       <option disabled selected>
                         Book has no chapter
                       </option>
                     );
-                  return book.chapter.map((chapter, i) => (
+                  return book.chapters.map((chapter, i) => (
                     <option key={i} selected={chapter == question.chapter}>
-                      {chapter}
+                      {chapter.name}
                     </option>
                   ));
                 })}
@@ -74,8 +76,9 @@ const QuestionModificationModal: React.FC<Props> = ({ question }) => {
             <label className="label">
               <span className="label-text">Question image</span>
             </label>
-            <img
+            <Image
               src={"https://placehold.co/600x400?text=Question+Image"}
+              alt="Question image"
               className={"rounded-3xl"}
             />
             <input
@@ -87,7 +90,8 @@ const QuestionModificationModal: React.FC<Props> = ({ question }) => {
               <span className="label-text">Answer image</span>
             </label>
 
-            <img
+            <Image
+              alt="Answer image"
               src={"https://placehold.co/600x400?text=Answer+Image"}
               className={"rounded-3xl"}
             />

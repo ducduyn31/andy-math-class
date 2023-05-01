@@ -4,7 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa6b8bdb-ee4e-4da4-872f-00421513e800" name="Changes" comment="feat: Add filter book" />
+    <list default="true" id="fa6b8bdb-ee4e-4da4-872f-00421513e800" name="Changes" comment="feat: Tree-based question select, multiple answers">
+      <change afterPath="$PROJECT_DIR$/src/components/question-answer-panel/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/question-filter/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/user-select-book/components/book-select-label/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/user-select-chapter/components/chapter-select-label/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/use-book-context/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/use-get-answers-async/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/use-get-assigned-books/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/use-get-questions-async/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/book/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/question/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/QuestionAnswerPanel.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserSelectBookModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-select-book/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserSelectChapterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-select-chapter/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/BookModificationModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/BookModificationModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/FilterQuestion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/FilterQuestion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/FilterUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/FilterUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/QuestionModificationModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/QuestionModificationModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminBookRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminBookRow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminBookTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminBookTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionRow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminUserRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminUserRow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminUserTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminUserTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/AdminLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/AdminLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +50,7 @@
       <list>
         <option value="com.haulmont.rcb.arrow_function_component" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -46,9 +82,9 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/austin/projects/andy-math-class/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/austin/projects/andy-math-class/node_modules/typescript/lib&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/danielng/Projects/andy-math-class/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/danielng/Projects/andy-math-class/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -62,11 +98,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/question-answer-panel" />
+      <recent name="$PROJECT_DIR$/src/components/user-select-chapter" />
+      <recent name="$PROJECT_DIR$/src/components/user-select-book" />
       <recent name="$PROJECT_DIR$/src/components/admin" />
       <recent name="$PROJECT_DIR$/src/components/admin/Table" />
-      <recent name="$PROJECT_DIR$/src/app/login" />
-      <recent name="$PROJECT_DIR$/src/app" />
-      <recent name="$PROJECT_DIR$/src/app/components" />
     </key>
   </component>
   <component name="RunManager">
@@ -95,6 +131,10 @@
       <workItem from="1682040714812" duration="4588000" />
       <workItem from="1682082207713" duration="1000" />
       <workItem from="1682082291242" duration="27407000" />
+      <workItem from="1682862423431" duration="449000" />
+      <workItem from="1682863524889" duration="3586000" />
+      <workItem from="1682901157697" duration="406000" />
+      <workItem from="1682906402762" duration="29842000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Add filtering">
       <created>1682216833855</created>
@@ -134,6 +174,7 @@
     <MESSAGE value="feat: Add filtering" />
     <MESSAGE value="feat: Add user page" />
     <MESSAGE value="feat: Add filter book" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add filter book" />
+    <MESSAGE value="feat: Tree-based question select, multiple answers" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Tree-based question select, multiple answers" />
   </component>
 </project>

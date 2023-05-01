@@ -5,12 +5,11 @@ import UserModificationModal from "@/components/admin/UserModificationModal";
 import { AdminUserRowProps } from "@/components/admin/Table/AdminUserRow";
 import React, { useState } from "react";
 import BookModificationModal from "@/components/admin/BookModificationModal";
-import { Book } from "@/components/admin/Table/AdminBookTable";
-import { resolveValue, Toaster } from "react-hot-toast";
-import theme from "tailwindcss/defaultTheme";
+import { Toaster } from "react-hot-toast";
 import AdminFilter from "@/components/admin/AdminFilter";
 import QuestionModificationModal from "@/components/admin/QuestionModificationModal";
-import { Question } from "@/components/admin/Table/AdminQuestionTable";
+import { Question } from "@/models/question";
+import { Book } from "@/models";
 
 interface SharedContext {
   setUserModification: (...args: any[]) => any;

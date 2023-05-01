@@ -1,7 +1,6 @@
 import React from "react";
-import { Book } from "@/components/admin/Table/AdminBookTable";
 import { SharedContext } from "@/layout/AdminLayout";
-import { Question } from "@/components/admin/Table/AdminQuestionTable";
+import { Question } from "@/models/question";
 
 interface Props {
   question: Question;
@@ -18,7 +17,7 @@ const AdminQuestionRow: React.FC<Props> = ({
       <td>
         <span className={`badge badge-lg mr-1 ${book.color}`}>{book.name}</span>
       </td>
-      <td>{chapter ? chapter : <i>No Chapter</i>}</td>
+      <td>{chapter ? chapter.name : <i>No Chapter</i>}</td>
       <td>
         <label
           htmlFor="question-modification-modal"

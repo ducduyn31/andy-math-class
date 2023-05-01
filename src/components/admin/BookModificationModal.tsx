@@ -1,27 +1,27 @@
-import { Book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Book, createFullChapter } from "@/models";
 
 const BookModificationModal = ({ book }: { book: Book }) => {
-  const { name, chapter, color } = book;
+  const { name, chapters, color } = book;
   const [bookNameInput, setBookNameInput] = useState(name);
   const [chapterInput, setChapterInput] = useState("");
-  const [localChapter, setLocalChapter] = useState(chapter);
+  const [localChapter, setLocalChapter] = useState(chapters);
 
   useEffect(() => {
-    setLocalChapter(book.chapter);
+    setLocalChapter(book.chapters);
   }, [book]);
 
   const removeChapter = (chapterName: string) => {
     setLocalChapter((prevChapter) => {
-      return prevChapter.filter((chapter) => chapter != chapterName);
+      return prevChapter.filter((chapter) => chapter.name != chapterName);
     });
   };
 
   const addChapter = () => {
     const newChapter = chapterInput;
     setLocalChapter((prevChapter) => {
-      return [...prevChapter, newChapter];
+      return [...prevChapter, createFullChapter({ name: newChapter })];
     });
   };
 
@@ -57,16 +57,16 @@ const BookModificationModal = ({ book }: { book: Book }) => {
             <div>
               {localChapter.map((item) => (
                 <div
-                  key={item}
+                  key={item.id}
                   className={`badge badge-lg gap-2 mr-1 mt-1 ${color}`}
                 >
-                  {item}
+                  {item.name}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     className="inline-block w-4 h-4 stroke-current cursor-pointer"
-                    onClick={() => removeChapter(item)}
+                    onClick={() => removeChapter(item.name)}
                   >
                     <path
                       strokeLinecap="round"

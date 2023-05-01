@@ -1,6 +1,6 @@
-import { Book } from "@/components/admin/Table/AdminBookTable";
 import { SharedContext } from "@/layout/AdminLayout";
 import toast from "react-hot-toast";
+import { Book } from "@/models";
 
 interface AdminUserRowProps {
   firstName: string;

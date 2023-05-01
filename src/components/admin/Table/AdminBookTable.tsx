@@ -1,46 +1,115 @@
-import { ReactPropTypes, useEffect, useState } from "react";
-import { filteredInputInitial, SharedContext } from "@/layout/AdminLayout";
+import { useCallback, useEffect, useState } from "react";
+import { SharedContext } from "@/layout/AdminLayout";
 import AdminBookRow from "@/components/admin/Table/AdminBookRow";
-import { userDatabase } from "@/components/admin/Table/AdminUserTable";
-import { AdminUserRowProps } from "@/components/admin/Table/AdminUserRow";
+import { Book, convertBook } from "@/models/book";
 
-interface Book {
-  name: string;
-  color: string;
-  chapter: string[];
-}
 const bookDatabase: Book[] = [
   {
+    id: "0e900bb1-11ba-45b5-82ae-d710fc51dcaf",
     name: "Intro to mathematic",
     color: "primary",
-    chapter: ["Chapter 1.a", "Chapter 1.b", "Chapter 1.c", "Chapter 1.d"],
+    chapters: [
+      {
+        name: "Chapter 1",
+        parent: null,
+        book: null,
+        id: "6f4a4679-9741-48b2-b7f8-edaa6504adca",
+      },
+      {
+        name: "Chapter 1.a",
+        parent: {
+          id: "6f4a4679-9741-48b2-b7f8-edaa6504adca",
+          name: "Chapter 1",
+          parent: null,
+          book: null,
+        },
+        book: null,
+        id: "5f4a4679-9741-48b2-b7f8-edaa6504adca",
+      },
+      {
+        name: "Chapter 1.b",
+        parent: {
+          id: "6f4a4679-9741-48b2-b7f8-edaa6504adca",
+          name: "Chapter 1",
+          parent: null,
+          book: null,
+        },
+        book: null,
+        id: "8c731a16-6792-453a-87ae-9433f574acbe",
+      },
+      {
+        name: "Chapter 1.c",
+        parent: {
+          id: "6f4a4679-9741-48b2-b7f8-edaa6504adca",
+          name: "Chapter 1",
+          parent: null,
+          book: null,
+        },
+        book: null,
+        id: "24000dc4-93f1-4efe-a765-525c80cccbd2",
+      },
+      {
+        name: "Chapter 1.d",
+        parent: {
+          id: "6f4a4679-9741-48b2-b7f8-edaa6504adca",
+          name: "Chapter 1",
+          parent: null,
+          book: null,
+        },
+        book: null,
+        id: "13755d92-8789-46cf-a23d-75fe36ee1221",
+      },
+    ],
   },
   {
+    id: "122ca5a0-b145-4bbe-8b4e-07325678f4cc",
     name: "Mathematic in practice",
     color: "badge-secondary",
-    chapter: ["Chapter 1", "Chapter 2", "Chapter 3"],
+    chapters: [
+      { name: "Chapter 1", parent: null, book: null, id: "1" },
+      { name: "Chapter 2", parent: null, book: null, id: "2" },
+      { name: "Chapter 3", parent: null, book: null, id: "3" },
+    ],
   },
   {
+    id: "1e900bb1-11ba-45b5-82ae-d710fc51dcaf",
     name: "Linear Algebra and Geometry",
     color: "badge-accent",
-    chapter: ["Chapter I", "Chapter II", "Chapter III", "Chapter IV"],
+    chapters: [
+      { name: "Chapter I", parent: null, book: null, id: "4" },
+      { name: "Chapter II", parent: null, book: null, id: "5" },
+      { name: "Chapter III", parent: null, book: null, id: "6" },
+      { name: "Chapter IV", parent: null, book: null, id: "7" },
+    ],
   },
   {
+    id: "2e900bb1-11ba-45b5-82ae-d710fc51dcaf",
     name: "Precalculus",
     color: "badge-success",
-    chapter: ["Chapter 1", "Chapter 2"],
+    chapters: [
+      { name: "Chapter 1", parent: null, book: null, id: "8" },
+      { name: "Chapter 2", parent: null, book: null, id: "9" },
+    ],
   },
   {
+    id: "3e900bb1-11ba-45b5-82ae-d710fc51dcaf",
     name: "Calculus I",
     color: "badge-error",
-    chapter: ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4", "Chapter 5"],
+    chapters: [
+      { name: "Chapter 1", parent: null, book: null, id: "10" },
+      { name: "Chapter 2", parent: null, book: null, id: "11" },
+      { name: "Chapter 3", parent: null, book: null, id: "12" },
+      { name: "Chapter 4", parent: null, book: null, id: "13" },
+      { name: "Chapter 5", parent: null, book: null, id: "14" },
+    ],
   },
   {
+    id: "4e900bb1-11ba-45b5-82ae-d710fc51dcaf",
     name: "Calculus II",
     color: "badge-info",
-    chapter: [],
+    chapters: [],
   },
-];
+].map((book) => convertBook(book));
 
 const itemPerPage = 5;
 
@@ -54,14 +123,14 @@ const AdminBookTable = ({
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<Book[]>([]);
   const { filteredBooks } = filteredInput;
-  const updatePaginationItem = () => {
+  const updatePaginationItem = useCallback(() => {
     const start = page * itemPerPage;
     setDataset(bookDatabase.slice(start, start + itemPerPage));
-  };
+  }, [page]);
 
   useEffect(() => {
     updatePaginationItem();
-  }, [page]);
+  }, [page, updatePaginationItem]);
 
   useEffect(() => {
     const filteredBookName = filteredBooks.name;
@@ -69,12 +138,12 @@ const AdminBookTable = ({
       return updatePaginationItem();
     }
 
-    setDataset((prevState) => {
+    setDataset(() => {
       return bookDatabase.filter((book) =>
         book.name.toLowerCase().includes(filteredBookName.toLowerCase())
       );
     });
-  }, [filteredBooks]);
+  }, [filteredBooks, setDataset, updatePaginationItem]);
 
   return (
     <>
@@ -93,9 +162,7 @@ const AdminBookTable = ({
               {dataset.map((book) => (
                 <AdminBookRow
                   key={book.name}
-                  name={book.name}
-                  color={book.color}
-                  chapter={book.chapter}
+                  book={book}
                   setBookModification={setBookModification}
                 />
               ))}
@@ -145,4 +212,3 @@ const AdminBookTable = ({
 
 export default AdminBookTable;
 export { bookDatabase };
-export type { Book };

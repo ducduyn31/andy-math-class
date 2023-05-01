@@ -2,8 +2,8 @@ import { faker } from "@faker-js/faker";
 import AdminUserRow, {
   AdminUserRowProps,
 } from "@/components/admin/Table/AdminUserRow";
-import { ReactPropTypes, useEffect, useState } from "react";
-import { Book, bookDatabase } from "@/components/admin/Table/AdminBookTable";
+import { useCallback, useEffect, useState } from "react";
+import { bookDatabase } from "@/components/admin/Table/AdminBookTable";
 import { SharedContext } from "@/layout/AdminLayout";
 
 faker.seed(123);
@@ -51,14 +51,14 @@ const AdminUserTable = ({
   const [dataset, setDataset] = useState<AdminUserRowProps[]>([]);
   const { filteredUsers } = filteredInput;
 
-  useEffect(() => {
-    updatePaginationItem();
-  }, [page]);
-
-  const updatePaginationItem = () => {
+  const updatePaginationItem = useCallback(() => {
     const start = page * itemPerPage;
     setDataset(userDatabase.slice(start, start + itemPerPage));
-  };
+  }, [page]);
+
+  useEffect(() => {
+    updatePaginationItem();
+  }, [page, updatePaginationItem]);
 
   useEffect(() => {
     if (filteredUsers.isFiltering) {
@@ -73,7 +73,7 @@ const AdminUserTable = ({
     } else {
       updatePaginationItem();
     }
-  }, [filteredUsers]);
+  }, [filteredUsers, updatePaginationItem]);
 
   return (
     <>
@@ -91,7 +91,7 @@ const AdminUserTable = ({
               </tr>
             </thead>
             <tbody>
-              {dataset.map((data, index) => (
+              {dataset.map((data) => (
                 <AdminUserRow
                   key={data.email}
                   firstName={data.firstName}

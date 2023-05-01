@@ -1,46 +1,42 @@
 import Layout from "@/layout/Layout";
-import { ReactElement, useState } from "react";
-import UserSelectBookModal from "@/components/UserSelectBookModal";
-import UserSelectChapterModal from "@/components/UserSelectChapterModal";
-import QuestionAnswerPanel from "@/components/QuestionAnswerPanel";
+import { ReactElement, useEffect, useState } from "react";
+import { useBookContext } from "@/hooks/use-book-context";
+import { QuestionAnswerPanel } from "@/components/question-answer-panel";
+import { useGetQuestionsAsync } from "@/hooks/use-get-questions-async";
 
 export default function Home() {
-  const [step, setStep] = useState<number>(0);
-  const [selectedBook, setSelectedBook] = useState<string | null>(null);
-  const [selectedChapter, setSelectedChapter] = useState<string[]>([]);
-  const [selectedQuestions, setSelectedQuestions] = useState<number>(0);
-  const [currentQuestion, setCurrentQuestion] = useState(1);
-  const [finished, setFinished] = useState(false);
-  return (
-    <>
-      <UserSelectBookModal
-        show={step == 0}
-        setSelectedBook={setSelectedBook}
-        selectedBook={selectedBook}
-        setStep={setStep}
-      />
-      <UserSelectChapterModal
-        show={step == 1}
-        selectedBook={selectedBook}
-        selectedChapter={selectedChapter}
-        setSelectedChapter={setSelectedChapter}
-        selectedQuestions={selectedQuestions}
-        setSelectedQuestions={setSelectedQuestions}
-        setFinished={setFinished}
-        setCurrentQuestion={setCurrentQuestion}
-        setStep={setStep}
-      />
-      <QuestionAnswerPanel
-        selectedQuestions={selectedQuestions}
-        currentQuestion={currentQuestion}
-        setCurrentQuestion={setCurrentQuestion}
-        finished={finished}
-        setFinished={setFinished}
-        show={step == 3}
-        setStep={setStep}
-      />
-    </>
-  );
+  const { selectedChapters } = useBookContext();
+  const [shouldShowQuestions, setShouldShowQuestions] = useState(false);
+  const { getQuestions, selectedQuestions } = useGetQuestionsAsync();
+
+  useEffect(() => {
+    setShouldShowQuestions(false);
+  }, [selectedChapters]);
+
+  useEffect(() => {
+    if (shouldShowQuestions) {
+      getQuestions(selectedChapters);
+    }
+  }, [shouldShowQuestions, getQuestions, selectedChapters]);
+
+  if (!shouldShowQuestions) {
+    return (
+      <div className="hero">
+        <div className="text-center hero-content">
+          <button
+            className={`btn ${
+              selectedChapters.length === 0 ? "btn-disabled" : ""
+            }`}
+            onClick={() => setShouldShowQuestions(true)}
+          >
+            Start Quiz
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return <QuestionAnswerPanel questions={selectedQuestions} />;
 }
 
 Home.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
