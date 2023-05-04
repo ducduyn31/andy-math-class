@@ -16,7 +16,7 @@ export const UserSelectBookItem: React.FC<Props> = ({ book }) => {
       <BookSelectLabel book={book} />
       {hasBook(book) &&
         book.rootChapters.map((chapter) => (
-          <li key={`${chapter.id}`} className="pr-0 bg-base-300">
+          <li key={`${chapter.id}`} className="pr-0 py-0 bg-base-300 gap-y-0">
             <UserSelectChapterItem chapter={chapter} />
           </li>
         ))}

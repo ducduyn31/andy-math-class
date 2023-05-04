@@ -12,13 +12,15 @@ export const UserSelectChapterItem: React.FC<Props> = ({ chapter }) => {
   return (
     <>
       <ChapterSelectLabel chapter={chapter} />
-      {hasChapter(chapter) &&
-        chapter.children?.length &&
-        chapter.children.map((subChapter) => (
-          <li key={`${subChapter.id}`} className="pr-0 bg-base-300 w-full">
-            <UserSelectChapterItem chapter={subChapter} />
-          </li>
-        ))}
+      <ul className="w-full pl-5">
+        {hasChapter(chapter) &&
+          chapter.children?.length &&
+          chapter.children.map((subChapter) => (
+            <li key={`${subChapter.id}`} className="pr-0 bg-base-300 w-full">
+              <UserSelectChapterItem chapter={subChapter} />
+            </li>
+          ))}
+      </ul>
     </>
   );
 };

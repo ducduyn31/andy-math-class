@@ -1,9 +1,3 @@
-// Implement the BookContext here
-// 1. Create a context with the type of BookContextType
-// 2. Create a provider for the context
-// 3. Create a custom hook to consume the context
-// 4. Export the context and the custom hook
-
 import React, { createContext, useContext, useMemo } from "react";
 
 import { Book, Chapter } from "@/models";

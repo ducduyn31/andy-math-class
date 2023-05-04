@@ -1,9 +1,8 @@
 import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
-import { Question } from "@/models/question";
+import { Question } from "@/models";
 import { useStateList } from "react-use";
 import { useGetAnswersAsync } from "@/hooks/use-get-answers-async";
-import Image from "next/image";
 
 interface Props {
   questions: Question[];
@@ -36,14 +35,15 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
               <h2 className="card-title">
                 Question {currentQuestionId + 1} / {questions.length}
               </h2>
-              <Image
+              <img
                 src={`https://placehold.co/600x400?text=Question+Image+${currentQuestion.name}`}
                 className={"rounded-3xl"}
                 alt={currentQuestion.name}
               />
+              {shouldShowAnswer && <p>{currentQuestion.description}</p>}
               {shouldShowAnswer ? (
                 answers.map((answer) => (
-                  <Image
+                  <img
                     key={answer.id}
                     alt={answer.name}
                     src={`https://placehold.co/600x400?text=${answer.name}`}

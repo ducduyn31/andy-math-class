@@ -1,4 +1,5 @@
 import { Maybe } from "@/models/types";
+import { Books as _Book } from "@/gql/types";
 
 export interface Book {
   id: string;
@@ -66,4 +67,35 @@ export const createFullChapter = (
     book: partialChapter.book || null,
     children: partialChapter.children || [],
   };
+};
+
+type PartialBook = Pick<_Book, "id" | "name" | "color">;
+type PartialBookEdge = { node: PartialBook };
+export const mapBook = (book: PartialBookEdge | PartialBook): Book => {
+  if (!("node" in book)) {
+    return convertBook({
+      id: book?.id || "",
+      name: book.name || "",
+      color: book.color,
+      chapters: [],
+    });
+  }
+  return convertBook({
+    id: book?.node?.id,
+    name: book?.node?.name || "",
+    color: book?.node?.color,
+    chapters: [],
+  });
+};
+
+type PartialBookAssignation = { books?: Maybe<PartialBook> };
+type PartialBookAssignationEdge = { node: PartialBookAssignation };
+
+export const mapAssignedBook = (
+  assignation: PartialBookAssignationEdge | PartialBookAssignation
+): Book | null => {
+  if (!("node" in assignation)) {
+    return assignation?.books ? mapBook(assignation?.books) : null;
+  }
+  return assignation?.node?.books ? mapBook(assignation?.node?.books) : null;
 };

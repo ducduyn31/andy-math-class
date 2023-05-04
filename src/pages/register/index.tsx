@@ -1,49 +1,97 @@
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 import Layout from "@/layout/Layout";
+import { useForm } from "react-hook-form";
+import {
+  RegisterFormValues,
+  RegisterFormValuesSchema,
+  submitRegisterForm,
+} from "@/helpers/register/form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FormInputField } from "@/components/form-input-field";
+import { NextPageWithLayout } from "@/pages/_app";
+import { useSupabaseContext } from "@/hooks/use-supabase-context";
 
-const RegisterPage = () => {
-    return <div className={"flex justify-center"}>
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <div className={"card-body"}>
-                <h2 className={"card-title"}>Sign up</h2>
-                <div className="form-control w-full max-w-xs">
+const RegisterPage: NextPageWithLayout = () => {
+  const { authClient } = useSupabaseContext();
 
-                    <label className="label">
-                        <span className="label-text">First name</span>
-                    </label>
-                    <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<RegisterFormValues>({
+    mode: "onChange",
+    resolver: yupResolver(RegisterFormValuesSchema),
+  });
 
-                    <label className="label">
-                        <span className="label-text">Last name</span>
-                    </label>
-                    <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-
-                    <label className="label">
-                        <span className="label-text">Email</span>
-                    </label>
-                    <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-
-                    <label className="label">
-                        <span className="label-text">Password</span>
-                    </label>
-                    <input type="password" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-
-                    <label className="label">
-                        <span className="label-text">Re-type password</span>
-                    </label>
-                    <input type="password" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-
-                    <div className="mt-3">
-                        <button className="btn btn-primary w-full">Sign up</button>
-                    </div>
-                </div>
+  return (
+    <div className="flex justify-center mt-5">
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">Sign up</h2>
+          <form
+            className="form-control w-full max-w-xs"
+            onSubmit={handleSubmit(submitRegisterForm(authClient))}
+          >
+            <FormInputField
+              type="text"
+              label="First name"
+              errorMessage={errors.firstName?.message}
+              className={`input input-bordered w-full max-w-xs ${
+                errors.firstName ? "input-error" : ""
+              }`}
+              {...register("firstName")}
+            />
+            <FormInputField
+              label="Last name"
+              errorMessage={errors.lastName?.message}
+              className={`input input-bordered w-full max-w-xs ${
+                errors.lastName ? "input-error" : ""
+              }
+            `}
+              {...register("lastName")}
+            />
+            <FormInputField
+              label="Email"
+              errorMessage={errors.email?.message}
+              className={`input input-bordered w-full max-w-xs ${
+                errors.email ? "input-error" : ""
+              }
+            `}
+              {...register("email")}
+            />
+            <FormInputField
+              type="password"
+              label="Password"
+              errorMessage={errors.password?.message}
+              className={`input input-bordered w-full max-w-xs ${
+                errors.password ? "input-error" : ""
+              }
+            `}
+              {...register("password")}
+            />
+            <FormInputField
+              type="password"
+              label="Confirm password"
+              errorMessage={errors.confirmPassword?.message}
+              className={`input input-bordered w-full max-w-xs ${
+                errors.confirmPassword ? "input-error" : ""
+              }
+            `}
+              {...register("confirmPassword")}
+            />
+            <div className="mt-3">
+              <button type="submit" className="btn btn-primary w-full">
+                Sign up
+              </button>
             </div>
+          </form>
         </div>
+      </div>
     </div>
-}
-
+  );
+};
 RegisterPage.getLayout = (page: ReactElement) => {
-    return <Layout> {page} </Layout>
-}
+  return <Layout> {page} </Layout>;
+};
 
 export default RegisterPage;

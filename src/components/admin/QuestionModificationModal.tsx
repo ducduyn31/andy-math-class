@@ -1,8 +1,7 @@
 import toast from "react-hot-toast";
-import { bookDatabase } from "@/components/admin/Table/AdminBookTable";
+import { bookDatabase } from "@/components/admin/table/books-table";
 import React, { useState } from "react";
-import { Question } from "@/models/question";
-import Image from "next/image";
+import { Question } from "@/models";
 
 interface Props {
   question: Question;
@@ -10,10 +9,12 @@ interface Props {
 
 const QuestionModificationModal: React.FC<Props> = ({ question }) => {
   const [questionName, setQuestionName] = useState(question.name);
+  const [description, setDescription] = useState(question.description);
   const [currentBook, setCurrentBook] = useState(question.book?.name);
 
   const resetInputs = () => {
     setQuestionName("");
+    setDescription("");
   };
 
   return (
@@ -37,6 +38,17 @@ const QuestionModificationModal: React.FC<Props> = ({ question }) => {
               value={questionName}
               defaultValue={question.name}
               onChange={(event) => setQuestionName(event.target.value)}
+            />
+            <label className="label">
+              <span className="label-text">Description</span>
+            </label>
+            <input
+              type="text-area"
+              placeholder="Type here"
+              className="input input-bordered"
+              value={description || ""}
+              defaultValue={question.description || ""}
+              onChange={(event) => setDescription(event.target.value)}
             />
             <label className="label">
               <span className="label-text">Assigned book</span>
@@ -76,13 +88,14 @@ const QuestionModificationModal: React.FC<Props> = ({ question }) => {
             <label className="label">
               <span className="label-text">Question image</span>
             </label>
-            <Image
+            <img
               src={"https://placehold.co/600x400?text=Question+Image"}
               alt="Question image"
               className={"rounded-3xl"}
             />
             <input
               type="file"
+              accept="image/*"
               className="file-input file-input-bordered file-input-primary w-full mt-3"
             />
 
@@ -90,7 +103,7 @@ const QuestionModificationModal: React.FC<Props> = ({ question }) => {
               <span className="label-text">Answer image</span>
             </label>
 
-            <Image
+            <img
               alt="Answer image"
               src={"https://placehold.co/600x400?text=Answer+Image"}
               className={"rounded-3xl"}
@@ -99,6 +112,8 @@ const QuestionModificationModal: React.FC<Props> = ({ question }) => {
             <input
               type="file"
               className="file-input file-input-bordered file-input-primary w-full mt-3"
+              multiple
+              accept="image/*"
             />
           </div>
           <div className="modal-action mt-5">

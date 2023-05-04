@@ -1,7 +1,7 @@
 import { Chapter } from "@/models";
-import { questionDatabase } from "@/components/admin/Table/AdminQuestionTable";
+import { questionDatabase } from "@/components/admin/table/questions-table";
 import { useState } from "react";
-import { Question } from "@/models/question";
+import { Question } from "@/models";
 
 export const useGetQuestionsAsync = () => {
   const [questions, setQuestions] = useState<Question[]>([]);

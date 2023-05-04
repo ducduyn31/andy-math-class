@@ -1,0 +1,814 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+interface Node {
+    "Retrieves a record by `ID`"
+    nodeId: ID!
+}
+
+"The root type for creating and mutating data"
+type Mutation {
+    "Deletes zero or more records from the `answer` collection"
+    deleteFromanswerCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: answerFilter
+    ): answerDeleteResponse!
+    "Deletes zero or more records from the `books` collection"
+    deleteFrombooksCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: booksFilter
+    ): booksDeleteResponse!
+    "Deletes zero or more records from the `chapters` collection"
+    deleteFromchaptersCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: chaptersFilter
+    ): chaptersDeleteResponse!
+    "Deletes zero or more records from the `questions` collection"
+    deleteFromquestionsCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: questionsFilter
+    ): questionsDeleteResponse!
+    "Deletes zero or more records from the `user_books_assignation` collection"
+    deleteFromuser_books_assignationCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: user_books_assignationFilter
+    ): user_books_assignationDeleteResponse!
+    "Adds one or more `answer` records to the collection"
+    insertIntoanswerCollection(objects: [answerInsertInput!]!): answerInsertResponse
+    "Adds one or more `books` records to the collection"
+    insertIntobooksCollection(objects: [booksInsertInput!]!): booksInsertResponse
+    "Adds one or more `chapters` records to the collection"
+    insertIntochaptersCollection(objects: [chaptersInsertInput!]!): chaptersInsertResponse
+    "Adds one or more `questions` records to the collection"
+    insertIntoquestionsCollection(objects: [questionsInsertInput!]!): questionsInsertResponse
+    "Adds one or more `user_books_assignation` records to the collection"
+    insertIntouser_books_assignationCollection(objects: [user_books_assignationInsertInput!]!): user_books_assignationInsertResponse
+    "Updates zero or more records in the `answer` collection"
+    updateanswerCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: answerFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: answerUpdateInput!
+    ): answerUpdateResponse!
+    "Updates zero or more records in the `books` collection"
+    updatebooksCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: booksFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: booksUpdateInput!
+    ): booksUpdateResponse!
+    "Updates zero or more records in the `chapters` collection"
+    updatechaptersCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: chaptersFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: chaptersUpdateInput!
+    ): chaptersUpdateResponse!
+    "Updates zero or more records in the `questions` collection"
+    updatequestionsCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: questionsFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: questionsUpdateInput!
+    ): questionsUpdateResponse!
+    "Updates zero or more records in the `user_books_assignation` collection"
+    updateuser_books_assignationCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: user_books_assignationFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: user_books_assignationUpdateInput!
+    ): user_books_assignationUpdateResponse!
+}
+
+type PageInfo {
+    endCursor: String
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: String
+}
+
+"The root type for querying data"
+type Query {
+    "A pagable collection of type `answer`"
+    answerCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: answerFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [answerOrderBy!]
+    ): answerConnection
+    "A pagable collection of type `books`"
+    booksCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: booksFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [booksOrderBy!]
+    ): booksConnection
+    "A pagable collection of type `chapters`"
+    chaptersCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: chaptersFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [chaptersOrderBy!]
+    ): chaptersConnection
+    "Retrieve a record by its `ID`"
+    node(
+        "The record's `ID`"
+        nodeId: ID!
+    ): Node
+    "A pagable collection of type `questions`"
+    questionsCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: questionsFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [questionsOrderBy!]
+    ): questionsConnection
+    "A pagable collection of type `user_books_assignation`"
+    user_books_assignationCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: user_books_assignationFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [user_books_assignationOrderBy!]
+    ): user_books_assignationConnection
+}
+
+type answer implements Node {
+    created_at: Datetime
+    id: UUID!
+    name: String
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+    question: UUID
+    questions: questions
+}
+
+type answerConnection {
+    edges: [answerEdge!]!
+    pageInfo: PageInfo!
+}
+
+type answerDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [answer!]!
+}
+
+type answerEdge {
+    cursor: String!
+    node: answer!
+}
+
+type answerInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [answer!]!
+}
+
+type answerUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [answer!]!
+}
+
+type books implements Node {
+    chaptersCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: chaptersFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [chaptersOrderBy!]
+    ): chaptersConnection
+    color: String
+    created_at: Datetime
+    id: UUID!
+    name: String
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+    questionsCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: questionsFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [questionsOrderBy!]
+    ): questionsConnection
+    user_books_assignationCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: user_books_assignationFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [user_books_assignationOrderBy!]
+    ): user_books_assignationConnection
+}
+
+type booksConnection {
+    edges: [booksEdge!]!
+    pageInfo: PageInfo!
+}
+
+type booksDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [books!]!
+}
+
+type booksEdge {
+    cursor: String!
+    node: books!
+}
+
+type booksInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [books!]!
+}
+
+type booksUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [books!]!
+}
+
+type chapters implements Node {
+    book: UUID
+    books: books
+    chapters: chapters
+    chaptersCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: chaptersFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [chaptersOrderBy!]
+    ): chaptersConnection
+    created_at: Datetime
+    id: UUID!
+    name: String
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+    parent: UUID
+    questionsCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: questionsFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [questionsOrderBy!]
+    ): questionsConnection
+}
+
+type chaptersConnection {
+    edges: [chaptersEdge!]!
+    pageInfo: PageInfo!
+}
+
+type chaptersDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [chapters!]!
+}
+
+type chaptersEdge {
+    cursor: String!
+    node: chapters!
+}
+
+type chaptersInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [chapters!]!
+}
+
+type chaptersUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [chapters!]!
+}
+
+type questions implements Node {
+    answerCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: answerFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [answerOrderBy!]
+    ): answerConnection
+    book: UUID
+    books: books
+    chapter: UUID
+    chapters: chapters
+    created_at: Datetime
+    description: String
+    id: UUID!
+    name: String
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+}
+
+type questionsConnection {
+    edges: [questionsEdge!]!
+    pageInfo: PageInfo!
+}
+
+type questionsDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [questions!]!
+}
+
+type questionsEdge {
+    cursor: String!
+    node: questions!
+}
+
+type questionsInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [questions!]!
+}
+
+type questionsUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [questions!]!
+}
+
+type user_books_assignation implements Node {
+    book: UUID
+    books: books
+    created_at: Datetime
+    id: UUID!
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+    user: UUID
+}
+
+type user_books_assignationConnection {
+    edges: [user_books_assignationEdge!]!
+    pageInfo: PageInfo!
+}
+
+type user_books_assignationDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [user_books_assignation!]!
+}
+
+type user_books_assignationEdge {
+    cursor: String!
+    node: user_books_assignation!
+}
+
+type user_books_assignationInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [user_books_assignation!]!
+}
+
+type user_books_assignationUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [user_books_assignation!]!
+}
+
+enum FilterIs {
+    NOT_NULL
+    NULL
+}
+
+"Defines a per-field sorting order"
+enum OrderByDirection {
+    "Ascending order, nulls first"
+    AscNullsFirst
+    "Ascending order, nulls last"
+    AscNullsLast
+    "Descending order, nulls first"
+    DescNullsFirst
+    "Descending order, nulls last"
+    DescNullsLast
+}
+
+"A high precision floating point value represented as a string"
+scalar BigFloat
+
+"An arbitrary size integer represented as a string"
+scalar BigInt
+
+"An opaque string using for tracking a position in results during pagination"
+scalar Cursor
+
+"A date wihout time information"
+scalar Date
+
+"A date and time"
+scalar Datetime
+
+"A Javascript Object Notation value serialized as a string"
+scalar JSON
+
+"Any type not handled by the type system"
+scalar Opaque
+
+"A time without date information"
+scalar Time
+
+"A universally unique identifier"
+scalar UUID
+
+"Boolean expression comparing fields on type \"BigFloat\""
+input BigFloatFilter {
+    eq: BigFloat
+    gt: BigFloat
+    gte: BigFloat
+    in: [BigFloat!]
+    is: FilterIs
+    lt: BigFloat
+    lte: BigFloat
+    neq: BigFloat
+}
+
+"Boolean expression comparing fields on type \"BigInt\""
+input BigIntFilter {
+    eq: BigInt
+    gt: BigInt
+    gte: BigInt
+    in: [BigInt!]
+    is: FilterIs
+    lt: BigInt
+    lte: BigInt
+    neq: BigInt
+}
+
+"Boolean expression comparing fields on type \"Boolean\""
+input BooleanFilter {
+    eq: Boolean
+    is: FilterIs
+}
+
+"Boolean expression comparing fields on type \"Date\""
+input DateFilter {
+    eq: Date
+    gt: Date
+    gte: Date
+    in: [Date!]
+    is: FilterIs
+    lt: Date
+    lte: Date
+    neq: Date
+}
+
+"Boolean expression comparing fields on type \"Datetime\""
+input DatetimeFilter {
+    eq: Datetime
+    gt: Datetime
+    gte: Datetime
+    in: [Datetime!]
+    is: FilterIs
+    lt: Datetime
+    lte: Datetime
+    neq: Datetime
+}
+
+"Boolean expression comparing fields on type \"Float\""
+input FloatFilter {
+    eq: Float
+    gt: Float
+    gte: Float
+    in: [Float!]
+    is: FilterIs
+    lt: Float
+    lte: Float
+    neq: Float
+}
+
+"Boolean expression comparing fields on type \"ID\""
+input IDFilter {
+    eq: ID
+}
+
+"Boolean expression comparing fields on type \"Int\""
+input IntFilter {
+    eq: Int
+    gt: Int
+    gte: Int
+    in: [Int!]
+    is: FilterIs
+    lt: Int
+    lte: Int
+    neq: Int
+}
+
+"Boolean expression comparing fields on type \"Opaque\""
+input OpaqueFilter {
+    eq: Opaque
+    is: FilterIs
+}
+
+"Boolean expression comparing fields on type \"String\""
+input StringFilter {
+    eq: String
+    gt: String
+    gte: String
+    ilike: String
+    in: [String!]
+    is: FilterIs
+    like: String
+    lt: String
+    lte: String
+    neq: String
+    startsWith: String
+}
+
+"Boolean expression comparing fields on type \"Time\""
+input TimeFilter {
+    eq: Time
+    gt: Time
+    gte: Time
+    in: [Time!]
+    is: FilterIs
+    lt: Time
+    lte: Time
+    neq: Time
+}
+
+"Boolean expression comparing fields on type \"UUID\""
+input UUIDFilter {
+    eq: UUID
+    in: [UUID!]
+    is: FilterIs
+    neq: UUID
+}
+
+input answerFilter {
+    created_at: DatetimeFilter
+    id: UUIDFilter
+    name: StringFilter
+    nodeId: IDFilter
+    question: UUIDFilter
+}
+
+input answerInsertInput {
+    created_at: Datetime
+    id: UUID
+    name: String
+    question: UUID
+}
+
+input answerOrderBy {
+    created_at: OrderByDirection
+    id: OrderByDirection
+    name: OrderByDirection
+    question: OrderByDirection
+}
+
+input answerUpdateInput {
+    created_at: Datetime
+    id: UUID
+    name: String
+    question: UUID
+}
+
+input booksFilter {
+    color: StringFilter
+    created_at: DatetimeFilter
+    id: UUIDFilter
+    name: StringFilter
+    nodeId: IDFilter
+}
+
+input booksInsertInput {
+    color: String
+    created_at: Datetime
+    id: UUID
+    name: String
+}
+
+input booksOrderBy {
+    color: OrderByDirection
+    created_at: OrderByDirection
+    id: OrderByDirection
+    name: OrderByDirection
+}
+
+input booksUpdateInput {
+    color: String
+    created_at: Datetime
+    id: UUID
+    name: String
+}
+
+input chaptersFilter {
+    book: UUIDFilter
+    created_at: DatetimeFilter
+    id: UUIDFilter
+    name: StringFilter
+    nodeId: IDFilter
+    parent: UUIDFilter
+}
+
+input chaptersInsertInput {
+    book: UUID
+    created_at: Datetime
+    id: UUID
+    name: String
+    parent: UUID
+}
+
+input chaptersOrderBy {
+    book: OrderByDirection
+    created_at: OrderByDirection
+    id: OrderByDirection
+    name: OrderByDirection
+    parent: OrderByDirection
+}
+
+input chaptersUpdateInput {
+    book: UUID
+    created_at: Datetime
+    id: UUID
+    name: String
+    parent: UUID
+}
+
+input questionsFilter {
+    book: UUIDFilter
+    chapter: UUIDFilter
+    created_at: DatetimeFilter
+    description: StringFilter
+    id: UUIDFilter
+    name: StringFilter
+    nodeId: IDFilter
+}
+
+input questionsInsertInput {
+    book: UUID
+    chapter: UUID
+    created_at: Datetime
+    description: String
+    id: UUID
+    name: String
+}
+
+input questionsOrderBy {
+    book: OrderByDirection
+    chapter: OrderByDirection
+    created_at: OrderByDirection
+    description: OrderByDirection
+    id: OrderByDirection
+    name: OrderByDirection
+}
+
+input questionsUpdateInput {
+    book: UUID
+    chapter: UUID
+    created_at: Datetime
+    description: String
+    id: UUID
+    name: String
+}
+
+input user_books_assignationFilter {
+    book: UUIDFilter
+    created_at: DatetimeFilter
+    id: UUIDFilter
+    nodeId: IDFilter
+    user: UUIDFilter
+}
+
+input user_books_assignationInsertInput {
+    book: UUID
+    created_at: Datetime
+    id: UUID
+    user: UUID
+}
+
+input user_books_assignationOrderBy {
+    book: OrderByDirection
+    created_at: OrderByDirection
+    id: OrderByDirection
+    user: OrderByDirection
+}
+
+input user_books_assignationUpdateInput {
+    book: UUID
+    created_at: Datetime
+    id: UUID
+    user: UUID
+}

@@ -1,8 +1,9 @@
 import Layout from "@/layout/Layout";
-import { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useBookContext } from "@/hooks/use-book-context";
 import { QuestionAnswerPanel } from "@/components/question-answer-panel";
 import { useGetQuestionsAsync } from "@/hooks/use-get-questions-async";
+import { SidedQuestionFilter } from "@/components/question-filter";
 
 export default function Home() {
   const { selectedChapters } = useBookContext();
@@ -21,22 +22,32 @@ export default function Home() {
 
   if (!shouldShowQuestions) {
     return (
-      <div className="hero">
-        <div className="text-center hero-content">
-          <button
-            className={`btn ${
-              selectedChapters.length === 0 ? "btn-disabled" : ""
-            }`}
-            onClick={() => setShouldShowQuestions(true)}
-          >
-            Start Quiz
-          </button>
+      <div className="grid grid-cols-5 h-fullpage">
+        <SidedQuestionFilter />
+        <div className="hero col-span-4">
+          <div className="text-center hero-content">
+            <button
+              className={`btn ${
+                selectedChapters.length === 0 ? "btn-disabled" : ""
+              }`}
+              onClick={() => setShouldShowQuestions(true)}
+            >
+              Start Quiz
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  return <QuestionAnswerPanel questions={selectedQuestions} />;
+  return (
+    <div className="grid grid-cols-5 h-fullpage">
+      <SidedQuestionFilter />
+      <div className="col-span-4 mt-5">
+        <QuestionAnswerPanel questions={selectedQuestions} />
+      </div>
+    </div>
+  );
 }
 
 Home.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;

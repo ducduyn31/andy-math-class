@@ -14,6 +14,7 @@ export const BookSelectLabel = (props: { book: Book }) => {
         type="checkbox"
         className="checkbox"
         checked={hasBook(props.book)}
+        onChange={() => toggleBook(props.book)}
       />
     </a>
   );

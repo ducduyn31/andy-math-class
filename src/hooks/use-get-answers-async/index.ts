@@ -1,4 +1,4 @@
-import { Answer, answersDatabase } from "@/models/question";
+import { Answer, answersDatabase } from "@/models";
 import { useState } from "react";
 import { Maybe } from "@/models/types";
 

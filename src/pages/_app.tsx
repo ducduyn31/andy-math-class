@@ -1,11 +1,15 @@
 import "@/styles/globals.css";
 
 import type { ReactElement, ReactNode } from "react";
+import { useMemo } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
+import { SessionProvider } from "next-auth/react";
+import { SupabaseProvider } from "@/hooks/use-supabase-context";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { QueryClient } from "@tanstack/query-core";
-import { useState } from "react";
-import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -16,15 +20,33 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = useState(() => new QueryClient());
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
 
+  const apolloClient = useMemo(
+    () =>
+      new ApolloClient({
+        uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+        cache: new InMemoryCache(),
+        headers: {
+          Authorization: `Bearer ${pageProps.session?.supabaseAccessToken}`,
+        },
+      }),
+    [pageProps.session]
+  );
+
+  const queryClient = useMemo(() => new QueryClient({}), []);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        {getLayout(<Component {...pageProps} />)}
-      </Hydrate>
-    </QueryClientProvider>
+    <SessionProvider session={pageProps.session}>
+      <SupabaseProvider>
+        <QueryClientProvider client={queryClient}>
+          <ApolloProvider client={apolloClient}>
+            {getLayout(<Component {...pageProps} />)}
+            <ReactQueryDevtools initialIsOpen={false} />
+          </ApolloProvider>
+        </QueryClientProvider>
+      </SupabaseProvider>
+    </SessionProvider>
   );
 }

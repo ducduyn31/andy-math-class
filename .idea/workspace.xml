@@ -5,40 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa6b8bdb-ee4e-4da4-872f-00421513e800" name="Changes" comment="feat: Tree-based question select, multiple answers">
-      <change afterPath="$PROJECT_DIR$/src/components/question-answer-panel/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/question-filter/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/user-select-book/components/book-select-label/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/user-select-chapter/components/chapter-select-label/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-book-context/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-get-answers-async/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-get-assigned-books/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-get-questions-async/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/book/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/question/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/QuestionAnswerPanel.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserSelectBookModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-select-book/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserSelectChapterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-select-chapter/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/BookModificationModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/BookModificationModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/FilterQuestion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/FilterQuestion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/FilterUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/FilterUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/components/content-filter/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/components/admin-nav-menu/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminStat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/components/admin-stat/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/FilterBook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/components/content-filter/components/book-filter/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/FilterQuestion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/components/content-filter/components/question-filter/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/FilterUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/components/content-filter/components/user-filter/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/admin/QuestionModificationModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/QuestionModificationModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminBookRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminBookRow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminBookTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminBookTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionRow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminUserRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminUserRow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminUserTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table/AdminUserTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminBookRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/table/books-table/components/book-row/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminBookTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/table/books-table/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/table/questions-table/components/question-row/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminQuestionTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/table/questions-table/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminUserRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/table/users-table/components/user-row/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table/AdminUserTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/table/users-table/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/UserModificationModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/table/users-table/components/user-edit/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/question-answer-panel/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/question-answer-panel/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user-select-book/components/book-select-label/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-select-book/components/book-select-label/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user-select-book/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-select-book/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user-select-chapter/components/chapter-select-label/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-select-chapter/components/chapter-select-label/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user-select-chapter/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-select-chapter/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-book-context/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/use-book-context/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-get-answers-async/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/use-get-answers-async/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-get-assigned-books/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/use-get-assigned-books/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/use-get-questions-async/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/use-get-questions-async/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layout/AdminLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/AdminLayout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/book/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/book/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/question/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/question/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/index.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/register/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +66,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2Och7Hdf8kmNrUfzK5l2ZWCvuDW" />
   <component name="ProjectLevelVcsManager">
@@ -98,14 +103,17 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/components/question-answer-panel" />
-      <recent name="$PROJECT_DIR$/src/components/user-select-chapter" />
-      <recent name="$PROJECT_DIR$/src/components/user-select-book" />
-      <recent name="$PROJECT_DIR$/src/components/admin" />
-      <recent name="$PROJECT_DIR$/src/components/admin/Table" />
+      <recent name="$PROJECT_DIR$/src/components/admin/table/users-table/components/user-edit" />
+      <recent name="$PROJECT_DIR$/src/components/admin/table/questions-table/components/question-row" />
+      <recent name="$PROJECT_DIR$/src/components/admin/table/books-table/components/book-row" />
+      <recent name="$PROJECT_DIR$/src/components/admin/table/books-table/components" />
+      <recent name="$PROJECT_DIR$/src/components/admin/table/questions-table" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="Localhost 3000" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -116,6 +124,10 @@
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.Localhost 3000" />
+      <item itemvalue="npm.dev" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -134,7 +146,14 @@
       <workItem from="1682862423431" duration="449000" />
       <workItem from="1682863524889" duration="3586000" />
       <workItem from="1682901157697" duration="406000" />
-      <workItem from="1682906402762" duration="29842000" />
+      <workItem from="1682906402762" duration="29878000" />
+      <workItem from="1682943106326" duration="28366000" />
+      <workItem from="1683001918664" duration="13177000" />
+      <workItem from="1683015816265" duration="700000" />
+      <workItem from="1683034859103" duration="814000" />
+      <workItem from="1683070565722" duration="34801000" />
+      <workItem from="1683159477822" duration="3421000" />
+      <workItem from="1683168154174" duration="17570000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Add filtering">
       <created>1682216833855</created>
@@ -164,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682241248873</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: Tree-based question select, multiple answers">
+      <created>1682938711834</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682938711834</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,5 +202,36 @@
     <MESSAGE value="feat: Add filter book" />
     <MESSAGE value="feat: Tree-based question select, multiple answers" />
     <option name="LAST_COMMIT_MESSAGE" value="feat: Tree-based question select, multiple answers" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/node_modules/next-auth/src/next/middleware.ts</url>
+          <line>133</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/node_modules/next-auth/core/routes/session.js</url>
+          <line>42</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/node_modules/next-auth/src/next/middleware.ts</url>
+          <line>140</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/node_modules/next-auth/next/middleware.js</url>
+          <line>49</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/node_modules/next-auth/next/middleware.js</url>
+          <line>43</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
