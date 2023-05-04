@@ -1,7 +1,8 @@
-import { SharedContext } from "@/layout/AdminLayout";
 import toast from "react-hot-toast";
 import { Book } from "@/models";
 import { useUpdateUser } from "@/hooks/use-update-user";
+import { useModal } from "@/hooks/use-modal";
+import { UserModificationModal } from "@/components/admin/table/users-table/components/user-edit";
 
 interface AdminUserRowProps {
   id: string;
@@ -12,10 +13,6 @@ interface AdminUserRowProps {
   enabled: boolean;
 }
 
-interface PropType {
-  setUserModification: SharedContext["setUserModification"];
-}
-
 export const AdminUserRow = ({
   id,
   firstName,
@@ -23,13 +20,13 @@ export const AdminUserRow = ({
   email,
   assignedBooks,
   enabled,
-  setUserModification,
-}: AdminUserRowProps & PropType) => {
+}: AdminUserRowProps) => {
   const { updateUser } = useUpdateUser({
     onSuccess: () => {
       toast.success("Saved successfully");
     },
   });
+  const { openModal } = useModal(UserModificationModal);
 
   return (
     <tr className="hover">
@@ -52,18 +49,11 @@ export const AdminUserRow = ({
         <label
           htmlFor="user-modification-modal"
           className="flex link link-primary font-bold text-sm no-underline"
-          onClick={() => {
-            setUserModification!((prevState: any) => {
-              return {
-                ...prevState,
-                firstName,
-                lastName,
-                email,
-                assignedBooks,
-                enabled,
-              };
-            });
-          }}
+          onClick={() =>
+            openModal({
+              user: { id, firstName, lastName, email, assignedBooks, enabled },
+            })
+          }
         >
           Modify
           <svg

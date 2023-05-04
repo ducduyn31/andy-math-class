@@ -10,6 +10,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ModalProvider } from "@/hooks/use-modal";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -42,8 +43,10 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <SupabaseProvider>
         <QueryClientProvider client={queryClient}>
           <ApolloProvider client={apolloClient}>
-            {getLayout(<Component {...pageProps} />)}
-            <ReactQueryDevtools initialIsOpen={false} />
+            <ModalProvider>
+              {getLayout(<Component {...pageProps} />)}
+              <ReactQueryDevtools initialIsOpen={false} />
+            </ModalProvider>
           </ApolloProvider>
         </QueryClientProvider>
       </SupabaseProvider>

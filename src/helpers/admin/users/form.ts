@@ -1,6 +1,8 @@
 import * as yup from "yup";
+import { UseUpdateUserArgs } from "@/hooks/use-update-user";
 
 export interface UpdateUserFormValues {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -12,10 +14,8 @@ export const UpdateUserFormValuesSchema = yup.object().shape({
   email: yup.string().email().required("Email is required"),
 });
 
-export const updateUserForm = (values: UpdateUserFormValues) => {
-  return {
-    firstName: values.firstName,
-    lastName: values.lastName,
-    email: values.email,
+export const updateUserForm =
+  (update: (args: UseUpdateUserArgs) => void) =>
+  async (values: UpdateUserFormValues) => {
+    await update(values);
   };
-};

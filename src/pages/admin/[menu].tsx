@@ -11,12 +11,7 @@ const AdminPage = (props: ReactPropTypes & SharedContext) => {
   const path = router.asPath;
 
   if (matchPath(path, "/admin/users")) {
-    return (
-      <AdminUserTable
-        setUserModification={props.setUserModification}
-        filteredInput={props.filteredInput}
-      />
-    );
+    return <AdminUserTable filteredInput={props.filteredInput} />;
   }
   if (matchPath(path, "/admin/books")) {
     return (

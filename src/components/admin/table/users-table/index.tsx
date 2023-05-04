@@ -14,10 +14,8 @@ import {
 const itemPerPage = 10;
 export const AdminUserTable = ({
   filteredInput,
-  setUserModification,
 }: {
   filteredInput: SharedContext["filteredInput"];
-  setUserModification: SharedContext["setUserModification"];
 }) => {
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<AdminUserRowProps[]>([]);
@@ -77,7 +75,6 @@ export const AdminUserTable = ({
                   email={data.email}
                   assignedBooks={data.assignedBooks}
                   enabled={data.enabled}
-                  setUserModification={setUserModification}
                 />
               ))}
             </tbody>

@@ -1,6 +1,5 @@
 import { AdminStat } from "@/components/admin/components/admin-stat";
 import { AdminMenu } from "@/components/admin/components/admin-nav-menu";
-import { UserModificationModal } from "@/components/admin/table/users-table/components/user-edit";
 import { AdminUserRowProps } from "@/components/admin/table/users-table/components/user-row";
 import React, { useState } from "react";
 import BookModificationModal from "@/components/admin/BookModificationModal";
@@ -12,7 +11,6 @@ import { Navbar } from "@/components/navbar";
 import { AdminProvider } from "@/hooks/use-admin-context";
 
 interface SharedContext {
-  setUserModification: (...args: any[]) => any;
   setBookModification: (...args: any[]) => any;
   setQuestionModification: (...args: any[]) => any;
   currentMenu: number;
@@ -54,7 +52,7 @@ const filteredInputInitial: SharedContext["filteredInput"] = {
 };
 // @ts-ignore
 const AdminLayout = ({ children }) => {
-  const [userModification, setUserModification] = useState<AdminUserRowProps>();
+  const [, setUserModification] = useState<AdminUserRowProps>();
   const [currentMenu] = useState<number>(0);
   const [bookModification, setBookModification] = useState<Book>();
   const [questionModification, setQuestionModification] = useState<Question>();
@@ -87,12 +85,6 @@ const AdminLayout = ({ children }) => {
             </div>
           </div>
         </div>
-        {userModification && (
-          <UserModificationModal
-            key={userModification.email}
-            user={userModification}
-          />
-        )}
         {bookModification && (
           <BookModificationModal
             book={bookModification}

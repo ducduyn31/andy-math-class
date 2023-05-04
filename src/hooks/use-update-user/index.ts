@@ -7,14 +7,15 @@ interface Args {
   onSuccess?: () => void;
 }
 
+export type UseUpdateUserArgs = Partial<UserWithFields> &
+  Pick<UserWithFields, "id">;
+
 export const useUpdateUser = (args?: Args) => {
   const { authClient } = useSupabaseContext();
   const queryClient = useQueryClient();
   const session = useSession();
   const { isLoading, data, mutate } = useMutation({
-    mutationFn: async (
-      updatedUser: Partial<UserWithFields> & Pick<UserWithFields, "id">
-    ) => {
+    mutationFn: async (updatedUser: UseUpdateUserArgs) => {
       if (!session.data?.supabaseAccessToken) throw new Error("Unauthorized");
       await authClient
         .from("users")
