@@ -33,11 +33,16 @@ const constructChapterTrees = (chapters: Chapter[]): Chapter[] => {
   });
 };
 
-const assignBookToChapter = (book: Book, chapters: Chapter[]): Chapter[] => {
-  return chapters.map((chapter) => {
-    chapter.book = book;
-    return chapter;
-  });
+export const assignBookToChapter = (
+  book: Maybe<Book>,
+  chapter: Chapter
+): Chapter => {
+  chapter.book = book;
+  return chapter;
+};
+
+const assignBookToChapters = (book: Book, chapters: Chapter[]): Chapter[] => {
+  return chapters.map((chapter) => assignBookToChapter(book, chapter));
 };
 
 export const convertBook = (partialBook: Partial<Book>): Book => {
@@ -50,16 +55,14 @@ export const convertBook = (partialBook: Partial<Book>): Book => {
     },
   } as Book;
 
-  book.chapters = assignBookToChapter(
+  book.chapters = assignBookToChapters(
     book,
     constructChapterTrees(partialBook.chapters || [])
   );
   return book;
 };
 
-export const createFullChapter = (
-  partialChapter: Partial<Chapter>
-): Chapter => {
+export const createFullChapter = (partialChapter: PartialChapter): Chapter => {
   return {
     id: partialChapter.id || "",
     name: partialChapter.name || "",
@@ -69,7 +72,15 @@ export const createFullChapter = (
   };
 };
 
-type PartialBook = Pick<_Book, "id" | "name" | "color">;
+interface PartialChapter extends Omit<Partial<Chapter>, "name"> {
+  name?: Maybe<string>;
+}
+
+type PartialChaptersEdge = { node?: Maybe<PartialChapter> };
+type PartialChaptersConnection = { edges?: Maybe<PartialChaptersEdge[]> };
+type PartialBook = Pick<_Book, "id" | "name" | "color"> & {
+  chaptersCollection?: Maybe<PartialChaptersConnection>;
+};
 type PartialBookEdge = { node: PartialBook };
 export const mapBook = (book: PartialBookEdge | PartialBook): Book => {
   if (!("node" in book)) {
@@ -77,14 +88,26 @@ export const mapBook = (book: PartialBookEdge | PartialBook): Book => {
       id: book?.id || "",
       name: book.name || "",
       color: book.color,
-      chapters: [],
+      chapters:
+        book?.chaptersCollection?.edges?.map((chapterEdge) =>
+          createFullChapter({
+            ...chapterEdge.node,
+            name: chapterEdge.node?.name || "",
+          })
+        ) || [],
     });
   }
   return convertBook({
     id: book?.node?.id,
     name: book?.node?.name || "",
     color: book?.node?.color,
-    chapters: [],
+    chapters:
+      book?.node?.chaptersCollection?.edges?.map((chapterEdge) =>
+        createFullChapter({
+          ...chapterEdge.node,
+          name: chapterEdge.node?.name || "",
+        })
+      ) || [],
   });
 };
 

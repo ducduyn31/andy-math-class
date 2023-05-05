@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface ModalContextType {
@@ -17,8 +17,8 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
     <ModalContext.Provider
       value={{ modalOpened: opened, setModalOpened: setOpened, setModal }}
     >
-      {children}
       <div id="modal-root">{opened && modal}</div>
+      {children}
     </ModalContext.Provider>
   );
 };
@@ -39,15 +39,18 @@ export const useModal = <P extends {}>(component: React.ComponentType<P>) => {
   const renderModal = createModal(component);
 
   return {
-    openModal: (props: P) => {
-      if (modalOpened) {
-        setModal?.(null);
+    openModal: useCallback(
+      (props: P) => {
+        if (modalOpened) {
+          setModal?.(null);
+          setModalOpened?.(true);
+        }
+        const element = renderModal(props);
+        setModal?.(element);
         setModalOpened?.(true);
-      }
-      const element = renderModal(props);
-      setModal?.(element);
-      setModalOpened?.(true);
-    },
+      },
+      [modalOpened, renderModal, setModal, setModalOpened]
+    ),
     closeModal: () => {
       setModalOpened?.(false);
     },

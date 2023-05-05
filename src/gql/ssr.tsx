@@ -874,6 +874,35 @@ export type GetAssignedBooksByUserIdQueryVariables = Exact<{
 
 export type GetAssignedBooksByUserIdQuery = { __typename?: 'Query', user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null } }> } | null, booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, name?: string | null } }> } | null };
 
+export type CreateNewBooksMutationVariables = Exact<{
+  booksInput: Array<BooksInsertInput> | BooksInsertInput;
+}>;
+
+
+export type CreateNewBooksMutation = { __typename?: 'Mutation', insertIntobooksCollection?: { __typename?: 'booksInsertResponse', records: Array<{ __typename?: 'books', nodeId: string, id: any, name?: string | null, color?: string | null }> } | null };
+
+export type CreateNewChaptersMutationVariables = Exact<{
+  chaptersInput: Array<ChaptersInsertInput> | ChaptersInsertInput;
+}>;
+
+
+export type CreateNewChaptersMutation = { __typename?: 'Mutation', insertIntochaptersCollection?: { __typename?: 'chaptersInsertResponse', records: Array<{ __typename?: 'chapters', nodeId: string, id: any, name?: string | null, book?: any | null, parent?: any | null }> } | null };
+
+export type RemoveChaptersMutationVariables = Exact<{
+  chapterIds: Array<Scalars['UUID']> | Scalars['UUID'];
+}>;
+
+
+export type RemoveChaptersMutation = { __typename?: 'Mutation', deleteFromchaptersCollection: { __typename?: 'chaptersDeleteResponse', records: Array<{ __typename?: 'chapters', id: any, nodeId: string, name?: string | null, book?: any | null }> } };
+
+export type UpdateExistingBookMutationVariables = Exact<{
+  bookId: Scalars['UUID'];
+  updatedBook: BooksUpdateInput;
+}>;
+
+
+export type UpdateExistingBookMutation = { __typename?: 'Mutation', updatebooksCollection: { __typename?: 'booksUpdateResponse', records: Array<{ __typename?: 'books', nodeId: string, id: any, name?: string | null, color?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, book?: any | null, parent?: any | null } }> } | null }> } };
+
 export async function getServerPageGetAllForAdmin
     (options: Omit<Apollo.QueryOptions<GetAllForAdminQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
         
@@ -932,3 +961,6 @@ export const ssrGetAssignedBooksByUserId = {
       withPage: withPageGetAssignedBooksByUserId,
       
     }
+
+
+

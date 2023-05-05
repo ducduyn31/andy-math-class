@@ -870,6 +870,35 @@ export type GetAssignedBooksByUserIdQueryVariables = Exact<{
 
 export type GetAssignedBooksByUserIdQuery = { __typename?: 'Query', user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null } }> } | null, booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, name?: string | null } }> } | null };
 
+export type CreateNewBooksMutationVariables = Exact<{
+  booksInput: Array<BooksInsertInput> | BooksInsertInput;
+}>;
+
+
+export type CreateNewBooksMutation = { __typename?: 'Mutation', insertIntobooksCollection?: { __typename?: 'booksInsertResponse', records: Array<{ __typename?: 'books', nodeId: string, id: any, name?: string | null, color?: string | null }> } | null };
+
+export type CreateNewChaptersMutationVariables = Exact<{
+  chaptersInput: Array<ChaptersInsertInput> | ChaptersInsertInput;
+}>;
+
+
+export type CreateNewChaptersMutation = { __typename?: 'Mutation', insertIntochaptersCollection?: { __typename?: 'chaptersInsertResponse', records: Array<{ __typename?: 'chapters', nodeId: string, id: any, name?: string | null, book?: any | null, parent?: any | null }> } | null };
+
+export type RemoveChaptersMutationVariables = Exact<{
+  chapterIds: Array<Scalars['UUID']> | Scalars['UUID'];
+}>;
+
+
+export type RemoveChaptersMutation = { __typename?: 'Mutation', deleteFromchaptersCollection: { __typename?: 'chaptersDeleteResponse', records: Array<{ __typename?: 'chapters', id: any, nodeId: string, name?: string | null, book?: any | null }> } };
+
+export type UpdateExistingBookMutationVariables = Exact<{
+  bookId: Scalars['UUID'];
+  updatedBook: BooksUpdateInput;
+}>;
+
+
+export type UpdateExistingBookMutation = { __typename?: 'Mutation', updatebooksCollection: { __typename?: 'booksUpdateResponse', records: Array<{ __typename?: 'books', nodeId: string, id: any, name?: string | null, color?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, book?: any | null, parent?: any | null } }> } | null }> } };
+
 
 export const GetAllForAdminDocument = gql`
     query GetAllForAdmin {
@@ -995,3 +1024,168 @@ export function useGetAssignedBooksByUserIdLazyQuery(baseOptions?: Apollo.LazyQu
 export type GetAssignedBooksByUserIdQueryHookResult = ReturnType<typeof useGetAssignedBooksByUserIdQuery>;
 export type GetAssignedBooksByUserIdLazyQueryHookResult = ReturnType<typeof useGetAssignedBooksByUserIdLazyQuery>;
 export type GetAssignedBooksByUserIdQueryResult = Apollo.QueryResult<GetAssignedBooksByUserIdQuery, GetAssignedBooksByUserIdQueryVariables>;
+export const CreateNewBooksDocument = gql`
+    mutation CreateNewBooks($booksInput: [booksInsertInput!]!) {
+  insertIntobooksCollection(objects: $booksInput) {
+    records {
+      nodeId
+      id
+      name
+      color
+    }
+  }
+}
+    `;
+export type CreateNewBooksMutationFn = Apollo.MutationFunction<CreateNewBooksMutation, CreateNewBooksMutationVariables>;
+
+/**
+ * __useCreateNewBooksMutation__
+ *
+ * To run a mutation, you first call `useCreateNewBooksMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNewBooksMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNewBooksMutation, { data, loading, error }] = useCreateNewBooksMutation({
+ *   variables: {
+ *      booksInput: // value for 'booksInput'
+ *   },
+ * });
+ */
+export function useCreateNewBooksMutation(baseOptions?: Apollo.MutationHookOptions<CreateNewBooksMutation, CreateNewBooksMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateNewBooksMutation, CreateNewBooksMutationVariables>(CreateNewBooksDocument, options);
+      }
+export type CreateNewBooksMutationHookResult = ReturnType<typeof useCreateNewBooksMutation>;
+export type CreateNewBooksMutationResult = Apollo.MutationResult<CreateNewBooksMutation>;
+export type CreateNewBooksMutationOptions = Apollo.BaseMutationOptions<CreateNewBooksMutation, CreateNewBooksMutationVariables>;
+export const CreateNewChaptersDocument = gql`
+    mutation CreateNewChapters($chaptersInput: [chaptersInsertInput!]!) {
+  insertIntochaptersCollection(objects: $chaptersInput) {
+    records {
+      nodeId
+      id
+      name
+      book
+      parent
+    }
+  }
+}
+    `;
+export type CreateNewChaptersMutationFn = Apollo.MutationFunction<CreateNewChaptersMutation, CreateNewChaptersMutationVariables>;
+
+/**
+ * __useCreateNewChaptersMutation__
+ *
+ * To run a mutation, you first call `useCreateNewChaptersMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNewChaptersMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNewChaptersMutation, { data, loading, error }] = useCreateNewChaptersMutation({
+ *   variables: {
+ *      chaptersInput: // value for 'chaptersInput'
+ *   },
+ * });
+ */
+export function useCreateNewChaptersMutation(baseOptions?: Apollo.MutationHookOptions<CreateNewChaptersMutation, CreateNewChaptersMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateNewChaptersMutation, CreateNewChaptersMutationVariables>(CreateNewChaptersDocument, options);
+      }
+export type CreateNewChaptersMutationHookResult = ReturnType<typeof useCreateNewChaptersMutation>;
+export type CreateNewChaptersMutationResult = Apollo.MutationResult<CreateNewChaptersMutation>;
+export type CreateNewChaptersMutationOptions = Apollo.BaseMutationOptions<CreateNewChaptersMutation, CreateNewChaptersMutationVariables>;
+export const RemoveChaptersDocument = gql`
+    mutation RemoveChapters($chapterIds: [UUID!]!) {
+  deleteFromchaptersCollection(filter: {id: {in: $chapterIds}}, atMost: 1000) {
+    records {
+      id
+      nodeId
+      name
+      book
+    }
+  }
+}
+    `;
+export type RemoveChaptersMutationFn = Apollo.MutationFunction<RemoveChaptersMutation, RemoveChaptersMutationVariables>;
+
+/**
+ * __useRemoveChaptersMutation__
+ *
+ * To run a mutation, you first call `useRemoveChaptersMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveChaptersMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeChaptersMutation, { data, loading, error }] = useRemoveChaptersMutation({
+ *   variables: {
+ *      chapterIds: // value for 'chapterIds'
+ *   },
+ * });
+ */
+export function useRemoveChaptersMutation(baseOptions?: Apollo.MutationHookOptions<RemoveChaptersMutation, RemoveChaptersMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveChaptersMutation, RemoveChaptersMutationVariables>(RemoveChaptersDocument, options);
+      }
+export type RemoveChaptersMutationHookResult = ReturnType<typeof useRemoveChaptersMutation>;
+export type RemoveChaptersMutationResult = Apollo.MutationResult<RemoveChaptersMutation>;
+export type RemoveChaptersMutationOptions = Apollo.BaseMutationOptions<RemoveChaptersMutation, RemoveChaptersMutationVariables>;
+export const UpdateExistingBookDocument = gql`
+    mutation UpdateExistingBook($bookId: UUID!, $updatedBook: booksUpdateInput!) {
+  updatebooksCollection(set: $updatedBook, filter: {id: {eq: $bookId}}) {
+    records {
+      nodeId
+      id
+      name
+      color
+      chaptersCollection {
+        edges {
+          node {
+            nodeId
+            id
+            name
+            book
+            parent
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export type UpdateExistingBookMutationFn = Apollo.MutationFunction<UpdateExistingBookMutation, UpdateExistingBookMutationVariables>;
+
+/**
+ * __useUpdateExistingBookMutation__
+ *
+ * To run a mutation, you first call `useUpdateExistingBookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateExistingBookMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateExistingBookMutation, { data, loading, error }] = useUpdateExistingBookMutation({
+ *   variables: {
+ *      bookId: // value for 'bookId'
+ *      updatedBook: // value for 'updatedBook'
+ *   },
+ * });
+ */
+export function useUpdateExistingBookMutation(baseOptions?: Apollo.MutationHookOptions<UpdateExistingBookMutation, UpdateExistingBookMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateExistingBookMutation, UpdateExistingBookMutationVariables>(UpdateExistingBookDocument, options);
+      }
+export type UpdateExistingBookMutationHookResult = ReturnType<typeof useUpdateExistingBookMutation>;
+export type UpdateExistingBookMutationResult = Apollo.MutationResult<UpdateExistingBookMutation>;
+export type UpdateExistingBookMutationOptions = Apollo.BaseMutationOptions<UpdateExistingBookMutation, UpdateExistingBookMutationVariables>;

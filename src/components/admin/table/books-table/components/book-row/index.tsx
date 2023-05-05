@@ -1,21 +1,20 @@
-import { SharedContext } from "@/layout/AdminLayout";
 import { Book, convertBook } from "@/models";
+import { useModal } from "@/hooks/use-modal";
+import { BookModificationModal } from "@/components/admin/table/books-table/components/book-edit";
 
 interface PropType {
-  setBookModification: SharedContext["setBookModification"];
   book: Book;
 }
-export const AdminBookRow = ({ book, setBookModification }: PropType) => {
+export const AdminBookRow = ({ book }: PropType) => {
+  const { openModal } = useModal(BookModificationModal);
+
   return (
     <tr className={"hover"}>
       <th>{book.name}</th>
       <td>
         {book.chapters.length > 0 ? (
           book.chapters.map((each) => (
-            <span
-              key={each.name}
-              className={`badge badge-lg mr-1 ${book.color}`}
-            >
+            <span key={each.id} className={`badge badge-lg mr-1 ${book.color}`}>
               {each.name}
             </span>
           ))
@@ -27,16 +26,7 @@ export const AdminBookRow = ({ book, setBookModification }: PropType) => {
         <label
           htmlFor="book-modification-modal"
           className="flex link link-primary font-bold text-sm no-underline"
-          onClick={() =>
-            setBookModification((prevState: Book) => {
-              return convertBook({
-                ...prevState,
-                name: book.name,
-                chapters: book.chapters,
-                color: book.color,
-              });
-            })
-          }
+          onClick={() => openModal({ book: convertBook(book) })}
         >
           Modify
           <svg

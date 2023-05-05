@@ -3,6 +3,8 @@ import { SharedContext } from "@/layout/AdminLayout";
 import { AdminBookRow } from "@/components/admin/table/books-table/components/book-row";
 import { Book, convertBook } from "@/models/book";
 import { useAdminContext } from "@/hooks/use-admin-context";
+import { useModal } from "@/hooks/use-modal";
+import { BookModificationModal } from "@/components/admin/table/books-table/components/book-edit";
 
 const bookDatabase: Book[] = [
   {
@@ -115,16 +117,16 @@ const bookDatabase: Book[] = [
 const itemPerPage = 5;
 
 export const AdminBookTable = ({
-  setBookModification,
   filteredInput,
 }: {
-  setBookModification: SharedContext["setBookModification"];
   filteredInput: SharedContext["filteredInput"];
 }) => {
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<Book[]>([]);
   const { filteredBooks } = filteredInput;
   const { books, totalBooks } = useAdminContext();
+
+  const { openModal } = useModal(BookModificationModal);
 
   const updatePaginationItem = useCallback(() => {
     const start = page * itemPerPage;
@@ -163,11 +165,7 @@ export const AdminBookTable = ({
             </thead>
             <tbody>
               {dataset.map((book) => (
-                <AdminBookRow
-                  key={book.name}
-                  book={book}
-                  setBookModification={setBookModification}
-                />
+                <AdminBookRow key={book.name} book={book} />
               ))}
             </tbody>
           </table>
@@ -190,22 +188,12 @@ export const AdminBookTable = ({
             />
           ))}
         </div>
-        <label
-          htmlFor="book-modification-modal"
-          className={"btn btn-primary mt-2 sm:mt-0"}
-          onClick={() =>
-            setBookModification((prevState: Book) => {
-              return {
-                ...prevState,
-                name: "",
-                chapter: [],
-                color: "",
-              };
-            })
-          }
+        <button
+          className="btn btn-primary mt-2 sm:mt-0"
+          onClick={() => openModal({ book: null })}
         >
           Add book
-        </label>
+        </button>
       </div>
     </>
   );
