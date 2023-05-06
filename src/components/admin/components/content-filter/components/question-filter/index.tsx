@@ -51,7 +51,6 @@ export const FilterQuestion: React.FC<PropType> = ({
           setSelectedBook(event.target.value);
           setSelectedChapter(filteredInputInitial.filteredQuestion.chapter);
         }}
-        defaultValue={selectedBook}
         value={selectedBook}
       >
         <option defaultChecked={selectedBook == "any"} value={"any"}>
@@ -73,7 +72,6 @@ export const FilterQuestion: React.FC<PropType> = ({
       <select
         className="select select-bordered select-sm w-full"
         onChange={(event) => setSelectedChapter(event.target.value)}
-        defaultValue={selectedChapter}
         value={selectedChapter}
       >
         <option defaultChecked={selectedChapter == "any"} value={"any"}>

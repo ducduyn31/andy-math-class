@@ -3,8 +3,6 @@ import { AdminMenu } from "@/components/admin/components/admin-nav-menu";
 import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { AdminFilter } from "@/components/admin/components/content-filter";
-import QuestionModificationModal from "@/components/admin/QuestionModificationModal";
-import { Question } from "@/models";
 import { Navbar } from "@/components/navbar";
 import { AdminProvider } from "@/hooks/use-admin-context";
 
@@ -51,7 +49,6 @@ const filteredInputInitial: SharedContext["filteredInput"] = {
 // @ts-ignore
 const AdminLayout = ({ children }) => {
   const [currentMenu] = useState<number>(0);
-  const [questionModification, setQuestionModification] = useState<Question>();
   const [filteredInput, setFilteredInput] =
     useState<SharedContext["filteredInput"]>(filteredInputInitial);
 
@@ -73,18 +70,11 @@ const AdminLayout = ({ children }) => {
             <div className={"md:col-span-9"}>
               {React.cloneElement(children, {
                 currentMenu,
-                setQuestionModification,
                 filteredInput,
               })}
             </div>
           </div>
         </div>
-        {questionModification && (
-          <QuestionModificationModal
-            key={questionModification.id}
-            question={questionModification}
-          />
-        )}
         <Toaster
           position="bottom-right"
           toastOptions={{

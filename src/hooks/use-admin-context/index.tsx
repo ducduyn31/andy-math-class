@@ -2,7 +2,14 @@ import React from "react";
 import { useGetAllForAdminQuery } from "@/gql/types";
 import { assureNumber } from "@/helpers/number";
 import { useGetAllUsers } from "../use-get-all-users";
-import { User, mapUser, Book, mapBook, Question, mapQuestion } from "@/models";
+import {
+  Book,
+  mapBooksFromGetAdminStat,
+  mapQuestionFromGetAdminStat,
+  mapUser,
+  Question,
+  User,
+} from "@/models";
 
 export type AdminContextType = {
   totalUsers: number;
@@ -38,11 +45,12 @@ export const AdminProvider: React.FC<{
           booksAndQuestionsData?.questionsCollection?.edges?.length
         ),
         users: usersData?.map(mapUser) || [],
-        books:
-          booksAndQuestionsData?.booksCollection?.edges?.map(mapBook) || [],
-        questions:
-          booksAndQuestionsData?.questionsCollection?.edges?.map(mapQuestion) ||
-          [],
+        books: booksAndQuestionsData
+          ? mapBooksFromGetAdminStat(booksAndQuestionsData)
+          : [],
+        questions: booksAndQuestionsData
+          ? mapQuestionFromGetAdminStat(booksAndQuestionsData)
+          : [],
       }}
     >
       {children}

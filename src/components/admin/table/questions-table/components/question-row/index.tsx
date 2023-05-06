@@ -1,28 +1,30 @@
 import React from "react";
-import { SharedContext } from "@/layout/AdminLayout";
 import { Question } from "@/models";
+import { useModal } from "@/hooks/use-modal";
+import { QuestionModificationModal } from "@/components/admin/table/questions-table/components/question-edit";
+import { useAdminContext } from "@/hooks/use-admin-context";
 
 interface Props {
   question: Question;
-  setQuestionModification: SharedContext["setQuestionModification"];
 }
-export const AdminQuestionRow: React.FC<Props> = ({
-  question,
-  setQuestionModification,
-}) => {
+export const AdminQuestionRow: React.FC<Props> = ({ question }) => {
+  const { openModal } = useModal(QuestionModificationModal);
+  const { books } = useAdminContext();
   const { name, chapter, book } = question;
   return (
     <tr className={"hover"}>
       <th>{name}</th>
       <td>
-        <span className={`badge badge-lg mr-1 ${book.color}`}>{book.name}</span>
+        <span className={`badge badge-lg mr-1 ${book?.color || ""}`}>
+          {book?.name}
+        </span>
       </td>
       <td>{chapter ? chapter.name : <i>No Chapter</i>}</td>
       <td>
         <label
           htmlFor="question-modification-modal"
           className="flex link link-primary font-bold text-sm no-underline"
-          onClick={() => setQuestionModification(question)}
+          onClick={() => openModal({ question, books })}
         >
           Modify
           <svg

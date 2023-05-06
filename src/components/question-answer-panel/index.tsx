@@ -26,6 +26,9 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
 
   if (!questions || questions.length === 0) return null;
 
+  const imageUrl = (id: string) =>
+    `https://ezlpvujpzcqeaiizqnbi.supabase.co/storage/v1/object/public/class-questions/${id}`;
+
   return (
     <div className={"flex justify-center items-center"}>
       <div className="card lg:w-9/12 bg-base-100 shadow-xl whitespace-normal">
@@ -35,18 +38,21 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
               <h2 className="card-title">
                 Question {currentQuestionId + 1} / {questions.length}
               </h2>
-              <img
-                src={`https://placehold.co/600x400?text=Question+Image+${currentQuestion.name}`}
-                className={"rounded-3xl"}
-                alt={currentQuestion.name}
-              />
+              {currentQuestion?.questionImages?.map((image) => (
+                <img
+                  key={image}
+                  src={imageUrl(image)}
+                  className={"rounded-3xl"}
+                  alt={currentQuestion.name}
+                />
+              ))}
               {shouldShowAnswer && <p>{currentQuestion.description}</p>}
               {shouldShowAnswer ? (
                 answers.map((answer) => (
                   <img
                     key={answer.id}
                     alt={answer.name}
-                    src={`https://placehold.co/600x400?text=${answer.name}`}
+                    src={imageUrl(answer.name)}
                     className={"rounded-3xl"}
                   />
                 ))

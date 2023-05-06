@@ -63,7 +63,6 @@ const replaceJwtDecodeWithDBSearch = async ({
     .single();
   if (!userData) return null;
   return {
-    sub: userData?.id,
     name: userData?.firstName,
     email: userData?.email,
     picture: userData?.image,

@@ -7,14 +7,14 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const FormInputField = forwardRef<HTMLInputElement, Props>(
-  function FormInputField({ label, errorMessage, ...props }, ref) {
+  function FormInputField({ label, type, errorMessage, ...props }, ref) {
     return (
       <div>
         <label className="label">
           <span className="label-text">{label}</span>
         </label>
         <input
-          type="text"
+          type={type}
           placeholder="Type here"
           className="input input-bordered"
           {...props}

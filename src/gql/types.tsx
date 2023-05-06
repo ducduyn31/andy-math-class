@@ -115,36 +115,73 @@ export type IntFilter = {
 /** The root type for creating and mutating data */
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Deletes zero or more records from the `accounts` collection */
+  deleteFromaccountsCollection: AccountsDeleteResponse;
   /** Deletes zero or more records from the `answer` collection */
   deleteFromanswerCollection: AnswerDeleteResponse;
   /** Deletes zero or more records from the `books` collection */
   deleteFrombooksCollection: BooksDeleteResponse;
   /** Deletes zero or more records from the `chapters` collection */
   deleteFromchaptersCollection: ChaptersDeleteResponse;
+  /** Deletes zero or more records from the `question_images` collection */
+  deleteFromquestion_imagesCollection: Question_ImagesDeleteResponse;
   /** Deletes zero or more records from the `questions` collection */
   deleteFromquestionsCollection: QuestionsDeleteResponse;
+  /** Deletes zero or more records from the `sessions` collection */
+  deleteFromsessionsCollection: SessionsDeleteResponse;
   /** Deletes zero or more records from the `user_books_assignation` collection */
   deleteFromuser_books_assignationCollection: User_Books_AssignationDeleteResponse;
+  /** Deletes zero or more records from the `users` collection */
+  deleteFromusersCollection: UsersDeleteResponse;
+  /** Deletes zero or more records from the `verification_tokens` collection */
+  deleteFromverification_tokensCollection: Verification_TokensDeleteResponse;
+  /** Adds one or more `accounts` records to the collection */
+  insertIntoaccountsCollection?: Maybe<AccountsInsertResponse>;
   /** Adds one or more `answer` records to the collection */
   insertIntoanswerCollection?: Maybe<AnswerInsertResponse>;
   /** Adds one or more `books` records to the collection */
   insertIntobooksCollection?: Maybe<BooksInsertResponse>;
   /** Adds one or more `chapters` records to the collection */
   insertIntochaptersCollection?: Maybe<ChaptersInsertResponse>;
+  /** Adds one or more `question_images` records to the collection */
+  insertIntoquestion_imagesCollection?: Maybe<Question_ImagesInsertResponse>;
   /** Adds one or more `questions` records to the collection */
   insertIntoquestionsCollection?: Maybe<QuestionsInsertResponse>;
+  /** Adds one or more `sessions` records to the collection */
+  insertIntosessionsCollection?: Maybe<SessionsInsertResponse>;
   /** Adds one or more `user_books_assignation` records to the collection */
   insertIntouser_books_assignationCollection?: Maybe<User_Books_AssignationInsertResponse>;
+  /** Adds one or more `users` records to the collection */
+  insertIntousersCollection?: Maybe<UsersInsertResponse>;
+  /** Adds one or more `verification_tokens` records to the collection */
+  insertIntoverification_tokensCollection?: Maybe<Verification_TokensInsertResponse>;
+  /** Updates zero or more records in the `accounts` collection */
+  updateaccountsCollection: AccountsUpdateResponse;
   /** Updates zero or more records in the `answer` collection */
   updateanswerCollection: AnswerUpdateResponse;
   /** Updates zero or more records in the `books` collection */
   updatebooksCollection: BooksUpdateResponse;
   /** Updates zero or more records in the `chapters` collection */
   updatechaptersCollection: ChaptersUpdateResponse;
+  /** Updates zero or more records in the `question_images` collection */
+  updatequestion_imagesCollection: Question_ImagesUpdateResponse;
   /** Updates zero or more records in the `questions` collection */
   updatequestionsCollection: QuestionsUpdateResponse;
+  /** Updates zero or more records in the `sessions` collection */
+  updatesessionsCollection: SessionsUpdateResponse;
   /** Updates zero or more records in the `user_books_assignation` collection */
   updateuser_books_assignationCollection: User_Books_AssignationUpdateResponse;
+  /** Updates zero or more records in the `users` collection */
+  updateusersCollection: UsersUpdateResponse;
+  /** Updates zero or more records in the `verification_tokens` collection */
+  updateverification_tokensCollection: Verification_TokensUpdateResponse;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromaccountsCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<AccountsFilter>;
 };
 
 
@@ -170,6 +207,13 @@ export type MutationDeleteFromchaptersCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationDeleteFromquestion_ImagesCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<Question_ImagesFilter>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationDeleteFromquestionsCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<QuestionsFilter>;
@@ -177,9 +221,36 @@ export type MutationDeleteFromquestionsCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationDeleteFromsessionsCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<SessionsFilter>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationDeleteFromuser_Books_AssignationCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<User_Books_AssignationFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromusersCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<UsersFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromverification_TokensCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<Verification_TokensFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntoaccountsCollectionArgs = {
+  objects: Array<AccountsInsertInput>;
 };
 
 
@@ -202,14 +273,46 @@ export type MutationInsertIntochaptersCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationInsertIntoquestion_ImagesCollectionArgs = {
+  objects: Array<Question_ImagesInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationInsertIntoquestionsCollectionArgs = {
   objects: Array<QuestionsInsertInput>;
 };
 
 
 /** The root type for creating and mutating data */
+export type MutationInsertIntosessionsCollectionArgs = {
+  objects: Array<SessionsInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationInsertIntouser_Books_AssignationCollectionArgs = {
   objects: Array<User_Books_AssignationInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntousersCollectionArgs = {
+  objects: Array<UsersInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntoverification_TokensCollectionArgs = {
+  objects: Array<Verification_TokensInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateaccountsCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<AccountsFilter>;
+  set: AccountsUpdateInput;
 };
 
 
@@ -238,6 +341,14 @@ export type MutationUpdatechaptersCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationUpdatequestion_ImagesCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<Question_ImagesFilter>;
+  set: Question_ImagesUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationUpdatequestionsCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<QuestionsFilter>;
@@ -246,10 +357,34 @@ export type MutationUpdatequestionsCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationUpdatesessionsCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<SessionsFilter>;
+  set: SessionsUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationUpdateuser_Books_AssignationCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<User_Books_AssignationFilter>;
   set: User_Books_AssignationUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateusersCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<UsersFilter>;
+  set: UsersUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateverification_TokensCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<Verification_TokensFilter>;
+  set: Verification_TokensUpdateInput;
 };
 
 export type Node = {
@@ -286,6 +421,8 @@ export type PageInfo = {
 /** The root type for querying data */
 export type Query = {
   __typename?: 'Query';
+  /** A pagable collection of type `accounts` */
+  accountsCollection?: Maybe<AccountsConnection>;
   /** A pagable collection of type `answer` */
   answerCollection?: Maybe<AnswerConnection>;
   /** A pagable collection of type `books` */
@@ -294,10 +431,29 @@ export type Query = {
   chaptersCollection?: Maybe<ChaptersConnection>;
   /** Retrieve a record by its `ID` */
   node?: Maybe<Node>;
+  /** A pagable collection of type `question_images` */
+  question_imagesCollection?: Maybe<Question_ImagesConnection>;
   /** A pagable collection of type `questions` */
   questionsCollection?: Maybe<QuestionsConnection>;
+  /** A pagable collection of type `sessions` */
+  sessionsCollection?: Maybe<SessionsConnection>;
   /** A pagable collection of type `user_books_assignation` */
   user_books_assignationCollection?: Maybe<User_Books_AssignationConnection>;
+  /** A pagable collection of type `users` */
+  usersCollection?: Maybe<UsersConnection>;
+  /** A pagable collection of type `verification_tokens` */
+  verification_tokensCollection?: Maybe<Verification_TokensConnection>;
+};
+
+
+/** The root type for querying data */
+export type QueryAccountsCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<AccountsFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<AccountsOrderBy>>;
 };
 
 
@@ -341,6 +497,17 @@ export type QueryNodeArgs = {
 
 
 /** The root type for querying data */
+export type QueryQuestion_ImagesCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<Question_ImagesFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<Question_ImagesOrderBy>>;
+};
+
+
+/** The root type for querying data */
 export type QueryQuestionsCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
@@ -352,6 +519,17 @@ export type QueryQuestionsCollectionArgs = {
 
 
 /** The root type for querying data */
+export type QuerySessionsCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<SessionsFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<SessionsOrderBy>>;
+};
+
+
+/** The root type for querying data */
 export type QueryUser_Books_AssignationCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
@@ -359,6 +537,28 @@ export type QueryUser_Books_AssignationCollectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Array<User_Books_AssignationOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryUsersCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<UsersFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<UsersOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryVerification_TokensCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<Verification_TokensFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<Verification_TokensOrderBy>>;
 };
 
 /** Boolean expression comparing fields on type "String" */
@@ -396,10 +596,137 @@ export type UuidFilter = {
   neq?: InputMaybe<Scalars['UUID']>;
 };
 
+export type Accounts = Node & {
+  __typename?: 'accounts';
+  access_token?: Maybe<Scalars['String']>;
+  expires_at?: Maybe<Scalars['BigInt']>;
+  id: Scalars['UUID'];
+  id_token?: Maybe<Scalars['String']>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  oauth_token?: Maybe<Scalars['String']>;
+  oauth_token_secret?: Maybe<Scalars['String']>;
+  provider: Scalars['String'];
+  providerAccountId: Scalars['String'];
+  refresh_token?: Maybe<Scalars['String']>;
+  scope?: Maybe<Scalars['String']>;
+  session_state?: Maybe<Scalars['String']>;
+  token_type?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
+  user?: Maybe<Users>;
+  userId?: Maybe<Scalars['UUID']>;
+};
+
+export type AccountsConnection = {
+  __typename?: 'accountsConnection';
+  edges: Array<AccountsEdge>;
+  pageInfo: PageInfo;
+};
+
+export type AccountsDeleteResponse = {
+  __typename?: 'accountsDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Accounts>;
+};
+
+export type AccountsEdge = {
+  __typename?: 'accountsEdge';
+  cursor: Scalars['String'];
+  node: Accounts;
+};
+
+export type AccountsFilter = {
+  access_token?: InputMaybe<StringFilter>;
+  expires_at?: InputMaybe<BigIntFilter>;
+  id?: InputMaybe<UuidFilter>;
+  id_token?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  oauth_token?: InputMaybe<StringFilter>;
+  oauth_token_secret?: InputMaybe<StringFilter>;
+  provider?: InputMaybe<StringFilter>;
+  providerAccountId?: InputMaybe<StringFilter>;
+  refresh_token?: InputMaybe<StringFilter>;
+  scope?: InputMaybe<StringFilter>;
+  session_state?: InputMaybe<StringFilter>;
+  token_type?: InputMaybe<StringFilter>;
+  type?: InputMaybe<StringFilter>;
+  userId?: InputMaybe<UuidFilter>;
+};
+
+export type AccountsInsertInput = {
+  access_token?: InputMaybe<Scalars['String']>;
+  expires_at?: InputMaybe<Scalars['BigInt']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  id_token?: InputMaybe<Scalars['String']>;
+  oauth_token?: InputMaybe<Scalars['String']>;
+  oauth_token_secret?: InputMaybe<Scalars['String']>;
+  provider?: InputMaybe<Scalars['String']>;
+  providerAccountId?: InputMaybe<Scalars['String']>;
+  refresh_token?: InputMaybe<Scalars['String']>;
+  scope?: InputMaybe<Scalars['String']>;
+  session_state?: InputMaybe<Scalars['String']>;
+  token_type?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['UUID']>;
+};
+
+export type AccountsInsertResponse = {
+  __typename?: 'accountsInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Accounts>;
+};
+
+export type AccountsOrderBy = {
+  access_token?: InputMaybe<OrderByDirection>;
+  expires_at?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  id_token?: InputMaybe<OrderByDirection>;
+  oauth_token?: InputMaybe<OrderByDirection>;
+  oauth_token_secret?: InputMaybe<OrderByDirection>;
+  provider?: InputMaybe<OrderByDirection>;
+  providerAccountId?: InputMaybe<OrderByDirection>;
+  refresh_token?: InputMaybe<OrderByDirection>;
+  scope?: InputMaybe<OrderByDirection>;
+  session_state?: InputMaybe<OrderByDirection>;
+  token_type?: InputMaybe<OrderByDirection>;
+  type?: InputMaybe<OrderByDirection>;
+  userId?: InputMaybe<OrderByDirection>;
+};
+
+export type AccountsUpdateInput = {
+  access_token?: InputMaybe<Scalars['String']>;
+  expires_at?: InputMaybe<Scalars['BigInt']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  id_token?: InputMaybe<Scalars['String']>;
+  oauth_token?: InputMaybe<Scalars['String']>;
+  oauth_token_secret?: InputMaybe<Scalars['String']>;
+  provider?: InputMaybe<Scalars['String']>;
+  providerAccountId?: InputMaybe<Scalars['String']>;
+  refresh_token?: InputMaybe<Scalars['String']>;
+  scope?: InputMaybe<Scalars['String']>;
+  session_state?: InputMaybe<Scalars['String']>;
+  token_type?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['UUID']>;
+};
+
+export type AccountsUpdateResponse = {
+  __typename?: 'accountsUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Accounts>;
+};
+
 export type Answer = Node & {
   __typename?: 'answer';
   created_at?: Maybe<Scalars['Datetime']>;
   id: Scalars['UUID'];
+  image?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID'];
@@ -430,6 +757,7 @@ export type AnswerEdge = {
 export type AnswerFilter = {
   created_at?: InputMaybe<DatetimeFilter>;
   id?: InputMaybe<UuidFilter>;
+  image?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
   nodeId?: InputMaybe<IdFilter>;
   question?: InputMaybe<UuidFilter>;
@@ -438,6 +766,7 @@ export type AnswerFilter = {
 export type AnswerInsertInput = {
   created_at?: InputMaybe<Scalars['Datetime']>;
   id?: InputMaybe<Scalars['UUID']>;
+  image?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   question?: InputMaybe<Scalars['UUID']>;
 };
@@ -453,6 +782,7 @@ export type AnswerInsertResponse = {
 export type AnswerOrderBy = {
   created_at?: InputMaybe<OrderByDirection>;
   id?: InputMaybe<OrderByDirection>;
+  image?: InputMaybe<OrderByDirection>;
   name?: InputMaybe<OrderByDirection>;
   question?: InputMaybe<OrderByDirection>;
 };
@@ -460,6 +790,7 @@ export type AnswerOrderBy = {
 export type AnswerUpdateInput = {
   created_at?: InputMaybe<Scalars['Datetime']>;
   id?: InputMaybe<Scalars['UUID']>;
+  image?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   question?: InputMaybe<Scalars['UUID']>;
 };
@@ -684,6 +1015,82 @@ export type ChaptersUpdateResponse = {
   records: Array<Chapters>;
 };
 
+export type Question_Images = Node & {
+  __typename?: 'question_images';
+  created_at?: Maybe<Scalars['Datetime']>;
+  id: Scalars['UUID'];
+  image?: Maybe<Scalars['String']>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  question?: Maybe<Scalars['UUID']>;
+  questions?: Maybe<Questions>;
+};
+
+export type Question_ImagesConnection = {
+  __typename?: 'question_imagesConnection';
+  edges: Array<Question_ImagesEdge>;
+  pageInfo: PageInfo;
+};
+
+export type Question_ImagesDeleteResponse = {
+  __typename?: 'question_imagesDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Question_Images>;
+};
+
+export type Question_ImagesEdge = {
+  __typename?: 'question_imagesEdge';
+  cursor: Scalars['String'];
+  node: Question_Images;
+};
+
+export type Question_ImagesFilter = {
+  created_at?: InputMaybe<DatetimeFilter>;
+  id?: InputMaybe<UuidFilter>;
+  image?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  question?: InputMaybe<UuidFilter>;
+};
+
+export type Question_ImagesInsertInput = {
+  created_at?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  image?: InputMaybe<Scalars['String']>;
+  question?: InputMaybe<Scalars['UUID']>;
+};
+
+export type Question_ImagesInsertResponse = {
+  __typename?: 'question_imagesInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Question_Images>;
+};
+
+export type Question_ImagesOrderBy = {
+  created_at?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  image?: InputMaybe<OrderByDirection>;
+  question?: InputMaybe<OrderByDirection>;
+};
+
+export type Question_ImagesUpdateInput = {
+  created_at?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  image?: InputMaybe<Scalars['String']>;
+  question?: InputMaybe<Scalars['UUID']>;
+};
+
+export type Question_ImagesUpdateResponse = {
+  __typename?: 'question_imagesUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Question_Images>;
+};
+
 export type Questions = Node & {
   __typename?: 'questions';
   answerCollection?: Maybe<AnswerConnection>;
@@ -697,6 +1104,7 @@ export type Questions = Node & {
   name?: Maybe<Scalars['String']>;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID'];
+  question_imagesCollection?: Maybe<Question_ImagesConnection>;
 };
 
 
@@ -707,6 +1115,16 @@ export type QuestionsAnswerCollectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Array<AnswerOrderBy>>;
+};
+
+
+export type QuestionsQuestion_ImagesCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<Question_ImagesFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<Question_ImagesOrderBy>>;
 };
 
 export type QuestionsConnection = {
@@ -782,6 +1200,82 @@ export type QuestionsUpdateResponse = {
   records: Array<Questions>;
 };
 
+export type Sessions = Node & {
+  __typename?: 'sessions';
+  expires: Scalars['Datetime'];
+  id: Scalars['UUID'];
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  sessionToken: Scalars['String'];
+  user?: Maybe<Users>;
+  userId?: Maybe<Scalars['UUID']>;
+};
+
+export type SessionsConnection = {
+  __typename?: 'sessionsConnection';
+  edges: Array<SessionsEdge>;
+  pageInfo: PageInfo;
+};
+
+export type SessionsDeleteResponse = {
+  __typename?: 'sessionsDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Sessions>;
+};
+
+export type SessionsEdge = {
+  __typename?: 'sessionsEdge';
+  cursor: Scalars['String'];
+  node: Sessions;
+};
+
+export type SessionsFilter = {
+  expires?: InputMaybe<DatetimeFilter>;
+  id?: InputMaybe<UuidFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  sessionToken?: InputMaybe<StringFilter>;
+  userId?: InputMaybe<UuidFilter>;
+};
+
+export type SessionsInsertInput = {
+  expires?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  sessionToken?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['UUID']>;
+};
+
+export type SessionsInsertResponse = {
+  __typename?: 'sessionsInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Sessions>;
+};
+
+export type SessionsOrderBy = {
+  expires?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  sessionToken?: InputMaybe<OrderByDirection>;
+  userId?: InputMaybe<OrderByDirection>;
+};
+
+export type SessionsUpdateInput = {
+  expires?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  sessionToken?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['UUID']>;
+};
+
+export type SessionsUpdateResponse = {
+  __typename?: 'sessionsUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Sessions>;
+};
+
 export type User_Books_Assignation = Node & {
   __typename?: 'user_books_assignation';
   book?: Maybe<Scalars['UUID']>;
@@ -791,6 +1285,7 @@ export type User_Books_Assignation = Node & {
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID'];
   user?: Maybe<Scalars['UUID']>;
+  users?: Maybe<Users>;
 };
 
 export type User_Books_AssignationConnection = {
@@ -858,10 +1353,216 @@ export type User_Books_AssignationUpdateResponse = {
   records: Array<User_Books_Assignation>;
 };
 
+export type Users = Node & {
+  __typename?: 'users';
+  accountsCollection?: Maybe<AccountsConnection>;
+  email?: Maybe<Scalars['String']>;
+  emailVerified?: Maybe<Scalars['Datetime']>;
+  firstName?: Maybe<Scalars['String']>;
+  id: Scalars['UUID'];
+  image?: Maybe<Scalars['String']>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+  lastName?: Maybe<Scalars['String']>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  sessionsCollection?: Maybe<SessionsConnection>;
+  user_books_assignationCollection?: Maybe<User_Books_AssignationConnection>;
+};
+
+
+export type UsersAccountsCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<AccountsFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<AccountsOrderBy>>;
+};
+
+
+export type UsersSessionsCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<SessionsFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<SessionsOrderBy>>;
+};
+
+
+export type UsersUser_Books_AssignationCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<User_Books_AssignationFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<User_Books_AssignationOrderBy>>;
+};
+
+export type UsersConnection = {
+  __typename?: 'usersConnection';
+  edges: Array<UsersEdge>;
+  pageInfo: PageInfo;
+};
+
+export type UsersDeleteResponse = {
+  __typename?: 'usersDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Users>;
+};
+
+export type UsersEdge = {
+  __typename?: 'usersEdge';
+  cursor: Scalars['String'];
+  node: Users;
+};
+
+export type UsersFilter = {
+  email?: InputMaybe<StringFilter>;
+  emailVerified?: InputMaybe<DatetimeFilter>;
+  firstName?: InputMaybe<StringFilter>;
+  id?: InputMaybe<UuidFilter>;
+  image?: InputMaybe<StringFilter>;
+  isAdmin?: InputMaybe<BooleanFilter>;
+  isEnabled?: InputMaybe<BooleanFilter>;
+  lastName?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+};
+
+export type UsersInsertInput = {
+  email?: InputMaybe<Scalars['String']>;
+  emailVerified?: InputMaybe<Scalars['Datetime']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  image?: InputMaybe<Scalars['String']>;
+  isAdmin?: InputMaybe<Scalars['Boolean']>;
+  isEnabled?: InputMaybe<Scalars['Boolean']>;
+  lastName?: InputMaybe<Scalars['String']>;
+};
+
+export type UsersInsertResponse = {
+  __typename?: 'usersInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Users>;
+};
+
+export type UsersOrderBy = {
+  email?: InputMaybe<OrderByDirection>;
+  emailVerified?: InputMaybe<OrderByDirection>;
+  firstName?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  image?: InputMaybe<OrderByDirection>;
+  isAdmin?: InputMaybe<OrderByDirection>;
+  isEnabled?: InputMaybe<OrderByDirection>;
+  lastName?: InputMaybe<OrderByDirection>;
+};
+
+export type UsersUpdateInput = {
+  email?: InputMaybe<Scalars['String']>;
+  emailVerified?: InputMaybe<Scalars['Datetime']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  image?: InputMaybe<Scalars['String']>;
+  isAdmin?: InputMaybe<Scalars['Boolean']>;
+  isEnabled?: InputMaybe<Scalars['Boolean']>;
+  lastName?: InputMaybe<Scalars['String']>;
+};
+
+export type UsersUpdateResponse = {
+  __typename?: 'usersUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Users>;
+};
+
+export type Verification_Tokens = Node & {
+  __typename?: 'verification_tokens';
+  expires: Scalars['Datetime'];
+  identifier?: Maybe<Scalars['String']>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  token: Scalars['String'];
+};
+
+export type Verification_TokensConnection = {
+  __typename?: 'verification_tokensConnection';
+  edges: Array<Verification_TokensEdge>;
+  pageInfo: PageInfo;
+};
+
+export type Verification_TokensDeleteResponse = {
+  __typename?: 'verification_tokensDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Verification_Tokens>;
+};
+
+export type Verification_TokensEdge = {
+  __typename?: 'verification_tokensEdge';
+  cursor: Scalars['String'];
+  node: Verification_Tokens;
+};
+
+export type Verification_TokensFilter = {
+  expires?: InputMaybe<DatetimeFilter>;
+  identifier?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  token?: InputMaybe<StringFilter>;
+};
+
+export type Verification_TokensInsertInput = {
+  expires?: InputMaybe<Scalars['Datetime']>;
+  identifier?: InputMaybe<Scalars['String']>;
+  token?: InputMaybe<Scalars['String']>;
+};
+
+export type Verification_TokensInsertResponse = {
+  __typename?: 'verification_tokensInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Verification_Tokens>;
+};
+
+export type Verification_TokensOrderBy = {
+  expires?: InputMaybe<OrderByDirection>;
+  identifier?: InputMaybe<OrderByDirection>;
+  token?: InputMaybe<OrderByDirection>;
+};
+
+export type Verification_TokensUpdateInput = {
+  expires?: InputMaybe<Scalars['Datetime']>;
+  identifier?: InputMaybe<Scalars['String']>;
+  token?: InputMaybe<Scalars['String']>;
+};
+
+export type Verification_TokensUpdateResponse = {
+  __typename?: 'verification_tokensUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Verification_Tokens>;
+};
+
 export type GetAllForAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllForAdminQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> } | null } }> } | null, questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null } }> } | null };
+export type GetAllForAdminQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }> } | null, questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> } | null } }> } | null };
+
+export type ChaptersInBookFragment = { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> };
+
+export type AssignationsInBookFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> };
+
+export type AnswersInQuestionFragment = { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> };
+
+export type ImagesOfQuestionFragment = { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> };
 
 export type GetAssignedBooksByUserIdQueryVariables = Exact<{
   userId: Scalars['UUID'];
@@ -884,6 +1585,21 @@ export type CreateNewChaptersMutationVariables = Exact<{
 
 export type CreateNewChaptersMutation = { __typename?: 'Mutation', insertIntochaptersCollection?: { __typename?: 'chaptersInsertResponse', records: Array<{ __typename?: 'chapters', nodeId: string, id: any, name?: string | null, book?: any | null, parent?: any | null }> } | null };
 
+export type CreateNewQuestionMutationVariables = Exact<{
+  newQuestion: Array<QuestionsInsertInput> | QuestionsInsertInput;
+}>;
+
+
+export type CreateNewQuestionMutation = { __typename?: 'Mutation', insertIntoquestionsCollection?: { __typename?: 'questionsInsertResponse', records: Array<{ __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null }> } | null };
+
+export type LinkQuestionsAnswersMutationVariables = Exact<{
+  questionImages: Array<Question_ImagesInsertInput> | Question_ImagesInsertInput;
+  answerImages: Array<AnswerInsertInput> | AnswerInsertInput;
+}>;
+
+
+export type LinkQuestionsAnswersMutation = { __typename?: 'Mutation', insertIntoquestion_imagesCollection?: { __typename?: 'question_imagesInsertResponse', records: Array<{ __typename?: 'question_images', nodeId: string, id: any, image?: string | null }> } | null, insertIntoanswerCollection?: { __typename?: 'answerInsertResponse', records: Array<{ __typename?: 'answer', nodeId: string, id: any, image?: string | null }> } | null };
+
 export type RemoveChaptersMutationVariables = Exact<{
   chapterIds: Array<Scalars['UUID']> | Scalars['UUID'];
 }>;
@@ -899,7 +1615,80 @@ export type UpdateExistingBookMutationVariables = Exact<{
 
 export type UpdateExistingBookMutation = { __typename?: 'Mutation', updatebooksCollection: { __typename?: 'booksUpdateResponse', records: Array<{ __typename?: 'books', nodeId: string, id: any, name?: string | null, color?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, book?: any | null, parent?: any | null } }> } | null }> } };
 
+export type UpdateExistingQuestionMutationVariables = Exact<{
+  questionID: Scalars['UUID'];
+  question: QuestionsUpdateInput;
+}>;
 
+
+export type UpdateExistingQuestionMutation = { __typename?: 'Mutation', updatequestionsCollection: { __typename?: 'questionsUpdateResponse', records: Array<{ __typename?: 'questions', id: any, nodeId: string, name?: string | null, description?: string | null, chapters?: { __typename?: 'chapters', id: any, nodeId: string, name?: string | null } | null, books?: { __typename?: 'books', id: any, nodeId: string, name?: string | null } | null }> } };
+
+export type GetAnswersForQuestionQueryVariables = Exact<{
+  questionId: Scalars['UUID'];
+}>;
+
+
+export type GetAnswersForQuestionQuery = { __typename?: 'Query', answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null };
+
+export type GetQuestionsForChaptersQueryVariables = Exact<{
+  chapterIds: Array<Scalars['UUID']> | Scalars['UUID'];
+}>;
+
+
+export type GetQuestionsForChaptersQuery = { __typename?: 'Query', questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> } | null } }> } | null };
+
+export type GetAssignedBooksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> } | null } }> } | null };
+
+export const ChaptersInBookFragmentDoc = gql`
+    fragment chaptersInBook on chaptersConnection {
+  edges {
+    node {
+      nodeId
+      id
+      name
+    }
+  }
+}
+    `;
+export const AssignationsInBookFragmentDoc = gql`
+    fragment assignationsInBook on user_books_assignationConnection {
+  edges {
+    node {
+      nodeId
+      id
+      user
+      book
+    }
+  }
+}
+    `;
+export const AnswersInQuestionFragmentDoc = gql`
+    fragment answersInQuestion on answerConnection {
+  edges {
+    cursor
+    node {
+      nodeId
+      id
+      name
+      image
+    }
+  }
+}
+    `;
+export const ImagesOfQuestionFragmentDoc = gql`
+    fragment imagesOfQuestion on question_imagesConnection {
+  edges {
+    node {
+      nodeId
+      id
+      image
+    }
+  }
+}
+    `;
 export const GetAllForAdminDocument = gql`
     query GetAllForAdmin {
   booksCollection {
@@ -910,13 +1699,10 @@ export const GetAllForAdminDocument = gql`
         color
         name
         chaptersCollection {
-          edges {
-            node {
-              nodeId
-              id
-              name
-            }
-          }
+          ...chaptersInBook
+        }
+        user_books_assignationCollection {
+          ...assignationsInBook
         }
       }
     }
@@ -938,11 +1724,20 @@ export const GetAllForAdminDocument = gql`
           id
           name
         }
+        answerCollection {
+          ...answersInQuestion
+        }
+        question_imagesCollection {
+          ...imagesOfQuestion
+        }
       }
     }
   }
 }
-    `;
+    ${ChaptersInBookFragmentDoc}
+${AssignationsInBookFragmentDoc}
+${AnswersInQuestionFragmentDoc}
+${ImagesOfQuestionFragmentDoc}`;
 
 /**
  * __useGetAllForAdminQuery__
@@ -1101,6 +1896,89 @@ export function useCreateNewChaptersMutation(baseOptions?: Apollo.MutationHookOp
 export type CreateNewChaptersMutationHookResult = ReturnType<typeof useCreateNewChaptersMutation>;
 export type CreateNewChaptersMutationResult = Apollo.MutationResult<CreateNewChaptersMutation>;
 export type CreateNewChaptersMutationOptions = Apollo.BaseMutationOptions<CreateNewChaptersMutation, CreateNewChaptersMutationVariables>;
+export const CreateNewQuestionDocument = gql`
+    mutation CreateNewQuestion($newQuestion: [questionsInsertInput!]!) {
+  insertIntoquestionsCollection(objects: $newQuestion) {
+    records {
+      nodeId
+      id
+      name
+      description
+    }
+  }
+}
+    `;
+export type CreateNewQuestionMutationFn = Apollo.MutationFunction<CreateNewQuestionMutation, CreateNewQuestionMutationVariables>;
+
+/**
+ * __useCreateNewQuestionMutation__
+ *
+ * To run a mutation, you first call `useCreateNewQuestionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNewQuestionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNewQuestionMutation, { data, loading, error }] = useCreateNewQuestionMutation({
+ *   variables: {
+ *      newQuestion: // value for 'newQuestion'
+ *   },
+ * });
+ */
+export function useCreateNewQuestionMutation(baseOptions?: Apollo.MutationHookOptions<CreateNewQuestionMutation, CreateNewQuestionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateNewQuestionMutation, CreateNewQuestionMutationVariables>(CreateNewQuestionDocument, options);
+      }
+export type CreateNewQuestionMutationHookResult = ReturnType<typeof useCreateNewQuestionMutation>;
+export type CreateNewQuestionMutationResult = Apollo.MutationResult<CreateNewQuestionMutation>;
+export type CreateNewQuestionMutationOptions = Apollo.BaseMutationOptions<CreateNewQuestionMutation, CreateNewQuestionMutationVariables>;
+export const LinkQuestionsAnswersDocument = gql`
+    mutation LinkQuestionsAnswers($questionImages: [question_imagesInsertInput!]!, $answerImages: [answerInsertInput!]!) {
+  insertIntoquestion_imagesCollection(objects: $questionImages) {
+    records {
+      nodeId
+      id
+      image
+    }
+  }
+  insertIntoanswerCollection(objects: $answerImages) {
+    records {
+      nodeId
+      id
+      image
+    }
+  }
+}
+    `;
+export type LinkQuestionsAnswersMutationFn = Apollo.MutationFunction<LinkQuestionsAnswersMutation, LinkQuestionsAnswersMutationVariables>;
+
+/**
+ * __useLinkQuestionsAnswersMutation__
+ *
+ * To run a mutation, you first call `useLinkQuestionsAnswersMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLinkQuestionsAnswersMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [linkQuestionsAnswersMutation, { data, loading, error }] = useLinkQuestionsAnswersMutation({
+ *   variables: {
+ *      questionImages: // value for 'questionImages'
+ *      answerImages: // value for 'answerImages'
+ *   },
+ * });
+ */
+export function useLinkQuestionsAnswersMutation(baseOptions?: Apollo.MutationHookOptions<LinkQuestionsAnswersMutation, LinkQuestionsAnswersMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LinkQuestionsAnswersMutation, LinkQuestionsAnswersMutationVariables>(LinkQuestionsAnswersDocument, options);
+      }
+export type LinkQuestionsAnswersMutationHookResult = ReturnType<typeof useLinkQuestionsAnswersMutation>;
+export type LinkQuestionsAnswersMutationResult = Apollo.MutationResult<LinkQuestionsAnswersMutation>;
+export type LinkQuestionsAnswersMutationOptions = Apollo.BaseMutationOptions<LinkQuestionsAnswersMutation, LinkQuestionsAnswersMutationVariables>;
 export const RemoveChaptersDocument = gql`
     mutation RemoveChapters($chapterIds: [UUID!]!) {
   deleteFromchaptersCollection(filter: {id: {in: $chapterIds}}, atMost: 1000) {
@@ -1189,3 +2067,175 @@ export function useUpdateExistingBookMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateExistingBookMutationHookResult = ReturnType<typeof useUpdateExistingBookMutation>;
 export type UpdateExistingBookMutationResult = Apollo.MutationResult<UpdateExistingBookMutation>;
 export type UpdateExistingBookMutationOptions = Apollo.BaseMutationOptions<UpdateExistingBookMutation, UpdateExistingBookMutationVariables>;
+export const UpdateExistingQuestionDocument = gql`
+    mutation UpdateExistingQuestion($questionID: UUID!, $question: questionsUpdateInput!) {
+  updatequestionsCollection(filter: {id: {eq: $questionID}}, set: $question) {
+    records {
+      id
+      nodeId
+      name
+      description
+      chapters {
+        id
+        nodeId
+        name
+      }
+      books {
+        id
+        nodeId
+        name
+      }
+    }
+  }
+}
+    `;
+export type UpdateExistingQuestionMutationFn = Apollo.MutationFunction<UpdateExistingQuestionMutation, UpdateExistingQuestionMutationVariables>;
+
+/**
+ * __useUpdateExistingQuestionMutation__
+ *
+ * To run a mutation, you first call `useUpdateExistingQuestionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateExistingQuestionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateExistingQuestionMutation, { data, loading, error }] = useUpdateExistingQuestionMutation({
+ *   variables: {
+ *      questionID: // value for 'questionID'
+ *      question: // value for 'question'
+ *   },
+ * });
+ */
+export function useUpdateExistingQuestionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateExistingQuestionMutation, UpdateExistingQuestionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateExistingQuestionMutation, UpdateExistingQuestionMutationVariables>(UpdateExistingQuestionDocument, options);
+      }
+export type UpdateExistingQuestionMutationHookResult = ReturnType<typeof useUpdateExistingQuestionMutation>;
+export type UpdateExistingQuestionMutationResult = Apollo.MutationResult<UpdateExistingQuestionMutation>;
+export type UpdateExistingQuestionMutationOptions = Apollo.BaseMutationOptions<UpdateExistingQuestionMutation, UpdateExistingQuestionMutationVariables>;
+export const GetAnswersForQuestionDocument = gql`
+    query GetAnswersForQuestion($questionId: UUID!) {
+  answerCollection(filter: {question: {eq: $questionId}}) {
+    ...answersInQuestion
+  }
+}
+    ${AnswersInQuestionFragmentDoc}`;
+
+/**
+ * __useGetAnswersForQuestionQuery__
+ *
+ * To run a query within a React component, call `useGetAnswersForQuestionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAnswersForQuestionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAnswersForQuestionQuery({
+ *   variables: {
+ *      questionId: // value for 'questionId'
+ *   },
+ * });
+ */
+export function useGetAnswersForQuestionQuery(baseOptions: Apollo.QueryHookOptions<GetAnswersForQuestionQuery, GetAnswersForQuestionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAnswersForQuestionQuery, GetAnswersForQuestionQueryVariables>(GetAnswersForQuestionDocument, options);
+      }
+export function useGetAnswersForQuestionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAnswersForQuestionQuery, GetAnswersForQuestionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAnswersForQuestionQuery, GetAnswersForQuestionQueryVariables>(GetAnswersForQuestionDocument, options);
+        }
+export type GetAnswersForQuestionQueryHookResult = ReturnType<typeof useGetAnswersForQuestionQuery>;
+export type GetAnswersForQuestionLazyQueryHookResult = ReturnType<typeof useGetAnswersForQuestionLazyQuery>;
+export type GetAnswersForQuestionQueryResult = Apollo.QueryResult<GetAnswersForQuestionQuery, GetAnswersForQuestionQueryVariables>;
+export const GetQuestionsForChaptersDocument = gql`
+    query GetQuestionsForChapters($chapterIds: [UUID!]!) {
+  questionsCollection(filter: {chapter: {in: $chapterIds}}) {
+    edges {
+      node {
+        nodeId
+        id
+        name
+        description
+        question_imagesCollection {
+          ...imagesOfQuestion
+        }
+      }
+    }
+  }
+}
+    ${ImagesOfQuestionFragmentDoc}`;
+
+/**
+ * __useGetQuestionsForChaptersQuery__
+ *
+ * To run a query within a React component, call `useGetQuestionsForChaptersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuestionsForChaptersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetQuestionsForChaptersQuery({
+ *   variables: {
+ *      chapterIds: // value for 'chapterIds'
+ *   },
+ * });
+ */
+export function useGetQuestionsForChaptersQuery(baseOptions: Apollo.QueryHookOptions<GetQuestionsForChaptersQuery, GetQuestionsForChaptersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetQuestionsForChaptersQuery, GetQuestionsForChaptersQueryVariables>(GetQuestionsForChaptersDocument, options);
+      }
+export function useGetQuestionsForChaptersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetQuestionsForChaptersQuery, GetQuestionsForChaptersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetQuestionsForChaptersQuery, GetQuestionsForChaptersQueryVariables>(GetQuestionsForChaptersDocument, options);
+        }
+export type GetQuestionsForChaptersQueryHookResult = ReturnType<typeof useGetQuestionsForChaptersQuery>;
+export type GetQuestionsForChaptersLazyQueryHookResult = ReturnType<typeof useGetQuestionsForChaptersLazyQuery>;
+export type GetQuestionsForChaptersQueryResult = Apollo.QueryResult<GetQuestionsForChaptersQuery, GetQuestionsForChaptersQueryVariables>;
+export const GetAssignedBooksDocument = gql`
+    query GetAssignedBooks {
+  booksCollection {
+    edges {
+      node {
+        id
+        nodeId
+        name
+        chaptersCollection {
+          ...chaptersInBook
+        }
+      }
+    }
+  }
+}
+    ${ChaptersInBookFragmentDoc}`;
+
+/**
+ * __useGetAssignedBooksQuery__
+ *
+ * To run a query within a React component, call `useGetAssignedBooksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAssignedBooksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAssignedBooksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAssignedBooksQuery(baseOptions?: Apollo.QueryHookOptions<GetAssignedBooksQuery, GetAssignedBooksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAssignedBooksQuery, GetAssignedBooksQueryVariables>(GetAssignedBooksDocument, options);
+      }
+export function useGetAssignedBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAssignedBooksQuery, GetAssignedBooksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAssignedBooksQuery, GetAssignedBooksQueryVariables>(GetAssignedBooksDocument, options);
+        }
+export type GetAssignedBooksQueryHookResult = ReturnType<typeof useGetAssignedBooksQuery>;
+export type GetAssignedBooksLazyQueryHookResult = ReturnType<typeof useGetAssignedBooksLazyQuery>;
+export type GetAssignedBooksQueryResult = Apollo.QueryResult<GetAssignedBooksQuery, GetAssignedBooksQueryVariables>;

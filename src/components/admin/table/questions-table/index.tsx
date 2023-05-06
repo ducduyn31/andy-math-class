@@ -1,50 +1,23 @@
 import { AdminQuestionRow } from "@/components/admin/table/questions-table/components/question-row";
-import { bookDatabase } from "@/components/admin/table/books-table";
-import { faker } from "@faker-js/faker";
 import React, { useCallback, useEffect, useState } from "react";
 import { SharedContext } from "@/layout/AdminLayout";
 import { Question } from "@/models";
 import { useAdminContext } from "@/hooks/use-admin-context";
-
-const questionDatabase: Question[] = [...Array(100).keys()].map((i) => {
-  const selectedBook =
-    bookDatabase[
-      faker.datatype.number({ min: 0, max: bookDatabase.length - 1 })
-    ];
-  const selectedChapter =
-    selectedBook.chapters.length > 0
-      ? selectedBook.chapters[
-          faker.datatype.number({
-            min: 0,
-            max: selectedBook.chapters.length - 1,
-          })
-        ]
-      : null;
-  return {
-    id: `${i}`,
-    name: `Question ${i % 10}`,
-    description: faker.lorem.paragraph(),
-    book: selectedBook,
-    chapter: selectedChapter,
-    completed: faker.datatype.boolean(),
-  };
-});
+import { useModal } from "@/hooks/use-modal";
+import { QuestionModificationModal } from "@/components/admin/table/questions-table/components/question-edit";
 
 const itemPerPage = 10;
 
 interface Props {
-  setQuestionModification: SharedContext["setQuestionModification"];
   filteredInput: SharedContext["filteredInput"];
 }
 
-export const AdminQuestionTable: React.FC<Props> = ({
-  setQuestionModification,
-  filteredInput,
-}) => {
+export const AdminQuestionTable: React.FC<Props> = ({ filteredInput }) => {
+  const { openModal } = useModal(QuestionModificationModal);
   const [page, setPage] = useState(0);
   const [dataset, setDataset] = useState<Question[]>([]);
   const { filteredQuestion } = filteredInput;
-  const { questions, totalQuestions } = useAdminContext();
+  const { questions, totalQuestions, books } = useAdminContext();
   const updatePaginationItem = useCallback(() => {
     const start = page * itemPerPage;
     setDataset(questions.slice(start, start + itemPerPage));
@@ -89,11 +62,7 @@ export const AdminQuestionTable: React.FC<Props> = ({
             </thead>
             <tbody>
               {dataset.map((question) => (
-                <AdminQuestionRow
-                  key={question.id}
-                  question={question}
-                  setQuestionModification={setQuestionModification}
-                />
+                <AdminQuestionRow key={question.id} question={question} />
               ))}
             </tbody>
           </table>
@@ -119,16 +88,7 @@ export const AdminQuestionTable: React.FC<Props> = ({
         <label
           htmlFor="question-modification-modal"
           className={"btn btn-primary mt-2 sm:mt-0"}
-          onClick={() =>
-            setQuestionModification((prevState: Question) => {
-              return {
-                ...prevState,
-                name: "",
-                book: bookDatabase[0],
-                chapter: null,
-              };
-            })
-          }
+          onClick={() => openModal({ question: null, books })}
         >
           Add question
         </label>
@@ -136,5 +96,3 @@ export const AdminQuestionTable: React.FC<Props> = ({
     </>
   );
 };
-
-export { questionDatabase };

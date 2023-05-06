@@ -145,4 +145,152 @@ export interface Database {
       [_ in never]: never;
     };
   };
+  public: {
+    Tables: {
+      answer: {
+        Row: {
+          created_at: string | null;
+          id: string;
+          image: string | null;
+          name: string | null;
+          question: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          id: string;
+          image?: string | null;
+          name?: string | null;
+          question?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          id?: string;
+          image?: string | null;
+          name?: string | null;
+          question?: string | null;
+        };
+      };
+      books: {
+        Row: {
+          color: string | null;
+          created_at: string | null;
+          id: string;
+          name: string | null;
+        };
+        Insert: {
+          color?: string | null;
+          created_at?: string | null;
+          id?: string;
+          name?: string | null;
+        };
+        Update: {
+          color?: string | null;
+          created_at?: string | null;
+          id?: string;
+          name?: string | null;
+        };
+      };
+      chapters: {
+        Row: {
+          book: string | null;
+          created_at: string | null;
+          id: string;
+          name: string | null;
+          parent: string | null;
+        };
+        Insert: {
+          book?: string | null;
+          created_at?: string | null;
+          id?: string;
+          name?: string | null;
+          parent?: string | null;
+        };
+        Update: {
+          book?: string | null;
+          created_at?: string | null;
+          id?: string;
+          name?: string | null;
+          parent?: string | null;
+        };
+      };
+      question_images: {
+        Row: {
+          created_at: string | null;
+          id: string;
+          image: string | null;
+          question: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          id?: string;
+          image?: string | null;
+          question?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          id?: string;
+          image?: string | null;
+          question?: string | null;
+        };
+      };
+      questions: {
+        Row: {
+          book: string | null;
+          chapter: string | null;
+          created_at: string | null;
+          description: string | null;
+          id: string;
+          name: string | null;
+        };
+        Insert: {
+          book?: string | null;
+          chapter?: string | null;
+          created_at?: string | null;
+          description?: string | null;
+          id?: string;
+          name?: string | null;
+        };
+        Update: {
+          book?: string | null;
+          chapter?: string | null;
+          created_at?: string | null;
+          description?: string | null;
+          id?: string;
+          name?: string | null;
+        };
+      };
+      user_books_assignation: {
+        Row: {
+          book: string | null;
+          created_at: string | null;
+          id: string;
+          user: string | null;
+        };
+        Insert: {
+          book?: string | null;
+          created_at?: string | null;
+          id?: string;
+          user?: string | null;
+        };
+        Update: {
+          book?: string | null;
+          created_at?: string | null;
+          id?: string;
+          user?: string | null;
+        };
+      };
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      [_ in never]: never;
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
+  };
 }

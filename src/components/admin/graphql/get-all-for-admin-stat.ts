@@ -10,13 +10,10 @@ export default gql`
           color
           name
           chaptersCollection {
-            edges {
-              node {
-                nodeId
-                id
-                name
-              }
-            }
+            ...chaptersInBook
+          }
+          user_books_assignationCollection {
+            ...assignationsInBook
           }
         }
       }
@@ -38,7 +35,56 @@ export default gql`
             id
             name
           }
+          answerCollection {
+            ...answersInQuestion
+          }
+          question_imagesCollection {
+            ...imagesOfQuestion
+          }
         }
+      }
+    }
+  }
+
+  fragment chaptersInBook on chaptersConnection {
+    edges {
+      node {
+        nodeId
+        id
+        name
+      }
+    }
+  }
+
+  fragment assignationsInBook on user_books_assignationConnection {
+    edges {
+      node {
+        nodeId
+        id
+        user
+        book
+      }
+    }
+  }
+
+  fragment answersInQuestion on answerConnection {
+    edges {
+      cursor
+      node {
+        nodeId
+        id
+        name
+        image
+      }
+    }
+  }
+
+  fragment imagesOfQuestion on question_imagesConnection {
+    edges {
+      node {
+        nodeId
+        id
+        image
       }
     }
   }

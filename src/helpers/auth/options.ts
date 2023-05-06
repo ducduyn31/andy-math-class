@@ -31,7 +31,6 @@ export const authOptions: AuthOptions = {
         const payload = {
           aud: "authenticated",
           exp: Math.floor(new Date(session.expires).getTime() / 1000),
-          sub: user.id || token.sub,
           email: user.email || token.email,
           role: user.isAdmin ? "service_role" : "authenticated",
         };

@@ -18,7 +18,6 @@ export const updateCacheOnRemoveChapters: MutationUpdaterFunction<
 > = (cache, { data }) => {
   if (data?.deleteFromchaptersCollection?.records) {
     data.deleteFromchaptersCollection.records.forEach((chapter) => {
-      console.log(chapter);
       cache.evict({
         id: cache.identify(chapter),
       });

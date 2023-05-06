@@ -780,6 +780,47 @@
                 "name": "filter",
                 "type": {
                   "kind": "INPUT_OBJECT",
+                  "name": "accountsFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "deleteFromaccountsCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "accountsDeleteResponse",
+                "ofType": null
+              }
+            },
+            "description": "Deletes zero or more records from the `accounts` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
                   "name": "answerFilter",
                   "ofType": null
                 },
@@ -903,6 +944,47 @@
                 "name": "filter",
                 "type": {
                   "kind": "INPUT_OBJECT",
+                  "name": "question_imagesFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "deleteFromquestion_imagesCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "question_imagesDeleteResponse",
+                "ofType": null
+              }
+            },
+            "description": "Deletes zero or more records from the `question_images` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
                   "name": "questionsFilter",
                   "ofType": null
                 },
@@ -944,6 +1026,47 @@
                 "name": "filter",
                 "type": {
                   "kind": "INPUT_OBJECT",
+                  "name": "sessionsFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "deleteFromsessionsCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "sessionsDeleteResponse",
+                "ofType": null
+              }
+            },
+            "description": "Deletes zero or more records from the `sessions` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
                   "name": "user_books_assignationFilter",
                   "ofType": null
                 },
@@ -976,6 +1099,122 @@
               }
             },
             "description": "Deletes zero or more records from the `user_books_assignation` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "usersFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "deleteFromusersCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "usersDeleteResponse",
+                "ofType": null
+              }
+            },
+            "description": "Deletes zero or more records from the `users` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "verification_tokensFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "deleteFromverification_tokensCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "verification_tokensDeleteResponse",
+                "ofType": null
+              }
+            },
+            "description": "Deletes zero or more records from the `verification_tokens` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "objects",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "accountsInsertInput"
+                      }
+                    }
+                  }
+                },
+                "description": null,
+                "defaultValue": null
+              }
+            ],
+            "name": "insertIntoaccountsCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "accountsInsertResponse",
+              "ofType": null
+            },
+            "description": "Adds one or more `accounts` records to the collection",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -1096,6 +1335,40 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
+                        "name": "question_imagesInsertInput"
+                      }
+                    }
+                  }
+                },
+                "description": null,
+                "defaultValue": null
+              }
+            ],
+            "name": "insertIntoquestion_imagesCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "question_imagesInsertResponse",
+              "ofType": null
+            },
+            "description": "Adds one or more `question_images` records to the collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "objects",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
                         "name": "questionsInsertInput"
                       }
                     }
@@ -1130,6 +1403,40 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
+                        "name": "sessionsInsertInput"
+                      }
+                    }
+                  }
+                },
+                "description": null,
+                "defaultValue": null
+              }
+            ],
+            "name": "insertIntosessionsCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "sessionsInsertResponse",
+              "ofType": null
+            },
+            "description": "Adds one or more `sessions` records to the collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "objects",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
                         "name": "user_books_assignationInsertInput"
                       }
                     }
@@ -1146,6 +1453,129 @@
               "ofType": null
             },
             "description": "Adds one or more `user_books_assignation` records to the collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "objects",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "usersInsertInput"
+                      }
+                    }
+                  }
+                },
+                "description": null,
+                "defaultValue": null
+              }
+            ],
+            "name": "insertIntousersCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "usersInsertResponse",
+              "ofType": null
+            },
+            "description": "Adds one or more `users` records to the collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "objects",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "verification_tokensInsertInput"
+                      }
+                    }
+                  }
+                },
+                "description": null,
+                "defaultValue": null
+              }
+            ],
+            "name": "insertIntoverification_tokensCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "verification_tokensInsertResponse",
+              "ofType": null
+            },
+            "description": "Adds one or more `verification_tokens` records to the collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "set",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "accountsUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "description": "Fields that are set will be updated for all records matching the `filter`",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "accountsFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "updateaccountsCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "accountsUpdateResponse",
+                "ofType": null
+              }
+            },
+            "description": "Updates zero or more records in the `accounts` collection",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -1323,6 +1753,61 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
+                    "name": "question_imagesUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "description": "Fields that are set will be updated for all records matching the `filter`",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "question_imagesFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "updatequestion_imagesCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "question_imagesUpdateResponse",
+                "ofType": null
+              }
+            },
+            "description": "Updates zero or more records in the `question_images` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "set",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
                     "name": "questionsUpdateInput",
                     "ofType": null
                   }
@@ -1366,6 +1851,61 @@
               }
             },
             "description": "Updates zero or more records in the `questions` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "set",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "sessionsUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "description": "Fields that are set will be updated for all records matching the `filter`",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "sessionsFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "updatesessionsCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "sessionsUpdateResponse",
+                "ofType": null
+              }
+            },
+            "description": "Updates zero or more records in the `sessions` collection",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -1423,6 +1963,116 @@
             "description": "Updates zero or more records in the `user_books_assignation` collection",
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "set",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "usersUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "description": "Fields that are set will be updated for all records matching the `filter`",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "usersFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "updateusersCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "usersUpdateResponse",
+                "ofType": null
+              }
+            },
+            "description": "Updates zero or more records in the `users` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "set",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "verification_tokensUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "description": "Fields that are set will be updated for all records matching the `filter`",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "verification_tokensFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "updateverification_tokensCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "verification_tokensUpdateResponse",
+                "ofType": null
+              }
+            },
+            "description": "Updates zero or more records in the `verification_tokens` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "enumValues": [],
@@ -1459,6 +2109,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "accounts",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "answer",
             "ofType": null
           },
@@ -1474,12 +2129,32 @@
           },
           {
             "kind": "OBJECT",
+            "name": "question_images",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "questions",
             "ofType": null
           },
           {
             "kind": "OBJECT",
+            "name": "sessions",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "user_books_assignation",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "users",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "verification_tokens",
             "ofType": null
           }
         ]
@@ -1631,6 +2306,87 @@
         "kind": "OBJECT",
         "name": "Query",
         "fields": [
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "accountsFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "accountsOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "accountsCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "accountsConnection",
+              "ofType": null
+            },
+            "description": "A pagable collection of type `accounts`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "args": [
               {
@@ -1947,6 +2703,87 @@
                 "name": "filter",
                 "type": {
                   "kind": "INPUT_OBJECT",
+                  "name": "question_imagesFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "question_imagesOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "question_imagesCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "question_imagesConnection",
+              "ofType": null
+            },
+            "description": "A pagable collection of type `question_images`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
                   "name": "questionsFilter",
                   "ofType": null
                 },
@@ -2028,6 +2865,87 @@
                 "name": "filter",
                 "type": {
                   "kind": "INPUT_OBJECT",
+                  "name": "sessionsFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "sessionsOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "sessionsCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "sessionsConnection",
+              "ofType": null
+            },
+            "description": "A pagable collection of type `sessions`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
                   "name": "user_books_assignationFilter",
                   "ofType": null
                 },
@@ -2060,6 +2978,168 @@
               "ofType": null
             },
             "description": "A pagable collection of type `user_books_assignation`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "usersFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "usersOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "usersCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "usersConnection",
+              "ofType": null
+            },
+            "description": "A pagable collection of type `users`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "verification_tokensFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "verification_tokensOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "verification_tokensCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "verification_tokensConnection",
+              "ofType": null
+            },
+            "description": "A pagable collection of type `verification_tokens`",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -3292,6 +4372,1092 @@
       },
       {
         "kind": "OBJECT",
+        "name": "accounts",
+        "fields": [
+          {
+            "args": [],
+            "name": "nodeId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "description": "Globally Unique Record Identifier",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "type",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "provider",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "providerAccountId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "refresh_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "access_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "expires_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "BigInt",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "token_type",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "scope",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "id_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "session_state",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "oauth_token_secret",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "oauth_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "userId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          }
+        ],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "accountsConnection",
+        "fields": [
+          {
+            "args": [],
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "accountsEdge"
+                  }
+                }
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "accountsDeleteResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "accounts"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "accountsEdge",
+        "fields": [
+          {
+            "args": [],
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "accounts",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "accountsFilter",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UUIDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "type",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "provider",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "providerAccountId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "refresh_token",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "access_token",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires_at",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BigIntFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "token_type",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "scope",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "id_token",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "session_state",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "oauth_token_secret",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "oauth_token",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UUIDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "nodeId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "IDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "accountsInsertInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "type",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "provider",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "providerAccountId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "refresh_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "access_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "BigInt",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "token_type",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "scope",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "id_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "session_state",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "oauth_token_secret",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "oauth_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "accountsInsertResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "accounts"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "accountsOrderBy",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "type",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "provider",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "providerAccountId",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "refresh_token",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "access_token",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires_at",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "token_type",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "scope",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "id_token",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "session_state",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "oauth_token_secret",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "oauth_token",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "accountsUpdateInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "type",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "provider",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "providerAccountId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "refresh_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "access_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "BigInt",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "token_type",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "scope",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "id_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "session_state",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "oauth_token_secret",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "oauth_token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "accountsUpdateResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "accounts"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "answer",
         "fields": [
           {
@@ -3356,6 +5522,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "description": null,
@@ -3579,6 +5757,16 @@
             "defaultValue": null
           },
           {
+            "name": "image",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
             "name": "nodeId",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -3634,6 +5822,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "description": null,
@@ -3739,6 +5937,16 @@
             },
             "description": null,
             "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
           }
         ],
         "possibleTypes": null
@@ -3786,6 +5994,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "description": null,
@@ -3962,7 +6180,7 @@
                 "name": "filter",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "questionsFilter",
+                  "name": "user_books_assignationFilter",
                   "ofType": null
                 },
                 "description": "Filters to apply to the results set when querying from the collection",
@@ -3978,7 +6196,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "questionsOrderBy",
+                      "name": "user_books_assignationOrderBy",
                       "ofType": null
                     }
                   }
@@ -3987,10 +6205,10 @@
                 "defaultValue": null
               }
             ],
-            "name": "questionsCollection",
+            "name": "user_books_assignationCollection",
             "type": {
               "kind": "OBJECT",
-              "name": "questionsConnection",
+              "name": "user_books_assignationConnection",
               "ofType": null
             },
             "description": null,
@@ -4043,7 +6261,7 @@
                 "name": "filter",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "user_books_assignationFilter",
+                  "name": "questionsFilter",
                   "ofType": null
                 },
                 "description": "Filters to apply to the results set when querying from the collection",
@@ -4059,7 +6277,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "user_books_assignationOrderBy",
+                      "name": "questionsOrderBy",
                       "ofType": null
                     }
                   }
@@ -4068,10 +6286,10 @@
                 "defaultValue": null
               }
             ],
-            "name": "user_books_assignationCollection",
+            "name": "questionsCollection",
             "type": {
               "kind": "OBJECT",
-              "name": "user_books_assignationConnection",
+              "name": "questionsConnection",
               "ofType": null
             },
             "description": null,
@@ -5411,6 +7629,560 @@
       },
       {
         "kind": "OBJECT",
+        "name": "question_images",
+        "fields": [
+          {
+            "args": [],
+            "name": "nodeId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "description": "Globally Unique Record Identifier",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "created_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "question",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "questions",
+            "type": {
+              "kind": "OBJECT",
+              "name": "questions",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          }
+        ],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "question_imagesConnection",
+        "fields": [
+          {
+            "args": [],
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "question_imagesEdge"
+                  }
+                }
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "question_imagesDeleteResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "question_images"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "question_imagesEdge",
+        "fields": [
+          {
+            "args": [],
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "question_images",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "question_imagesFilter",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "created_at",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DatetimeFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "question",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UUIDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UUIDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "nodeId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "IDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "question_imagesInsertInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "created_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "question",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "question_imagesInsertResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "question_images"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "question_imagesOrderBy",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "created_at",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "question",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "question_imagesUpdateInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "created_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "question",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "question_imagesUpdateResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "question_images"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "questions",
         "fields": [
           {
@@ -5604,6 +8376,87 @@
             "type": {
               "kind": "OBJECT",
               "name": "answerConnection",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "question_imagesFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "question_imagesOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "question_imagesCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "question_imagesConnection",
               "ofType": null
             },
             "description": null,
@@ -6162,6 +9015,568 @@
       },
       {
         "kind": "OBJECT",
+        "name": "sessions",
+        "fields": [
+          {
+            "args": [],
+            "name": "nodeId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "description": "Globally Unique Record Identifier",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "expires",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Datetime",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "sessionToken",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "userId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          }
+        ],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "sessionsConnection",
+        "fields": [
+          {
+            "args": [],
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "sessionsEdge"
+                  }
+                }
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "sessionsDeleteResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "sessions"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "sessionsEdge",
+        "fields": [
+          {
+            "args": [],
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "sessions",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "sessionsFilter",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UUIDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DatetimeFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "sessionToken",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UUIDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "nodeId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "IDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "sessionsInsertInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "sessionToken",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "sessionsInsertResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "sessions"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "sessionsOrderBy",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "sessionToken",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "sessionsUpdateInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "sessionToken",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "userId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "sessionsUpdateResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "sessions"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "user_books_assignation",
         "fields": [
           {
@@ -6226,6 +9641,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "users",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users",
               "ofType": null
             },
             "description": null,
@@ -6699,6 +10126,1493 @@
                   "ofType": {
                     "kind": "OBJECT",
                     "name": "user_books_assignation"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "users",
+        "fields": [
+          {
+            "args": [],
+            "name": "nodeId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "description": "Globally Unique Record Identifier",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "firstName",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "emailVerified",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "isAdmin",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "lastName",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "isEnabled",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "user_books_assignationFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "user_books_assignationOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "user_books_assignationCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "user_books_assignationConnection",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "sessionsFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "sessionsOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "sessionsCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "sessionsConnection",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "accountsFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "accountsOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "accountsCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "accountsConnection",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          }
+        ],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "usersConnection",
+        "fields": [
+          {
+            "args": [],
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "usersEdge"
+                  }
+                }
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "usersDeleteResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "users"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "usersEdge",
+        "fields": [
+          {
+            "args": [],
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "users",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "usersFilter",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UUIDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "firstName",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "emailVerified",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DatetimeFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "isAdmin",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BooleanFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "lastName",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "isEnabled",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BooleanFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "nodeId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "IDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "usersInsertInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "firstName",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "emailVerified",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "isAdmin",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "lastName",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "isEnabled",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "usersInsertResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "users"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "usersOrderBy",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "firstName",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "emailVerified",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "isAdmin",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "lastName",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "isEnabled",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "usersUpdateInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "firstName",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "emailVerified",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "image",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "isAdmin",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "lastName",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "isEnabled",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "usersUpdateResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "users"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "verification_tokens",
+        "fields": [
+          {
+            "args": [],
+            "name": "nodeId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "description": "Globally Unique Record Identifier",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "identifier",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "token",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "expires",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Datetime",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          }
+        ],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "verification_tokensConnection",
+        "fields": [
+          {
+            "args": [],
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "verification_tokensEdge"
+                  }
+                }
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "verification_tokensDeleteResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "verification_tokens"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "verification_tokensEdge",
+        "fields": [
+          {
+            "args": [],
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "verification_tokens",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "verification_tokensFilter",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "identifier",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "token",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DatetimeFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "nodeId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "IDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "verification_tokensInsertInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "identifier",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "verification_tokensInsertResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "verification_tokens"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "verification_tokensOrderBy",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "identifier",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "token",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "verification_tokensUpdateInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "identifier",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "token",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "expires",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "verification_tokensUpdateResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "verification_tokens"
                   }
                 }
               }

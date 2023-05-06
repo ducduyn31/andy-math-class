@@ -1,18 +1,25 @@
-import { Chapter } from "@/models";
-import { questionDatabase } from "@/components/admin/table/questions-table";
-import { useState } from "react";
-import { Question } from "@/models";
+import { Chapter, mapQuestionsFromGetQuestionsByChapters } from "@/models";
+import { useMemo } from "react";
+import { useGetQuestionsForChaptersLazyQuery } from "@/gql/types";
+import { shuffle } from "@/helpers/array";
 
 export const useGetQuestionsAsync = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const getQuestions = (selectedChapters: Chapter[]) => {
-    const matchedQuestions = questionDatabase.filter((question) => {
-      return selectedChapters.some((chapter) => {
-        return question.chapter?.id === chapter.id;
-      });
+  const [getQuestionsByChapters, { data }] =
+    useGetQuestionsForChaptersLazyQuery();
+  const getQuestions = async (selectedChapters: Chapter[]) => {
+    const chapterIds = selectedChapters.map((chapter) => chapter.id);
+
+    await getQuestionsByChapters({
+      variables: {
+        chapterIds,
+      },
     });
-    setQuestions(matchedQuestions);
   };
+
+  const questions = useMemo(() => {
+    if (!data?.questionsCollection?.edges?.length) return [];
+    return shuffle(mapQuestionsFromGetQuestionsByChapters(data));
+  }, [data]);
 
   return {
     selectedQuestions: questions,

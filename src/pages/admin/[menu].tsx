@@ -17,12 +17,7 @@ const AdminPage = (props: ReactPropTypes & SharedContext) => {
     return <AdminBookTable filteredInput={props.filteredInput} />;
   }
   if (matchPath(path, "/admin/questions")) {
-    return (
-      <AdminQuestionTable
-        setQuestionModification={props.setQuestionModification}
-        filteredInput={props.filteredInput}
-      />
-    );
+    return <AdminQuestionTable filteredInput={props.filteredInput} />;
   }
   return <>Unimplemented</>;
 };

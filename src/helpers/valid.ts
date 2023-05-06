@@ -4,6 +4,6 @@ export const isNullOrUndefined = (
   return value === null || value === undefined;
 };
 
-export const isEmpty = (value: unknown): boolean => {
+export const isEmpty = (value: unknown): value is null | undefined | "" => {
   return isNullOrUndefined(value) || value === "";
 };

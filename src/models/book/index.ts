@@ -1,5 +1,11 @@
 import { Maybe } from "@/models/types";
-import { Books as _Book } from "@/gql/types";
+import {
+  Books as _Book,
+  ChaptersInBookFragment,
+  GetAllForAdminQuery,
+  GetAssignedBooksQuery,
+} from "@/gql/types";
+import { Optionable } from "@/components/form-select-field";
 
 export interface Book {
   id: string;
@@ -121,4 +127,78 @@ export const mapAssignedBook = (
     return assignation?.books ? mapBook(assignation?.books) : null;
   }
   return assignation?.node?.books ? mapBook(assignation?.node?.books) : null;
+};
+
+export const mapToOption = (bookOrChapter: Book | Chapter): Optionable => ({
+  id: bookOrChapter.id,
+  value: bookOrChapter.id,
+  label: bookOrChapter.name,
+});
+
+export const mapChaptersFromChaptersInBookFragment = (
+  book: Book,
+  chaptersConnection?: Maybe<ChaptersInBookFragment>
+): Chapter[] => {
+  const chapterNodes =
+    chaptersConnection?.edges?.map((edge) => edge?.node) || [];
+
+  return chapterNodes.map((chapter) => ({
+    id: chapter?.id || "",
+    name: chapter?.name || "",
+    book: book,
+    parent: null,
+    children: [],
+  }));
+};
+
+export const mapBooksFromGetAdminStat = (
+  response: GetAllForAdminQuery
+): Book[] => {
+  const bookNodes =
+    response?.booksCollection?.edges?.map((edge) => edge?.node) || [];
+
+  return bookNodes.map((bookNode) => {
+    const book: Book = {
+      id: bookNode?.id || "",
+      name: bookNode?.name || "",
+      color: bookNode?.color || null,
+      chapters: [],
+      get rootChapters() {
+        return this.chapters.filter((chapter) => !chapter.parent);
+      },
+    };
+
+    book.chapters = mapChaptersFromChaptersInBookFragment(
+      book,
+      bookNode?.chaptersCollection
+    );
+
+    return book;
+  });
+};
+
+export const mapBooksFromGetAssignedBooks = (
+  response: GetAssignedBooksQuery
+): Book[] => {
+  const bookNodes =
+    response?.booksCollection?.edges?.map((edge) => edge?.node) || [];
+
+  return bookNodes.map((bookNode) => {
+    const book: Book = {
+      id: bookNode?.id || "",
+      name: bookNode?.name || "",
+      color: null,
+      chapters: [],
+      get rootChapters() {
+        return this.chapters.filter((chapter) => !chapter.parent);
+      },
+    };
+
+    book.chapters = mapChaptersFromChaptersInBookFragment(
+      book,
+      bookNode?.chaptersCollection
+    );
+
+    return book;
+  });
 };

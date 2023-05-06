@@ -9,13 +9,15 @@ interface Props {
 
 export const UserSelectChapterItem: React.FC<Props> = ({ chapter }) => {
   const { hasChapter } = useBookContext();
+
+  const shouldShowChildren = hasChapter(chapter) && !!chapter.children?.length;
+
   return (
     <>
       <ChapterSelectLabel chapter={chapter} />
       <ul className="w-full pl-5">
-        {hasChapter(chapter) &&
-          chapter.children?.length &&
-          chapter.children.map((subChapter) => (
+        {shouldShowChildren &&
+          chapter?.children?.map((subChapter) => (
             <li key={`${subChapter.id}`} className="pr-0 bg-base-300 w-full">
               <UserSelectChapterItem chapter={subChapter} />
             </li>

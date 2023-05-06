@@ -5,7 +5,7 @@ import { Chapter } from "@/models";
 export const ChapterSelectLabel = (props: { chapter: Chapter }) => {
   const { hasChapter, toggleChapter } = useBookContext();
   return (
-    <p
+    <div
       className="flex justify-between w-full hover:bg-base-300"
       onClick={() => toggleChapter(props.chapter)}
     >
@@ -16,6 +16,6 @@ export const ChapterSelectLabel = (props: { chapter: Chapter }) => {
         checked={hasChapter(props.chapter)}
         onChange={() => toggleChapter(props.chapter)}
       />
-    </p>
+    </div>
   );
 };
