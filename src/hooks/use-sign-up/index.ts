@@ -3,8 +3,16 @@ import { useSignUpMutation } from "@/gql/types";
 import { useSession } from "next-auth/react";
 import { useCallback } from "react";
 
-export const useSignUp = () => {
-  const [updateUser, { loading }] = useSignUpMutation();
+interface Args {
+  onSuccess?: () => void;
+}
+
+export const useSignUp = (args?: Args) => {
+  const [updateUser, { loading }] = useSignUpMutation({
+    onCompleted: () => {
+      args?.onSuccess?.();
+    },
+  });
   const session = useSession();
 
   const signUp = useCallback(

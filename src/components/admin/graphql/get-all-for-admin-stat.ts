@@ -2,14 +2,16 @@ import { gql } from "@apollo/client";
 
 export default gql`
   query GetAllForAdmin {
-    booksCollection(orderBy: { created_at: DescNullsLast }) {
+    booksCollection(
+      orderBy: { created_at: DescNullsLast, name: AscNullsLast }
+    ) {
       edges {
         node {
           nodeId
           id
           color
           name
-          chaptersCollection {
+          chaptersCollection(orderBy: { name: AscNullsLast }) {
             ...chaptersInBook
           }
           user_books_assignationCollection {
@@ -44,9 +46,7 @@ export default gql`
         }
       }
     }
-    usersCollection(
-      orderBy: { emailVerified: DescNullsFirst, firstName: AscNullsLast }
-    ) {
+    usersCollection(orderBy: { firstName: AscNullsLast }) {
       edges {
         node {
           nodeId

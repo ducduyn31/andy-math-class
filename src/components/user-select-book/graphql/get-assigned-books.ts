@@ -2,13 +2,13 @@ import { gql } from "@apollo/client";
 
 export default gql`
   query GetAssignedBooks {
-    booksCollection {
+    booksCollection(orderBy: { name: AscNullsLast }) {
       edges {
         node {
           id
           nodeId
           name
-          chaptersCollection {
+          chaptersCollection(orderBy: { name: AscNullsLast }) {
             ...chaptersInBook
           }
         }

@@ -1703,6 +1703,11 @@ export type GetAssignedBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> } | null } }> } | null };
 
+export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null } }> } | null };
+
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
   newUser: UsersUpdateInput;
@@ -1771,14 +1776,14 @@ export const AssignationsOfUserFragmentDoc = gql`
     `;
 export const GetAllForAdminDocument = gql`
     query GetAllForAdmin {
-  booksCollection(orderBy: {created_at: DescNullsLast}) {
+  booksCollection(orderBy: {created_at: DescNullsLast, name: AscNullsLast}) {
     edges {
       node {
         nodeId
         id
         color
         name
-        chaptersCollection {
+        chaptersCollection(orderBy: {name: AscNullsLast}) {
           ...chaptersInBook
         }
         user_books_assignationCollection {
@@ -1813,9 +1818,7 @@ export const GetAllForAdminDocument = gql`
       }
     }
   }
-  usersCollection(
-    orderBy: {emailVerified: DescNullsFirst, firstName: AscNullsLast}
-  ) {
+  usersCollection(orderBy: {firstName: AscNullsLast}) {
     edges {
       node {
         nodeId
@@ -2641,13 +2644,13 @@ export type GetQuestionsForChaptersLazyQueryHookResult = ReturnType<typeof useGe
 export type GetQuestionsForChaptersQueryResult = Apollo.QueryResult<GetQuestionsForChaptersQuery, GetQuestionsForChaptersQueryVariables>;
 export const GetAssignedBooksDocument = gql`
     query GetAssignedBooks {
-  booksCollection {
+  booksCollection(orderBy: {name: AscNullsLast}) {
     edges {
       node {
         id
         nodeId
         name
-        chaptersCollection {
+        chaptersCollection(orderBy: {name: AscNullsLast}) {
           ...chaptersInBook
         }
       }
@@ -2682,6 +2685,49 @@ export function useGetAssignedBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetAssignedBooksQueryHookResult = ReturnType<typeof useGetAssignedBooksQuery>;
 export type GetAssignedBooksLazyQueryHookResult = ReturnType<typeof useGetAssignedBooksLazyQuery>;
 export type GetAssignedBooksQueryResult = Apollo.QueryResult<GetAssignedBooksQuery, GetAssignedBooksQueryVariables>;
+export const GetUserDocument = gql`
+    query GetUser {
+  usersCollection {
+    edges {
+      node {
+        nodeId
+        id
+        firstName
+        email
+        lastName
+        isEnabled
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions?: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+      }
+export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
 export const SignUpDocument = gql`
     mutation SignUp($email: String!, $newUser: usersUpdateInput!) {
   updateusersCollection(filter: {email: {eq: $email}}, set: $newUser) {

@@ -10,9 +10,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FormInputField } from "@/components/form-input-field";
 import { NextPageWithLayout } from "@/pages/_app";
 import { useSignUp } from "@/hooks/use-sign-up";
+import { useRouter } from "next/router";
 
 const RegisterPage: NextPageWithLayout = () => {
-  const { signUp, loading } = useSignUp();
+  const router = useRouter();
+  const { signUp, loading } = useSignUp({
+    onSuccess: () => router.push("/"),
+  });
 
   const {
     handleSubmit,

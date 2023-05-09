@@ -4,11 +4,13 @@ import { useBookContext } from "@/hooks/use-book-context";
 import { QuestionAnswerPanel } from "@/components/question-answer-panel";
 import { useGetQuestionsAsync } from "@/hooks/use-get-questions-async";
 import { SidedQuestionFilter } from "@/components/question-filter";
+import { useGetMe } from "@/hooks/use-get-user";
 
 export default function Home() {
   const { selectedChapters } = useBookContext();
   const [shouldShowQuestions, setShouldShowQuestions] = useState(false);
   const { getQuestions, selectedQuestions } = useGetQuestionsAsync();
+  const { me, isAdmin } = useGetMe();
 
   useEffect(() => {
     setShouldShowQuestions(false);
@@ -19,6 +21,21 @@ export default function Home() {
       getQuestions(selectedChapters);
     }
   }, [shouldShowQuestions, getQuestions, selectedChapters]);
+
+  if (!isAdmin && !me?.isEnabled) {
+    return (
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="text-5xl font-bold">Hello there</h1>
+            <p className="py-6">
+              You aren&apos;t activated. Please contact Andy to proceed!
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!shouldShowQuestions) {
     return (

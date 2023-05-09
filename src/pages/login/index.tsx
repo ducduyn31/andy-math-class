@@ -26,7 +26,10 @@ const LoginPage = () => {
           <h2 className={"card-title"}>Login With Email</h2>
           <form
             className="form-control w-full max-w-xs"
-            onSubmit={handleSubmit(loginWithEmail)}
+            onSubmit={handleSubmit(async (values) => {
+              setIsSubmitting(true);
+              await loginWithEmail(values);
+            })}
           >
             <FormInputField
               label="Email"
@@ -40,7 +43,6 @@ const LoginPage = () => {
                 type="submit"
                 className="btn btn-primary w-full"
                 disabled={isSubmitting}
-                onClick={() => setIsSubmitting(true)}
               >
                 {isSubmitting ? "Please wait..." : "Login"}
               </button>

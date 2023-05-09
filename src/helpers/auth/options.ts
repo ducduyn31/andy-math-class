@@ -32,6 +32,7 @@ export const serverAuthOptions: AuthOptions = {
           aud: "authenticated",
           exp: Math.floor(new Date(session.expires).getTime() / 1000),
           email: user.email || token.email,
+          user_id: user.id,
           role: user.isAdmin ? "service_role" : "authenticated",
         };
         session.supabaseAccessToken = jwt.sign(payload, signingSecret);

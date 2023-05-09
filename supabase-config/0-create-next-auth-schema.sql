@@ -20,6 +20,7 @@
 CREATE SCHEMA next_auth;
 
 GRANT USAGE ON SCHEMA next_auth TO service_role;
+GRANT USAGE ON SCHEMA next_auth TO authenticated;
 GRANT ALL ON SCHEMA next_auth TO postgres;
 
 --
@@ -41,6 +42,9 @@ CREATE TABLE IF NOT EXISTS next_auth.users
 
 GRANT ALL ON TABLE next_auth.users TO postgres;
 GRANT ALL ON TABLE next_auth.users TO service_role;
+GRANT SELECT, UPDATE ON TABLE next_auth.users TO authenticated;
+
+ALTER TABLE next_auth.users ENABLE ROW LEVEL SECURITY;
 
 --- uid() function to be used in RLS policies
 CREATE FUNCTION next_auth.uid() RETURNS uuid

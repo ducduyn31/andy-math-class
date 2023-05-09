@@ -1707,6 +1707,11 @@ export type GetAssignedBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> } | null } }> } | null };
 
+export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null } }> } | null };
+
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
   newUser: UsersUpdateInput;
@@ -1873,5 +1878,34 @@ export const withPageGetAssignedBooks = (optionsFunc?: (router: NextRouter)=> Qu
 export const ssrGetAssignedBooks = {
       getServerPage: getServerPageGetAssignedBooks,
       withPage: withPageGetAssignedBooks,
+      
+    }
+export async function getServerPageGetUser
+    (options: Omit<Apollo.QueryOptions<GetUserQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
+        
+        
+        const data = await apolloClient.query<GetUserQuery>({ ...options, query: Operations.GetUserDocument });
+        
+        const apolloState = apolloClient.cache.extract();
+
+        return {
+            props: {
+                apolloState: apolloState,
+                data: data?.data,
+                error: data?.error ?? data?.errors ?? null,
+            },
+        };
+      }
+export type PageGetUserComp = React.FC<{data?: GetUserQuery, error?: Apollo.ApolloError}>;
+export const withPageGetUser = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<GetUserQuery, GetUserQueryVariables>) => (WrappedComponent:PageGetUserComp) : NextPage  => (props) => {
+                const router = useRouter()
+                const options = optionsFunc ? optionsFunc(router) : {};
+                const {data, error } = useQuery(Operations.GetUserDocument, options)    
+                return <WrappedComponent {...props} data={data} error={error} /> ;
+                   
+            }; 
+export const ssrGetUser = {
+      getServerPage: getServerPageGetUser,
+      withPage: withPageGetUser,
       
     }
