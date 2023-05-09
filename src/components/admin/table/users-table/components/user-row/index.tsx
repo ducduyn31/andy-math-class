@@ -1,26 +1,18 @@
 import toast from "react-hot-toast";
-import { Book } from "@/models";
+import { User } from "@/models";
 import { useUpdateUser } from "@/hooks/use-update-user";
 import { useModal } from "@/hooks/use-modal";
 import { UserModificationModal } from "@/components/admin/table/users-table/components/user-edit";
+import { useAdminContext } from "@/hooks/use-admin-context";
+import { assureNumber } from "@/helpers/number";
 
 interface AdminUserRowProps {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  assignedBooks: Book[];
-  enabled: boolean;
+  user: User;
 }
 
-export const AdminUserRow = ({
-  id,
-  firstName,
-  lastName,
-  email,
-  assignedBooks,
-  enabled,
-}: AdminUserRowProps) => {
+export const AdminUserRow = ({ user }: AdminUserRowProps) => {
+  const { books } = useAdminContext();
+  const { id, firstName, lastName, email, assignedBooks, isEnabled } = user;
   const { updateUser } = useUpdateUser({
     onSuccess: () => {
       toast.success("Saved successfully");
@@ -35,8 +27,8 @@ export const AdminUserRow = ({
       </th>
       <td>{email}</td>
       <td>
-        {assignedBooks.length > 0 ? (
-          assignedBooks.map((book, i) => (
+        {assureNumber(assignedBooks?.length) > 0 ? (
+          assignedBooks?.map((book, i) => (
             <span key={i} className={`badge badge-lg mr-1 ${book.color}`}>
               {book.name}
             </span>
@@ -51,7 +43,8 @@ export const AdminUserRow = ({
           className="flex link link-primary font-bold text-sm no-underline"
           onClick={() =>
             openModal({
-              user: { id, firstName, lastName, email, assignedBooks, enabled },
+              user,
+              availableBooks: books,
             })
           }
         >
@@ -76,8 +69,8 @@ export const AdminUserRow = ({
         <input
           type="checkbox"
           className="toggle toggle-primary"
-          checked={enabled}
-          onChange={() => updateUser({ id, isEnabled: !enabled })}
+          checked={isEnabled}
+          onChange={() => updateUser({ id, isEnabled: !isEnabled })}
         />
       </td>
     </tr>

@@ -87,46 +87,19 @@ type PartialChaptersConnection = { edges?: Maybe<PartialChaptersEdge[]> };
 type PartialBook = Pick<_Book, "id" | "name" | "color"> & {
   chaptersCollection?: Maybe<PartialChaptersConnection>;
 };
-type PartialBookEdge = { node: PartialBook };
-export const mapBook = (book: PartialBookEdge | PartialBook): Book => {
-  if (!("node" in book)) {
-    return convertBook({
-      id: book?.id || "",
-      name: book.name || "",
-      color: book.color,
-      chapters:
-        book?.chaptersCollection?.edges?.map((chapterEdge) =>
-          createFullChapter({
-            ...chapterEdge.node,
-            name: chapterEdge.node?.name || "",
-          })
-        ) || [],
-    });
-  }
+export const mapBook = (book: PartialBook): Book => {
   return convertBook({
-    id: book?.node?.id,
-    name: book?.node?.name || "",
-    color: book?.node?.color,
+    id: book?.id || "",
+    name: book.name || "",
+    color: book.color,
     chapters:
-      book?.node?.chaptersCollection?.edges?.map((chapterEdge) =>
+      book?.chaptersCollection?.edges?.map((chapterEdge) =>
         createFullChapter({
           ...chapterEdge.node,
           name: chapterEdge.node?.name || "",
         })
       ) || [],
   });
-};
-
-type PartialBookAssignation = { books?: Maybe<PartialBook> };
-type PartialBookAssignationEdge = { node: PartialBookAssignation };
-
-export const mapAssignedBook = (
-  assignation: PartialBookAssignationEdge | PartialBookAssignation
-): Book | null => {
-  if (!("node" in assignation)) {
-    return assignation?.books ? mapBook(assignation?.books) : null;
-  }
-  return assignation?.node?.books ? mapBook(assignation?.node?.books) : null;
 };
 
 export const mapToOption = (bookOrChapter: Book | Chapter): Optionable => ({
@@ -142,13 +115,15 @@ export const mapChaptersFromChaptersInBookFragment = (
   const chapterNodes =
     chaptersConnection?.edges?.map((edge) => edge?.node) || [];
 
-  return chapterNodes.map((chapter) => ({
+  const chapters: Chapter[] = chapterNodes.map((chapter) => ({
     id: chapter?.id || "",
     name: chapter?.name || "",
     book: book,
-    parent: null,
+    parent: chapter?.parent ? createFullChapter({ id: chapter.parent }) : null,
     children: [],
   }));
+
+  return constructChapterTrees(chapters);
 };
 
 export const mapBooksFromGetAdminStat = (

@@ -1554,15 +1554,17 @@ export type Verification_TokensUpdateResponse = {
 export type GetAllForAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllForAdminQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }> } | null, questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> } | null } }> } | null };
+export type GetAllForAdminQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }> } | null, questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> } | null } }> } | null, usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } }> } | null };
 
-export type ChaptersInBookFragment = { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> };
+export type ChaptersInBookFragment = { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> };
 
 export type AssignationsInBookFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> };
 
-export type AnswersInQuestionFragment = { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> };
+export type AnswersInQuestionFragment = { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> };
 
 export type ImagesOfQuestionFragment = { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> };
+
+export type AssignationsOfUserFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> };
 
 export type GetAssignedBooksByUserIdQueryVariables = Exact<{
   userId: Scalars['UUID'];
@@ -1592,13 +1594,41 @@ export type CreateNewQuestionMutationVariables = Exact<{
 
 export type CreateNewQuestionMutation = { __typename?: 'Mutation', insertIntoquestionsCollection?: { __typename?: 'questionsInsertResponse', records: Array<{ __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null }> } | null };
 
-export type LinkQuestionsAnswersMutationVariables = Exact<{
-  questionImages: Array<Question_ImagesInsertInput> | Question_ImagesInsertInput;
+export type LinkAnswerImagesMutationVariables = Exact<{
   answerImages: Array<AnswerInsertInput> | AnswerInsertInput;
 }>;
 
 
-export type LinkQuestionsAnswersMutation = { __typename?: 'Mutation', insertIntoquestion_imagesCollection?: { __typename?: 'question_imagesInsertResponse', records: Array<{ __typename?: 'question_images', nodeId: string, id: any, image?: string | null }> } | null, insertIntoanswerCollection?: { __typename?: 'answerInsertResponse', records: Array<{ __typename?: 'answer', nodeId: string, id: any, image?: string | null }> } | null };
+export type LinkAnswerImagesMutation = { __typename?: 'Mutation', insertIntoanswerCollection?: { __typename?: 'answerInsertResponse', records: Array<{ __typename?: 'answer', nodeId: string, id: any, image?: string | null, question?: any | null }> } | null };
+
+export type LinkQuestionsImagesMutationVariables = Exact<{
+  questionImages: Array<Question_ImagesInsertInput> | Question_ImagesInsertInput;
+}>;
+
+
+export type LinkQuestionsImagesMutation = { __typename?: 'Mutation', insertIntoquestion_imagesCollection?: { __typename?: 'question_imagesInsertResponse', records: Array<{ __typename?: 'question_images', nodeId: string, id: any, image?: string | null, question?: any | null }> } | null };
+
+export type RemoveAllAssignationsMutationVariables = Exact<{
+  userId: Scalars['UUID'];
+}>;
+
+
+export type RemoveAllAssignationsMutation = { __typename?: 'Mutation', deleteFromuser_books_assignationCollection: { __typename?: 'user_books_assignationDeleteResponse', records: Array<{ __typename?: 'user_books_assignation', id: any, nodeId: string }> } };
+
+export type RemoveAnswersFromQuestionMutationVariables = Exact<{
+  imagePaths: Array<Scalars['String']> | Scalars['String'];
+  questionId: Scalars['UUID'];
+}>;
+
+
+export type RemoveAnswersFromQuestionMutation = { __typename?: 'Mutation', deleteFromanswerCollection: { __typename?: 'answerDeleteResponse', records: Array<{ __typename?: 'answer', id: any, nodeId: string, question?: any | null }> } };
+
+export type RemoveBookMutationVariables = Exact<{
+  bookId: Scalars['UUID'];
+}>;
+
+
+export type RemoveBookMutation = { __typename?: 'Mutation', deleteFrombooksCollection: { __typename?: 'booksDeleteResponse', records: Array<{ __typename?: 'books', id: any, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', id: any, nodeId: string } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', id: any, nodeId: string } }> } | null }> } };
 
 export type RemoveChaptersMutationVariables = Exact<{
   chapterIds: Array<Scalars['UUID']> | Scalars['UUID'];
@@ -1606,6 +1636,29 @@ export type RemoveChaptersMutationVariables = Exact<{
 
 
 export type RemoveChaptersMutation = { __typename?: 'Mutation', deleteFromchaptersCollection: { __typename?: 'chaptersDeleteResponse', records: Array<{ __typename?: 'chapters', id: any, nodeId: string, name?: string | null, book?: any | null }> } };
+
+export type RemoveImagesFromQuestionMutationVariables = Exact<{
+  imagePaths: Array<Scalars['String']> | Scalars['String'];
+  questionId: Scalars['UUID'];
+}>;
+
+
+export type RemoveImagesFromQuestionMutation = { __typename?: 'Mutation', deleteFromquestion_imagesCollection: { __typename?: 'question_imagesDeleteResponse', records: Array<{ __typename?: 'question_images', id: any, nodeId: string, question?: any | null }> } };
+
+export type RemoveQuestionMutationVariables = Exact<{
+  questionId: Scalars['UUID'];
+}>;
+
+
+export type RemoveQuestionMutation = { __typename?: 'Mutation', deleteFromquestionsCollection: { __typename?: 'questionsDeleteResponse', records: Array<{ __typename?: 'questions', id: any, nodeId: string, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> } | null }> } };
+
+export type ReplaceBooksAssignationMutationVariables = Exact<{
+  userId: Scalars['UUID'];
+  assignations: Array<User_Books_AssignationInsertInput> | User_Books_AssignationInsertInput;
+}>;
+
+
+export type ReplaceBooksAssignationMutation = { __typename?: 'Mutation', deleteFromuser_books_assignationCollection: { __typename?: 'user_books_assignationDeleteResponse', records: Array<{ __typename?: 'user_books_assignation', id: any }> }, insertIntouser_books_assignationCollection?: { __typename?: 'user_books_assignationInsertResponse', records: Array<{ __typename?: 'user_books_assignation', id: any, users?: { __typename?: 'users', id: any, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } | null }> } | null };
 
 export type UpdateExistingBookMutationVariables = Exact<{
   bookId: Scalars['UUID'];
@@ -1623,12 +1676,20 @@ export type UpdateExistingQuestionMutationVariables = Exact<{
 
 export type UpdateExistingQuestionMutation = { __typename?: 'Mutation', updatequestionsCollection: { __typename?: 'questionsUpdateResponse', records: Array<{ __typename?: 'questions', id: any, nodeId: string, name?: string | null, description?: string | null, chapters?: { __typename?: 'chapters', id: any, nodeId: string, name?: string | null } | null, books?: { __typename?: 'books', id: any, nodeId: string, name?: string | null } | null }> } };
 
+export type UpdateUserMutationVariables = Exact<{
+  userId: Scalars['UUID'];
+  updatedUser: UsersUpdateInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateusersCollection: { __typename?: 'usersUpdateResponse', records: Array<{ __typename?: 'users', id: any, nodeId: string, email?: string | null, firstName?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null }> } };
+
 export type GetAnswersForQuestionQueryVariables = Exact<{
   questionId: Scalars['UUID'];
 }>;
 
 
-export type GetAnswersForQuestionQuery = { __typename?: 'Query', answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null };
+export type GetAnswersForQuestionQuery = { __typename?: 'Query', answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null };
 
 export type GetQuestionsForChaptersQueryVariables = Exact<{
   chapterIds: Array<Scalars['UUID']> | Scalars['UUID'];
@@ -1640,7 +1701,15 @@ export type GetQuestionsForChaptersQuery = { __typename?: 'Query', questionsColl
 export type GetAssignedBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> } | null } }> } | null };
+export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> } | null } }> } | null };
+
+export type SignUpMutationVariables = Exact<{
+  email: Scalars['String'];
+  newUser: UsersUpdateInput;
+}>;
+
+
+export type SignUpMutation = { __typename?: 'Mutation', updateusersCollection: { __typename?: 'usersUpdateResponse', records: Array<{ __typename?: 'users', id: any, firstName?: string | null, lastName?: string | null, email?: string | null, isEnabled?: boolean | null, isAdmin?: boolean | null }> } };
 
 export const ChaptersInBookFragmentDoc = gql`
     fragment chaptersInBook on chaptersConnection {
@@ -1649,6 +1718,7 @@ export const ChaptersInBookFragmentDoc = gql`
       nodeId
       id
       name
+      parent
     }
   }
 }
@@ -1668,7 +1738,6 @@ export const AssignationsInBookFragmentDoc = gql`
 export const AnswersInQuestionFragmentDoc = gql`
     fragment answersInQuestion on answerConnection {
   edges {
-    cursor
     node {
       nodeId
       id
@@ -1689,9 +1758,20 @@ export const ImagesOfQuestionFragmentDoc = gql`
   }
 }
     `;
+export const AssignationsOfUserFragmentDoc = gql`
+    fragment assignationsOfUser on user_books_assignationConnection {
+  edges {
+    node {
+      nodeId
+      id
+      book
+    }
+  }
+}
+    `;
 export const GetAllForAdminDocument = gql`
     query GetAllForAdmin {
-  booksCollection {
+  booksCollection(orderBy: {created_at: DescNullsLast}) {
     edges {
       node {
         nodeId
@@ -1707,7 +1787,7 @@ export const GetAllForAdminDocument = gql`
       }
     }
   }
-  questionsCollection {
+  questionsCollection(orderBy: {created_at: DescNullsLast}) {
     edges {
       node {
         nodeId
@@ -1733,11 +1813,30 @@ export const GetAllForAdminDocument = gql`
       }
     }
   }
+  usersCollection(
+    orderBy: {emailVerified: DescNullsFirst, firstName: AscNullsLast}
+  ) {
+    edges {
+      node {
+        nodeId
+        id
+        firstName
+        email
+        lastName
+        isAdmin
+        isEnabled
+        user_books_assignationCollection {
+          ...assignationsOfUser
+        }
+      }
+    }
+  }
 }
     ${ChaptersInBookFragmentDoc}
 ${AssignationsInBookFragmentDoc}
 ${AnswersInQuestionFragmentDoc}
-${ImagesOfQuestionFragmentDoc}`;
+${ImagesOfQuestionFragmentDoc}
+${AssignationsOfUserFragmentDoc}`;
 
 /**
  * __useGetAllForAdminQuery__
@@ -1934,51 +2033,213 @@ export function useCreateNewQuestionMutation(baseOptions?: Apollo.MutationHookOp
 export type CreateNewQuestionMutationHookResult = ReturnType<typeof useCreateNewQuestionMutation>;
 export type CreateNewQuestionMutationResult = Apollo.MutationResult<CreateNewQuestionMutation>;
 export type CreateNewQuestionMutationOptions = Apollo.BaseMutationOptions<CreateNewQuestionMutation, CreateNewQuestionMutationVariables>;
-export const LinkQuestionsAnswersDocument = gql`
-    mutation LinkQuestionsAnswers($questionImages: [question_imagesInsertInput!]!, $answerImages: [answerInsertInput!]!) {
-  insertIntoquestion_imagesCollection(objects: $questionImages) {
-    records {
-      nodeId
-      id
-      image
-    }
-  }
+export const LinkAnswerImagesDocument = gql`
+    mutation LinkAnswerImages($answerImages: [answerInsertInput!]!) {
   insertIntoanswerCollection(objects: $answerImages) {
     records {
       nodeId
       id
       image
+      question
     }
   }
 }
     `;
-export type LinkQuestionsAnswersMutationFn = Apollo.MutationFunction<LinkQuestionsAnswersMutation, LinkQuestionsAnswersMutationVariables>;
+export type LinkAnswerImagesMutationFn = Apollo.MutationFunction<LinkAnswerImagesMutation, LinkAnswerImagesMutationVariables>;
 
 /**
- * __useLinkQuestionsAnswersMutation__
+ * __useLinkAnswerImagesMutation__
  *
- * To run a mutation, you first call `useLinkQuestionsAnswersMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useLinkQuestionsAnswersMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useLinkAnswerImagesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLinkAnswerImagesMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [linkQuestionsAnswersMutation, { data, loading, error }] = useLinkQuestionsAnswersMutation({
+ * const [linkAnswerImagesMutation, { data, loading, error }] = useLinkAnswerImagesMutation({
  *   variables: {
- *      questionImages: // value for 'questionImages'
  *      answerImages: // value for 'answerImages'
  *   },
  * });
  */
-export function useLinkQuestionsAnswersMutation(baseOptions?: Apollo.MutationHookOptions<LinkQuestionsAnswersMutation, LinkQuestionsAnswersMutationVariables>) {
+export function useLinkAnswerImagesMutation(baseOptions?: Apollo.MutationHookOptions<LinkAnswerImagesMutation, LinkAnswerImagesMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LinkQuestionsAnswersMutation, LinkQuestionsAnswersMutationVariables>(LinkQuestionsAnswersDocument, options);
+        return Apollo.useMutation<LinkAnswerImagesMutation, LinkAnswerImagesMutationVariables>(LinkAnswerImagesDocument, options);
       }
-export type LinkQuestionsAnswersMutationHookResult = ReturnType<typeof useLinkQuestionsAnswersMutation>;
-export type LinkQuestionsAnswersMutationResult = Apollo.MutationResult<LinkQuestionsAnswersMutation>;
-export type LinkQuestionsAnswersMutationOptions = Apollo.BaseMutationOptions<LinkQuestionsAnswersMutation, LinkQuestionsAnswersMutationVariables>;
+export type LinkAnswerImagesMutationHookResult = ReturnType<typeof useLinkAnswerImagesMutation>;
+export type LinkAnswerImagesMutationResult = Apollo.MutationResult<LinkAnswerImagesMutation>;
+export type LinkAnswerImagesMutationOptions = Apollo.BaseMutationOptions<LinkAnswerImagesMutation, LinkAnswerImagesMutationVariables>;
+export const LinkQuestionsImagesDocument = gql`
+    mutation LinkQuestionsImages($questionImages: [question_imagesInsertInput!]!) {
+  insertIntoquestion_imagesCollection(objects: $questionImages) {
+    records {
+      nodeId
+      id
+      image
+      question
+    }
+  }
+}
+    `;
+export type LinkQuestionsImagesMutationFn = Apollo.MutationFunction<LinkQuestionsImagesMutation, LinkQuestionsImagesMutationVariables>;
+
+/**
+ * __useLinkQuestionsImagesMutation__
+ *
+ * To run a mutation, you first call `useLinkQuestionsImagesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLinkQuestionsImagesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [linkQuestionsImagesMutation, { data, loading, error }] = useLinkQuestionsImagesMutation({
+ *   variables: {
+ *      questionImages: // value for 'questionImages'
+ *   },
+ * });
+ */
+export function useLinkQuestionsImagesMutation(baseOptions?: Apollo.MutationHookOptions<LinkQuestionsImagesMutation, LinkQuestionsImagesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LinkQuestionsImagesMutation, LinkQuestionsImagesMutationVariables>(LinkQuestionsImagesDocument, options);
+      }
+export type LinkQuestionsImagesMutationHookResult = ReturnType<typeof useLinkQuestionsImagesMutation>;
+export type LinkQuestionsImagesMutationResult = Apollo.MutationResult<LinkQuestionsImagesMutation>;
+export type LinkQuestionsImagesMutationOptions = Apollo.BaseMutationOptions<LinkQuestionsImagesMutation, LinkQuestionsImagesMutationVariables>;
+export const RemoveAllAssignationsDocument = gql`
+    mutation RemoveAllAssignations($userId: UUID!) {
+  deleteFromuser_books_assignationCollection(
+    atMost: 1000
+    filter: {user: {eq: $userId}}
+  ) {
+    records {
+      id
+      nodeId
+    }
+  }
+}
+    `;
+export type RemoveAllAssignationsMutationFn = Apollo.MutationFunction<RemoveAllAssignationsMutation, RemoveAllAssignationsMutationVariables>;
+
+/**
+ * __useRemoveAllAssignationsMutation__
+ *
+ * To run a mutation, you first call `useRemoveAllAssignationsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveAllAssignationsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeAllAssignationsMutation, { data, loading, error }] = useRemoveAllAssignationsMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useRemoveAllAssignationsMutation(baseOptions?: Apollo.MutationHookOptions<RemoveAllAssignationsMutation, RemoveAllAssignationsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveAllAssignationsMutation, RemoveAllAssignationsMutationVariables>(RemoveAllAssignationsDocument, options);
+      }
+export type RemoveAllAssignationsMutationHookResult = ReturnType<typeof useRemoveAllAssignationsMutation>;
+export type RemoveAllAssignationsMutationResult = Apollo.MutationResult<RemoveAllAssignationsMutation>;
+export type RemoveAllAssignationsMutationOptions = Apollo.BaseMutationOptions<RemoveAllAssignationsMutation, RemoveAllAssignationsMutationVariables>;
+export const RemoveAnswersFromQuestionDocument = gql`
+    mutation RemoveAnswersFromQuestion($imagePaths: [String!]!, $questionId: UUID!) {
+  deleteFromanswerCollection(
+    atMost: 1000
+    filter: {question: {eq: $questionId}, image: {in: $imagePaths}}
+  ) {
+    records {
+      id
+      nodeId
+      question
+    }
+  }
+}
+    `;
+export type RemoveAnswersFromQuestionMutationFn = Apollo.MutationFunction<RemoveAnswersFromQuestionMutation, RemoveAnswersFromQuestionMutationVariables>;
+
+/**
+ * __useRemoveAnswersFromQuestionMutation__
+ *
+ * To run a mutation, you first call `useRemoveAnswersFromQuestionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveAnswersFromQuestionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeAnswersFromQuestionMutation, { data, loading, error }] = useRemoveAnswersFromQuestionMutation({
+ *   variables: {
+ *      imagePaths: // value for 'imagePaths'
+ *      questionId: // value for 'questionId'
+ *   },
+ * });
+ */
+export function useRemoveAnswersFromQuestionMutation(baseOptions?: Apollo.MutationHookOptions<RemoveAnswersFromQuestionMutation, RemoveAnswersFromQuestionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveAnswersFromQuestionMutation, RemoveAnswersFromQuestionMutationVariables>(RemoveAnswersFromQuestionDocument, options);
+      }
+export type RemoveAnswersFromQuestionMutationHookResult = ReturnType<typeof useRemoveAnswersFromQuestionMutation>;
+export type RemoveAnswersFromQuestionMutationResult = Apollo.MutationResult<RemoveAnswersFromQuestionMutation>;
+export type RemoveAnswersFromQuestionMutationOptions = Apollo.BaseMutationOptions<RemoveAnswersFromQuestionMutation, RemoveAnswersFromQuestionMutationVariables>;
+export const RemoveBookDocument = gql`
+    mutation RemoveBook($bookId: UUID!) {
+  deleteFrombooksCollection(atMost: 1, filter: {id: {eq: $bookId}}) {
+    records {
+      id
+      chaptersCollection {
+        edges {
+          node {
+            id
+            nodeId
+          }
+        }
+      }
+      user_books_assignationCollection {
+        edges {
+          node {
+            id
+            nodeId
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export type RemoveBookMutationFn = Apollo.MutationFunction<RemoveBookMutation, RemoveBookMutationVariables>;
+
+/**
+ * __useRemoveBookMutation__
+ *
+ * To run a mutation, you first call `useRemoveBookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveBookMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeBookMutation, { data, loading, error }] = useRemoveBookMutation({
+ *   variables: {
+ *      bookId: // value for 'bookId'
+ *   },
+ * });
+ */
+export function useRemoveBookMutation(baseOptions?: Apollo.MutationHookOptions<RemoveBookMutation, RemoveBookMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveBookMutation, RemoveBookMutationVariables>(RemoveBookDocument, options);
+      }
+export type RemoveBookMutationHookResult = ReturnType<typeof useRemoveBookMutation>;
+export type RemoveBookMutationResult = Apollo.MutationResult<RemoveBookMutation>;
+export type RemoveBookMutationOptions = Apollo.BaseMutationOptions<RemoveBookMutation, RemoveBookMutationVariables>;
 export const RemoveChaptersDocument = gql`
     mutation RemoveChapters($chapterIds: [UUID!]!) {
   deleteFromchaptersCollection(filter: {id: {in: $chapterIds}}, atMost: 1000) {
@@ -2017,6 +2278,146 @@ export function useRemoveChaptersMutation(baseOptions?: Apollo.MutationHookOptio
 export type RemoveChaptersMutationHookResult = ReturnType<typeof useRemoveChaptersMutation>;
 export type RemoveChaptersMutationResult = Apollo.MutationResult<RemoveChaptersMutation>;
 export type RemoveChaptersMutationOptions = Apollo.BaseMutationOptions<RemoveChaptersMutation, RemoveChaptersMutationVariables>;
+export const RemoveImagesFromQuestionDocument = gql`
+    mutation RemoveImagesFromQuestion($imagePaths: [String!]!, $questionId: UUID!) {
+  deleteFromquestion_imagesCollection(
+    atMost: 1000
+    filter: {image: {in: $imagePaths}, question: {eq: $questionId}}
+  ) {
+    records {
+      id
+      nodeId
+      question
+    }
+  }
+}
+    `;
+export type RemoveImagesFromQuestionMutationFn = Apollo.MutationFunction<RemoveImagesFromQuestionMutation, RemoveImagesFromQuestionMutationVariables>;
+
+/**
+ * __useRemoveImagesFromQuestionMutation__
+ *
+ * To run a mutation, you first call `useRemoveImagesFromQuestionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveImagesFromQuestionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeImagesFromQuestionMutation, { data, loading, error }] = useRemoveImagesFromQuestionMutation({
+ *   variables: {
+ *      imagePaths: // value for 'imagePaths'
+ *      questionId: // value for 'questionId'
+ *   },
+ * });
+ */
+export function useRemoveImagesFromQuestionMutation(baseOptions?: Apollo.MutationHookOptions<RemoveImagesFromQuestionMutation, RemoveImagesFromQuestionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveImagesFromQuestionMutation, RemoveImagesFromQuestionMutationVariables>(RemoveImagesFromQuestionDocument, options);
+      }
+export type RemoveImagesFromQuestionMutationHookResult = ReturnType<typeof useRemoveImagesFromQuestionMutation>;
+export type RemoveImagesFromQuestionMutationResult = Apollo.MutationResult<RemoveImagesFromQuestionMutation>;
+export type RemoveImagesFromQuestionMutationOptions = Apollo.BaseMutationOptions<RemoveImagesFromQuestionMutation, RemoveImagesFromQuestionMutationVariables>;
+export const RemoveQuestionDocument = gql`
+    mutation RemoveQuestion($questionId: UUID!) {
+  deleteFromquestionsCollection(filter: {id: {eq: $questionId}}) {
+    records {
+      id
+      nodeId
+      answerCollection {
+        ...answersInQuestion
+      }
+      question_imagesCollection {
+        ...imagesOfQuestion
+      }
+    }
+  }
+}
+    ${AnswersInQuestionFragmentDoc}
+${ImagesOfQuestionFragmentDoc}`;
+export type RemoveQuestionMutationFn = Apollo.MutationFunction<RemoveQuestionMutation, RemoveQuestionMutationVariables>;
+
+/**
+ * __useRemoveQuestionMutation__
+ *
+ * To run a mutation, you first call `useRemoveQuestionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveQuestionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeQuestionMutation, { data, loading, error }] = useRemoveQuestionMutation({
+ *   variables: {
+ *      questionId: // value for 'questionId'
+ *   },
+ * });
+ */
+export function useRemoveQuestionMutation(baseOptions?: Apollo.MutationHookOptions<RemoveQuestionMutation, RemoveQuestionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveQuestionMutation, RemoveQuestionMutationVariables>(RemoveQuestionDocument, options);
+      }
+export type RemoveQuestionMutationHookResult = ReturnType<typeof useRemoveQuestionMutation>;
+export type RemoveQuestionMutationResult = Apollo.MutationResult<RemoveQuestionMutation>;
+export type RemoveQuestionMutationOptions = Apollo.BaseMutationOptions<RemoveQuestionMutation, RemoveQuestionMutationVariables>;
+export const ReplaceBooksAssignationDocument = gql`
+    mutation ReplaceBooksAssignation($userId: UUID!, $assignations: [user_books_assignationInsertInput!]!) {
+  deleteFromuser_books_assignationCollection(
+    filter: {user: {eq: $userId}}
+    atMost: 1000
+  ) {
+    records {
+      id
+    }
+  }
+  insertIntouser_books_assignationCollection(objects: $assignations) {
+    records {
+      id
+      users {
+        id
+        user_books_assignationCollection {
+          edges {
+            node {
+              nodeId
+              id
+              book
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export type ReplaceBooksAssignationMutationFn = Apollo.MutationFunction<ReplaceBooksAssignationMutation, ReplaceBooksAssignationMutationVariables>;
+
+/**
+ * __useReplaceBooksAssignationMutation__
+ *
+ * To run a mutation, you first call `useReplaceBooksAssignationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReplaceBooksAssignationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [replaceBooksAssignationMutation, { data, loading, error }] = useReplaceBooksAssignationMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      assignations: // value for 'assignations'
+ *   },
+ * });
+ */
+export function useReplaceBooksAssignationMutation(baseOptions?: Apollo.MutationHookOptions<ReplaceBooksAssignationMutation, ReplaceBooksAssignationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReplaceBooksAssignationMutation, ReplaceBooksAssignationMutationVariables>(ReplaceBooksAssignationDocument, options);
+      }
+export type ReplaceBooksAssignationMutationHookResult = ReturnType<typeof useReplaceBooksAssignationMutation>;
+export type ReplaceBooksAssignationMutationResult = Apollo.MutationResult<ReplaceBooksAssignationMutation>;
+export type ReplaceBooksAssignationMutationOptions = Apollo.BaseMutationOptions<ReplaceBooksAssignationMutation, ReplaceBooksAssignationMutationVariables>;
 export const UpdateExistingBookDocument = gql`
     mutation UpdateExistingBook($bookId: UUID!, $updatedBook: booksUpdateInput!) {
   updatebooksCollection(set: $updatedBook, filter: {id: {eq: $bookId}}) {
@@ -2116,6 +2517,48 @@ export function useUpdateExistingQuestionMutation(baseOptions?: Apollo.MutationH
 export type UpdateExistingQuestionMutationHookResult = ReturnType<typeof useUpdateExistingQuestionMutation>;
 export type UpdateExistingQuestionMutationResult = Apollo.MutationResult<UpdateExistingQuestionMutation>;
 export type UpdateExistingQuestionMutationOptions = Apollo.BaseMutationOptions<UpdateExistingQuestionMutation, UpdateExistingQuestionMutationVariables>;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($userId: UUID!, $updatedUser: usersUpdateInput!) {
+  updateusersCollection(filter: {id: {eq: $userId}}, set: $updatedUser) {
+    records {
+      id
+      nodeId
+      email
+      firstName
+      lastName
+      isAdmin
+      isEnabled
+    }
+  }
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      updatedUser: // value for 'updatedUser'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const GetAnswersForQuestionDocument = gql`
     query GetAnswersForQuestion($questionId: UUID!) {
   answerCollection(filter: {question: {eq: $questionId}}) {
@@ -2239,3 +2682,44 @@ export function useGetAssignedBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetAssignedBooksQueryHookResult = ReturnType<typeof useGetAssignedBooksQuery>;
 export type GetAssignedBooksLazyQueryHookResult = ReturnType<typeof useGetAssignedBooksLazyQuery>;
 export type GetAssignedBooksQueryResult = Apollo.QueryResult<GetAssignedBooksQuery, GetAssignedBooksQueryVariables>;
+export const SignUpDocument = gql`
+    mutation SignUp($email: String!, $newUser: usersUpdateInput!) {
+  updateusersCollection(filter: {email: {eq: $email}}, set: $newUser) {
+    records {
+      id
+      firstName
+      lastName
+      email
+      isEnabled
+      isAdmin
+    }
+  }
+}
+    `;
+export type SignUpMutationFn = Apollo.MutationFunction<SignUpMutation, SignUpMutationVariables>;
+
+/**
+ * __useSignUpMutation__
+ *
+ * To run a mutation, you first call `useSignUpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signUpMutation, { data, loading, error }] = useSignUpMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      newUser: // value for 'newUser'
+ *   },
+ * });
+ */
+export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignUpMutation, SignUpMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, options);
+      }
+export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
+export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
+export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;

@@ -1,6 +1,6 @@
 import { filteredInputInitial, SharedContext } from "@/layout/AdminLayout";
-import { bookDatabase } from "@/components/admin/table/books-table";
 import { useRef, useState } from "react";
+import { useAdminContext } from "@/hooks/use-admin-context";
 
 export const FilterUser = ({
   setFilteredInput,
@@ -9,6 +9,7 @@ export const FilterUser = ({
   setFilteredInput: any;
   filteredUsers: any;
 }) => {
+  const { books } = useAdminContext();
   const filterBook = useRef<HTMLSelectElement>(null);
   const filterEmail = useRef<HTMLInputElement>(null);
   const filterStatus = useRef<HTMLSelectElement>(null);
@@ -89,7 +90,7 @@ export const FilterUser = ({
         <option value={"notAssigned"}>No book assigned</option>
         <option disabled>──────────</option>
 
-        {bookDatabase.map((book, i) => (
+        {books.map((book, i) => (
           <option key={i} value={book.name.toLowerCase()}>
             {book.name}
           </option>

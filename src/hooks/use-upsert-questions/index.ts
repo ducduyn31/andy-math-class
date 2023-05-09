@@ -1,6 +1,9 @@
 import {
   useCreateNewQuestionMutation,
-  useLinkQuestionsAnswersMutation,
+  useLinkAnswerImagesMutation,
+  useLinkQuestionsImagesMutation,
+  useRemoveAnswersFromQuestionMutation,
+  useRemoveImagesFromQuestionMutation,
   useUpdateExistingQuestionMutation,
 } from "@/gql/types";
 import { UpsertQuestionFormValues } from "@/helpers/admin/questions/form";
@@ -8,6 +11,13 @@ import { useSupabaseContext } from "@/hooks/use-supabase-context";
 import { generateUUID } from "@/helpers/string";
 import { useCallback } from "react";
 import { assureNonNull } from "@/helpers/array";
+import { createNewQuestionInCache } from "@/hooks/use-upsert-questions/cache-updater/questions";
+import {
+  addAnswerImagesToCache,
+  addQuestionImagesToCache,
+  removeAnswerImagesFromCache,
+  removeQuestionImagesFromCache,
+} from "@/hooks/use-upsert-questions/cache-updater/images";
 
 interface UpsertQuestionsArgs {
   onSuccess?: () => void;
@@ -15,12 +25,28 @@ interface UpsertQuestionsArgs {
 
 export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
   const [createQuestionsGQL, { loading: insertQuestionsLoading }] =
-    useCreateNewQuestionMutation();
+    useCreateNewQuestionMutation({
+      update: createNewQuestionInCache,
+    });
   const [updateQuestionsGQL, { loading: updateQuestionsLoading }] =
     useUpdateExistingQuestionMutation();
-  const [linkQuestionsAnswersGQL, { loading: linkQuestionsAnswersLoading }] =
-    useLinkQuestionsAnswersMutation();
-  const { client } = useSupabaseContext();
+  const [linkQuestionsImagesGQL, { loading: linkQuestionsImagesLoading }] =
+    useLinkQuestionsImagesMutation({
+      update: addQuestionImagesToCache,
+    });
+  const [linkAnswersImagesGQL, { loading: linkAnswersImagesLoading }] =
+    useLinkAnswerImagesMutation({
+      update: addAnswerImagesToCache,
+    });
+  const [removeQuestionImagesGQL, { loading: removeQuestionImagesLoading }] =
+    useRemoveImagesFromQuestionMutation({
+      update: removeQuestionImagesFromCache,
+    });
+  const [removeAnswerImagesGQL, { loading: removeAnswerImagesLoading }] =
+    useRemoveAnswersFromQuestionMutation({
+      update: removeAnswerImagesFromCache,
+    });
+  const { storage } = useSupabaseContext();
 
   const uploadImages = useCallback(
     async (values: UpsertQuestionFormValues) => {
@@ -30,14 +56,14 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
 
       const questionImagesPromise = Promise.all(
         questionImagesArray.map((image) => {
-          return client.storage
+          return storage
             .from("class-questions")
             .upload(`question-images/${generateUUID()}-${image.name}`, image);
         })
       );
       const answerImagesPromise = Promise.all(
         answerImagesArray.map((image) => {
-          return client.storage
+          return storage
             .from("class-questions")
             .upload(`answer-images/${generateUUID()}-${image.name}`, image);
         })
@@ -48,17 +74,58 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
       ]);
 
       const questionPaths = assureNonNull(
-        questionResult.map((result) => result.data?.path)
+        questionResult.map((result) => result?.data?.path)
       );
       const answerPaths = assureNonNull(
-        answerResult.map((result) => result.data?.path)
+        answerResult.map((result) => result?.data?.path)
       );
       return {
         questionImages: questionPaths,
         answerImages: answerPaths,
       };
     },
-    [client]
+    [storage]
+  );
+
+  const linkQuestionsAnswers = useCallback(
+    async ({
+      questionId,
+      uploadQuestions,
+      uploadAnswers,
+    }: {
+      questionId: string;
+      uploadQuestions: string[];
+      uploadAnswers: string[];
+    }) => {
+      const linkQuestionsImagesPromise =
+        uploadQuestions.length > 0
+          ? linkQuestionsImagesGQL({
+              variables: {
+                questionImages: uploadQuestions.map((path) => ({
+                  image: path,
+                  question: questionId,
+                })),
+              },
+            })
+          : Promise.resolve([]);
+      const linkAnswersImagesPromise =
+        uploadAnswers.length > 0
+          ? linkAnswersImagesGQL({
+              variables: {
+                answerImages: uploadAnswers.map((path) => ({
+                  image: path,
+                  question: questionId,
+                })),
+              },
+            })
+          : Promise.resolve([]);
+
+      return await Promise.all([
+        linkQuestionsImagesPromise,
+        linkAnswersImagesPromise,
+      ]);
+    },
+    [linkQuestionsImagesGQL, linkAnswersImagesGQL]
   );
 
   const createNewQuestion = useCallback(
@@ -79,20 +146,13 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
       const questionId =
         createQuestionResult.data?.insertIntoquestionsCollection?.records?.[0]
           .id;
-      await linkQuestionsAnswersGQL({
-        variables: {
-          questionImages: questionImages.map((path) => ({
-            image: path,
-            question: questionId,
-          })),
-          answerImages: answerImages.map((path) => ({
-            image: path,
-            question: questionId,
-          })),
-        },
+      await linkQuestionsAnswers({
+        questionId: questionId!,
+        uploadQuestions: questionImages,
+        uploadAnswers: answerImages,
       });
     },
-    [createQuestionsGQL, linkQuestionsAnswersGQL, uploadImages]
+    [createQuestionsGQL, linkQuestionsAnswers, uploadImages]
   );
 
   const updateQuestion = useCallback(
@@ -109,25 +169,39 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
           },
         },
       });
-      const [{ questionImages, answerImages }, updateQuestionResult] =
-        await Promise.all([uploadImagesPromise, updateQuestionsPromise]);
-      if (questionImages.length === 0 && answerImages.length === 0) return;
-      const questionId =
-        updateQuestionResult.data?.updatequestionsCollection?.records?.[0].id;
-      await linkQuestionsAnswersGQL({
-        variables: {
-          questionImages: questionImages.map((path) => ({
-            image: path,
-            question: questionId,
-          })),
-          answerImages: answerImages.map((path) => ({
-            image: path,
-            question: questionId,
-          })),
-        },
+      const [{ questionImages, answerImages }] = await Promise.all([
+        uploadImagesPromise,
+        updateQuestionsPromise,
+      ]);
+      if (values.deleteQuestionImages.length > 0) {
+        await removeQuestionImagesGQL({
+          variables: {
+            questionId: values.id,
+            imagePaths: values.deleteQuestionImages,
+          },
+        });
+      }
+      if (values.deleteAnswerImages.length > 0) {
+        await removeAnswerImagesGQL({
+          variables: {
+            questionId: values.id,
+            imagePaths: values.deleteAnswerImages,
+          },
+        });
+      }
+      await linkQuestionsAnswers({
+        questionId: values.id!,
+        uploadQuestions: questionImages,
+        uploadAnswers: answerImages,
       });
     },
-    [linkQuestionsAnswersGQL, updateQuestionsGQL, uploadImages]
+    [
+      linkQuestionsAnswers,
+      removeAnswerImagesGQL,
+      removeQuestionImagesGQL,
+      updateQuestionsGQL,
+      uploadImages,
+    ]
   );
 
   const upsertQuestions = async (values: UpsertQuestionFormValues) => {
@@ -142,8 +216,11 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
   return {
     loading:
       insertQuestionsLoading ||
-      linkQuestionsAnswersLoading ||
-      updateQuestionsLoading,
+      linkQuestionsImagesLoading ||
+      linkAnswersImagesLoading ||
+      updateQuestionsLoading ||
+      removeQuestionImagesLoading ||
+      removeAnswerImagesLoading,
     upsertQuestions,
   };
 };

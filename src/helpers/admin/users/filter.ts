@@ -1,19 +1,21 @@
-import { AdminUserRowProps } from "@/components/admin/table/users-table/components/user-row";
+import { User } from "@/models";
+import { assureNumber } from "@/helpers/number";
 
-export const rowMatchEmail = (user: AdminUserRowProps, email: string) => {
+export const rowMatchEmail = (user: User, email: string) => {
   if (email.length == 0) return true;
   return user.email.toLowerCase().includes(email.toLowerCase());
 };
 
-export const rowMatchBook = (user: AdminUserRowProps, book: string) => {
+export const rowMatchBook = (user: User, book: string) => {
   if (book == "any") return true;
-  if (book == "notAssigned") return user.assignedBooks.length == 0;
-  return user.assignedBooks.some((assignedBook) =>
+  if (book == "notAssigned")
+    return assureNumber(user.assignedBooks?.length) === 0;
+  return !!user.assignedBooks?.some((assignedBook) =>
     assignedBook.name.toLowerCase().includes(book.toLowerCase())
   );
 };
 
-export const rowMatchStatus = (user: AdminUserRowProps, status: string) => {
+export const rowMatchStatus = (user: User, status: string) => {
   if (status == "any") return true;
-  return user.enabled.toString() == status.toLowerCase();
+  return user.isEnabled.toString() == status.toLowerCase();
 };

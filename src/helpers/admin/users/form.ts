@@ -3,9 +3,11 @@ import { UseUpdateUserArgs } from "@/hooks/use-update-user";
 
 export interface UpdateUserFormValues {
   id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  assignedBookIds?: string[];
+  isEnabled?: boolean;
 }
 
 export const UpdateUserFormValuesSchema = yup.object().shape({

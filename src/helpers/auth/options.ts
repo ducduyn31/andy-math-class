@@ -3,7 +3,7 @@ import EmailProvider from "next-auth/providers/email";
 import { SupabaseAdapter } from "@next-auth/supabase-adapter";
 import * as jwt from "jsonwebtoken";
 
-export const authOptions: AuthOptions = {
+export const serverAuthOptions: AuthOptions = {
   providers: [
     EmailProvider({
       server: {
@@ -22,7 +22,7 @@ export const authOptions: AuthOptions = {
   },
   adapter: SupabaseAdapter({
     url: process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-    secret: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
+    secret: process.env.NEXT_PRIVATE_SERVICE_ROLE_KEY as string,
   }),
   callbacks: {
     async session({ session, user, token }) {
@@ -41,7 +41,6 @@ export const authOptions: AuthOptions = {
   },
   pages: {
     signIn: "/login",
-    newUser: "/register",
   },
   debug: true,
 };

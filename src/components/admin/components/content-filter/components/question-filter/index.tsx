@@ -1,6 +1,7 @@
-import { bookDatabase } from "@/components/admin/table/books-table";
 import React, { useState } from "react";
 import { filteredInputInitial, SharedContext } from "@/layout/AdminLayout";
+import { useAdminContext } from "@/hooks/use-admin-context";
+
 interface PropType {
   setFilteredInput: any;
   filteredQuestions: any;
@@ -9,6 +10,7 @@ export const FilterQuestion: React.FC<PropType> = ({
   setFilteredInput,
   filteredQuestions,
 }) => {
+  const { books: availableBooks } = useAdminContext();
   const [selectedBook, setSelectedBook] = useState<string>(
     filteredQuestions.book
   );
@@ -56,7 +58,7 @@ export const FilterQuestion: React.FC<PropType> = ({
         <option defaultChecked={selectedBook == "any"} value={"any"}>
           Any
         </option>
-        {bookDatabase.map((book) => (
+        {availableBooks.map((book) => (
           <option
             key={book.name}
             value={book.name}
@@ -78,7 +80,7 @@ export const FilterQuestion: React.FC<PropType> = ({
           Any
         </option>
         {selectedBook != "any" &&
-          bookDatabase
+          availableBooks
             .filter((book) => book.name == selectedBook)
             .map((each) =>
               each.chapters.map((chapter) => (

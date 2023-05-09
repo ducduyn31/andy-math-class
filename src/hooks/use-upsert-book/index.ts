@@ -100,6 +100,7 @@ export const useUpsertBook = (
             .map((chapter) => ({
               book: theBook?.id,
               name: chapter.name,
+              parent: chapter.parentId,
             })),
         },
       });

@@ -1,4 +1,3 @@
-import { AdminUserRowProps } from "@/components/admin/table/users-table/components/user-row";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import {
@@ -8,25 +7,21 @@ import {
 } from "@/helpers/admin/users/form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormInputField } from "@/components/form-input-field";
-import { useGetAssignedBooksByUserIdQuery } from "@/gql/types";
-import { mapAssignedBook, mapBook } from "@/models";
-import { assureNonNull } from "@/helpers/array";
+import { Book, User } from "@/models";
 import { assureNumber } from "@/helpers/number";
 import { useUpdateUser } from "@/hooks/use-update-user";
 import React from "react";
 import { useModalClose } from "@/hooks/use-modal";
 
 interface Props {
-  user: AdminUserRowProps;
+  user: User;
+  availableBooks: Book[];
 }
 
-export const UserModificationModal: React.FC<Props> = ({ user }: Props) => {
-  const { data: assignedBooksData } = useGetAssignedBooksByUserIdQuery({
-    variables: {
-      userId: user.id,
-    },
-  });
-
+export const UserModificationModal: React.FC<Props> = ({
+  user,
+  availableBooks,
+}: Props) => {
   const { closeCurrentModal } = useModalClose();
 
   const { updateUser } = useUpdateUser({
@@ -36,14 +31,9 @@ export const UserModificationModal: React.FC<Props> = ({ user }: Props) => {
     },
   });
 
-  const availableBooks = assignedBooksData?.booksCollection?.edges.map(mapBook);
-  const assignedBooks = assureNonNull(
-    assignedBooksData?.user_books_assignationCollection?.edges?.map(
-      mapAssignedBook
-    )
-  );
-
   const {
+    watch,
+    setValue,
     handleSubmit,
     register,
     formState: { errors },
@@ -54,8 +44,21 @@ export const UserModificationModal: React.FC<Props> = ({ user }: Props) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      assignedBookIds: user.assignedBooks?.map((book) => book.id),
     },
   });
+
+  const onCheckAssignedBook = (isChecked: boolean, book: Book) => {
+    const formAssignedBooks = watch("assignedBookIds");
+    if (isChecked) {
+      setValue("assignedBookIds", [...(formAssignedBooks || []), book.id]);
+    } else {
+      setValue(
+        "assignedBookIds",
+        formAssignedBooks?.filter((bookId) => bookId !== book.id)
+      );
+    }
+  };
 
   return (
     <>
@@ -98,10 +101,13 @@ export const UserModificationModal: React.FC<Props> = ({ user }: Props) => {
 
             {availableBooks?.map((book, i) => (
               <label key={i} className="label cursor-pointer relative">
-                <span className={"btn w-full"}> {book.name} </span>
+                <span className="btn w-full"> {book.name} </span>
                 <input
                   type="checkbox"
-                  defaultChecked={assignedBooks.includes(book)}
+                  checked={watch("assignedBookIds")?.includes(book.id)}
+                  onChange={(event) =>
+                    onCheckAssignedBook(event.target.checked, book)
+                  }
                   className="checkbox checkbox-accent absolute right-5 border-2"
                 />
               </label>

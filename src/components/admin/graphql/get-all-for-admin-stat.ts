@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export default gql`
   query GetAllForAdmin {
-    booksCollection {
+    booksCollection(orderBy: { created_at: DescNullsLast }) {
       edges {
         node {
           nodeId
@@ -18,7 +18,7 @@ export default gql`
         }
       }
     }
-    questionsCollection {
+    questionsCollection(orderBy: { created_at: DescNullsLast }) {
       edges {
         node {
           nodeId
@@ -44,6 +44,24 @@ export default gql`
         }
       }
     }
+    usersCollection(
+      orderBy: { emailVerified: DescNullsFirst, firstName: AscNullsLast }
+    ) {
+      edges {
+        node {
+          nodeId
+          id
+          firstName
+          email
+          lastName
+          isAdmin
+          isEnabled
+          user_books_assignationCollection {
+            ...assignationsOfUser
+          }
+        }
+      }
+    }
   }
 
   fragment chaptersInBook on chaptersConnection {
@@ -52,6 +70,7 @@ export default gql`
         nodeId
         id
         name
+        parent
       }
     }
   }
@@ -69,7 +88,6 @@ export default gql`
 
   fragment answersInQuestion on answerConnection {
     edges {
-      cursor
       node {
         nodeId
         id
@@ -85,6 +103,16 @@ export default gql`
         nodeId
         id
         image
+      }
+    }
+  }
+
+  fragment assignationsOfUser on user_books_assignationConnection {
+    edges {
+      node {
+        nodeId
+        id
+        book
       }
     }
   }

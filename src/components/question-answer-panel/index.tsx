@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { Question } from "@/models";
 import { useStateList } from "react-use";
@@ -20,9 +20,7 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
   const [shouldShowAnswer, setShouldShowAnswer] = useState(false);
   const { getAnswers, answers } = useGetAnswersAsync();
 
-  const finished = useMemo(() => {
-    return currentQuestionId + 1 === questions.length;
-  }, [currentQuestionId, questions.length]);
+  const [finished, setFinished] = useState(false);
 
   if (!questions || questions.length === 0) return null;
 
@@ -78,18 +76,18 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
                 <button
                   className="btn btn-primary"
                   onClick={() => {
-                    if (currentQuestionId !== questions.length) {
+                    if (currentQuestionId < questions.length - 1) {
                       toast.success(
                         `Finished question ${currentQuestionId + 1}`
                       );
                       setShouldShowAnswer(false);
                       next();
+                    } else {
+                      setFinished(true);
                     }
                   }}
                 >
-                  {currentQuestionId == questions.length - 1
-                    ? "Finish"
-                    : "Next"}
+                  {currentQuestionId < questions.length - 1 ? "Next" : "Finish"}
                 </button>
               </div>
             </>
@@ -102,7 +100,13 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
                 questions!
               </h1>
               <h1 className={"text-center text-5xl"}>&#127881; &#127881;</h1>
-              <button className={"btn mt-5"} onClick={() => setStateAt(0)}>
+              <button
+                className={"btn mt-5"}
+                onClick={() => {
+                  setStateAt(0);
+                  setFinished(false);
+                }}
+              >
                 Start over
               </button>
             </div>

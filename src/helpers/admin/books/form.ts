@@ -1,8 +1,10 @@
 import * as yup from "yup";
+import { Maybe } from "@/models/types";
 
 export interface FormChapterValue {
   id?: string;
   name: string;
+  parentId?: Maybe<string>;
 }
 
 export interface UpsertBookFormValues {

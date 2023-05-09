@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import Layout from "@/layout/Layout";
 import { useForm } from "react-hook-form";
 import {
@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FormInputField } from "@/components/form-input-field";
 
 const LoginPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     handleSubmit,
     register,
@@ -35,8 +36,13 @@ const LoginPage = () => {
             />
 
             <div className="mt-3">
-              <button type="submit" className="btn btn-primary w-full">
-                Login
+              <button
+                type="submit"
+                className="btn btn-primary w-full"
+                disabled={isSubmitting}
+                onClick={() => setIsSubmitting(true)}
+              >
+                {isSubmitting ? "Please wait..." : "Login"}
               </button>
             </div>
           </form>

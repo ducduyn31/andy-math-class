@@ -41,12 +41,15 @@ export const QuestionModificationModal: React.FC<Props> = ({
       description: question?.description,
       bookId: question?.book?.id || books[0]?.id,
       chapterId: question?.chapter?.id || books[0]?.chapters[0]?.id,
+      deleteQuestionImages: [],
+      deleteAnswerImages: [],
     },
   });
   const {
     register,
     watch,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = methods;
 
@@ -55,6 +58,14 @@ export const QuestionModificationModal: React.FC<Props> = ({
   const matchCurrentBook = useCallback(
     (book: Book) => book.id === selectedBookId,
     [selectedBookId]
+  );
+
+  const updateDeleteFiles = useCallback(
+    (name: "deleteQuestionImages" | "deleteAnswerImages") =>
+      (deletingFiles: string[]) => {
+        setValue(name, deletingFiles);
+      },
+    [setValue]
   );
 
   return (
@@ -106,6 +117,7 @@ export const QuestionModificationModal: React.FC<Props> = ({
                 accept="image/*"
                 existingImages={question?.questionImages || []}
                 errorMessage={errors.questionImages?.message}
+                onDeleteSelect={updateDeleteFiles("deleteQuestionImages")}
                 {...register("questionImages")}
               />
               <FormImagePicker
@@ -114,6 +126,7 @@ export const QuestionModificationModal: React.FC<Props> = ({
                 accept="image/*"
                 existingImages={question?.answerImages || []}
                 errorMessage={errors.answerImages?.message}
+                onDeleteSelect={updateDeleteFiles("deleteAnswerImages")}
                 {...register("answerImages")}
               />
               <div className="modal-action mt-5">

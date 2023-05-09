@@ -1,7 +1,4 @@
-import {
-  AdminUserRow,
-  AdminUserRowProps,
-} from "@/components/admin/table/users-table/components/user-row";
+import { AdminUserRow } from "@/components/admin/table/users-table/components/user-row";
 import { useCallback, useEffect, useState } from "react";
 import { SharedContext } from "@/layout/AdminLayout";
 import { useAdminContext } from "@/hooks/use-admin-context";
@@ -10,6 +7,7 @@ import {
   rowMatchEmail,
   rowMatchStatus,
 } from "@/helpers/admin/users/filter";
+import { User } from "@/models";
 
 const itemPerPage = 10;
 export const AdminUserTable = ({
@@ -18,15 +16,13 @@ export const AdminUserTable = ({
   filteredInput: SharedContext["filteredInput"];
 }) => {
   const [page, setPage] = useState(0);
-  const [dataset, setDataset] = useState<AdminUserRowProps[]>([]);
+  const [dataset, setDataset] = useState<User[]>([]);
   const { filteredUsers } = filteredInput;
   const { users, totalUsers } = useAdminContext();
 
   const updatePaginationItem = useCallback(() => {
     const start = page * itemPerPage;
-    setDataset(
-      users.map((u) => u.toRowProps()).slice(start, start + itemPerPage)
-    );
+    setDataset(users.slice(start, start + itemPerPage));
   }, [users, page]);
 
   useEffect(() => {
@@ -36,14 +32,12 @@ export const AdminUserTable = ({
   useEffect(() => {
     if (filteredUsers.isFiltering) {
       setDataset(
-        users
-          .map((u) => u.toRowProps())
-          .filter(
-            (userRow) =>
-              rowMatchEmail(userRow, filteredUsers.email) &&
-              rowMatchBook(userRow, filteredUsers.book) &&
-              rowMatchStatus(userRow, filteredUsers.enabled)
-          )
+        users.filter(
+          (userRow) =>
+            rowMatchEmail(userRow, filteredUsers.email) &&
+            rowMatchBook(userRow, filteredUsers.book) &&
+            rowMatchStatus(userRow, filteredUsers.enabled)
+        )
       );
     } else {
       updatePaginationItem();
@@ -66,16 +60,8 @@ export const AdminUserTable = ({
               </tr>
             </thead>
             <tbody>
-              {dataset.map((data) => (
-                <AdminUserRow
-                  id={data.id}
-                  key={data.email}
-                  firstName={data.firstName}
-                  lastName={data.lastName}
-                  email={data.email}
-                  assignedBooks={data.assignedBooks}
-                  enabled={data.enabled}
-                />
+              {dataset.map((user) => (
+                <AdminUserRow key={user.id} user={user} />
               ))}
             </tbody>
           </table>

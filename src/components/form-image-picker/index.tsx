@@ -14,6 +14,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   errorMessage?: string;
   existingImages?: string[];
+  onDeleteSelect?: (path: string[]) => void;
 }
 interface FileChangeEvent {
   event: React.ChangeEvent<HTMLInputElement>;
@@ -22,14 +23,16 @@ interface FileChangeEvent {
 
 export const FormImagePicker = forwardRef<HTMLInputElement, Props>(
   function ImagePicker(
-    { label, errorMessage, existingImages, onChange, ...rest },
+    { label, errorMessage, existingImages, onChange, onDeleteSelect, ...rest },
     ref
   ) {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => inputRef.current!);
 
     const filesState = useList<File>();
-    const [files, { push }] = filesState;
+    const deleteFilesState = useList<string>();
+    const [files, { push: addFileToForm }] = filesState;
+    const [deleteFiles] = deleteFilesState;
     const [event, dispatchCurrentEvent] = useState<FileChangeEvent>();
 
     const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,8 +54,13 @@ export const FormImagePicker = forwardRef<HTMLInputElement, Props>(
       inputRef.current!.files = dataTransfer.files;
       event.event.target.files = dataTransfer.files;
       onChange?.(event.event);
-      push(...selectedFiles);
-    }, [event, onChange, push]);
+      addFileToForm(...selectedFiles);
+    }, [event, onChange, addFileToForm]);
+
+    useEffect(() => {
+      if (!onDeleteSelect) return;
+      onDeleteSelect(deleteFiles);
+    }, [deleteFiles, onDeleteSelect]);
 
     return (
       <div>
@@ -60,9 +68,15 @@ export const FormImagePicker = forwardRef<HTMLInputElement, Props>(
           <span className="label-text">{label}</span>
         </label>
         <div className="grid gap-5 grid-cols-3">
-          {existingImages?.map((path) => (
-            <ImageItem path={path} key={path} />
-          ))}
+          {existingImages
+            ?.filter((path) => !deleteFiles.includes(path))
+            .map((path) => (
+              <ImageItem
+                path={path}
+                key={path}
+                deleteFilesState={deleteFilesState}
+              />
+            ))}
           {files.map((file) => (
             <ImageItem file={file} key={file.name} filesState={filesState} />
           ))}

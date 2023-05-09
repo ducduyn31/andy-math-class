@@ -9,10 +9,10 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormInputField } from "@/components/form-input-field";
 import { NextPageWithLayout } from "@/pages/_app";
-import { useSupabaseContext } from "@/hooks/use-supabase-context";
+import { useSignUp } from "@/hooks/use-sign-up";
 
 const RegisterPage: NextPageWithLayout = () => {
-  const { authClient } = useSupabaseContext();
+  const { signUp, loading } = useSignUp();
 
   const {
     handleSubmit,
@@ -27,10 +27,10 @@ const RegisterPage: NextPageWithLayout = () => {
     <div className="flex justify-center mt-5">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title">Sign up</h2>
+          <h2 className="card-title">Complete your Sign up</h2>
           <form
             className="form-control w-full max-w-xs"
-            onSubmit={handleSubmit(submitRegisterForm(authClient))}
+            onSubmit={handleSubmit(submitRegisterForm(signUp))}
           >
             <FormInputField
               type="text"
@@ -50,38 +50,13 @@ const RegisterPage: NextPageWithLayout = () => {
             `}
               {...register("lastName")}
             />
-            <FormInputField
-              label="Email"
-              errorMessage={errors.email?.message}
-              className={`input input-bordered w-full max-w-xs ${
-                errors.email ? "input-error" : ""
-              }
-            `}
-              {...register("email")}
-            />
-            <FormInputField
-              type="password"
-              label="Password"
-              errorMessage={errors.password?.message}
-              className={`input input-bordered w-full max-w-xs ${
-                errors.password ? "input-error" : ""
-              }
-            `}
-              {...register("password")}
-            />
-            <FormInputField
-              type="password"
-              label="Confirm password"
-              errorMessage={errors.confirmPassword?.message}
-              className={`input input-bordered w-full max-w-xs ${
-                errors.confirmPassword ? "input-error" : ""
-              }
-            `}
-              {...register("confirmPassword")}
-            />
             <div className="mt-3">
-              <button type="submit" className="btn btn-primary w-full">
-                Sign up
+              <button
+                type="submit"
+                className="btn btn-primary w-full"
+                disabled={loading}
+              >
+                {loading ? "Loading..." : "Sign up"}
               </button>
             </div>
           </form>

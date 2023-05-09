@@ -33,8 +33,9 @@ export const ChapterBadge: React.FC<Props> = ({ chapter, ...props }) => {
   }, [chapter, chapters, removeChapters, removeFromCurrentChapters, setValue]);
 
   return (
-    <div
+    <button
       {...props}
+      type="button"
       className={`badge badge-lg gap-2 mr-1 mt-1 ${chapter?.book?.color ?? ""}`}
     >
       {chapter.name}
@@ -52,6 +53,6 @@ export const ChapterBadge: React.FC<Props> = ({ chapter, ...props }) => {
           d="M6 18L18 6M6 6l12 12"
         ></path>
       </svg>
-    </div>
+    </button>
   );
 };

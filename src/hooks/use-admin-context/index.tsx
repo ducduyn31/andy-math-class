@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useGetAllForAdminQuery } from "@/gql/types";
-import { assureNumber } from "@/helpers/number";
-import { useGetAllUsers } from "../use-get-all-users";
 import {
   Book,
   mapBooksFromGetAdminStat,
   mapQuestionFromGetAdminStat,
-  mapUser,
+  mapUserFromGetAllForAdmin,
   Question,
   User,
 } from "@/models";
@@ -29,28 +27,96 @@ const AdminContext = React.createContext<AdminContextType>({
   questions: [],
 });
 
+const combineReferences = ({
+  originUsers,
+  originBooks,
+  originQuestions,
+}: {
+  originUsers: User[];
+  originBooks: Book[];
+  originQuestions: Question[];
+}): {
+  users: User[];
+  books: Book[];
+  questions: Question[];
+} => {
+  const usersMap = originUsers.reduce((acc, user) => {
+    acc[user.id] = user;
+    return acc;
+  }, {} as Record<string, User>);
+  const booksMap = originBooks.reduce((acc, book) => {
+    acc[book.id] = book;
+    return acc;
+  }, {} as Record<string, Book>);
+  const chaptersMap = originBooks.reduce((acc, book) => {
+    if (!book.chapters?.length) return acc;
+    book.chapters.forEach((chapter) => {
+      acc[chapter.id] = chapter;
+    });
+    return acc;
+  }, {} as Record<string, Book["chapters"][0]>);
+  const questionsMap = originQuestions.reduce((acc, question) => {
+    if (!question.id) return acc;
+    acc[question.id] = question;
+    return acc;
+  }, {} as Record<string, Question>);
+
+  // Update assigned books references in users
+  Object.values(usersMap).forEach((user) => {
+    if (!user.assignedBooks?.length) return;
+    user.assignedBooks = user.assignedBooks.map(
+      (assignedBook) => booksMap[assignedBook.id]
+    );
+  });
+
+  // Update book and chapter references in questions
+  Object.values(questionsMap).forEach((question) => {
+    if (question.book) {
+      question.book = booksMap[question.book.id];
+    }
+    if (question.chapter) {
+      question.chapter = chaptersMap[question.chapter.id];
+    }
+  });
+
+  return {
+    users: originUsers,
+    books: originBooks,
+    questions: originQuestions,
+  };
+};
+
 export const AdminProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const { data: usersData } = useGetAllUsers();
-  const { data: booksAndQuestionsData } = useGetAllForAdminQuery();
+  const { data } = useGetAllForAdminQuery();
+
+  const { users, books, questions } = useMemo(() => {
+    if (!data)
+      return {
+        users: [],
+        books: [],
+        questions: [],
+      };
+    const preReferencedUsers = mapUserFromGetAllForAdmin(data);
+    const preReferencedBooks = mapBooksFromGetAdminStat(data);
+    const preReferencedQuestions = mapQuestionFromGetAdminStat(data);
+    return combineReferences({
+      originUsers: preReferencedUsers,
+      originBooks: preReferencedBooks,
+      originQuestions: preReferencedQuestions,
+    });
+  }, [data]);
+
   return (
     <AdminContext.Provider
       value={{
-        totalUsers: assureNumber(usersData?.length),
-        totalBooks: assureNumber(
-          booksAndQuestionsData?.booksCollection?.edges?.length
-        ),
-        totalQuestions: assureNumber(
-          booksAndQuestionsData?.questionsCollection?.edges?.length
-        ),
-        users: usersData?.map(mapUser) || [],
-        books: booksAndQuestionsData
-          ? mapBooksFromGetAdminStat(booksAndQuestionsData)
-          : [],
-        questions: booksAndQuestionsData
-          ? mapQuestionFromGetAdminStat(booksAndQuestionsData)
-          : [],
+        totalUsers: users.length,
+        totalBooks: books.length,
+        totalQuestions: questions.length,
+        users,
+        books,
+        questions,
       }}
     >
       {children}

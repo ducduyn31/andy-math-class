@@ -9,7 +9,6 @@ import { SupabaseProvider } from "@/hooks/use-supabase-context";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ModalProvider } from "@/hooks/use-modal";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -63,7 +62,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <WrappedClientProvider>
             <ModalProvider>
               {getLayout(<Component {...pageProps} />)}
-              <ReactQueryDevtools initialIsOpen={false} />
             </ModalProvider>
           </WrappedClientProvider>
         </QueryClientProvider>

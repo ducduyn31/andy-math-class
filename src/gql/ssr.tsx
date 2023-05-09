@@ -1558,15 +1558,17 @@ export type Verification_TokensUpdateResponse = {
 export type GetAllForAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllForAdminQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }> } | null, questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> } | null } }> } | null };
+export type GetAllForAdminQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }> } | null, questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> } | null } }> } | null, usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } }> } | null };
 
-export type ChaptersInBookFragment = { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> };
+export type ChaptersInBookFragment = { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> };
 
 export type AssignationsInBookFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> };
 
-export type AnswersInQuestionFragment = { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> };
+export type AnswersInQuestionFragment = { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> };
 
 export type ImagesOfQuestionFragment = { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> };
+
+export type AssignationsOfUserFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> };
 
 export type GetAssignedBooksByUserIdQueryVariables = Exact<{
   userId: Scalars['UUID'];
@@ -1596,13 +1598,41 @@ export type CreateNewQuestionMutationVariables = Exact<{
 
 export type CreateNewQuestionMutation = { __typename?: 'Mutation', insertIntoquestionsCollection?: { __typename?: 'questionsInsertResponse', records: Array<{ __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null }> } | null };
 
-export type LinkQuestionsAnswersMutationVariables = Exact<{
-  questionImages: Array<Question_ImagesInsertInput> | Question_ImagesInsertInput;
+export type LinkAnswerImagesMutationVariables = Exact<{
   answerImages: Array<AnswerInsertInput> | AnswerInsertInput;
 }>;
 
 
-export type LinkQuestionsAnswersMutation = { __typename?: 'Mutation', insertIntoquestion_imagesCollection?: { __typename?: 'question_imagesInsertResponse', records: Array<{ __typename?: 'question_images', nodeId: string, id: any, image?: string | null }> } | null, insertIntoanswerCollection?: { __typename?: 'answerInsertResponse', records: Array<{ __typename?: 'answer', nodeId: string, id: any, image?: string | null }> } | null };
+export type LinkAnswerImagesMutation = { __typename?: 'Mutation', insertIntoanswerCollection?: { __typename?: 'answerInsertResponse', records: Array<{ __typename?: 'answer', nodeId: string, id: any, image?: string | null, question?: any | null }> } | null };
+
+export type LinkQuestionsImagesMutationVariables = Exact<{
+  questionImages: Array<Question_ImagesInsertInput> | Question_ImagesInsertInput;
+}>;
+
+
+export type LinkQuestionsImagesMutation = { __typename?: 'Mutation', insertIntoquestion_imagesCollection?: { __typename?: 'question_imagesInsertResponse', records: Array<{ __typename?: 'question_images', nodeId: string, id: any, image?: string | null, question?: any | null }> } | null };
+
+export type RemoveAllAssignationsMutationVariables = Exact<{
+  userId: Scalars['UUID'];
+}>;
+
+
+export type RemoveAllAssignationsMutation = { __typename?: 'Mutation', deleteFromuser_books_assignationCollection: { __typename?: 'user_books_assignationDeleteResponse', records: Array<{ __typename?: 'user_books_assignation', id: any, nodeId: string }> } };
+
+export type RemoveAnswersFromQuestionMutationVariables = Exact<{
+  imagePaths: Array<Scalars['String']> | Scalars['String'];
+  questionId: Scalars['UUID'];
+}>;
+
+
+export type RemoveAnswersFromQuestionMutation = { __typename?: 'Mutation', deleteFromanswerCollection: { __typename?: 'answerDeleteResponse', records: Array<{ __typename?: 'answer', id: any, nodeId: string, question?: any | null }> } };
+
+export type RemoveBookMutationVariables = Exact<{
+  bookId: Scalars['UUID'];
+}>;
+
+
+export type RemoveBookMutation = { __typename?: 'Mutation', deleteFrombooksCollection: { __typename?: 'booksDeleteResponse', records: Array<{ __typename?: 'books', id: any, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', id: any, nodeId: string } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', id: any, nodeId: string } }> } | null }> } };
 
 export type RemoveChaptersMutationVariables = Exact<{
   chapterIds: Array<Scalars['UUID']> | Scalars['UUID'];
@@ -1610,6 +1640,29 @@ export type RemoveChaptersMutationVariables = Exact<{
 
 
 export type RemoveChaptersMutation = { __typename?: 'Mutation', deleteFromchaptersCollection: { __typename?: 'chaptersDeleteResponse', records: Array<{ __typename?: 'chapters', id: any, nodeId: string, name?: string | null, book?: any | null }> } };
+
+export type RemoveImagesFromQuestionMutationVariables = Exact<{
+  imagePaths: Array<Scalars['String']> | Scalars['String'];
+  questionId: Scalars['UUID'];
+}>;
+
+
+export type RemoveImagesFromQuestionMutation = { __typename?: 'Mutation', deleteFromquestion_imagesCollection: { __typename?: 'question_imagesDeleteResponse', records: Array<{ __typename?: 'question_images', id: any, nodeId: string, question?: any | null }> } };
+
+export type RemoveQuestionMutationVariables = Exact<{
+  questionId: Scalars['UUID'];
+}>;
+
+
+export type RemoveQuestionMutation = { __typename?: 'Mutation', deleteFromquestionsCollection: { __typename?: 'questionsDeleteResponse', records: Array<{ __typename?: 'questions', id: any, nodeId: string, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null } }> } | null }> } };
+
+export type ReplaceBooksAssignationMutationVariables = Exact<{
+  userId: Scalars['UUID'];
+  assignations: Array<User_Books_AssignationInsertInput> | User_Books_AssignationInsertInput;
+}>;
+
+
+export type ReplaceBooksAssignationMutation = { __typename?: 'Mutation', deleteFromuser_books_assignationCollection: { __typename?: 'user_books_assignationDeleteResponse', records: Array<{ __typename?: 'user_books_assignation', id: any }> }, insertIntouser_books_assignationCollection?: { __typename?: 'user_books_assignationInsertResponse', records: Array<{ __typename?: 'user_books_assignation', id: any, users?: { __typename?: 'users', id: any, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } | null }> } | null };
 
 export type UpdateExistingBookMutationVariables = Exact<{
   bookId: Scalars['UUID'];
@@ -1627,12 +1680,20 @@ export type UpdateExistingQuestionMutationVariables = Exact<{
 
 export type UpdateExistingQuestionMutation = { __typename?: 'Mutation', updatequestionsCollection: { __typename?: 'questionsUpdateResponse', records: Array<{ __typename?: 'questions', id: any, nodeId: string, name?: string | null, description?: string | null, chapters?: { __typename?: 'chapters', id: any, nodeId: string, name?: string | null } | null, books?: { __typename?: 'books', id: any, nodeId: string, name?: string | null } | null }> } };
 
+export type UpdateUserMutationVariables = Exact<{
+  userId: Scalars['UUID'];
+  updatedUser: UsersUpdateInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateusersCollection: { __typename?: 'usersUpdateResponse', records: Array<{ __typename?: 'users', id: any, nodeId: string, email?: string | null, firstName?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null }> } };
+
 export type GetAnswersForQuestionQueryVariables = Exact<{
   questionId: Scalars['UUID'];
 }>;
 
 
-export type GetAnswersForQuestionQuery = { __typename?: 'Query', answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', cursor: string, node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null };
+export type GetAnswersForQuestionQuery = { __typename?: 'Query', answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null } }> } | null };
 
 export type GetQuestionsForChaptersQueryVariables = Exact<{
   chapterIds: Array<Scalars['UUID']> | Scalars['UUID'];
@@ -1644,7 +1705,15 @@ export type GetQuestionsForChaptersQuery = { __typename?: 'Query', questionsColl
 export type GetAssignedBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } }> } | null } }> } | null };
+export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> } | null } }> } | null };
+
+export type SignUpMutationVariables = Exact<{
+  email: Scalars['String'];
+  newUser: UsersUpdateInput;
+}>;
+
+
+export type SignUpMutation = { __typename?: 'Mutation', updateusersCollection: { __typename?: 'usersUpdateResponse', records: Array<{ __typename?: 'users', id: any, firstName?: string | null, lastName?: string | null, email?: string | null, isEnabled?: boolean | null, isAdmin?: boolean | null }> } };
 
 export async function getServerPageGetAllForAdmin
     (options: Omit<Apollo.QueryOptions<GetAllForAdminQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
@@ -1704,6 +1773,14 @@ export const ssrGetAssignedBooksByUserId = {
       withPage: withPageGetAssignedBooksByUserId,
       
     }
+
+
+
+
+
+
+
+
 
 
 

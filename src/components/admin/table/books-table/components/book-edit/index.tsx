@@ -1,5 +1,5 @@
 import React from "react";
-import { assignBookToChapter, Book, createFullChapter } from "@/models";
+import { Book } from "@/models";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   upsertBookForm,
@@ -10,11 +10,9 @@ import { FormInputField } from "@/components/form-input-field";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useModalClose } from "@/hooks/use-modal";
 import { Maybe } from "@/models/types";
-import { ChapterBadge } from "@/components/admin/table/books-table/components/chapter-badge";
 import { ChapterInput } from "@/components/admin/table/books-table/components/chapter-input";
 import { useUpsertBook } from "@/hooks/use-upsert-book";
 import toast from "react-hot-toast";
-import { generateUUID } from "@/helpers/string";
 
 interface Props {
   book: Maybe<Book>;
@@ -47,10 +45,7 @@ export const BookModificationModal: React.FC<Props> = ({ book }: Props) => {
     handleSubmit,
     register,
     formState: { errors, isValid },
-    getValues,
   } = methods;
-
-  const chapters = getValues("chapters");
 
   return (
     <>
@@ -60,7 +55,7 @@ export const BookModificationModal: React.FC<Props> = ({ book }: Props) => {
         className="modal-toggle"
       />
       <label className="modal modal-bottom sm:modal-middle">
-        <label className="modal-box" htmlFor={""}>
+        <label className="modal-box">
           <h3 className="font-bold text-lg">Book modification</h3>
           <FormProvider {...methods}>
             <form
@@ -76,22 +71,14 @@ export const BookModificationModal: React.FC<Props> = ({ book }: Props) => {
               <label className="label">
                 <span className="label-text">Chapter</span>
               </label>
-              <div>
-                {chapters?.map((chapter) => (
-                  <ChapterBadge
-                    key={chapter.id || generateUUID()}
-                    chapter={assignBookToChapter(
-                      book,
-                      createFullChapter(chapter)
-                    )}
-                  />
-                ))}
-              </div>
-
-              <ChapterInput />
+              <ChapterInput book={book} />
 
               <div className="modal-action mt-5">
-                <button className="btn" onClick={closeCurrentModal}>
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={closeCurrentModal}
+                >
                   Close
                 </button>
 

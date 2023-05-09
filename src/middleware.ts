@@ -2,11 +2,13 @@ import { NextResponse } from "next/server";
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 import * as jwt from "jsonwebtoken";
 import { JWT, JWTDecodeParams } from "next-auth/jwt";
-import { createClientWithSession } from "@/hooks/use-supabase-context";
+import { createServerAuthClient } from "@/hooks/use-supabase-context";
 import { matchPathsFromReq } from "@/helpers/path";
+import { isEmpty } from "@/helpers/valid";
 
 const allowedPaths = ["/_next", "/public", "/favicon.ico", "/api"];
-const publicOnlyPaths = ["/register", "/login"];
+const preparePaths = ["/register"];
+const publicOnlyPaths = ["/login"];
 const adminOnlyPaths = ["/admin"];
 
 const middleware = async (req: NextRequestWithAuth) => {
@@ -14,23 +16,30 @@ const middleware = async (req: NextRequestWithAuth) => {
 
   if (matchPathsFromReq(req, allowedPaths)) return res;
 
-  const session = req.nextauth.token;
+  const token = req.nextauth.token;
 
   const url = req.nextUrl.clone();
 
-  const isLoggedInButOnPublicOnlyPath =
-    !!session && matchPathsFromReq(req, publicOnlyPaths);
+  const haveNotCompleteSignUpButOnPrivatePath =
+    !!token && isEmpty(token.name) && !matchPathsFromReq(req, preparePaths);
+  const haveCompletedSignUpButOnPreparePath =
+    !!token && !isEmpty(token.name) && matchPathsFromReq(req, preparePaths);
   const isNotLoggedInButOnPrivatePath =
-    !session && !matchPathsFromReq(req, publicOnlyPaths);
+    !token && !matchPathsFromReq(req, publicOnlyPaths);
   const isNotAdminButOnAdminPath =
-    !session?.isAdmin && matchPathsFromReq(req, adminOnlyPaths);
+    !token?.isAdmin && matchPathsFromReq(req, adminOnlyPaths);
 
   if (isNotLoggedInButOnPrivatePath) {
     url.pathname = "/login";
     return NextResponse.redirect(url);
   }
 
-  if (isLoggedInButOnPublicOnlyPath || isNotAdminButOnAdminPath) {
+  if (haveNotCompleteSignUpButOnPrivatePath) {
+    url.pathname = "/register";
+    return NextResponse.redirect(url);
+  }
+
+  if (isNotAdminButOnAdminPath || haveCompletedSignUpButOnPreparePath) {
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
@@ -46,21 +55,28 @@ const middleware = async (req: NextRequestWithAuth) => {
 const replaceJwtDecodeWithDBSearch = async ({
   token,
 }: JWTDecodeParams): Promise<JWT | null> => {
-  const supabase = createClientWithSession({
-    options: { db: { schema: "next_auth" } },
+  if (typeof window !== "undefined") return null;
+
+  const authClient = createServerAuthClient({
+    options: {
+      global: {
+        headers: {
+          authorization: `Bearer ${process.env.NEXT_PRIVATE_SERVICE_ROLE_KEY!}`,
+        },
+      },
+    },
   });
-  const { data } = await supabase
-    .from("sessions")
-    .select("userId")
-    .eq("sessionToken", token)
-    .gt("expires", "now()")
-    .single();
+  const { data } =
+    (await authClient
+      ?.from("sessions")
+      .select("userId")
+      .eq("sessionToken", token)
+      .gt("expires", "now()")
+      .single()) ?? {};
   if (!data) return null;
-  const { data: userData } = await supabase
-    .from("users")
-    .select()
-    .eq("id", data.userId)
-    .single();
+  const { data: userData } =
+    (await authClient?.from("users").select().eq("id", data.userId).single()) ??
+    {};
   if (!userData) return null;
   return {
     name: userData?.firstName,
@@ -95,7 +111,6 @@ export default withAuth(middleware, {
   },
   pages: {
     signIn: "/login",
-    newUser: "/register",
   },
 });
 

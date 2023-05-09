@@ -1,6 +1,7 @@
 import { User as _User } from "next-auth";
-import { AdminUserRowProps } from "@/components/admin/table/users-table/components/user-row";
-import { Book } from "@/models/book";
+import { Book, convertBook } from "@/models/book";
+import { AssignationsOfUserFragment, GetAllForAdminQuery } from "@/gql/types";
+import { Maybe } from "@/models/types";
 
 export interface User {
   id: string;
@@ -9,31 +10,11 @@ export interface User {
   lastName: string;
   isAdmin: boolean;
   isEnabled: boolean;
-
-  toRowProps: (assignedBooks?: Book[]) => AdminUserRowProps;
+  assignedBooks?: Book[];
 }
 
-export type UserWithFields = Pick<
-  User,
-  "id" | "email" | "firstName" | "lastName" | "isEnabled" | "isAdmin"
->;
-
-const mapToRowProps = (
-  user: UserWithFields,
-  books?: Book[]
-): AdminUserRowProps => {
-  return {
-    id: user.id,
-    assignedBooks: books || [],
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    enabled: user.isEnabled,
-  };
-};
-
 export const mapUser = (user: _User): User => {
-  const modelUser: UserWithFields = {
+  return {
     id: user.id,
     email: user.email || "",
     firstName: user.firstName || "",
@@ -41,8 +22,40 @@ export const mapUser = (user: _User): User => {
     isAdmin: !!user.isAdmin,
     isEnabled: !!user.isEnabled,
   };
-  return {
-    ...modelUser,
-    toRowProps: () => mapToRowProps(modelUser),
-  };
+};
+
+const mapAssignedBooksFromAssignationsOfUserFragment = (
+  assignations: Maybe<AssignationsOfUserFragment>
+): Book[] => {
+  if (!assignations) return [];
+  return (
+    assignations?.edges?.map((assignationNode) => {
+      return convertBook({
+        id: assignationNode?.node?.book || "",
+      });
+    }) || []
+  );
+};
+
+export const mapUserFromGetAllForAdmin = (
+  response: GetAllForAdminQuery
+): User[] => {
+  const userNodes =
+    response?.usersCollection?.edges.map((edge) => edge.node) || [];
+
+  return userNodes.map((userNode) => {
+    const user: User = {
+      id: userNode.id,
+      email: userNode.email || "",
+      firstName: userNode.firstName || "",
+      lastName: userNode.lastName || "",
+      isAdmin: !!userNode.isAdmin,
+      isEnabled: !!userNode.isEnabled,
+      assignedBooks: mapAssignedBooksFromAssignationsOfUserFragment(
+        userNode?.user_books_assignationCollection
+      ),
+    };
+
+    return user;
+  });
 };

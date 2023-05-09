@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { ListActions } from "react-use/lib/useList";
 
 interface UploadedImageProps {
@@ -8,12 +8,10 @@ interface UploadedImageProps {
 
 interface DownloadedImageProps {
   path: string;
+  deleteFilesState: [string[], ListActions<string>];
 }
 
-const UploadImageItem: React.FC<UploadedImageProps> = ({
-  file,
-  filesState: [files, { removeAt }],
-}) => {
+const UploadImageItem: React.FC<UploadedImageProps> = ({ file }) => {
   const imageBlob = useMemo(() => {
     if (!file) return null;
     return URL.createObjectURL(file);
@@ -21,20 +19,9 @@ const UploadImageItem: React.FC<UploadedImageProps> = ({
 
   if (!file || !imageBlob) return null;
 
-  const removeItem = () => {
-    removeAt(files.indexOf(file));
-  };
-
   return (
     <div className="rounded-lg w-32 h-32 relative">
       <img src={imageBlob} alt={file.name} className="object-cover" />
-      <button
-        type="button"
-        className="absolute top-0 right-0 bg-base-300 btn-circle opacity-0 hover:opacity-100 m-2"
-        onClick={removeItem}
-      >
-        X
-      </button>
     </div>
   );
 };
@@ -52,9 +39,46 @@ const DownloadedImageItem: React.FC<DownloadedImageProps> = ({ path }) => {
 export const ImageItem: React.FC<UploadedImageProps | DownloadedImageProps> = (
   props
 ) => {
-  if ("file" in props) {
-    return <UploadImageItem {...props} />;
-  }
+  const imageComponent =
+    "file" in props ? (
+      <UploadImageItem {...props} />
+    ) : (
+      <DownloadedImageItem {...props} />
+    );
 
-  return <DownloadedImageItem {...props} />;
+  const callback = useCallback(() => {
+    if ("file" in props) {
+      const [files, { removeAt }] = props.filesState;
+      removeAt(files.indexOf(props.file));
+      return;
+    }
+    const [, { push }] = props.deleteFilesState;
+    push(props.path);
+  }, [props]);
+
+  return (
+    <div className="relative">
+      {imageComponent}
+      <button
+        type="button"
+        className="badge hover:badge-primary rounded-badge absolute top-[-0.5rem] right-0 px-1 py-4"
+        onClick={callback}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+  );
 };

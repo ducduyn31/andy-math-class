@@ -9,61 +9,69 @@ import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import { Database } from "@/database";
 
-export const createClientWithSession = (args?: {
+export const createServerAuthClient = (args?: {
   session?: Maybe<Session>;
-  options?: SupabaseClientOptions<keyof Database>;
-}) => {
-  if (!args?.session?.supabaseAccessToken) {
-    return createClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
-      args?.options
-    );
+  options?: SupabaseClientOptions<"next_auth">;
+}): SupabaseClient<Database, "next_auth"> | null => {
+  if (typeof window !== "undefined") return null;
+
+  const _options: SupabaseClientOptions<"next_auth"> = {
+    ...args?.options,
+    db: { schema: "next_auth" },
+  };
+  if (args?.session?.supabaseAccessToken && _options.global?.headers) {
+    _options.global.headers.authorization = `Bearer ${args.session.supabaseAccessToken}`;
   }
-  return createClient<Database>(
+  return createClient<Database, "next_auth">(
     process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
-    {
-      ...args?.options,
-      global: {
-        headers: {
-          Authorization: `Bearer ${args.session.supabaseAccessToken}`,
-        },
-      },
-    }
+    process.env.NEXT_PRIVATE_SERVICE_ROLE_KEY as string,
+    _options
   );
 };
 
+const createUserClient = (args?: {
+  session?: Maybe<Session>;
+  options?: SupabaseClientOptions<"public">;
+}): SupabaseClient<Database, "public"> => {
+  const _options = args?.options ?? {};
+  if (args?.session?.supabaseAccessToken) {
+    _options.global = {
+      ..._options.global,
+      headers: {
+        ..._options.global?.headers,
+        authorization: `Bearer ${args.session.supabaseAccessToken}`,
+      },
+    };
+  }
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
+    _options
+  );
+};
+
+const createSupabaseStorage = (args?: {
+  session?: Maybe<Session>;
+}): SupabaseClient<Database, "public">["storage"] => {
+  const supabase = createUserClient({ session: args?.session });
+  return supabase?.storage;
+};
+
 export type SupabaseContextType = {
-  client: SupabaseClient<Database>;
-  authClient: SupabaseClient<Database>;
+  storage: SupabaseClient<Database, "public">["storage"];
 };
 
 const SupabaseContext = createContext<SupabaseContextType>({
-  client: createClientWithSession(),
-  authClient: createClientWithSession({
-    options: { db: { schema: "next_auth" } },
-  }),
+  storage: createSupabaseStorage(),
 });
 
 export const SupabaseProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const { data: session } = useSession();
-
-  const authClient = useMemo(() => {
-    return createClientWithSession({
-      session,
-      options: { db: { schema: "next_auth" } },
-    });
-  }, [session]);
-
-  const dbClient = useMemo(() => {
-    return createClientWithSession({ session });
-  }, [session]);
-
+  const storage = useMemo(() => createSupabaseStorage({ session }), [session]);
   return (
-    <SupabaseContext.Provider value={{ authClient, client: dbClient }}>
+    <SupabaseContext.Provider value={{ storage }}>
       {children}
     </SupabaseContext.Provider>
   );
