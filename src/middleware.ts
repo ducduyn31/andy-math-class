@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
-import * as jwt from "jsonwebtoken";
+import * as jose from "jose";
 import { JWT, JWTDecodeParams } from "next-auth/jwt";
-import { createServerAuthClient } from "@/hooks/use-supabase-context";
 import { matchPathsFromReq } from "@/helpers/path";
 import { isEmpty } from "@/helpers/valid";
+import { createServerAuthClient } from "@/lib/supabase";
 
 const allowedPaths = ["/_next", "/public", "/favicon.ico", "/api"];
 const preparePaths = ["/register"];
@@ -92,7 +92,7 @@ const tryJwtDecode = async ({
 }: JWTDecodeParams): Promise<JWT | null> => {
   try {
     if (!token) throw new Error("No token");
-    const decodedToken = (await jwt.decode(token)) as JWT;
+    const decodedToken = jose.decodeJwt(token);
     if (!decodedToken) throw new Error("No token");
     return decodedToken;
   } catch (e) {

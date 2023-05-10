@@ -1,7 +1,7 @@
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { SupabaseAdapter } from "@next-auth/supabase-adapter";
-import * as jwt from "jsonwebtoken";
+import * as jose from "jose";
 
 export const serverAuthOptions: AuthOptions = {
   providers: [
@@ -35,7 +35,11 @@ export const serverAuthOptions: AuthOptions = {
           user_id: user.id,
           role: user.isAdmin ? "service_role" : "authenticated",
         };
-        session.supabaseAccessToken = jwt.sign(payload, signingSecret);
+        session.supabaseAccessToken = await new jose.SignJWT(payload)
+          .setProtectedHeader({
+            alg: "HS256",
+          })
+          .sign(new TextEncoder().encode(signingSecret));
       }
       return session;
     },

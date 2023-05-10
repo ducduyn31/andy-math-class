@@ -9,26 +9,6 @@ import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import { Database } from "@/database";
 
-export const createServerAuthClient = (args?: {
-  session?: Maybe<Session>;
-  options?: SupabaseClientOptions<"next_auth">;
-}): SupabaseClient<Database, "next_auth"> | null => {
-  if (typeof window !== "undefined") return null;
-
-  const _options: SupabaseClientOptions<"next_auth"> = {
-    ...args?.options,
-    db: { schema: "next_auth" },
-  };
-  if (args?.session?.supabaseAccessToken && _options.global?.headers) {
-    _options.global.headers.authorization = `Bearer ${args.session.supabaseAccessToken}`;
-  }
-  return createClient<Database, "next_auth">(
-    process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-    process.env.NEXT_PRIVATE_SERVICE_ROLE_KEY as string,
-    _options
-  );
-};
-
 const createUserClient = (args?: {
   session?: Maybe<Session>;
   options?: SupabaseClientOptions<"public">;
