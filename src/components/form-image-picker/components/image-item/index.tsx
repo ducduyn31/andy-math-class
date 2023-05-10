@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { ListActions } from "react-use/lib/useList";
+import Image from "next/image";
 
 interface UploadedImageProps {
   file: File;
@@ -21,7 +22,13 @@ const UploadImageItem: React.FC<UploadedImageProps> = ({ file }) => {
 
   return (
     <div className="rounded-lg w-32 h-32 relative">
-      <img src={imageBlob} alt={file.name} className="object-cover" />
+      <Image
+        src={imageBlob}
+        alt={file.name}
+        className="object-cover"
+        width={500}
+        height={500}
+      />
     </div>
   );
 };
@@ -31,7 +38,13 @@ const DownloadedImageItem: React.FC<DownloadedImageProps> = ({ path }) => {
     `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/class-questions/${id}`;
   return (
     <div className="rounded-lg w-32 h-32 relative">
-      <img src={imageUrl(path)} alt="Preview" className="object-cover" />
+      <Image
+        src={imageUrl(path)}
+        alt="Preview"
+        className="object-cover"
+        width={500}
+        height={500}
+      />
     </div>
   );
 };

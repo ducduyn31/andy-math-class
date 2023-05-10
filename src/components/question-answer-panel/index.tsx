@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { Question } from "@/models";
 import { useStateList } from "react-use";
 import { useGetAnswersAsync } from "@/hooks/use-get-answers-async";
+import Image from "next/image";
 
 interface Props {
   questions: Question[];
@@ -37,17 +38,21 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
                 Question {currentQuestionId + 1} / {questions.length}
               </h2>
               {currentQuestion?.questionImages?.map((image) => (
-                <img
+                <Image
+                  width={500}
+                  height={500}
                   key={image}
                   src={imageUrl(image)}
-                  className={"rounded-3xl"}
+                  className="rounded-3xl"
                   alt={currentQuestion.name}
                 />
               ))}
               {shouldShowAnswer && <p>{currentQuestion.description}</p>}
               {shouldShowAnswer ? (
                 answers.map((answer) => (
-                  <img
+                  <Image
+                    width={500}
+                    height={500}
                     key={answer.id}
                     alt={answer.name}
                     src={imageUrl(answer.name)}

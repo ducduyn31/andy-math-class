@@ -25,7 +25,7 @@ export const QuestionModificationModal: React.FC<Props> = ({
   books,
 }) => {
   const { closeCurrentModal } = useModalClose();
-  const { upsertQuestions } = useUpsertQuestions({
+  const { upsertQuestions, loading } = useUpsertQuestions({
     onSuccess: () => {
       closeCurrentModal();
       toast.success("Saved successfully");
@@ -141,9 +141,9 @@ export const QuestionModificationModal: React.FC<Props> = ({
                 <button
                   type="submit"
                   className="btn btn-success"
-                  disabled={!isValid}
+                  disabled={!isValid || loading}
                 >
-                  Save
+                  {loading ? "Saving..." : "Save"}
                 </button>
               </div>
             </form>
