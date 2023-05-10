@@ -28,7 +28,7 @@ const UploadImageItem: React.FC<UploadedImageProps> = ({ file }) => {
 
 const DownloadedImageItem: React.FC<DownloadedImageProps> = ({ path }) => {
   const imageUrl = (id: string) =>
-    `https://ezlpvujpzcqeaiizqnbi.supabase.co/storage/v1/object/public/class-questions/${id}`;
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/class-questions/${id}`;
   return (
     <div className="rounded-lg w-32 h-32 relative">
       <img src={imageUrl(path)} alt="Preview" className="object-cover" />

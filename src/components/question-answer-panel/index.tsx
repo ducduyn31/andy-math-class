@@ -25,7 +25,7 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
   if (!questions || questions.length === 0) return null;
 
   const imageUrl = (id: string) =>
-    `https://ezlpvujpzcqeaiizqnbi.supabase.co/storage/v1/object/public/class-questions/${id}`;
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/class-questions/${id}`;
 
   return (
     <div className={"flex justify-center items-center"}>
