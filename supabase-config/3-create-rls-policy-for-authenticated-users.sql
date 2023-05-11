@@ -4,6 +4,11 @@ CREATE POLICY "allow authenticated to only select himself"
     TO authenticated
     USING (email = auth.jwt() ->> 'email');
 
+CREATE POLICY "allow authenticated to only update himself"
+    ON "next_auth"."users" AS PERMISSIVE FOR UPDATE
+    TO authenticated
+    USING (email = auth.jwt() ->> 'email') WITH CHECK (email = auth.jwt() ->> 'email');
+
 -- Allow authenticated to select books they are assigned to
 CREATE POLICY "allow authenticated to only select his assigned books" ON "public"."user_books_assignation"
     AS PERMISSIVE FOR SELECT
