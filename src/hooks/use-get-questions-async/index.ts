@@ -1,20 +1,23 @@
 import { Chapter, mapQuestionsFromGetQuestionsByChapters } from "@/models";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useGetQuestionsForChaptersLazyQuery } from "@/gql/types";
 import { shuffle } from "@/helpers/array";
 
 export const useGetQuestionsAsync = () => {
   const [getQuestionsByChapters, { data }] =
     useGetQuestionsForChaptersLazyQuery();
-  const getQuestions = async (selectedChapters: Chapter[]) => {
-    const chapterIds = selectedChapters.map((chapter) => chapter.id);
+  const getQuestions = useCallback(
+    async (selectedChapters: Chapter[]) => {
+      const chapterIds = selectedChapters.map((chapter) => chapter.id);
 
-    await getQuestionsByChapters({
-      variables: {
-        chapterIds,
-      },
-    });
-  };
+      await getQuestionsByChapters({
+        variables: {
+          chapterIds,
+        },
+      });
+    },
+    [getQuestionsByChapters]
+  );
 
   const questions = useMemo(() => {
     if (!data?.questionsCollection?.edges?.length) return [];

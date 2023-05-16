@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useCallback, useContext, useMemo } from "react";
 
 import { Book, Chapter } from "@/models";
 import { useMap } from "react-use";
@@ -41,22 +41,51 @@ export const BookProvider: React.FC<{
     { set: setChaptersByBook, remove: unsetChaptersByBook },
   ] = useMap<Record<string, Set<string>>>();
 
-  const addBook = (book: Book) => {
-    if (!hasBook(book)) {
-      setBook(book.id, book);
-      // Add all chapters from the book
-      book.chapters.forEach(addChapter);
-    }
-  };
+  const hasChapter = useCallback(
+    (chapter: Chapter) => {
+      return !!selectedChapters[chapter.id];
+    },
+    [selectedChapters]
+  );
+
+  const hasBook = useCallback(
+    (book: Book) => {
+      return !!selectedBooks[book.id];
+    },
+    [selectedBooks]
+  );
+
+  const addAllChapters = useCallback(
+    (chapters: Chapter[]) => {
+      const allChapters = bfsChapterTraversal(chapters);
+      const toAdd = allChapters.filter((chapter) => !hasChapter(chapter));
+      if (!toAdd.length) return;
+      toAdd.forEach((chapter) => setChapter(chapter.id, chapter));
+      const bookId = toAdd[0].book?.id;
+      if (!bookId) return;
+      const chaptersByBook =
+        selectedChaptersByBook[bookId] ?? new Set<string>();
+      toAdd.forEach((chapter) => chaptersByBook.add(chapter.id));
+      setChaptersByBook(bookId, chaptersByBook);
+    },
+    [hasChapter, selectedChaptersByBook, setChapter, setChaptersByBook]
+  );
+
+  const addBook = useCallback(
+    (book: Book) => {
+      if (!hasBook(book)) {
+        setBook(book.id, book);
+        // Add all chapters from the book
+        addAllChapters(book.chapters);
+      }
+    },
+    [addAllChapters, hasBook, setBook]
+  );
 
   const removeBook = (book: Book) => {
     unsetBook(book.id);
     // Remove all chapters from the book
     book.chapters.forEach(removeChapter);
-  };
-
-  const hasBook = (book: Book) => {
-    return !!selectedBooks[book.id];
   };
 
   const toggleBook = (book: Book) => {
@@ -67,43 +96,64 @@ export const BookProvider: React.FC<{
     }
   };
 
-  const addChapter = (chapter: Chapter) => {
-    if (hasChapter(chapter)) return;
+  const bfsChapterTraversal = (chapters: Chapter[]): Chapter[] => {
+    const traversed = new Set<string>();
+    const queue = [...chapters];
+    const result: Chapter[] = [];
 
-    setChapter(chapter.id, chapter);
-
-    if (!chapter.book) return;
-
-    if (!hasBook(chapter.book)) {
-      setBook(chapter.book.id, chapter.book);
+    while (queue.length) {
+      const current = queue.shift();
+      if (!current) continue;
+      if (traversed.has(current.id)) continue;
+      traversed.add(current.id);
+      result.push(current);
+      if (current.children) queue.push(...current.children);
     }
 
-    const chaptersByBook =
-      selectedChaptersByBook[chapter.book.id] ?? new Set<string>();
-    chaptersByBook.add(chapter.id);
-    setChaptersByBook(chapter.book.id, chaptersByBook);
-
-    chapter.children?.forEach(addChapter);
+    return result;
   };
 
-  const removeChapter = (chapter: Chapter) => {
-    if (!hasChapter(chapter)) return;
-    unsetChapter(chapter.id);
-    if (!chapter.book) return;
-    const chaptersByBook = selectedChaptersByBook[chapter.book.id];
-    chaptersByBook.delete(chapter.id);
-    if (!chaptersByBook?.size) {
-      unsetBook(chapter.book.id);
-      unsetChaptersByBook(chapter.book.id);
-    } else {
-      setChaptersByBook(chapter.book.id, chaptersByBook);
-    }
-    chapter.children?.forEach(removeChapter);
-  };
+  const addChapter = useCallback(
+    (chapter: Chapter) => {
+      addAllChapters([chapter]);
+    },
+    [addAllChapters]
+  );
 
-  const hasChapter = (chapter: Chapter) => {
-    return !!selectedChapters[chapter.id];
-  };
+  const removeChapters = useCallback(
+    (chapters: Chapter[]) => {
+      const allChapters = bfsChapterTraversal(chapters);
+      const toRemove = allChapters.filter((chapter) => hasChapter(chapter));
+      if (!toRemove.length) return;
+      toRemove.forEach((chapter) => unsetChapter(chapter.id));
+      const bookId = toRemove[0].book?.id;
+      if (!bookId) return;
+      const chaptersByBook = selectedChaptersByBook[bookId];
+      if (!chaptersByBook) return;
+      toRemove.forEach((chapter) => chaptersByBook.delete(chapter.id));
+      if (!chaptersByBook.size) {
+        unsetBook(bookId);
+        unsetChaptersByBook(bookId);
+      } else {
+        setChaptersByBook(bookId, chaptersByBook);
+      }
+    },
+    [
+      hasChapter,
+      selectedChaptersByBook,
+      setChaptersByBook,
+      unsetBook,
+      unsetChapter,
+      unsetChaptersByBook,
+    ]
+  );
+
+  const removeChapter = useCallback(
+    (chapter: Chapter) => {
+      removeChapters([chapter]);
+    },
+    [removeChapters]
+  );
 
   const toggleChapter = (chapter: Chapter) => {
     if (hasChapter(chapter)) {

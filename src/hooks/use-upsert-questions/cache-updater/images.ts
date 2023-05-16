@@ -43,10 +43,30 @@ export const removeAnswerImagesFromCache: MutationUpdaterFunction<
 > = (cache, { data }) => {
   if (!data?.deleteFromanswerCollection.records) return;
   const removedImages = data.deleteFromanswerCollection.records;
+  const questionId = removedImages[0].question;
   removedImages.forEach((image) => {
     cache.evict({
       id: cache.identify(image),
     });
+  });
+  cache.modify({
+    id: cache.identify({
+      __typename: "questions",
+      id: questionId,
+    }),
+    fields: {
+      answerCollection: (existingCollection) => {
+        return {
+          ...existingCollection,
+          edges: existingCollection.edges?.filter(
+            (edge: { node: { id: string } }) =>
+              !removedImages.some(
+                (image) => cache.identify(edge.node) === cache.identify(image)
+              )
+          ),
+        };
+      },
+    },
   });
 };
 
