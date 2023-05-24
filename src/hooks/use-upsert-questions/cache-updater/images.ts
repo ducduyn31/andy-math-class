@@ -91,7 +91,6 @@ export const addQuestionImagesToCache: MutationUpdaterFunction<
     }),
     fields: {
       question_imagesCollection: (existingCollection) => {
-        console.log(existingCollection);
         return {
           ...existingCollection,
           edges: [

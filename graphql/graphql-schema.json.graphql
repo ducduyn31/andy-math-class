@@ -418,6 +418,7 @@ type answer implements Node {
     name: String
     "Globally Unique Record Identifier"
     nodeId: ID!
+    order: Int
     question: UUID
     questions: questions
 }
@@ -612,6 +613,7 @@ type question_images implements Node {
     image: String
     "Globally Unique Record Identifier"
     nodeId: ID!
+    order: Int
     question: UUID
     questions: questions
 }
@@ -1170,6 +1172,7 @@ input answerFilter {
     image: StringFilter
     name: StringFilter
     nodeId: IDFilter
+    order: IntFilter
     question: UUIDFilter
 }
 
@@ -1178,6 +1181,7 @@ input answerInsertInput {
     id: UUID
     image: String
     name: String
+    order: Int
     question: UUID
 }
 
@@ -1186,6 +1190,7 @@ input answerOrderBy {
     id: OrderByDirection
     image: OrderByDirection
     name: OrderByDirection
+    order: OrderByDirection
     question: OrderByDirection
 }
 
@@ -1194,6 +1199,7 @@ input answerUpdateInput {
     id: UUID
     image: String
     name: String
+    order: Int
     question: UUID
 }
 
@@ -1264,6 +1270,7 @@ input question_imagesFilter {
     id: UUIDFilter
     image: StringFilter
     nodeId: IDFilter
+    order: IntFilter
     question: UUIDFilter
 }
 
@@ -1271,6 +1278,7 @@ input question_imagesInsertInput {
     created_at: Datetime
     id: UUID
     image: String
+    order: Int
     question: UUID
 }
 
@@ -1278,6 +1286,7 @@ input question_imagesOrderBy {
     created_at: OrderByDirection
     id: OrderByDirection
     image: OrderByDirection
+    order: OrderByDirection
     question: OrderByDirection
 }
 
@@ -1285,6 +1294,7 @@ input question_imagesUpdateInput {
     created_at: Datetime
     id: UUID
     image: String
+    order: Int
     question: UUID
 }
 

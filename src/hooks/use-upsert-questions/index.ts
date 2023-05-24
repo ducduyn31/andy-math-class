@@ -10,7 +10,7 @@ import { UpsertQuestionFormValues } from "@/helpers/admin/questions/form";
 import { useSupabaseContext } from "@/hooks/use-supabase-context";
 import { generateUUID } from "@/helpers/string";
 import { useCallback } from "react";
-import { assureNonNull } from "@/helpers/array";
+import { assureNonNull, zip } from "@/helpers/array";
 import { createNewQuestionInCache } from "@/hooks/use-upsert-questions/cache-updater/questions";
 import {
   addAnswerImagesToCache,
@@ -18,10 +18,18 @@ import {
   removeAnswerImagesFromCache,
   removeQuestionImagesFromCache,
 } from "@/hooks/use-upsert-questions/cache-updater/images";
+import {
+  FileState,
+  getDeletingFiles,
+  getNewFileStates,
+  NewFileState,
+} from "@/helpers/admin/questions/file-action";
 
 interface UpsertQuestionsArgs {
   onSuccess?: () => void;
 }
+
+type ImagePathAndOrder = [string, number];
 
 export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
   const [createQuestionsGQL, { loading: insertQuestionsLoading }] =
@@ -49,42 +57,53 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
   const { storage } = useSupabaseContext();
 
   const uploadImages = useCallback(
-    async (values: UpsertQuestionFormValues) => {
-      const { questionImages, answerImages } = values;
-      const questionImagesArray = Array.from(questionImages);
-      const answerImagesArray = Array.from(answerImages);
+    async (
+      fileStates: FileState[],
+      storageName: string,
+      uploadPrefix: string
+    ): Promise<[string, NewFileState][]> => {
+      const newFileStates = getNewFileStates(fileStates);
+      const files = Array.from(newFileStates.map((state) => state.value));
 
-      const questionImagesPromise = Promise.all(
-        questionImagesArray.map((image) => {
-          return storage
-            .from("class-questions")
-            .upload(`question-images/${generateUUID()}-${image.name}`, image);
-        })
+      const uploadFilePromises = files.map((file) => {
+        return storage
+          .from(storageName)
+          .upload(`${uploadPrefix}/${generateUUID()}-${file.name}`, file);
+      });
+      const uploadResults = await Promise.all(uploadFilePromises);
+      const uploadPaths = assureNonNull(
+        uploadResults.map((result) => result?.data?.path)
       );
-      const answerImagesPromise = Promise.all(
-        answerImagesArray.map((image) => {
-          return storage
-            .from("class-questions")
-            .upload(`answer-images/${generateUUID()}-${image.name}`, image);
-        })
-      );
-      const [questionResult, answerResult] = await Promise.all([
-        questionImagesPromise,
-        answerImagesPromise,
-      ]);
-
-      const questionPaths = assureNonNull(
-        questionResult.map((result) => result?.data?.path)
-      );
-      const answerPaths = assureNonNull(
-        answerResult.map((result) => result?.data?.path)
-      );
-      return {
-        questionImages: questionPaths,
-        answerImages: answerPaths,
-      };
+      return zip(uploadPaths, newFileStates);
     },
     [storage]
+  );
+
+  const uploadQuestionAnswerImages = useCallback(
+    async (
+      values: UpsertQuestionFormValues
+    ): Promise<{
+      questionImages: ImagePathAndOrder[];
+      answerImages: ImagePathAndOrder[];
+    }> => {
+      const [questionUploads, answerUploads] = await Promise.all([
+        uploadImages(
+          values.questionImages,
+          "class-questions",
+          "question-images"
+        ),
+        uploadImages(values.answerImages, "class-questions", "answer-images"),
+      ]);
+
+      return {
+        questionImages: questionUploads.map(([path, state]) => [
+          path,
+          state.order,
+        ]),
+        answerImages: answerUploads.map(([path, state]) => [path, state.order]),
+      };
+    },
+    [uploadImages]
   );
 
   const linkQuestionsAnswers = useCallback(
@@ -94,14 +113,15 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
       uploadAnswers,
     }: {
       questionId: string;
-      uploadQuestions: string[];
-      uploadAnswers: string[];
+      uploadQuestions: ImagePathAndOrder[];
+      uploadAnswers: ImagePathAndOrder[];
     }) => {
       const linkQuestionsImagesPromise =
         uploadQuestions.length > 0
           ? linkQuestionsImagesGQL({
               variables: {
-                questionImages: uploadQuestions.map((path) => ({
+                questionImages: uploadQuestions.map(([path, order]) => ({
+                  order,
                   image: path,
                   question: questionId,
                 })),
@@ -112,7 +132,8 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
         uploadAnswers.length > 0
           ? linkAnswersImagesGQL({
               variables: {
-                answerImages: uploadAnswers.map((path) => ({
+                answerImages: uploadAnswers.map(([path, order]) => ({
+                  order,
                   image: path,
                   question: questionId,
                 })),
@@ -130,7 +151,7 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
 
   const createNewQuestion = useCallback(
     async (values: UpsertQuestionFormValues) => {
-      const uploadImagesPromise = uploadImages(values);
+      const uploadImagesPromise = uploadQuestionAnswerImages(values);
       const createQuestionsPromise = createQuestionsGQL({
         variables: {
           newQuestion: {
@@ -152,12 +173,42 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
         uploadAnswers: answerImages,
       });
     },
-    [createQuestionsGQL, linkQuestionsAnswers, uploadImages]
+    [createQuestionsGQL, linkQuestionsAnswers, uploadQuestionAnswerImages]
+  );
+
+  const removeQuestionImagesIfNeeded = useCallback(
+    async (values: UpsertQuestionFormValues) => {
+      const deleteQuestionImages = getDeletingFiles(values.questionImages);
+      const deleteAnswerImages = getDeletingFiles(values.answerImages);
+      const shouldRunPromises: Promise<any>[] = [];
+      if (deleteQuestionImages.length > 0) {
+        shouldRunPromises.push(
+          removeQuestionImagesGQL({
+            variables: {
+              questionId: values.id,
+              imagePaths: deleteQuestionImages.map((file) => file.value),
+            },
+          })
+        );
+      }
+      if (deleteAnswerImages.length > 0) {
+        shouldRunPromises.push(
+          removeAnswerImagesGQL({
+            variables: {
+              questionId: values.id,
+              imagePaths: deleteAnswerImages.map((file) => file.value),
+            },
+          })
+        );
+      }
+      await Promise.all(shouldRunPromises);
+    },
+    [removeAnswerImagesGQL, removeQuestionImagesGQL]
   );
 
   const updateQuestion = useCallback(
     async (values: UpsertQuestionFormValues) => {
-      const uploadImagesPromise = uploadImages(values);
+      const uploadImagesPromise = uploadQuestionAnswerImages(values);
       const updateQuestionsPromise = updateQuestionsGQL({
         variables: {
           questionID: values.id,
@@ -173,22 +224,7 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
         uploadImagesPromise,
         updateQuestionsPromise,
       ]);
-      if (values.deleteQuestionImages.length > 0) {
-        await removeQuestionImagesGQL({
-          variables: {
-            questionId: values.id,
-            imagePaths: values.deleteQuestionImages,
-          },
-        });
-      }
-      if (values.deleteAnswerImages.length > 0) {
-        await removeAnswerImagesGQL({
-          variables: {
-            questionId: values.id,
-            imagePaths: values.deleteAnswerImages,
-          },
-        });
-      }
+      await removeQuestionImagesIfNeeded(values);
       await linkQuestionsAnswers({
         questionId: values.id!,
         uploadQuestions: questionImages,
@@ -197,10 +233,9 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
     },
     [
       linkQuestionsAnswers,
-      removeAnswerImagesGQL,
-      removeQuestionImagesGQL,
+      removeQuestionImagesIfNeeded,
       updateQuestionsGQL,
-      uploadImages,
+      uploadQuestionAnswerImages,
     ]
   );
 
