@@ -10,6 +10,7 @@ export default gql`
         id
         image
         question
+        order
       }
     }
   }

@@ -9,7 +9,7 @@ export default gql`
           id
           name
           description
-          question_imagesCollection {
+          question_imagesCollection(orderBy: { order: AscNullsLast }) {
             ...imagesOfQuestion
           }
         }

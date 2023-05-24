@@ -4,19 +4,19 @@ import { useGetQuestionsForChaptersLazyQuery } from "@/gql/types";
 import { shuffle } from "@/helpers/array";
 
 export const useGetQuestionsAsync = () => {
-  const [getQuestionsByChapters, { data }] =
+  const [getQuestionsByChaptersGQL, { data }] =
     useGetQuestionsForChaptersLazyQuery();
   const getQuestions = useCallback(
     async (selectedChapters: Chapter[]) => {
       const chapterIds = selectedChapters.map((chapter) => chapter.id);
 
-      await getQuestionsByChapters({
+      await getQuestionsByChaptersGQL({
         variables: {
           chapterIds,
         },
       });
     },
-    [getQuestionsByChapters]
+    [getQuestionsByChaptersGQL]
   );
 
   const questions = useMemo(() => {

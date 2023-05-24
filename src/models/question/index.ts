@@ -9,14 +9,19 @@ import {
 } from "@/gql/types";
 import { assureNonNull } from "@/helpers/array";
 
+export interface QuestionImage {
+  path: string;
+  order?: Maybe<number>;
+}
+
 export interface Question {
   id: Maybe<string>;
   name: string;
   book: Maybe<Book>;
   chapter: Maybe<Chapter>;
   description: Maybe<string>;
-  questionImages: string[];
-  answerImages: string[];
+  questionImages: QuestionImage[];
+  answerImages: QuestionImage[];
 }
 
 export interface Answer {
@@ -27,18 +32,28 @@ export interface Answer {
 
 const mapQuestionImagesFromImagesOfQuestionFragment = (
   questionImagesConnection: Maybe<ImagesOfQuestionFragment>
-): string[] => {
+): QuestionImage[] => {
   const imageNodes = questionImagesConnection?.edges?.map((edge) => edge?.node);
 
-  return assureNonNull(imageNodes?.map((imageNode) => imageNode?.image));
+  return assureNonNull(
+    imageNodes?.map((imageNode) => ({
+      path: imageNode?.image || "",
+      order: imageNode?.order,
+    }))
+  );
 };
 
 const mapAnswerImagesFromAnswersInQuestionFragment = (
   answerImagesConnection: Maybe<AnswersInQuestionFragment>
-): string[] => {
+): QuestionImage[] => {
   const imageNodes = answerImagesConnection?.edges?.map((edge) => edge?.node);
 
-  return assureNonNull(imageNodes?.map((imageNode) => imageNode?.image));
+  return assureNonNull(
+    imageNodes?.map((imageNode) => ({
+      path: imageNode?.image || "",
+      order: imageNode?.order,
+    }))
+  );
 };
 
 export const mapQuestionFromGetAdminStat = (

@@ -1,5 +1,11 @@
 import { Maybe } from "@/models/types";
 import * as yup from "yup";
+import {
+  FileState,
+  FileStateCategory,
+} from "@/helpers/admin/questions/file-action";
+import { QuestionImage } from "@/models";
+import { createSortedArrayFromIndexMap } from "@/helpers/array";
 
 export interface UpsertQuestionFormValues {
   id?: Maybe<string>;
@@ -7,10 +13,8 @@ export interface UpsertQuestionFormValues {
   description: Maybe<string>;
   bookId: string;
   chapterId: string;
-  questionImages: FileList;
-  answerImages: FileList;
-  deleteQuestionImages: string[];
-  deleteAnswerImages: string[];
+  questionImages: FileState[];
+  answerImages: FileState[];
 }
 
 export const UpserQuestionFormSchema = yup.object().shape({
@@ -19,6 +23,19 @@ export const UpserQuestionFormSchema = yup.object().shape({
   bookId: yup.string().required("Book is required"),
   chapterId: yup.string().required("Chapter is required"),
 });
+
+export const mapOnlineFilesToFileStates = (
+  onlineFiles?: QuestionImage[]
+): FileState[] => {
+  if (!onlineFiles) return [];
+  const sortedOnlineFiles = createSortedArrayFromIndexMap(onlineFiles, "order");
+
+  return sortedOnlineFiles.map((file, index) => ({
+    state: FileStateCategory.ONLINE,
+    value: file.path,
+    order: file.order || index,
+  }));
+};
 
 export const upsertQuestionValues =
   (upserter: (arg: UpsertQuestionFormValues) => void) =>

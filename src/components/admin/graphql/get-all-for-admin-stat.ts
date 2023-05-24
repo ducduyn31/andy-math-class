@@ -93,6 +93,7 @@ export default gql`
         id
         name
         image
+        order
       }
     }
   }
@@ -103,6 +104,7 @@ export default gql`
         nodeId
         id
         image
+        order
       }
     }
   }

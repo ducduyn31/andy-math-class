@@ -4,13 +4,14 @@ import { Maybe } from "@/models/types";
 import { useModalClose } from "@/hooks/use-modal";
 import { FormProvider, useForm } from "react-hook-form";
 import {
+  mapOnlineFilesToFileStates,
   UpserQuestionFormSchema,
   UpsertQuestionFormValues,
   upsertQuestionValues,
 } from "@/helpers/admin/questions/form";
 import { FormInputField } from "@/components/form-input-field";
 import { FormSelectField } from "@/components/form-select-field";
-import { FormImagePicker } from "@/components/form-image-picker";
+import { RHFormImagePicker } from "@/components/form-image-picker";
 import { useUpsertQuestions } from "@/hooks/use-upsert-questions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
@@ -41,15 +42,14 @@ export const QuestionModificationModal: React.FC<Props> = ({
       description: question?.description,
       bookId: question?.book?.id || books[0]?.id,
       chapterId: question?.chapter?.id || books[0]?.chapters[0]?.id,
-      deleteQuestionImages: [],
-      deleteAnswerImages: [],
+      questionImages: mapOnlineFilesToFileStates(question?.questionImages),
+      answerImages: mapOnlineFilesToFileStates(question?.answerImages),
     },
   });
   const {
     register,
     watch,
     handleSubmit,
-    setValue,
     formState: { errors, isValid },
   } = methods;
 
@@ -58,14 +58,6 @@ export const QuestionModificationModal: React.FC<Props> = ({
   const matchCurrentBook = useCallback(
     (book: Book) => book.id === selectedBookId,
     [selectedBookId]
-  );
-
-  const updateDeleteFiles = useCallback(
-    (name: "deleteQuestionImages" | "deleteAnswerImages") =>
-      (deletingFiles: string[]) => {
-        setValue(name, deletingFiles);
-      },
-    [setValue]
   );
 
   return (
@@ -111,23 +103,17 @@ export const QuestionModificationModal: React.FC<Props> = ({
                 errorMessage={errors.chapterId?.message}
                 {...register("chapterId")}
               />
-              <FormImagePicker
-                multiple
+              <RHFormImagePicker
                 label="Question image"
                 accept="image/*"
-                existingImages={question?.questionImages || []}
+                filesInputName="questionImages"
                 errorMessage={errors.questionImages?.message}
-                onDeleteSelect={updateDeleteFiles("deleteQuestionImages")}
-                {...register("questionImages")}
               />
-              <FormImagePicker
-                multiple
+              <RHFormImagePicker
                 label="Answer image"
                 accept="image/*"
-                existingImages={question?.answerImages || []}
                 errorMessage={errors.answerImages?.message}
-                onDeleteSelect={updateDeleteFiles("deleteAnswerImages")}
-                {...register("answerImages")}
+                filesInputName="answerImages"
               />
               <div className="modal-action mt-5">
                 <button
