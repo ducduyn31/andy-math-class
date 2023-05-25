@@ -1,131 +1,70 @@
-import { filteredInputInitial, SharedContext } from "@/layout/AdminLayout";
-import { useRef, useState } from "react";
+import { TextFilterField } from "../../shared/text-filter-field";
+import { SelectFilterField } from "../../shared/select-filter-field";
+import { useForm } from "react-hook-form";
+import {
+  buildUserFilters,
+  FilterUserFormValues,
+} from "@/helpers/admin/filter/user-filter/form";
 import { useAdminContext } from "@/hooks/use-admin-context";
+import {
+  getUserStatusOptions,
+  mapBooksToOptions,
+} from "@/helpers/admin/filter/user-filter/options";
+import { useFilter } from "@/hooks/use-filter-context";
 
-export const FilterUser = ({
-  setFilteredInput,
-  filteredUsers,
-}: {
-  setFilteredInput: any;
-  filteredUsers: any;
-}) => {
+export const FilterUser = () => {
   const { books } = useAdminContext();
-  const filterBook = useRef<HTMLSelectElement>(null);
-  const filterEmail = useRef<HTMLInputElement>(null);
-  const filterStatus = useRef<HTMLSelectElement>(null);
+  const { applyFilters, setPageNumber } = useFilter("user");
+  const { handleSubmit, register, reset } = useForm<FilterUserFormValues>({
+    defaultValues: {
+      email: null,
+      book: "any",
+      status: "any",
+    },
+  });
 
-  const [localFilter, setLocalFilter] =
-    useState<SharedContext["filteredInput"]["filteredUsers"]>(filteredUsers);
-  const filterInput = () => {
-    setLocalFilter(
-      (prevState: SharedContext["filteredInput"]["filteredUsers"]) => {
-        return {
-          ...prevState,
-          isFiltering: true,
-          email: filterEmail.current!.value,
-          book: filterBook.current!.value,
-          enabled: filterStatus.current!.value,
-        };
-      }
-    );
-  };
-
-  const clearFilter = () => {
-    filterEmail.current!.value = "";
-    filterBook.current!.value = "any";
-    filterStatus.current!.value = "any";
-
-    setLocalFilter(
-      (prevState: SharedContext["filteredInput"]["filteredUsers"]) => {
-        return {
-          ...prevState,
-          ...filteredInputInitial.filteredUsers,
-        };
-      }
-    );
-
-    setFilteredInput((prevState: SharedContext["filteredInput"]) => {
-      return {
-        ...prevState,
-        filteredUsers: filteredInputInitial.filteredUsers,
-      };
-    });
-  };
-  const handleFilter = () => {
-    setFilteredInput((prevState: SharedContext["filteredInput"]) => {
-      return {
-        ...prevState,
-        filteredUsers: localFilter,
-      };
-    });
+  const clearFilters = () => {
+    reset();
+    applyFilters(null);
+    setPageNumber(1);
   };
 
   return (
-    <div className="menu bg-base-100 w-70 p-3 pt-0 rounded-box shadow-xl mt-5">
-      <label className="label">
-        <span className="label-text">Filter by email</span>
-      </label>
-      <input
-        type="text"
+    <form
+      className="menu bg-base-100 w-70 p-3 pt-0 rounded-box shadow-xl mt-5"
+      onSubmit={handleSubmit((values) => {
+        applyFilters(buildUserFilters(values));
+        setPageNumber(1);
+      })}
+    >
+      <TextFilterField
+        label="Filter by email"
         placeholder="Search by email"
-        className="input w-full input-sm input-bordered"
-        ref={filterEmail}
-        onChange={filterInput}
-        defaultValue={filteredUsers.email}
+        {...register("email")}
+      />
+      <SelectFilterField
+        label="Filter by assigned book"
+        options={mapBooksToOptions(books)}
+        {...register("book")}
+      />
+      <SelectFilterField
+        label="Filter by user status"
+        options={getUserStatusOptions()}
+        {...register("status")}
       />
 
-      <label className={"label"}>
-        <span className={"label-text"}>Filter by assigned book</span>
-      </label>
-      <select
-        className="select select-bordered select-sm w-full"
-        onChange={filterInput}
-        ref={filterBook}
-        defaultValue={filteredUsers.book}
-      >
-        <option defaultChecked={true} value={"any"}>
-          Any
-        </option>
-
-        <option value={"notAssigned"}>No book assigned</option>
-        <option disabled>──────────</option>
-
-        {books.map((book, i) => (
-          <option key={i} value={book.name.toLowerCase()}>
-            {book.name}
-          </option>
-        ))}
-      </select>
-
-      <label className={"label"}>
-        <span className={"label-text"}>Filter by user status</span>
-      </label>
-
-      <select
-        className="select select-bordered select-sm w-full"
-        onChange={filterInput}
-        ref={filterStatus}
-        defaultValue={filteredUsers.enabled}
-      >
-        <option defaultChecked={true} value={"any"}>
-          Any
-        </option>
-        <option disabled>──────────</option>
-        <option value={"true"}>Enabled</option>
-        <option value={"false"}>Disabled</option>
-      </select>
-
-      <div className={"flex mt-5 flex-col lg:flex-row md:justify-end"}>
+      <div className="flex mt-5 flex-col lg:flex-row md:justify-end">
         <button
           className="btn btn-secondary lg:mr-2 mb-2 lg:mb-0"
-          onClick={clearFilter}
+          type="button"
+          onClick={clearFilters}
         >
           Clear filter
         </button>
-        <button className="btn btn-primary" onClick={handleFilter}>
+        <button className="btn btn-primary" type="submit">
           Filter
         </button>
       </div>
-    </div>
+    </form>
   );
 };

@@ -3,44 +3,22 @@ import { FilterBook } from "@/components/admin/components/content-filter/compone
 import { FilterQuestion } from "@/components/admin/components/content-filter/components/question-filter";
 import { useRouter } from "next/router";
 import { matchPath } from "@/helpers/path";
+import React from "react";
 
-interface PropType {
-  setFilterInput: any;
-  filteredInput: any;
-}
-
-export const AdminFilter: React.FC<PropType> = ({
-  setFilterInput,
-  filteredInput,
-}) => {
+export const AdminFilter: React.FC = () => {
   const router = useRouter();
   const path = router.asPath;
 
   if (matchPath(path, "/admin/users")) {
-    return (
-      <FilterUser
-        setFilteredInput={setFilterInput}
-        filteredUsers={filteredInput.filteredUsers}
-      />
-    );
+    return <FilterUser />;
   }
 
   if (matchPath(path, "/admin/books")) {
-    return (
-      <FilterBook
-        setFilteredInput={setFilterInput}
-        filteredBooks={filteredInput.filteredBooks}
-      />
-    );
+    return <FilterBook />;
   }
 
   if (matchPath(path, "/admin/questions")) {
-    return (
-      <FilterQuestion
-        setFilteredInput={setFilterInput}
-        filteredQuestions={filteredInput.filteredQuestion}
-      />
-    );
+    return <FilterQuestion />;
   }
   return null;
 };

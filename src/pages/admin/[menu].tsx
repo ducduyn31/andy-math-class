@@ -1,23 +1,23 @@
-import AdminLayout, { SharedContext } from "@/layout/AdminLayout";
-import { ReactElement, ReactPropTypes } from "react";
+import AdminLayout from "@/layout/AdminLayout";
+import { ReactElement } from "react";
 import { AdminBookTable } from "@/components/admin/table/books-table";
 import { AdminQuestionTable } from "@/components/admin/table/questions-table";
 import { useRouter } from "next/router";
 import { matchPath } from "@/helpers/path";
 import { AdminUserTable } from "@/components/admin/table/users-table";
 
-const AdminPage = (props: ReactPropTypes & SharedContext) => {
+const AdminPage = () => {
   const router = useRouter();
   const path = router.asPath;
 
   if (matchPath(path, "/admin/users")) {
-    return <AdminUserTable filteredInput={props.filteredInput} />;
+    return <AdminUserTable />;
   }
   if (matchPath(path, "/admin/books")) {
-    return <AdminBookTable filteredInput={props.filteredInput} />;
+    return <AdminBookTable />;
   }
   if (matchPath(path, "/admin/questions")) {
-    return <AdminQuestionTable filteredInput={props.filteredInput} />;
+    return <AdminQuestionTable />;
   }
   return <>Unimplemented</>;
 };
