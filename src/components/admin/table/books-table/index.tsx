@@ -1,46 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
-import { SharedContext } from "@/layout/AdminLayout";
 import { AdminBookRow } from "@/components/admin/table/books-table/components/book-row";
-import { Book } from "@/models/book";
-import { useAdminContext } from "@/hooks/use-admin-context";
 import { useModal } from "@/hooks/use-modal";
 import { BookModificationModal } from "@/components/admin/table/books-table/components/book-edit";
+import { useFilter } from "@/hooks/use-filter-context";
 
-const itemPerPage = 5;
-
-export const AdminBookTable = ({
-  filteredInput,
-}: {
-  filteredInput: SharedContext["filteredInput"];
-}) => {
-  const [page, setPage] = useState(0);
-  const [dataset, setDataset] = useState<Book[]>([]);
-  const { filteredBooks } = filteredInput;
-  const { books, totalBooks } = useAdminContext();
+export const AdminBookTable = () => {
+  const { filteredBooks, pageSize, page, setPageNumber, totalSize } =
+    useFilter("book");
 
   const { openModal } = useModal(BookModificationModal);
-
-  const updatePaginationItem = useCallback(() => {
-    const start = page * itemPerPage;
-    setDataset(books.slice(start, start + itemPerPage));
-  }, [books, page]);
-
-  useEffect(() => {
-    updatePaginationItem();
-  }, [page, updatePaginationItem]);
-
-  useEffect(() => {
-    const filteredBookName = filteredBooks.name;
-    if (filteredBookName.length == 0) {
-      return updatePaginationItem();
-    }
-
-    setDataset(() => {
-      return books.filter((book) =>
-        book.name.toLowerCase().includes(filteredBookName.toLowerCase())
-      );
-    });
-  }, [books, filteredBooks, setDataset, updatePaginationItem]);
 
   return (
     <>
@@ -56,7 +23,7 @@ export const AdminBookTable = ({
               </tr>
             </thead>
             <tbody>
-              {dataset.map((book) => (
+              {filteredBooks.map((book) => (
                 <AdminBookRow key={book.name} book={book} />
               ))}
             </tbody>
@@ -66,17 +33,15 @@ export const AdminBookTable = ({
 
       <div className={"flex sm:flex-row flex-col sm:justify-between mt-5"}>
         <div className="btn-group sm:justify-start justify-center">
-          {[...Array(Math.ceil(totalBooks / itemPerPage))].map((_, i) => (
+          {[...Array(Math.ceil(totalSize / pageSize))].map((_, i) => (
             <input
               key={i}
-              type={"radio"}
-              name={"options"}
+              type="radio"
+              name="options"
               data-title={i + 1}
-              className={`btn ${
-                filteredBooks.isFiltering ? "btn-disabled" : ""
-              } flex-grow`}
-              defaultChecked={i == page}
-              onChange={() => setPage(i)}
+              className="btn flex-grow"
+              defaultChecked={i + 1 === page}
+              onChange={() => setPageNumber(i + 1)}
             />
           ))}
         </div>

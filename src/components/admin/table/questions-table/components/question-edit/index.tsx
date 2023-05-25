@@ -5,7 +5,7 @@ import { useModalClose } from "@/hooks/use-modal";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   mapOnlineFilesToFileStates,
-  UpserQuestionFormSchema,
+  UpsertQuestionFormSchema,
   UpsertQuestionFormValues,
   upsertQuestionValues,
 } from "@/helpers/admin/questions/form";
@@ -35,7 +35,7 @@ export const QuestionModificationModal: React.FC<Props> = ({
 
   const methods = useForm<UpsertQuestionFormValues>({
     mode: "onChange",
-    resolver: yupResolver(UpserQuestionFormSchema),
+    resolver: yupResolver(UpsertQuestionFormSchema),
     defaultValues: {
       id: question?.id,
       name: question?.name,

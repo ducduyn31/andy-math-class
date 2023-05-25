@@ -17,7 +17,7 @@ export interface UpsertQuestionFormValues {
   answerImages: FileState[];
 }
 
-export const UpserQuestionFormSchema = yup.object().shape({
+export const UpsertQuestionFormSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   description: yup.string(),
   bookId: yup.string().required("Book is required"),

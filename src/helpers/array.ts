@@ -47,7 +47,7 @@ export const createSortedArrayFromIndexMap = <T>(
 
 interface SwitchCaseType<T, R> {
   case: T | T[] | ((value: T) => boolean) | null | undefined;
-  return: R;
+  return: R | ((value: T) => R);
 }
 
 export const switchCaseReturn = <T, R>(
@@ -59,10 +59,13 @@ export const switchCaseReturn = <T, R>(
     if (
       (Array.isArray(caseValue) && caseValue.includes(value)) ||
       caseValue === value ||
-      // @ts-ignore
-      (typeof caseValue === "function" && caseValue(value))
-    )
-      return returnValue;
+      (caseValue instanceof Function && caseValue(value))
+    ) {
+      return returnValue instanceof Function ? returnValue(value) : returnValue;
+    }
   }
-  return nullCase?.return || null;
+  const nullCaseReturn = nullCase?.return;
+  return nullCaseReturn instanceof Function
+    ? nullCaseReturn?.(value)
+    : nullCaseReturn || null;
 };

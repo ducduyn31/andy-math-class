@@ -1,109 +1,71 @@
-import React, { useState } from "react";
-import { filteredInputInitial, SharedContext } from "@/layout/AdminLayout";
+import React, { useMemo } from "react";
+import { SelectFilterField } from "@/components/admin/components/content-filter/shared/select-filter-field";
+import { useForm } from "react-hook-form";
+import {
+  buildQuestionFilters,
+  FilterQuestionFormValues,
+} from "@/helpers/admin/filter/question-filter/form";
+import { useFilter } from "@/hooks/use-filter-context";
+import { mapBooksToOptions } from "@/helpers/admin/filter/user-filter/options";
 import { useAdminContext } from "@/hooks/use-admin-context";
+import { mapChaptersToOptions } from "@/helpers/admin/filter/question-filter/options";
 
-interface PropType {
-  setFilteredInput: any;
-  filteredQuestions: any;
-}
-export const FilterQuestion: React.FC<PropType> = ({
-  setFilteredInput,
-  filteredQuestions,
-}) => {
-  const { books: availableBooks } = useAdminContext();
-  const [selectedBook, setSelectedBook] = useState<string>(
-    filteredQuestions.book
-  );
-  const [selectedChapter, setSelectedChapter] = useState<string>(
-    filteredQuestions.chapter
-  );
-  const handleFilter = () => {
-    setFilteredInput((prevState: SharedContext["filteredInput"]) => {
-      return {
-        ...prevState,
-        filteredQuestion: {
-          isFiltering: selectedBook != "any",
-          book: selectedBook,
-          chapter: selectedChapter,
-        },
-      };
+export const FilterQuestion: React.FC = () => {
+  const { books } = useAdminContext();
+  const { register, reset, watch, handleSubmit } =
+    useForm<FilterQuestionFormValues>({
+      defaultValues: {
+        book: "any",
+        chapter: "any",
+      },
     });
-  };
+  const { applyFilters, setPageNumber } = useFilter("question");
 
   const clearFilter = () => {
-    setSelectedBook(filteredInputInitial.filteredQuestion.book);
-    setSelectedChapter(filteredInputInitial.filteredQuestion.chapter);
-
-    setFilteredInput((prevState: SharedContext["filteredInput"]) => {
-      return {
-        ...prevState,
-        filteredQuestion: filteredInputInitial.filteredQuestion,
-      };
-    });
+    reset();
+    applyFilters(null);
+    setPageNumber(1);
   };
 
+  const selectedBookId = watch("book");
+  const chaptersOfSelectedBook = useMemo(() => {
+    if (!selectedBookId) return [];
+    return books.flatMap((book) => {
+      if (book.id === selectedBookId) return book.chapters;
+      return [];
+    });
+  }, [books, selectedBookId]);
+
   return (
-    <div className="menu bg-base-100 w-70 p-3 pt-0 rounded-box shadow-xl mt-5">
-      <label className="label">
-        <span className="label-text">Filter by book</span>
-      </label>
-      <select
-        className="select select-bordered select-sm w-full"
-        onChange={(event) => {
-          setSelectedBook(event.target.value);
-          setSelectedChapter(filteredInputInitial.filteredQuestion.chapter);
-        }}
-        value={selectedBook}
-      >
-        <option defaultChecked={selectedBook == "any"} value={"any"}>
-          Any
-        </option>
-        {availableBooks.map((book) => (
-          <option
-            key={book.name}
-            value={book.name}
-            defaultChecked={selectedBook == book.name}
-          >
-            {book.name}
-          </option>
-        ))}
-      </select>
-      <label className="label">
-        <span className="label-text">Filter by chapter</span>
-      </label>
-      <select
-        className="select select-bordered select-sm w-full"
-        onChange={(event) => setSelectedChapter(event.target.value)}
-        value={selectedChapter}
-      >
-        <option defaultChecked={selectedChapter == "any"} value={"any"}>
-          Any
-        </option>
-        {selectedBook != "any" &&
-          availableBooks
-            .filter((book) => book.name == selectedBook)
-            .map((each) =>
-              each.chapters.map((chapter) => (
-                <option
-                  key={chapter.id}
-                  defaultChecked={selectedChapter == chapter.name}
-                >
-                  {chapter.name}
-                </option>
-              ))
-            )}
-      </select>
+    <form
+      className="menu bg-base-100 w-70 p-3 pt-0 rounded-box shadow-xl mt-5"
+      onSubmit={handleSubmit((values) => {
+        applyFilters(buildQuestionFilters(values));
+        setPageNumber(1);
+      })}
+    >
+      <SelectFilterField
+        label="Filter by book"
+        options={mapBooksToOptions(books)}
+        {...register("book")}
+      />
+      <SelectFilterField
+        label="Filter by chapter"
+        options={mapChaptersToOptions(chaptersOfSelectedBook)}
+        {...register("chapter")}
+      />
       <div className={"flex mt-5 flex-col lg:flex-row md:justify-end"}>
         <button
+          type="button"
           className="btn btn-secondary lg:mr-2 mb-2 lg:mb-0"
           onClick={clearFilter}
         >
           Clear filter
         </button>
-        <button className="btn btn-primary" onClick={handleFilter}>
+        <button type="submit" className="btn btn-primary">
           Filter
         </button>
       </div>
-    </div>
+    </form>
   );
 };

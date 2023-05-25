@@ -1,10 +1,9 @@
 import { Toaster } from "react-hot-toast";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { BookProvider } from "@/hooks/use-book-context";
 import { Navbar } from "@/components/navbar";
 
-// @ts-ignore
-const Layout = ({ children }) => {
+const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <BookProvider>
       <section>
