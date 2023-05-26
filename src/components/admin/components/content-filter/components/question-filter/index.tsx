@@ -5,13 +5,14 @@ import {
   buildQuestionFilters,
   FilterQuestionFormValues,
 } from "@/helpers/admin/filter/question-filter/form";
-import { useFilter } from "@/hooks/use-filter-context";
 import { mapBooksToOptions } from "@/helpers/admin/filter/user-filter/options";
 import { useAdminContext } from "@/hooks/use-admin-context";
 import { mapChaptersToOptions } from "@/helpers/admin/filter/question-filter/options";
+import { useFilter } from "@/hooks/use-filter-context";
 
 export const FilterQuestion: React.FC = () => {
   const { books } = useAdminContext();
+  const { applyFilters, setPageNumber } = useFilter("question");
   const { register, reset, watch, handleSubmit } =
     useForm<FilterQuestionFormValues>({
       defaultValues: {
@@ -19,7 +20,6 @@ export const FilterQuestion: React.FC = () => {
         chapter: "any",
       },
     });
-  const { applyFilters, setPageNumber } = useFilter("question");
 
   const clearFilter = () => {
     reset();

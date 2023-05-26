@@ -5,6 +5,7 @@ import {
   FilterStrategy,
   FilterStrategyCategory,
 } from "@/components/admin/components/content-filter/shared/strategies";
+import { Mappers } from "@/helpers/mappers";
 
 export interface FilterBookFormValues {
   title: Maybe<string>;
@@ -17,7 +18,7 @@ export const buildBookFilters = (
     type: FilterStrategyCategory.TEXT,
     params: {
       match: filters.title || null,
-      mapper: (book: Book) => book.name,
+      mapper: Mappers.MAP_BOOK_NAME,
     },
   };
 

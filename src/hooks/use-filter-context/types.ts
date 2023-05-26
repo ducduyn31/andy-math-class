@@ -23,7 +23,12 @@ export type UseFilterReturn<T extends FilterType> = (T extends "user"
   : QuestionFilterReturn) &
   UsePaginationReturn;
 
+type CurrentFilterMatch = {
+  currentMatch: Record<FilterType, Record<string, unknown>>;
+};
+
 export type FilterContextType = UserFilterContextType &
   BookFilterContextType &
   QuestionFilterContextType &
+  CurrentFilterMatch &
   PaginationContextType;

@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, useCallback, useMemo } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { FilterBuilder } from "@/components/admin/components/content-filter/shared/filter-builder";
 import {
   UserFilterContextDefaultValue,
@@ -25,13 +30,47 @@ import {
   useQuestionFilter,
   useQuestionFilterContext,
 } from "@/hooks/use-filter-context/question";
+import {
+  useGetLastFilterLazyQuery,
+  useUpdateLastFilterMutation,
+} from "@/gql/types";
+import { useSession } from "next-auth/react";
+import { useMap } from "react-use";
 
 const FilterContext = React.createContext<FilterContextType>({
   ...UserFilterContextDefaultValue,
   ...BookFilterContextDefaultValue,
   ...QuestionFilterContextDefaultValue,
   ...PaginationContextDefaultValue,
+  currentMatch: {
+    user: {},
+    book: {},
+    question: {},
+  },
 });
+
+const useLoadSavedFilter = () => {
+  const session = useSession();
+  const [getLastFilters, { data }] = useGetLastFilterLazyQuery();
+
+  useEffect(() => {
+    const email = session.data?.user?.email;
+    if (!email) return;
+    getLastFilters({ variables: { email } });
+  }, [getLastFilters, session]);
+
+  return {
+    userFilterState:
+      data?.userResponse?.edges?.[0]?.node?.filter_statesCollection?.edges?.[0]
+        ?.node?.state,
+    bookFilterState:
+      data?.bookResponse?.edges?.[0]?.node?.filter_statesCollection?.edges?.[0]
+        ?.node?.state,
+    questionFilterState:
+      data?.questionResponse?.edges?.[0]?.node?.filter_statesCollection
+        ?.edges?.[0]?.node?.state,
+  };
+};
 
 export const FilterProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const { filteredUsers: filteredUsersWithoutPagination, setUserFilters } =
@@ -42,7 +81,28 @@ export const FilterProvider: React.FC<PropsWithChildren> = ({ children }) => {
     filteredQuestions: filterQuestionsWithoutPagination,
     setQuestionFilters,
   } = useQuestionFilterContext();
+  const { userFilterState, questionFilterState, bookFilterState } =
+    useLoadSavedFilter();
   const { page, setPage, pageSize } = usePaginationContext();
+  const [currentMatch, {}] = useMap({
+    user: {},
+    book: {},
+    question: {},
+  });
+
+  useEffect(() => {
+    console.log(questionFilterState);
+    setUserFilters(new FilterBuilder(userFilterState));
+    setBookFilters(new FilterBuilder(bookFilterState));
+    setQuestionFilters(new FilterBuilder(questionFilterState));
+  }, [
+    userFilterState,
+    questionFilterState,
+    bookFilterState,
+    setUserFilters,
+    setBookFilters,
+    setQuestionFilters,
+  ]);
 
   return (
     <FilterContext.Provider
@@ -50,6 +110,7 @@ export const FilterProvider: React.FC<PropsWithChildren> = ({ children }) => {
         filteredUsers: filteredUsersWithoutPagination,
         filteredBooks: filteredBooksWithoutPagination,
         filteredQuestions: filterQuestionsWithoutPagination,
+        currentMatch,
         setUserFilters,
         setBookFilters,
         setQuestionFilters,
@@ -66,11 +127,13 @@ export const FilterProvider: React.FC<PropsWithChildren> = ({ children }) => {
 export const useFilter = <T extends FilterType>(
   type: T
 ): UseFilterReturn<T> => {
+  const session = useSession();
   const { applyUserFilters, filteredUsers } = useUserFilter(FilterContext);
   const { applyBookFilters, filteredBooks } = useBookFilter(FilterContext);
   const { applyQuestionFilters, filteredQuestions } =
     useQuestionFilter(FilterContext);
   const { page, pageSize, setPageNumber } = usePagination(FilterContext, type);
+  const [saveFilter] = useUpdateLastFilterMutation();
 
   const applyFilters = useCallback(
     (filters: FilterBuilder<any> | null) => {
@@ -81,8 +144,22 @@ export const useFilter = <T extends FilterType>(
       } else if (type === "question") {
         applyQuestionFilters(filters);
       }
+      saveFilter({
+        variables: {
+          email: session.data?.user?.email || "",
+          category: type,
+          filter: filters?.serialize() || null,
+        },
+      });
     },
-    [applyBookFilters, applyQuestionFilters, applyUserFilters, type]
+    [
+      applyBookFilters,
+      applyQuestionFilters,
+      applyUserFilters,
+      saveFilter,
+      type,
+      session,
+    ]
   );
 
   const totalSize = useMemo(() => {

@@ -5,7 +5,7 @@ import {
 } from "@/components/admin/components/content-filter/shared/strategies";
 import { FilterBuilder } from "@/components/admin/components/content-filter/shared/filter-builder";
 import { User } from "@/models";
-import { assureNonNull } from "@/helpers/array";
+import { Mappers } from "@/helpers/mappers";
 
 export interface FilterUserFormValues {
   email: Maybe<string>;
@@ -20,22 +20,21 @@ export const buildUserFilters = (
     type: FilterStrategyCategory.TEXT,
     params: {
       match: filters.email || null,
-      mapper: (user: User) => user.email,
+      mapper: Mappers.MAP_USER_EMAIL,
     },
   };
   const bookFilterStrategy: FilterStrategy<User> = {
     type: FilterStrategyCategory.INCLUDE,
     params: {
       match: filters.book || "any",
-      mapper: (user: User) =>
-        assureNonNull(user.assignedBooks?.map((book) => book.id)),
+      mapper: Mappers.MAP_USER_ASSIGNED_BOOKS,
     },
   };
   const statusFilterStrategy: FilterStrategy<User> = {
     type: FilterStrategyCategory.SELECT,
     params: {
       match: filters.status || "any",
-      mapper: (user: User) => `${user.isEnabled}`,
+      mapper: Mappers.MAP_USER_IS_ENABLED,
     },
   };
 

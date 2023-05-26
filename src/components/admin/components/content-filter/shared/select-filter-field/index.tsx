@@ -28,8 +28,8 @@ export const SelectFilterField = React.forwardRef<HTMLSelectElement, Props>(
         </label>
         <select
           className="select select-bordered select-sm w-full"
-          ref={ref}
           {...rest}
+          ref={ref}
         >
           {options.map((option) =>
             switchCaseReturn(
@@ -37,14 +37,18 @@ export const SelectFilterField = React.forwardRef<HTMLSelectElement, Props>(
               {
                 case: SelectOptions.ANY_DEFAULT,
                 return: (
-                  <option value="any" defaultChecked>
+                  <option key="any" value="any" defaultChecked>
                     Any
                   </option>
                 ),
               },
               {
                 case: SelectOptions.DISABLED,
-                return: <option disabled>──────────</option>,
+                return: (
+                  <option key="disabled" disabled>
+                    ──────────
+                  </option>
+                ),
               },
               {
                 case: null,

@@ -7,9 +7,14 @@ import {
 } from "@/components/admin/components/content-filter/shared/strategies";
 
 export class FilterBuilder<T> {
-  private strategies: FilterStrategy<T>[];
-  constructor() {
-    this.strategies = [];
+  private readonly strategies: FilterStrategy<T>[];
+
+  constructor(serializedStrategies?: string | null) {
+    if (serializedStrategies != null) {
+      this.strategies = JSON.parse(serializedStrategies);
+    } else {
+      this.strategies = [];
+    }
   }
 
   public addFilter(...strategies: FilterStrategy<T>[]) {
@@ -32,5 +37,9 @@ export class FilterBuilder<T> {
       filteredElements = filteredElements.filter(handler);
     });
     return filteredElements;
+  }
+
+  public serialize(): string {
+    return JSON.stringify(this.strategies);
   }
 }

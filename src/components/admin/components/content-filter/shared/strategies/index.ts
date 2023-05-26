@@ -1,3 +1,5 @@
+import { createMapper, Mappers } from "@/helpers/mappers";
+
 export type FilterStrategy<T> =
   | TextFilterStrategy<T>
   | SelectFilterStrategy<T>
@@ -6,8 +8,8 @@ export type FilterStrategy<T> =
 interface TextFilterStrategy<T> {
   type: FilterStrategyCategory.TEXT;
   params: {
-    mapper: (input: T) => string;
     match: string | null;
+    mapper: Mappers;
   };
 }
 
@@ -15,7 +17,7 @@ interface SelectFilterStrategy<T> {
   type: FilterStrategyCategory.SELECT;
   params: {
     match: string;
-    mapper: (input: T) => string;
+    mapper: Mappers;
   };
 }
 
@@ -23,7 +25,7 @@ interface IncludeFilterStrategy<T> {
   type: FilterStrategyCategory.INCLUDE;
   params: {
     match: string;
-    mapper: (input: T) => string[];
+    mapper: Mappers;
   };
 }
 
@@ -41,7 +43,7 @@ export const createTextFilterHandler = <T>(strategy: FilterStrategy<T>) => {
   return (check: T) =>
     match === null
       ? true
-      : mapper(check).toLowerCase().includes(match.toLowerCase());
+      : createMapper(mapper)(check).toLowerCase().includes(match.toLowerCase());
 };
 
 export const createIncludeFilterHandler = <T>(strategy: FilterStrategy<T>) => {
@@ -53,7 +55,7 @@ export const createIncludeFilterHandler = <T>(strategy: FilterStrategy<T>) => {
 
   if (match === "any") return () => true;
 
-  return (check: T) => mapper(check).includes(match);
+  return (check: T) => createMapper(mapper)(check).includes(match);
 };
 
 export const createSelectFilterHandler = <T>(strategy: FilterStrategy<T>) => {
@@ -65,5 +67,5 @@ export const createSelectFilterHandler = <T>(strategy: FilterStrategy<T>) => {
 
   if (match === "any") return () => true;
 
-  return (check: T) => mapper(check) === match;
+  return (check: T) => createMapper(mapper)(check) === match;
 };

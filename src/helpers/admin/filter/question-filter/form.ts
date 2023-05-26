@@ -5,6 +5,7 @@ import {
   FilterStrategy,
   FilterStrategyCategory,
 } from "@/components/admin/components/content-filter/shared/strategies";
+import { Mappers } from "@/helpers/mappers";
 
 export interface FilterQuestionFormValues {
   book: Maybe<string>;
@@ -18,14 +19,14 @@ export const buildQuestionFilters = (
     type: FilterStrategyCategory.SELECT,
     params: {
       match: filters.book || "any",
-      mapper: (question: Question) => question.book?.id || "",
+      mapper: Mappers.MAP_QUESTION_BOOK_ID,
     },
   };
   const chapterFilterStrategy: FilterStrategy<Question> = {
     type: FilterStrategyCategory.SELECT,
     params: {
       match: filters.chapter || "any",
-      mapper: (question: Question) => question.chapter?.id || "",
+      mapper: Mappers.MAP_QUESTION_CHAPTER_ID,
     },
   };
 
