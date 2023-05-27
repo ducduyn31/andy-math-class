@@ -41,8 +41,8 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
                 <Image
                   width={500}
                   height={500}
-                  key={image}
-                  src={imageUrl(image)}
+                  key={image.path}
+                  src={imageUrl(image.path)}
                   className="rounded-3xl"
                   alt={currentQuestion.name}
                 />
