@@ -1,21 +1,27 @@
 import { TextFilterField } from "@/components/admin/components/content-filter/shared/text-filter-field";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   buildBookFilters,
   FilterBookFormValues,
+  mapFilterToBookFormValues,
 } from "@/helpers/admin/filter/book-filter/form";
 import { useFilter } from "@/hooks/use-filter-context";
+import { useEffectOnceLoad } from "@/hooks/use-effect-once-load";
 
 export const FilterBook = () => {
-  const { register, reset, handleSubmit } = useForm<FilterBookFormValues>({
+  const { applyFilters, setPageNumber, currentFilter } = useFilter("book");
+  const { control, reset, handleSubmit } = useForm<FilterBookFormValues>({
     defaultValues: {
       title: null,
     },
   });
-  const { applyFilters, setPageNumber } = useFilter("book");
+
+  useEffectOnceLoad(() => {
+    reset(mapFilterToBookFormValues(currentFilter));
+  }, [currentFilter]);
 
   const clearFilter = () => {
-    reset();
+    reset({});
     applyFilters(null);
     setPageNumber(1);
   };
@@ -28,10 +34,16 @@ export const FilterBook = () => {
         setPageNumber(1);
       })}
     >
-      <TextFilterField
-        label="Filter by book"
-        placeholder="Search by book name"
-        {...register("title")}
+      <Controller
+        control={control}
+        render={({ field }) => (
+          <TextFilterField
+            label="Filter by book"
+            placeholder="Search by book name"
+            {...field}
+          />
+        )}
+        name="title"
       />
 
       <div className={"flex mt-5 flex-col lg:flex-row md:justify-end"}>

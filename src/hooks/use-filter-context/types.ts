@@ -14,6 +14,11 @@ import {
   QuestionFilterContextType,
   QuestionFilterReturn,
 } from "@/hooks/use-filter-context/question";
+import { FilterBuilder } from "@/components/admin/components/content-filter/shared/filter-builder";
+
+type UseCurrentFilterReturn = {
+  currentFilter: FilterBuilder<any>;
+};
 
 export type FilterType = "user" | "book" | "question";
 export type UseFilterReturn<T extends FilterType> = (T extends "user"
@@ -21,14 +26,10 @@ export type UseFilterReturn<T extends FilterType> = (T extends "user"
   : T extends "book"
   ? BookFilterReturn
   : QuestionFilterReturn) &
-  UsePaginationReturn;
-
-type CurrentFilterMatch = {
-  currentMatch: Record<FilterType, Record<string, unknown>>;
-};
+  UsePaginationReturn &
+  UseCurrentFilterReturn;
 
 export type FilterContextType = UserFilterContextType &
   BookFilterContextType &
   QuestionFilterContextType &
-  CurrentFilterMatch &
   PaginationContextType;

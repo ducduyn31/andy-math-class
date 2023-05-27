@@ -5,11 +5,13 @@ import React, { useContext, useMemo, useState } from "react";
 
 export type QuestionFilterContextType = {
   filteredQuestions: Question[];
+  questionFilters: FilterBuilder<Question> | null;
   setQuestionFilters: (filters: FilterBuilder<Question> | null) => void;
 };
 
 export const QuestionFilterContextDefaultValue: QuestionFilterContextType = {
   filteredQuestions: [],
+  questionFilters: null,
   setQuestionFilters: () => {},
 };
 
@@ -19,7 +21,7 @@ export interface QuestionFilterReturn {
   applyFilters: (filterBuilder: FilterBuilder<Question> | null) => void;
 }
 
-export const useQuestionFilterContext = () => {
+export const useQuestionFilterContext = (): QuestionFilterContextType => {
   const { questions } = useAdminContext();
   const [questionFilters, setQuestionFilters] =
     useState<FilterBuilder<Question> | null>(null);
@@ -31,6 +33,7 @@ export const useQuestionFilterContext = () => {
 
   return {
     filteredQuestions,
+    questionFilters,
     setQuestionFilters,
   };
 };

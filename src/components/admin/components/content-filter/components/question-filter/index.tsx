@@ -1,19 +1,21 @@
 import React, { useMemo } from "react";
 import { SelectFilterField } from "@/components/admin/components/content-filter/shared/select-filter-field";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   buildQuestionFilters,
   FilterQuestionFormValues,
+  mapFilterToQuestionFormValues,
 } from "@/helpers/admin/filter/question-filter/form";
 import { mapBooksToOptions } from "@/helpers/admin/filter/user-filter/options";
 import { useAdminContext } from "@/hooks/use-admin-context";
 import { mapChaptersToOptions } from "@/helpers/admin/filter/question-filter/options";
 import { useFilter } from "@/hooks/use-filter-context";
+import { useEffectOnceLoad } from "@/hooks/use-effect-once-load";
 
 export const FilterQuestion: React.FC = () => {
   const { books } = useAdminContext();
-  const { applyFilters, setPageNumber } = useFilter("question");
-  const { register, reset, watch, handleSubmit } =
+  const { applyFilters, setPageNumber, currentFilter } = useFilter("question");
+  const { control, reset, watch, handleSubmit } =
     useForm<FilterQuestionFormValues>({
       defaultValues: {
         book: "any",
@@ -21,8 +23,12 @@ export const FilterQuestion: React.FC = () => {
       },
     });
 
+  useEffectOnceLoad(() => {
+    reset(mapFilterToQuestionFormValues(currentFilter));
+  }, [currentFilter]);
+
   const clearFilter = () => {
-    reset();
+    reset({});
     applyFilters(null);
     setPageNumber(1);
   };
@@ -44,16 +50,29 @@ export const FilterQuestion: React.FC = () => {
         setPageNumber(1);
       })}
     >
-      <SelectFilterField
-        label="Filter by book"
-        options={mapBooksToOptions(books)}
-        {...register("book")}
+      <Controller
+        name="book"
+        control={control}
+        render={({ field }) => (
+          <SelectFilterField
+            label="Filter by book"
+            options={mapBooksToOptions(books)}
+            {...field}
+          />
+        )}
       />
-      <SelectFilterField
-        label="Filter by chapter"
-        options={mapChaptersToOptions(chaptersOfSelectedBook)}
-        {...register("chapter")}
+      <Controller
+        name="chapter"
+        control={control}
+        render={({ field }) => (
+          <SelectFilterField
+            label="Filter by chapter"
+            options={mapChaptersToOptions(chaptersOfSelectedBook)}
+            {...field}
+          />
+        )}
       />
+
       <div className={"flex mt-5 flex-col lg:flex-row md:justify-end"}>
         <button
           type="button"

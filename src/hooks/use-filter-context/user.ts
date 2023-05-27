@@ -5,11 +5,13 @@ import { useAdminContext } from "@/hooks/use-admin-context";
 
 export type UserFilterContextType = {
   filteredUsers: User[];
+  userFilters: FilterBuilder<User> | null;
   setUserFilters: (filters: FilterBuilder<User> | null) => void;
 };
 
 export const UserFilterContextDefaultValue: UserFilterContextType = {
   filteredUsers: [],
+  userFilters: null,
   setUserFilters: () => {},
 };
 
@@ -19,7 +21,7 @@ export interface UserFilterReturn {
   applyFilters: (filterBuilder: FilterBuilder<User> | null) => void;
 }
 
-export const useUserFilterContext = () => {
+export const useUserFilterContext = (): UserFilterContextType => {
   const { users } = useAdminContext();
   const [userFilters, setUserFilters] = useState<FilterBuilder<User> | null>(
     null
@@ -32,6 +34,7 @@ export const useUserFilterContext = () => {
 
   return {
     filteredUsers,
+    userFilters,
     setUserFilters,
   };
 };

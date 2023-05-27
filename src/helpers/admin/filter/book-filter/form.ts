@@ -26,3 +26,9 @@ export const buildBookFilters = (
   filterBuilder.addFilter(titleFilterStrategy);
   return filterBuilder;
 };
+
+export const mapFilterToBookFormValues = (
+  filter: FilterBuilder<Book>
+): FilterBookFormValues => ({
+  title: filter?.getMatchValueByMapper(Mappers.MAP_BOOK_NAME),
+});

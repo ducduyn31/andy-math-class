@@ -1,6 +1,7 @@
 import React, {
   PropsWithChildren,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
 } from "react";
@@ -35,18 +36,12 @@ import {
   useUpdateLastFilterMutation,
 } from "@/gql/types";
 import { useSession } from "next-auth/react";
-import { useMap } from "react-use";
 
 const FilterContext = React.createContext<FilterContextType>({
   ...UserFilterContextDefaultValue,
   ...BookFilterContextDefaultValue,
   ...QuestionFilterContextDefaultValue,
   ...PaginationContextDefaultValue,
-  currentMatch: {
-    user: {},
-    book: {},
-    question: {},
-  },
 });
 
 const useLoadSavedFilter = () => {
@@ -73,28 +68,30 @@ const useLoadSavedFilter = () => {
 };
 
 export const FilterProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const { filteredUsers: filteredUsersWithoutPagination, setUserFilters } =
-    useUserFilterContext();
-  const { filteredBooks: filteredBooksWithoutPagination, setBookFilters } =
-    useBookFilterContext();
+  const {
+    filteredUsers: filteredUsersWithoutPagination,
+    userFilters,
+    setUserFilters,
+  } = useUserFilterContext();
+  const {
+    filteredBooks: filteredBooksWithoutPagination,
+    bookFilters,
+    setBookFilters,
+  } = useBookFilterContext();
   const {
     filteredQuestions: filterQuestionsWithoutPagination,
+    questionFilters,
     setQuestionFilters,
   } = useQuestionFilterContext();
   const { userFilterState, questionFilterState, bookFilterState } =
     useLoadSavedFilter();
   const { page, setPage, pageSize } = usePaginationContext();
-  const [currentMatch, {}] = useMap({
-    user: {},
-    book: {},
-    question: {},
-  });
 
   useEffect(() => {
-    console.log(questionFilterState);
-    setUserFilters(new FilterBuilder(userFilterState));
-    setBookFilters(new FilterBuilder(bookFilterState));
-    setQuestionFilters(new FilterBuilder(questionFilterState));
+    if (userFilterState) setUserFilters(new FilterBuilder(userFilterState));
+    if (bookFilterState) setBookFilters(new FilterBuilder(bookFilterState));
+    if (questionFilterState)
+      setQuestionFilters(new FilterBuilder(questionFilterState));
   }, [
     userFilterState,
     questionFilterState,
@@ -110,10 +107,12 @@ export const FilterProvider: React.FC<PropsWithChildren> = ({ children }) => {
         filteredUsers: filteredUsersWithoutPagination,
         filteredBooks: filteredBooksWithoutPagination,
         filteredQuestions: filterQuestionsWithoutPagination,
-        currentMatch,
         setUserFilters,
         setBookFilters,
         setQuestionFilters,
+        userFilters,
+        bookFilters,
+        questionFilters,
         page,
         pageSize,
         setPage,
@@ -133,6 +132,8 @@ export const useFilter = <T extends FilterType>(
   const { applyQuestionFilters, filteredQuestions } =
     useQuestionFilter(FilterContext);
   const { page, pageSize, setPageNumber } = usePagination(FilterContext, type);
+  const { userFilters, questionFilters, bookFilters } =
+    useContext(FilterContext);
   const [saveFilter] = useUpdateLastFilterMutation();
 
   const applyFilters = useCallback(
@@ -198,6 +199,12 @@ export const useFilter = <T extends FilterType>(
     [updatePagination, filteredQuestions]
   );
 
+  const currentFilter = useMemo(() => {
+    if (type === "user") return userFilters;
+    else if (type === "book") return bookFilters;
+    else return questionFilters;
+  }, [bookFilters, questionFilters, type, userFilters]);
+
   return {
     type,
     page,
@@ -207,6 +214,7 @@ export const useFilter = <T extends FilterType>(
     filteredUsers: filteredUsersWithPagination,
     filteredBooks: filteredBooksWithPagination,
     filteredQuestions: filteredQuestionsWithPagination,
+    currentFilter,
     setPageNumber,
   } as unknown as UseFilterReturn<T>;
 };

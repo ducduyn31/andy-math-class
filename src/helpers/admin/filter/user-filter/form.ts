@@ -46,3 +46,22 @@ export const buildUserFilters = (
   );
   return filterBuilder;
 };
+
+export const mapFilterToUserFormValues = (
+  filter: FilterBuilder<User>
+): FilterUserFormValues => {
+  const email = filter?.getMatchValueByMapper<string | null>(
+    Mappers.MAP_USER_EMAIL
+  );
+  const book = filter?.getMatchValueByMapper<string | null>(
+    Mappers.MAP_USER_ASSIGNED_BOOKS
+  );
+  const status = filter?.getMatchValueByMapper<"any" | "true" | "false">(
+    Mappers.MAP_USER_IS_ENABLED
+  );
+  return {
+    email,
+    book: book || "any",
+    status: status || "any",
+  };
+};

@@ -5,6 +5,7 @@ import React, { useContext, useMemo, useState } from "react";
 
 export type BookFilterContextType = {
   filteredBooks: Book[];
+  bookFilters: FilterBuilder<Book> | null;
   setBookFilters: (filters: FilterBuilder<Book> | null) => void;
 };
 
@@ -16,6 +17,7 @@ export interface BookFilterReturn {
 
 export const BookFilterContextDefaultValue: BookFilterContextType = {
   filteredBooks: [],
+  bookFilters: null,
   setBookFilters: () => {},
 };
 
@@ -32,6 +34,7 @@ export const useBookFilterContext = (): BookFilterContextType => {
 
   return {
     filteredBooks,
+    bookFilters,
     setBookFilters,
   };
 };

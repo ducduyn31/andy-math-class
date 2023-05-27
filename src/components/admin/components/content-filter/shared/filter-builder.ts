@@ -5,6 +5,7 @@ import {
   FilterStrategy,
   FilterStrategyCategory,
 } from "@/components/admin/components/content-filter/shared/strategies";
+import { Mappers } from "@/helpers/mappers";
 
 export class FilterBuilder<T> {
   private readonly strategies: FilterStrategy<T>[];
@@ -37,6 +38,13 @@ export class FilterBuilder<T> {
       filteredElements = filteredElements.filter(handler);
     });
     return filteredElements;
+  }
+
+  public getMatchValueByMapper<T>(mapper: Mappers): T {
+    const matchIndex = this.strategies.findIndex(
+      (value) => value.params.mapper === mapper
+    );
+    return this.strategies[matchIndex]?.params?.match as T;
   }
 
   public serialize(): string {

@@ -34,3 +34,16 @@ export const buildQuestionFilters = (
   filterBuilder.addFilter(bookFilterStrategy, chapterFilterStrategy);
   return filterBuilder;
 };
+
+export const mapFilterToQuestionFormValues = (
+  filter: FilterBuilder<Question>
+): FilterQuestionFormValues => ({
+  book:
+    filter?.getMatchValueByMapper<Maybe<string>>(
+      Mappers.MAP_QUESTION_BOOK_ID
+    ) || "any",
+  chapter:
+    filter?.getMatchValueByMapper<Maybe<string>>(
+      Mappers.MAP_QUESTION_CHAPTER_ID
+    ) || "any",
+});
