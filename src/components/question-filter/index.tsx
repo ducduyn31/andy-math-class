@@ -7,7 +7,7 @@ import { usePersistSelectedChapters } from "@/hooks/use-persist-selected-chapter
 export const SidedQuestionFilter: React.FC = () => {
   const hasLoaded = useRef(false);
   const { books: assignedBooks } = useGetAssignedBooks();
-  const { addAllChapters } = useBookContext();
+  const { addChaptersIgnoreChildren } = useBookContext();
   const { lastSelectedChapters } = usePersistSelectedChapters();
 
   useEffect(() => {
@@ -15,10 +15,10 @@ export const SidedQuestionFilter: React.FC = () => {
       const assignedChapters = assignedBooks
         .flatMap((book) => book.chapters)
         .filter((chapter) => lastSelectedChapters.has(chapter.id));
-      addAllChapters(assignedChapters);
+      addChaptersIgnoreChildren(assignedChapters);
       hasLoaded.current = true;
     }
-  }, [addAllChapters, assignedBooks, lastSelectedChapters]);
+  }, [addChaptersIgnoreChildren, assignedBooks, lastSelectedChapters]);
 
   return (
     <aside className="bg-base-300">

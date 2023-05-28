@@ -12,7 +12,7 @@ export type BookContextType = {
   hasBook: (book: Book) => boolean;
   toggleBook: (book: Book) => void;
   addChapter: (chapter: Chapter) => void;
-  addAllChapters: (chapters: Chapter[]) => void;
+  addChaptersIgnoreChildren: (chapters: Chapter[]) => void;
   removeChapter: (chapter: Chapter) => void;
   hasChapter: (chapter: Chapter) => boolean;
   toggleChapter: (chapter: Chapter) => void;
@@ -26,7 +26,7 @@ const BookContext = createContext<BookContextType>({
   hasBook: () => false,
   toggleBook: () => {},
   addChapter: () => {},
-  addAllChapters: () => {},
+  addChaptersIgnoreChildren: () => {},
   removeChapter: () => {},
   hasChapter: () => false,
   toggleChapter: () => {},
@@ -58,10 +58,9 @@ export const BookProvider: React.FC<{
     [selectedBooks]
   );
 
-  const addAllChapters = useCallback(
+  const addChaptersIgnoreChildren = useCallback(
     (chapters: Chapter[]) => {
-      const allChapters = bfsChapterTraversal(chapters);
-      const toAdd = allChapters.filter((chapter) => !hasChapter(chapter));
+      const toAdd = chapters.filter((chapter) => !hasChapter(chapter));
       const books = new Set(
         assureNonNull(toAdd.map((chapter) => chapter.book))
       );
@@ -87,6 +86,14 @@ export const BookProvider: React.FC<{
       setChapter,
       setChaptersByBook,
     ]
+  );
+
+  const addAllChapters = useCallback(
+    (chapters: Chapter[]) => {
+      const allChapters = bfsChapterTraversal(chapters);
+      addChaptersIgnoreChildren(allChapters);
+    },
+    [addChaptersIgnoreChildren]
   );
 
   const addBook = useCallback(
@@ -197,7 +204,7 @@ export const BookProvider: React.FC<{
         hasBook,
         toggleBook,
         addChapter,
-        addAllChapters,
+        addChaptersIgnoreChildren,
         removeChapter,
         hasChapter,
         toggleChapter,
