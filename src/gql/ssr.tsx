@@ -125,6 +125,8 @@ export type Mutation = {
   deleteFrombooksCollection: BooksDeleteResponse;
   /** Deletes zero or more records from the `chapters` collection */
   deleteFromchaptersCollection: ChaptersDeleteResponse;
+  /** Deletes zero or more records from the `chapters_select_state` collection */
+  deleteFromchapters_select_stateCollection: Chapters_Select_StateDeleteResponse;
   /** Deletes zero or more records from the `filter_states` collection */
   deleteFromfilter_statesCollection: Filter_StatesDeleteResponse;
   /** Deletes zero or more records from the `question_images` collection */
@@ -139,6 +141,8 @@ export type Mutation = {
   insertIntobooksCollection?: Maybe<BooksInsertResponse>;
   /** Adds one or more `chapters` records to the collection */
   insertIntochaptersCollection?: Maybe<ChaptersInsertResponse>;
+  /** Adds one or more `chapters_select_state` records to the collection */
+  insertIntochapters_select_stateCollection?: Maybe<Chapters_Select_StateInsertResponse>;
   /** Adds one or more `filter_states` records to the collection */
   insertIntofilter_statesCollection?: Maybe<Filter_StatesInsertResponse>;
   /** Adds one or more `question_images` records to the collection */
@@ -153,6 +157,8 @@ export type Mutation = {
   updatebooksCollection: BooksUpdateResponse;
   /** Updates zero or more records in the `chapters` collection */
   updatechaptersCollection: ChaptersUpdateResponse;
+  /** Updates zero or more records in the `chapters_select_state` collection */
+  updatechapters_select_stateCollection: Chapters_Select_StateUpdateResponse;
   /** Updates zero or more records in the `filter_states` collection */
   updatefilter_statesCollection: Filter_StatesUpdateResponse;
   /** Updates zero or more records in the `question_images` collection */
@@ -184,6 +190,13 @@ export type MutationDeleteFrombooksCollectionArgs = {
 export type MutationDeleteFromchaptersCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<ChaptersFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromchapters_Select_StateCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<Chapters_Select_StateFilter>;
 };
 
 
@@ -234,6 +247,12 @@ export type MutationInsertIntochaptersCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationInsertIntochapters_Select_StateCollectionArgs = {
+  objects: Array<Chapters_Select_StateInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationInsertIntofilter_StatesCollectionArgs = {
   objects: Array<Filter_StatesInsertInput>;
 };
@@ -278,6 +297,14 @@ export type MutationUpdatechaptersCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<ChaptersFilter>;
   set: ChaptersUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdatechapters_Select_StateCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<Chapters_Select_StateFilter>;
+  set: Chapters_Select_StateUpdateInput;
 };
 
 
@@ -360,6 +387,8 @@ export type Query = {
   booksCollection?: Maybe<BooksConnection>;
   /** A pagable collection of type `chapters` */
   chaptersCollection?: Maybe<ChaptersConnection>;
+  /** A pagable collection of type `chapters_select_state` */
+  chapters_select_stateCollection?: Maybe<Chapters_Select_StateConnection>;
   /** A pagable collection of type `filter_states` */
   filter_statesCollection?: Maybe<Filter_StatesConnection>;
   /** Retrieve a record by its `ID` */
@@ -405,6 +434,17 @@ export type QueryChaptersCollectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Array<ChaptersOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryChapters_Select_StateCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<Chapters_Select_StateFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<Chapters_Select_StateOrderBy>>;
 };
 
 
@@ -801,6 +841,80 @@ export type ChaptersUpdateResponse = {
   records: Array<Chapters>;
 };
 
+export type Chapters_Select_State = Node & {
+  __typename?: 'chapters_select_state';
+  created_at?: Maybe<Scalars['Datetime']>;
+  email?: Maybe<Scalars['String']>;
+  id: Scalars['UUID'];
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  state?: Maybe<Scalars['JSON']>;
+  users?: Maybe<Users>;
+};
+
+export type Chapters_Select_StateConnection = {
+  __typename?: 'chapters_select_stateConnection';
+  edges: Array<Chapters_Select_StateEdge>;
+  pageInfo: PageInfo;
+};
+
+export type Chapters_Select_StateDeleteResponse = {
+  __typename?: 'chapters_select_stateDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Chapters_Select_State>;
+};
+
+export type Chapters_Select_StateEdge = {
+  __typename?: 'chapters_select_stateEdge';
+  cursor: Scalars['String'];
+  node: Chapters_Select_State;
+};
+
+export type Chapters_Select_StateFilter = {
+  created_at?: InputMaybe<DatetimeFilter>;
+  email?: InputMaybe<StringFilter>;
+  id?: InputMaybe<UuidFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+};
+
+export type Chapters_Select_StateInsertInput = {
+  created_at?: InputMaybe<Scalars['Datetime']>;
+  email?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  state?: InputMaybe<Scalars['JSON']>;
+};
+
+export type Chapters_Select_StateInsertResponse = {
+  __typename?: 'chapters_select_stateInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Chapters_Select_State>;
+};
+
+export type Chapters_Select_StateOrderBy = {
+  created_at?: InputMaybe<OrderByDirection>;
+  email?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+};
+
+export type Chapters_Select_StateUpdateInput = {
+  created_at?: InputMaybe<Scalars['Datetime']>;
+  email?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  state?: InputMaybe<Scalars['JSON']>;
+};
+
+export type Chapters_Select_StateUpdateResponse = {
+  __typename?: 'chapters_select_stateUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Chapters_Select_State>;
+};
+
 export type Filter_States = Node & {
   __typename?: 'filter_states';
   category?: Maybe<Scalars['String']>;
@@ -1149,6 +1263,7 @@ export type User_Books_AssignationUpdateResponse = {
 
 export type Users = Node & {
   __typename?: 'users';
+  chapters_select_stateCollection?: Maybe<Chapters_Select_StateConnection>;
   email?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Datetime']>;
   filter_statesCollection?: Maybe<Filter_StatesConnection>;
@@ -1161,6 +1276,16 @@ export type Users = Node & {
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID'];
   user_books_assignationCollection?: Maybe<User_Books_AssignationConnection>;
+};
+
+
+export type UsersChapters_Select_StateCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<Chapters_Select_StateFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<Chapters_Select_StateOrderBy>>;
 };
 
 
@@ -1412,6 +1537,20 @@ export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null } }> } | null };
 
+export type LoadLastSelectedChaptersQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type LoadLastSelectedChaptersQuery = { __typename?: 'Query', chapters_select_stateCollection?: { __typename?: 'chapters_select_stateConnection', edges: Array<{ __typename?: 'chapters_select_stateEdge', node: { __typename?: 'chapters_select_state', nodeId: string, state?: any | null } }> } | null };
+
+export type SaveSelectedChaptersMutationVariables = Exact<{
+  selectedChapters: Chapters_Select_StateInsertInput;
+}>;
+
+
+export type SaveSelectedChaptersMutation = { __typename?: 'Mutation', insertIntochapters_select_stateCollection?: { __typename?: 'chapters_select_stateInsertResponse', affectedCount: number } | null };
+
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
   newUser: UsersUpdateInput;
@@ -1639,3 +1778,33 @@ export const ssrGetUser = {
       withPage: withPageGetUser,
       
     }
+export async function getServerPageLoadLastSelectedChapters
+    (options: Omit<Apollo.QueryOptions<LoadLastSelectedChaptersQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
+        
+        
+        const data = await apolloClient.query<LoadLastSelectedChaptersQuery>({ ...options, query: Operations.LoadLastSelectedChaptersDocument });
+        
+        const apolloState = apolloClient.cache.extract();
+
+        return {
+            props: {
+                apolloState: apolloState,
+                data: data?.data,
+                error: data?.error ?? data?.errors ?? null,
+            },
+        };
+      }
+export type PageLoadLastSelectedChaptersComp = React.FC<{data?: LoadLastSelectedChaptersQuery, error?: Apollo.ApolloError}>;
+export const withPageLoadLastSelectedChapters = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<LoadLastSelectedChaptersQuery, LoadLastSelectedChaptersQueryVariables>) => (WrappedComponent:PageLoadLastSelectedChaptersComp) : NextPage  => (props) => {
+                const router = useRouter()
+                const options = optionsFunc ? optionsFunc(router) : {};
+                const {data, error } = useQuery(Operations.LoadLastSelectedChaptersDocument, options)    
+                return <WrappedComponent {...props} data={data} error={error} /> ;
+                   
+            }; 
+export const ssrLoadLastSelectedChapters = {
+      getServerPage: getServerPageLoadLastSelectedChapters,
+      withPage: withPageLoadLastSelectedChapters,
+      
+    }
+

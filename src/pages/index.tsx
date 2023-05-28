@@ -5,11 +5,13 @@ import { QuestionAnswerPanel } from "@/components/question-answer-panel";
 import { useGetQuestionsAsync } from "@/hooks/use-get-questions-async";
 import { SidedQuestionFilter } from "@/components/question-filter";
 import { useGetMe } from "@/hooks/use-get-user";
+import { usePersistSelectedChapters } from "@/hooks/use-persist-selected-chapters";
 
 export default function Home() {
   const { selectedChapters } = useBookContext();
   const [shouldShowQuestions, setShouldShowQuestions] = useState(false);
   const { getQuestions, selectedQuestions } = useGetQuestionsAsync();
+  const { saveSelectedChapters } = usePersistSelectedChapters();
   const { me, isAdmin } = useGetMe();
 
   useEffect(() => {
@@ -37,6 +39,11 @@ export default function Home() {
     );
   }
 
+  const startQuiz = () => {
+    setShouldShowQuestions(true);
+    saveSelectedChapters(selectedChapters);
+  };
+
   if (!shouldShowQuestions) {
     return (
       <div className="grid grid-cols-5 h-fullpage">
@@ -47,7 +54,7 @@ export default function Home() {
               className={`btn ${
                 selectedChapters.length === 0 ? "btn-disabled" : ""
               }`}
-              onClick={() => setShouldShowQuestions(true)}
+              onClick={startQuiz}
             >
               Start Quiz
             </button>

@@ -33,6 +33,13 @@ type Mutation {
         "Restricts the mutation's impact to records matching the criteria"
         filter: chaptersFilter
     ): chaptersDeleteResponse!
+    "Deletes zero or more records from the `chapters_select_state` collection"
+    deleteFromchapters_select_stateCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: chapters_select_stateFilter
+    ): chapters_select_stateDeleteResponse!
     "Deletes zero or more records from the `filter_states` collection"
     deleteFromfilter_statesCollection(
         "The maximum number of records in the collection permitted to be affected"
@@ -67,6 +74,8 @@ type Mutation {
     insertIntobooksCollection(objects: [booksInsertInput!]!): booksInsertResponse
     "Adds one or more `chapters` records to the collection"
     insertIntochaptersCollection(objects: [chaptersInsertInput!]!): chaptersInsertResponse
+    "Adds one or more `chapters_select_state` records to the collection"
+    insertIntochapters_select_stateCollection(objects: [chapters_select_stateInsertInput!]!): chapters_select_stateInsertResponse
     "Adds one or more `filter_states` records to the collection"
     insertIntofilter_statesCollection(objects: [filter_statesInsertInput!]!): filter_statesInsertResponse
     "Adds one or more `question_images` records to the collection"
@@ -102,6 +111,15 @@ type Mutation {
         "Fields that are set will be updated for all records matching the `filter`"
         set: chaptersUpdateInput!
     ): chaptersUpdateResponse!
+    "Updates zero or more records in the `chapters_select_state` collection"
+    updatechapters_select_stateCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: chapters_select_stateFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: chapters_select_stateUpdateInput!
+    ): chapters_select_stateUpdateResponse!
     "Updates zero or more records in the `filter_states` collection"
     updatefilter_statesCollection(
         "The maximum number of records in the collection permitted to be affected"
@@ -203,6 +221,21 @@ type Query {
         "Sort order to apply to the collection"
         orderBy: [chaptersOrderBy!]
     ): chaptersConnection
+    "A pagable collection of type `chapters_select_state`"
+    chapters_select_stateCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: chapters_select_stateFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [chapters_select_stateOrderBy!]
+    ): chapters_select_stateConnection
     "A pagable collection of type `filter_states`"
     filter_statesCollection(
         "Query values in the collection after the provided cursor"
@@ -481,6 +514,47 @@ type chaptersUpdateResponse {
     records: [chapters!]!
 }
 
+type chapters_select_state implements Node {
+    created_at: Datetime
+    email: String
+    id: UUID!
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+    state: JSON
+    users: users
+}
+
+type chapters_select_stateConnection {
+    edges: [chapters_select_stateEdge!]!
+    pageInfo: PageInfo!
+}
+
+type chapters_select_stateDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [chapters_select_state!]!
+}
+
+type chapters_select_stateEdge {
+    cursor: String!
+    node: chapters_select_state!
+}
+
+type chapters_select_stateInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [chapters_select_state!]!
+}
+
+type chapters_select_stateUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [chapters_select_state!]!
+}
+
 type filter_states implements Node {
     category: String
     created_at: Datetime
@@ -680,6 +754,20 @@ type user_books_assignationUpdateResponse {
 }
 
 type users implements Node {
+    chapters_select_stateCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: chapters_select_stateFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [chapters_select_stateOrderBy!]
+    ): chapters_select_stateConnection
     email: String
     emailVerified: Datetime
     filter_statesCollection(
@@ -1002,6 +1090,33 @@ input chaptersUpdateInput {
     id: UUID
     name: String
     parent: UUID
+}
+
+input chapters_select_stateFilter {
+    created_at: DatetimeFilter
+    email: StringFilter
+    id: UUIDFilter
+    nodeId: IDFilter
+}
+
+input chapters_select_stateInsertInput {
+    created_at: Datetime
+    email: String
+    id: UUID
+    state: JSON
+}
+
+input chapters_select_stateOrderBy {
+    created_at: OrderByDirection
+    email: OrderByDirection
+    id: OrderByDirection
+}
+
+input chapters_select_stateUpdateInput {
+    created_at: Datetime
+    email: String
+    id: UUID
+    state: JSON
 }
 
 input filter_statesFilter {

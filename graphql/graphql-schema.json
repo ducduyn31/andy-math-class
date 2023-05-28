@@ -903,6 +903,47 @@
                 "name": "filter",
                 "type": {
                   "kind": "INPUT_OBJECT",
+                  "name": "chapters_select_stateFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "deleteFromchapters_select_stateCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "chapters_select_stateDeleteResponse",
+                "ofType": null
+              }
+            },
+            "description": "Deletes zero or more records from the `chapters_select_state` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
                   "name": "filter_statesFilter",
                   "ofType": null
                 },
@@ -1160,6 +1201,40 @@
               "ofType": null
             },
             "description": "Adds one or more `chapters` records to the collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "objects",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "chapters_select_stateInsertInput"
+                      }
+                    }
+                  }
+                },
+                "description": null,
+                "defaultValue": null
+              }
+            ],
+            "name": "insertIntochapters_select_stateCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "chapters_select_stateInsertResponse",
+              "ofType": null
+            },
+            "description": "Adds one or more `chapters_select_state` records to the collection",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -1461,6 +1536,61 @@
               }
             },
             "description": "Updates zero or more records in the `chapters` collection",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "set",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "chapters_select_stateUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "description": "Fields that are set will be updated for all records matching the `filter`",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "chapters_select_stateFilter",
+                  "ofType": null
+                },
+                "description": "Restricts the mutation's impact to records matching the criteria",
+                "defaultValue": null
+              },
+              {
+                "name": "atMost",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": "The maximum number of records in the collection permitted to be affected",
+                "defaultValue": "1"
+              }
+            ],
+            "name": "updatechapters_select_stateCollection",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "chapters_select_stateUpdateResponse",
+                "ofType": null
+              }
+            },
+            "description": "Updates zero or more records in the `chapters_select_state` collection",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -1785,6 +1915,11 @@
           {
             "kind": "OBJECT",
             "name": "chapters",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "chapters_select_state",
             "ofType": null
           },
           {
@@ -2201,6 +2336,87 @@
               "ofType": null
             },
             "description": "A pagable collection of type `chapters`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "chapters_select_stateFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "chapters_select_stateOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "chapters_select_stateCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "chapters_select_stateConnection",
+              "ofType": null
+            },
+            "description": "A pagable collection of type `chapters_select_state`",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -6088,6 +6304,540 @@
       },
       {
         "kind": "OBJECT",
+        "name": "chapters_select_state",
+        "fields": [
+          {
+            "args": [],
+            "name": "nodeId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "description": "Globally Unique Record Identifier",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "created_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "state",
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "users",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          }
+        ],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "chapters_select_stateConnection",
+        "fields": [
+          {
+            "args": [],
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "chapters_select_stateEdge"
+                  }
+                }
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "chapters_select_stateDeleteResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "chapters_select_state"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "chapters_select_stateEdge",
+        "fields": [
+          {
+            "args": [],
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "chapters_select_state",
+                "ofType": null
+              }
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "chapters_select_stateFilter",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UUIDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DatetimeFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "nodeId",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "IDFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "chapters_select_stateInsertInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "state",
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "chapters_select_stateInsertResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "chapters_select_state"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "chapters_select_stateOrderBy",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "chapters_select_stateUpdateInput",
+        "fields": null,
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "state",
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "chapters_select_stateUpdateResponse",
+        "fields": [
+          {
+            "args": [],
+            "name": "affectedCount",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "Count of the records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
+            "name": "records",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "chapters_select_state"
+                  }
+                }
+              }
+            },
+            "description": "Array of records impacted by the mutation",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "enumValues": [],
+        "interfaces": [],
+        "description": null,
+        "inputFields": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "filter_states",
         "fields": [
           {
@@ -8952,6 +9702,87 @@
             "type": {
               "kind": "OBJECT",
               "name": "filter_statesConnection",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the first `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "Query the last `n` records in the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection before the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "description": "Query values in the collection after the provided cursor",
+                "defaultValue": null
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "chapters_select_stateFilter",
+                  "ofType": null
+                },
+                "description": "Filters to apply to the results set when querying from the collection",
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "chapters_select_stateOrderBy",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "Sort order to apply to the collection",
+                "defaultValue": null
+              }
+            ],
+            "name": "chapters_select_stateCollection",
+            "type": {
+              "kind": "OBJECT",
+              "name": "chapters_select_stateConnection",
               "ofType": null
             },
             "description": null,

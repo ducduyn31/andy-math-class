@@ -2,6 +2,7 @@ import React, { createContext, useCallback, useContext, useMemo } from "react";
 
 import { Book, Chapter } from "@/models";
 import { useMap } from "react-use";
+import { assureNonNull } from "@/helpers/array";
 
 export type BookContextType = {
   selectedBooks: Book[];
@@ -11,6 +12,7 @@ export type BookContextType = {
   hasBook: (book: Book) => boolean;
   toggleBook: (book: Book) => void;
   addChapter: (chapter: Chapter) => void;
+  addAllChapters: (chapters: Chapter[]) => void;
   removeChapter: (chapter: Chapter) => void;
   hasChapter: (chapter: Chapter) => boolean;
   toggleChapter: (chapter: Chapter) => void;
@@ -24,6 +26,7 @@ const BookContext = createContext<BookContextType>({
   hasBook: () => false,
   toggleBook: () => {},
   addChapter: () => {},
+  addAllChapters: () => {},
   removeChapter: () => {},
   hasChapter: () => false,
   toggleChapter: () => {},
@@ -59,6 +62,9 @@ export const BookProvider: React.FC<{
     (chapters: Chapter[]) => {
       const allChapters = bfsChapterTraversal(chapters);
       const toAdd = allChapters.filter((chapter) => !hasChapter(chapter));
+      const books = new Set(
+        assureNonNull(toAdd.map((chapter) => chapter.book))
+      );
       if (!toAdd.length) return;
       toAdd.forEach((chapter) => setChapter(chapter.id, chapter));
       const bookId = toAdd[0].book?.id;
@@ -67,8 +73,20 @@ export const BookProvider: React.FC<{
         selectedChaptersByBook[bookId] ?? new Set<string>();
       toAdd.forEach((chapter) => chaptersByBook.add(chapter.id));
       setChaptersByBook(bookId, chaptersByBook);
+      books.forEach((book) => {
+        if (!hasBook(book)) {
+          setBook(book.id, book);
+        }
+      });
     },
-    [hasChapter, selectedChaptersByBook, setChapter, setChaptersByBook]
+    [
+      hasBook,
+      hasChapter,
+      selectedChaptersByBook,
+      setBook,
+      setChapter,
+      setChaptersByBook,
+    ]
   );
 
   const addBook = useCallback(
@@ -179,6 +197,7 @@ export const BookProvider: React.FC<{
         hasBook,
         toggleBook,
         addChapter,
+        addAllChapters,
         removeChapter,
         hasChapter,
         toggleChapter,
