@@ -2,6 +2,15 @@ import { gql } from "@apollo/client";
 
 export default gql`
   query GetAllForAdmin {
+    totalBooks: booksCollection {
+      totalCount
+    }
+    totalQuestions: questionsCollection {
+      totalCount
+    }
+    totalUsers: usersCollection {
+      totalCount
+    }
     booksCollection(
       orderBy: { created_at: DescNullsLast, name: AscNullsLast }
     ) {

@@ -115,6 +115,8 @@ export type IntFilter = {
 /** The root type for creating and mutating data */
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Deletes zero or more records from the `accounts` collection */
+  deleteFromaccountsCollection: AccountsDeleteResponse;
   /** Deletes zero or more records from the `answer` collection */
   deleteFromanswerCollection: AnswerDeleteResponse;
   /** Deletes zero or more records from the `books` collection */
@@ -129,8 +131,16 @@ export type Mutation = {
   deleteFromquestion_imagesCollection: Question_ImagesDeleteResponse;
   /** Deletes zero or more records from the `questions` collection */
   deleteFromquestionsCollection: QuestionsDeleteResponse;
+  /** Deletes zero or more records from the `sessions` collection */
+  deleteFromsessionsCollection: SessionsDeleteResponse;
   /** Deletes zero or more records from the `user_books_assignation` collection */
   deleteFromuser_books_assignationCollection: User_Books_AssignationDeleteResponse;
+  /** Deletes zero or more records from the `users` collection */
+  deleteFromusersCollection: UsersDeleteResponse;
+  /** Deletes zero or more records from the `verification_tokens` collection */
+  deleteFromverification_tokensCollection: Verification_TokensDeleteResponse;
+  /** Adds one or more `accounts` records to the collection */
+  insertIntoaccountsCollection?: Maybe<AccountsInsertResponse>;
   /** Adds one or more `answer` records to the collection */
   insertIntoanswerCollection?: Maybe<AnswerInsertResponse>;
   /** Adds one or more `books` records to the collection */
@@ -145,8 +155,16 @@ export type Mutation = {
   insertIntoquestion_imagesCollection?: Maybe<Question_ImagesInsertResponse>;
   /** Adds one or more `questions` records to the collection */
   insertIntoquestionsCollection?: Maybe<QuestionsInsertResponse>;
+  /** Adds one or more `sessions` records to the collection */
+  insertIntosessionsCollection?: Maybe<SessionsInsertResponse>;
   /** Adds one or more `user_books_assignation` records to the collection */
   insertIntouser_books_assignationCollection?: Maybe<User_Books_AssignationInsertResponse>;
+  /** Adds one or more `users` records to the collection */
+  insertIntousersCollection?: Maybe<UsersInsertResponse>;
+  /** Adds one or more `verification_tokens` records to the collection */
+  insertIntoverification_tokensCollection?: Maybe<Verification_TokensInsertResponse>;
+  /** Updates zero or more records in the `accounts` collection */
+  updateaccountsCollection: AccountsUpdateResponse;
   /** Updates zero or more records in the `answer` collection */
   updateanswerCollection: AnswerUpdateResponse;
   /** Updates zero or more records in the `books` collection */
@@ -161,10 +179,21 @@ export type Mutation = {
   updatequestion_imagesCollection: Question_ImagesUpdateResponse;
   /** Updates zero or more records in the `questions` collection */
   updatequestionsCollection: QuestionsUpdateResponse;
+  /** Updates zero or more records in the `sessions` collection */
+  updatesessionsCollection: SessionsUpdateResponse;
   /** Updates zero or more records in the `user_books_assignation` collection */
   updateuser_books_assignationCollection: User_Books_AssignationUpdateResponse;
   /** Updates zero or more records in the `users` collection */
   updateusersCollection: UsersUpdateResponse;
+  /** Updates zero or more records in the `verification_tokens` collection */
+  updateverification_tokensCollection: Verification_TokensUpdateResponse;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromaccountsCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<AccountsFilter>;
 };
 
 
@@ -218,9 +247,36 @@ export type MutationDeleteFromquestionsCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationDeleteFromsessionsCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<SessionsFilter>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationDeleteFromuser_Books_AssignationCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<User_Books_AssignationFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromusersCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<UsersFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromverification_TokensCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<Verification_TokensFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntoaccountsCollectionArgs = {
+  objects: Array<AccountsInsertInput>;
 };
 
 
@@ -267,8 +323,34 @@ export type MutationInsertIntoquestionsCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationInsertIntosessionsCollectionArgs = {
+  objects: Array<SessionsInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationInsertIntouser_Books_AssignationCollectionArgs = {
   objects: Array<User_Books_AssignationInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntousersCollectionArgs = {
+  objects: Array<UsersInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntoverification_TokensCollectionArgs = {
+  objects: Array<Verification_TokensInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateaccountsCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<AccountsFilter>;
+  set: AccountsUpdateInput;
 };
 
 
@@ -329,6 +411,14 @@ export type MutationUpdatequestionsCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationUpdatesessionsCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<SessionsFilter>;
+  set: SessionsUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationUpdateuser_Books_AssignationCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<User_Books_AssignationFilter>;
@@ -341,6 +431,14 @@ export type MutationUpdateusersCollectionArgs = {
   atMost?: Scalars['Int'];
   filter?: InputMaybe<UsersFilter>;
   set: UsersUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateverification_TokensCollectionArgs = {
+  atMost?: Scalars['Int'];
+  filter?: InputMaybe<Verification_TokensFilter>;
+  set: Verification_TokensUpdateInput;
 };
 
 export type Node = {
@@ -377,6 +475,8 @@ export type PageInfo = {
 /** The root type for querying data */
 export type Query = {
   __typename?: 'Query';
+  /** A pagable collection of type `accounts` */
+  accountsCollection?: Maybe<AccountsConnection>;
   /** A pagable collection of type `answer` */
   answerCollection?: Maybe<AnswerConnection>;
   /** A pagable collection of type `books` */
@@ -393,10 +493,25 @@ export type Query = {
   question_imagesCollection?: Maybe<Question_ImagesConnection>;
   /** A pagable collection of type `questions` */
   questionsCollection?: Maybe<QuestionsConnection>;
+  /** A pagable collection of type `sessions` */
+  sessionsCollection?: Maybe<SessionsConnection>;
   /** A pagable collection of type `user_books_assignation` */
   user_books_assignationCollection?: Maybe<User_Books_AssignationConnection>;
   /** A pagable collection of type `users` */
   usersCollection?: Maybe<UsersConnection>;
+  /** A pagable collection of type `verification_tokens` */
+  verification_tokensCollection?: Maybe<Verification_TokensConnection>;
+};
+
+
+/** The root type for querying data */
+export type QueryAccountsCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<AccountsFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<AccountsOrderBy>>;
 };
 
 
@@ -484,6 +599,17 @@ export type QueryQuestionsCollectionArgs = {
 
 
 /** The root type for querying data */
+export type QuerySessionsCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<SessionsFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<SessionsOrderBy>>;
+};
+
+
+/** The root type for querying data */
 export type QueryUser_Books_AssignationCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
@@ -502,6 +628,17 @@ export type QueryUsersCollectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Array<UsersOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryVerification_TokensCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<Verification_TokensFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<Verification_TokensOrderBy>>;
 };
 
 /** Boolean expression comparing fields on type "String" */
@@ -537,6 +674,132 @@ export type UuidFilter = {
   in?: InputMaybe<Array<Scalars['UUID']>>;
   is?: InputMaybe<FilterIs>;
   neq?: InputMaybe<Scalars['UUID']>;
+};
+
+export type Accounts = Node & {
+  __typename?: 'accounts';
+  access_token?: Maybe<Scalars['String']>;
+  expires_at?: Maybe<Scalars['BigInt']>;
+  id: Scalars['UUID'];
+  id_token?: Maybe<Scalars['String']>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  oauth_token?: Maybe<Scalars['String']>;
+  oauth_token_secret?: Maybe<Scalars['String']>;
+  provider: Scalars['String'];
+  providerAccountId: Scalars['String'];
+  refresh_token?: Maybe<Scalars['String']>;
+  scope?: Maybe<Scalars['String']>;
+  session_state?: Maybe<Scalars['String']>;
+  token_type?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
+  user?: Maybe<Users>;
+  userId?: Maybe<Scalars['UUID']>;
+};
+
+export type AccountsConnection = {
+  __typename?: 'accountsConnection';
+  edges: Array<AccountsEdge>;
+  pageInfo: PageInfo;
+};
+
+export type AccountsDeleteResponse = {
+  __typename?: 'accountsDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Accounts>;
+};
+
+export type AccountsEdge = {
+  __typename?: 'accountsEdge';
+  cursor: Scalars['String'];
+  node: Accounts;
+};
+
+export type AccountsFilter = {
+  access_token?: InputMaybe<StringFilter>;
+  expires_at?: InputMaybe<BigIntFilter>;
+  id?: InputMaybe<UuidFilter>;
+  id_token?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  oauth_token?: InputMaybe<StringFilter>;
+  oauth_token_secret?: InputMaybe<StringFilter>;
+  provider?: InputMaybe<StringFilter>;
+  providerAccountId?: InputMaybe<StringFilter>;
+  refresh_token?: InputMaybe<StringFilter>;
+  scope?: InputMaybe<StringFilter>;
+  session_state?: InputMaybe<StringFilter>;
+  token_type?: InputMaybe<StringFilter>;
+  type?: InputMaybe<StringFilter>;
+  userId?: InputMaybe<UuidFilter>;
+};
+
+export type AccountsInsertInput = {
+  access_token?: InputMaybe<Scalars['String']>;
+  expires_at?: InputMaybe<Scalars['BigInt']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  id_token?: InputMaybe<Scalars['String']>;
+  oauth_token?: InputMaybe<Scalars['String']>;
+  oauth_token_secret?: InputMaybe<Scalars['String']>;
+  provider?: InputMaybe<Scalars['String']>;
+  providerAccountId?: InputMaybe<Scalars['String']>;
+  refresh_token?: InputMaybe<Scalars['String']>;
+  scope?: InputMaybe<Scalars['String']>;
+  session_state?: InputMaybe<Scalars['String']>;
+  token_type?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['UUID']>;
+};
+
+export type AccountsInsertResponse = {
+  __typename?: 'accountsInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Accounts>;
+};
+
+export type AccountsOrderBy = {
+  access_token?: InputMaybe<OrderByDirection>;
+  expires_at?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  id_token?: InputMaybe<OrderByDirection>;
+  oauth_token?: InputMaybe<OrderByDirection>;
+  oauth_token_secret?: InputMaybe<OrderByDirection>;
+  provider?: InputMaybe<OrderByDirection>;
+  providerAccountId?: InputMaybe<OrderByDirection>;
+  refresh_token?: InputMaybe<OrderByDirection>;
+  scope?: InputMaybe<OrderByDirection>;
+  session_state?: InputMaybe<OrderByDirection>;
+  token_type?: InputMaybe<OrderByDirection>;
+  type?: InputMaybe<OrderByDirection>;
+  userId?: InputMaybe<OrderByDirection>;
+};
+
+export type AccountsUpdateInput = {
+  access_token?: InputMaybe<Scalars['String']>;
+  expires_at?: InputMaybe<Scalars['BigInt']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  id_token?: InputMaybe<Scalars['String']>;
+  oauth_token?: InputMaybe<Scalars['String']>;
+  oauth_token_secret?: InputMaybe<Scalars['String']>;
+  provider?: InputMaybe<Scalars['String']>;
+  providerAccountId?: InputMaybe<Scalars['String']>;
+  refresh_token?: InputMaybe<Scalars['String']>;
+  scope?: InputMaybe<Scalars['String']>;
+  session_state?: InputMaybe<Scalars['String']>;
+  token_type?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['UUID']>;
+};
+
+export type AccountsUpdateResponse = {
+  __typename?: 'accountsUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Accounts>;
 };
 
 export type Answer = Node & {
@@ -672,6 +935,8 @@ export type BooksConnection = {
   __typename?: 'booksConnection';
   edges: Array<BooksEdge>;
   pageInfo: PageInfo;
+  /** The total number of records matching the `filter` criteria */
+  totalCount: Scalars['Int'];
 };
 
 export type BooksDeleteResponse = {
@@ -1111,6 +1376,8 @@ export type QuestionsConnection = {
   __typename?: 'questionsConnection';
   edges: Array<QuestionsEdge>;
   pageInfo: PageInfo;
+  /** The total number of records matching the `filter` criteria */
+  totalCount: Scalars['Int'];
 };
 
 export type QuestionsDeleteResponse = {
@@ -1178,6 +1445,82 @@ export type QuestionsUpdateResponse = {
   affectedCount: Scalars['Int'];
   /** Array of records impacted by the mutation */
   records: Array<Questions>;
+};
+
+export type Sessions = Node & {
+  __typename?: 'sessions';
+  expires: Scalars['Datetime'];
+  id: Scalars['UUID'];
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  sessionToken: Scalars['String'];
+  user?: Maybe<Users>;
+  userId?: Maybe<Scalars['UUID']>;
+};
+
+export type SessionsConnection = {
+  __typename?: 'sessionsConnection';
+  edges: Array<SessionsEdge>;
+  pageInfo: PageInfo;
+};
+
+export type SessionsDeleteResponse = {
+  __typename?: 'sessionsDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Sessions>;
+};
+
+export type SessionsEdge = {
+  __typename?: 'sessionsEdge';
+  cursor: Scalars['String'];
+  node: Sessions;
+};
+
+export type SessionsFilter = {
+  expires?: InputMaybe<DatetimeFilter>;
+  id?: InputMaybe<UuidFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  sessionToken?: InputMaybe<StringFilter>;
+  userId?: InputMaybe<UuidFilter>;
+};
+
+export type SessionsInsertInput = {
+  expires?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  sessionToken?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['UUID']>;
+};
+
+export type SessionsInsertResponse = {
+  __typename?: 'sessionsInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Sessions>;
+};
+
+export type SessionsOrderBy = {
+  expires?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  sessionToken?: InputMaybe<OrderByDirection>;
+  userId?: InputMaybe<OrderByDirection>;
+};
+
+export type SessionsUpdateInput = {
+  expires?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  sessionToken?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['UUID']>;
+};
+
+export type SessionsUpdateResponse = {
+  __typename?: 'sessionsUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Sessions>;
 };
 
 export type User_Books_Assignation = Node & {
@@ -1259,6 +1602,7 @@ export type User_Books_AssignationUpdateResponse = {
 
 export type Users = Node & {
   __typename?: 'users';
+  accountsCollection?: Maybe<AccountsConnection>;
   chapters_select_stateCollection?: Maybe<Chapters_Select_StateConnection>;
   email?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Datetime']>;
@@ -1271,7 +1615,18 @@ export type Users = Node & {
   lastName?: Maybe<Scalars['String']>;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID'];
+  sessionsCollection?: Maybe<SessionsConnection>;
   user_books_assignationCollection?: Maybe<User_Books_AssignationConnection>;
+};
+
+
+export type UsersAccountsCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<AccountsFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<AccountsOrderBy>>;
 };
 
 
@@ -1295,6 +1650,16 @@ export type UsersFilter_StatesCollectionArgs = {
 };
 
 
+export type UsersSessionsCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  filter?: InputMaybe<SessionsFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<SessionsOrderBy>>;
+};
+
+
 export type UsersUser_Books_AssignationCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
@@ -1308,6 +1673,16 @@ export type UsersConnection = {
   __typename?: 'usersConnection';
   edges: Array<UsersEdge>;
   pageInfo: PageInfo;
+  /** The total number of records matching the `filter` criteria */
+  totalCount: Scalars['Int'];
+};
+
+export type UsersDeleteResponse = {
+  __typename?: 'usersDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Users>;
 };
 
 export type UsersEdge = {
@@ -1326,6 +1701,25 @@ export type UsersFilter = {
   isEnabled?: InputMaybe<BooleanFilter>;
   lastName?: InputMaybe<StringFilter>;
   nodeId?: InputMaybe<IdFilter>;
+};
+
+export type UsersInsertInput = {
+  email?: InputMaybe<Scalars['String']>;
+  emailVerified?: InputMaybe<Scalars['Datetime']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  image?: InputMaybe<Scalars['String']>;
+  isAdmin?: InputMaybe<Scalars['Boolean']>;
+  isEnabled?: InputMaybe<Scalars['Boolean']>;
+  lastName?: InputMaybe<Scalars['String']>;
+};
+
+export type UsersInsertResponse = {
+  __typename?: 'usersInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Users>;
 };
 
 export type UsersOrderBy = {
@@ -1358,10 +1752,80 @@ export type UsersUpdateResponse = {
   records: Array<Users>;
 };
 
+export type Verification_Tokens = Node & {
+  __typename?: 'verification_tokens';
+  expires: Scalars['Datetime'];
+  identifier?: Maybe<Scalars['String']>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID'];
+  token: Scalars['String'];
+};
+
+export type Verification_TokensConnection = {
+  __typename?: 'verification_tokensConnection';
+  edges: Array<Verification_TokensEdge>;
+  pageInfo: PageInfo;
+};
+
+export type Verification_TokensDeleteResponse = {
+  __typename?: 'verification_tokensDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Verification_Tokens>;
+};
+
+export type Verification_TokensEdge = {
+  __typename?: 'verification_tokensEdge';
+  cursor: Scalars['String'];
+  node: Verification_Tokens;
+};
+
+export type Verification_TokensFilter = {
+  expires?: InputMaybe<DatetimeFilter>;
+  identifier?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  token?: InputMaybe<StringFilter>;
+};
+
+export type Verification_TokensInsertInput = {
+  expires?: InputMaybe<Scalars['Datetime']>;
+  identifier?: InputMaybe<Scalars['String']>;
+  token?: InputMaybe<Scalars['String']>;
+};
+
+export type Verification_TokensInsertResponse = {
+  __typename?: 'verification_tokensInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Verification_Tokens>;
+};
+
+export type Verification_TokensOrderBy = {
+  expires?: InputMaybe<OrderByDirection>;
+  identifier?: InputMaybe<OrderByDirection>;
+  token?: InputMaybe<OrderByDirection>;
+};
+
+export type Verification_TokensUpdateInput = {
+  expires?: InputMaybe<Scalars['Datetime']>;
+  identifier?: InputMaybe<Scalars['String']>;
+  token?: InputMaybe<Scalars['String']>;
+};
+
+export type Verification_TokensUpdateResponse = {
+  __typename?: 'verification_tokensUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int'];
+  /** Array of records impacted by the mutation */
+  records: Array<Verification_Tokens>;
+};
+
 export type GetAllForAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllForAdminQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }> } | null, questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null, order?: number | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null, order?: number | null } }> } | null } }> } | null, usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } }> } | null };
+export type GetAllForAdminQuery = { __typename?: 'Query', totalBooks?: { __typename?: 'booksConnection', totalCount: number } | null, totalQuestions?: { __typename?: 'questionsConnection', totalCount: number } | null, totalUsers?: { __typename?: 'usersConnection', totalCount: number } | null, booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }> } | null, questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null, order?: number | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null, order?: number | null } }> } | null } }> } | null, usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } }> } | null };
 
 export type ChaptersInBookFragment = { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null } }> };
 
@@ -1628,6 +2092,15 @@ export const FilterStateOfUserFragmentDoc = gql`
     `;
 export const GetAllForAdminDocument = gql`
     query GetAllForAdmin {
+  totalBooks: booksCollection {
+    totalCount
+  }
+  totalQuestions: questionsCollection {
+    totalCount
+  }
+  totalUsers: usersCollection {
+    totalCount
+  }
   booksCollection(orderBy: {created_at: DescNullsLast, name: AscNullsLast}) {
     edges {
       node {

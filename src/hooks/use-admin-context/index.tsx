@@ -111,9 +111,9 @@ export const AdminProvider: React.FC<{
   return (
     <AdminContext.Provider
       value={{
-        totalUsers: users.length,
-        totalBooks: books.length,
-        totalQuestions: questions.length,
+        totalUsers: data?.totalUsers?.totalCount || 0,
+        totalBooks: data?.totalBooks?.totalCount || 0,
+        totalQuestions: data?.totalQuestions?.totalCount || 0,
         users,
         books,
         questions,

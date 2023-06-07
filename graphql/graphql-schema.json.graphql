@@ -12,6 +12,13 @@ interface Node {
 
 "The root type for creating and mutating data"
 type Mutation {
+    "Deletes zero or more records from the `accounts` collection"
+    deleteFromaccountsCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: accountsFilter
+    ): accountsDeleteResponse!
     "Deletes zero or more records from the `answer` collection"
     deleteFromanswerCollection(
         "The maximum number of records in the collection permitted to be affected"
@@ -61,6 +68,13 @@ type Mutation {
         "Restricts the mutation's impact to records matching the criteria"
         filter: questionsFilter
     ): questionsDeleteResponse!
+    "Deletes zero or more records from the `sessions` collection"
+    deleteFromsessionsCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: sessionsFilter
+    ): sessionsDeleteResponse!
     "Deletes zero or more records from the `user_books_assignation` collection"
     deleteFromuser_books_assignationCollection(
         "The maximum number of records in the collection permitted to be affected"
@@ -68,6 +82,22 @@ type Mutation {
         "Restricts the mutation's impact to records matching the criteria"
         filter: user_books_assignationFilter
     ): user_books_assignationDeleteResponse!
+    "Deletes zero or more records from the `users` collection"
+    deleteFromusersCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: usersFilter
+    ): usersDeleteResponse!
+    "Deletes zero or more records from the `verification_tokens` collection"
+    deleteFromverification_tokensCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: verification_tokensFilter
+    ): verification_tokensDeleteResponse!
+    "Adds one or more `accounts` records to the collection"
+    insertIntoaccountsCollection(objects: [accountsInsertInput!]!): accountsInsertResponse
     "Adds one or more `answer` records to the collection"
     insertIntoanswerCollection(objects: [answerInsertInput!]!): answerInsertResponse
     "Adds one or more `books` records to the collection"
@@ -82,8 +112,23 @@ type Mutation {
     insertIntoquestion_imagesCollection(objects: [question_imagesInsertInput!]!): question_imagesInsertResponse
     "Adds one or more `questions` records to the collection"
     insertIntoquestionsCollection(objects: [questionsInsertInput!]!): questionsInsertResponse
+    "Adds one or more `sessions` records to the collection"
+    insertIntosessionsCollection(objects: [sessionsInsertInput!]!): sessionsInsertResponse
     "Adds one or more `user_books_assignation` records to the collection"
     insertIntouser_books_assignationCollection(objects: [user_books_assignationInsertInput!]!): user_books_assignationInsertResponse
+    "Adds one or more `users` records to the collection"
+    insertIntousersCollection(objects: [usersInsertInput!]!): usersInsertResponse
+    "Adds one or more `verification_tokens` records to the collection"
+    insertIntoverification_tokensCollection(objects: [verification_tokensInsertInput!]!): verification_tokensInsertResponse
+    "Updates zero or more records in the `accounts` collection"
+    updateaccountsCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: accountsFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: accountsUpdateInput!
+    ): accountsUpdateResponse!
     "Updates zero or more records in the `answer` collection"
     updateanswerCollection(
         "The maximum number of records in the collection permitted to be affected"
@@ -147,6 +192,15 @@ type Mutation {
         "Fields that are set will be updated for all records matching the `filter`"
         set: questionsUpdateInput!
     ): questionsUpdateResponse!
+    "Updates zero or more records in the `sessions` collection"
+    updatesessionsCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: sessionsFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: sessionsUpdateInput!
+    ): sessionsUpdateResponse!
     "Updates zero or more records in the `user_books_assignation` collection"
     updateuser_books_assignationCollection(
         "The maximum number of records in the collection permitted to be affected"
@@ -165,6 +219,15 @@ type Mutation {
         "Fields that are set will be updated for all records matching the `filter`"
         set: usersUpdateInput!
     ): usersUpdateResponse!
+    "Updates zero or more records in the `verification_tokens` collection"
+    updateverification_tokensCollection(
+        "The maximum number of records in the collection permitted to be affected"
+        atMost: Int! = 1,
+        "Restricts the mutation's impact to records matching the criteria"
+        filter: verification_tokensFilter,
+        "Fields that are set will be updated for all records matching the `filter`"
+        set: verification_tokensUpdateInput!
+    ): verification_tokensUpdateResponse!
 }
 
 type PageInfo {
@@ -176,6 +239,21 @@ type PageInfo {
 
 "The root type for querying data"
 type Query {
+    "A pagable collection of type `accounts`"
+    accountsCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: accountsFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [accountsOrderBy!]
+    ): accountsConnection
     "A pagable collection of type `answer`"
     answerCollection(
         "Query values in the collection after the provided cursor"
@@ -286,6 +364,21 @@ type Query {
         "Sort order to apply to the collection"
         orderBy: [questionsOrderBy!]
     ): questionsConnection
+    "A pagable collection of type `sessions`"
+    sessionsCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: sessionsFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [sessionsOrderBy!]
+    ): sessionsConnection
     "A pagable collection of type `user_books_assignation`"
     user_books_assignationCollection(
         "Query values in the collection after the provided cursor"
@@ -316,6 +409,72 @@ type Query {
         "Sort order to apply to the collection"
         orderBy: [usersOrderBy!]
     ): usersConnection
+    "A pagable collection of type `verification_tokens`"
+    verification_tokensCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: verification_tokensFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [verification_tokensOrderBy!]
+    ): verification_tokensConnection
+}
+
+type accounts implements Node {
+    access_token: String
+    expires_at: BigInt
+    id: UUID!
+    id_token: String
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+    oauth_token: String
+    oauth_token_secret: String
+    provider: String!
+    providerAccountId: String!
+    refresh_token: String
+    scope: String
+    session_state: String
+    token_type: String
+    type: String!
+    user: users
+    userId: UUID
+}
+
+type accountsConnection {
+    edges: [accountsEdge!]!
+    pageInfo: PageInfo!
+}
+
+type accountsDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [accounts!]!
+}
+
+type accountsEdge {
+    cursor: String!
+    node: accounts!
+}
+
+type accountsInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [accounts!]!
+}
+
+type accountsUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [accounts!]!
 }
 
 type answer implements Node {
@@ -415,6 +574,8 @@ type books implements Node {
 type booksConnection {
     edges: [booksEdge!]!
     pageInfo: PageInfo!
+    "The total number of records matching the `filter` criteria"
+    totalCount: Int!
 }
 
 type booksDeleteResponse {
@@ -683,6 +844,8 @@ type questions implements Node {
 type questionsConnection {
     edges: [questionsEdge!]!
     pageInfo: PageInfo!
+    "The total number of records matching the `filter` criteria"
+    totalCount: Int!
 }
 
 type questionsDeleteResponse {
@@ -709,6 +872,47 @@ type questionsUpdateResponse {
     affectedCount: Int!
     "Array of records impacted by the mutation"
     records: [questions!]!
+}
+
+type sessions implements Node {
+    expires: Datetime!
+    id: UUID!
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+    sessionToken: String!
+    user: users
+    userId: UUID
+}
+
+type sessionsConnection {
+    edges: [sessionsEdge!]!
+    pageInfo: PageInfo!
+}
+
+type sessionsDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [sessions!]!
+}
+
+type sessionsEdge {
+    cursor: String!
+    node: sessions!
+}
+
+type sessionsInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [sessions!]!
+}
+
+type sessionsUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [sessions!]!
 }
 
 type user_books_assignation implements Node {
@@ -754,6 +958,20 @@ type user_books_assignationUpdateResponse {
 }
 
 type users implements Node {
+    accountsCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: accountsFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [accountsOrderBy!]
+    ): accountsConnection
     chapters_select_stateCollection(
         "Query values in the collection after the provided cursor"
         after: Cursor,
@@ -792,6 +1010,20 @@ type users implements Node {
     lastName: String
     "Globally Unique Record Identifier"
     nodeId: ID!
+    sessionsCollection(
+        "Query values in the collection after the provided cursor"
+        after: Cursor,
+        "Query values in the collection before the provided cursor"
+        before: Cursor,
+        "Filters to apply to the results set when querying from the collection"
+        filter: sessionsFilter,
+        "Query the first `n` records in the collection"
+        first: Int,
+        "Query the last `n` records in the collection"
+        last: Int,
+        "Sort order to apply to the collection"
+        orderBy: [sessionsOrderBy!]
+    ): sessionsConnection
     user_books_assignationCollection(
         "Query values in the collection after the provided cursor"
         after: Cursor,
@@ -811,6 +1043,15 @@ type users implements Node {
 type usersConnection {
     edges: [usersEdge!]!
     pageInfo: PageInfo!
+    "The total number of records matching the `filter` criteria"
+    totalCount: Int!
+}
+
+type usersDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [users!]!
 }
 
 type usersEdge {
@@ -818,11 +1059,57 @@ type usersEdge {
     node: users!
 }
 
+type usersInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [users!]!
+}
+
 type usersUpdateResponse {
     "Count of the records impacted by the mutation"
     affectedCount: Int!
     "Array of records impacted by the mutation"
     records: [users!]!
+}
+
+type verification_tokens implements Node {
+    expires: Datetime!
+    identifier: String
+    "Globally Unique Record Identifier"
+    nodeId: ID!
+    token: String!
+}
+
+type verification_tokensConnection {
+    edges: [verification_tokensEdge!]!
+    pageInfo: PageInfo!
+}
+
+type verification_tokensDeleteResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [verification_tokens!]!
+}
+
+type verification_tokensEdge {
+    cursor: String!
+    node: verification_tokens!
+}
+
+type verification_tokensInsertResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [verification_tokens!]!
+}
+
+type verification_tokensUpdateResponse {
+    "Count of the records impacted by the mutation"
+    affectedCount: Int!
+    "Array of records impacted by the mutation"
+    records: [verification_tokens!]!
 }
 
 enum FilterIs {
@@ -991,6 +1278,75 @@ input UUIDFilter {
     in: [UUID!]
     is: FilterIs
     neq: UUID
+}
+
+input accountsFilter {
+    access_token: StringFilter
+    expires_at: BigIntFilter
+    id: UUIDFilter
+    id_token: StringFilter
+    nodeId: IDFilter
+    oauth_token: StringFilter
+    oauth_token_secret: StringFilter
+    provider: StringFilter
+    providerAccountId: StringFilter
+    refresh_token: StringFilter
+    scope: StringFilter
+    session_state: StringFilter
+    token_type: StringFilter
+    type: StringFilter
+    userId: UUIDFilter
+}
+
+input accountsInsertInput {
+    access_token: String
+    expires_at: BigInt
+    id: UUID
+    id_token: String
+    oauth_token: String
+    oauth_token_secret: String
+    provider: String
+    providerAccountId: String
+    refresh_token: String
+    scope: String
+    session_state: String
+    token_type: String
+    type: String
+    userId: UUID
+}
+
+input accountsOrderBy {
+    access_token: OrderByDirection
+    expires_at: OrderByDirection
+    id: OrderByDirection
+    id_token: OrderByDirection
+    oauth_token: OrderByDirection
+    oauth_token_secret: OrderByDirection
+    provider: OrderByDirection
+    providerAccountId: OrderByDirection
+    refresh_token: OrderByDirection
+    scope: OrderByDirection
+    session_state: OrderByDirection
+    token_type: OrderByDirection
+    type: OrderByDirection
+    userId: OrderByDirection
+}
+
+input accountsUpdateInput {
+    access_token: String
+    expires_at: BigInt
+    id: UUID
+    id_token: String
+    oauth_token: String
+    oauth_token_secret: String
+    provider: String
+    providerAccountId: String
+    refresh_token: String
+    scope: String
+    session_state: String
+    token_type: String
+    type: String
+    userId: UUID
 }
 
 input answerFilter {
@@ -1220,6 +1576,35 @@ input questionsUpdateInput {
     name: String
 }
 
+input sessionsFilter {
+    expires: DatetimeFilter
+    id: UUIDFilter
+    nodeId: IDFilter
+    sessionToken: StringFilter
+    userId: UUIDFilter
+}
+
+input sessionsInsertInput {
+    expires: Datetime
+    id: UUID
+    sessionToken: String
+    userId: UUID
+}
+
+input sessionsOrderBy {
+    expires: OrderByDirection
+    id: OrderByDirection
+    sessionToken: OrderByDirection
+    userId: OrderByDirection
+}
+
+input sessionsUpdateInput {
+    expires: Datetime
+    id: UUID
+    sessionToken: String
+    userId: UUID
+}
+
 input user_books_assignationFilter {
     book: UUIDFilter
     created_at: DatetimeFilter
@@ -1261,6 +1646,17 @@ input usersFilter {
     nodeId: IDFilter
 }
 
+input usersInsertInput {
+    email: String
+    emailVerified: Datetime
+    firstName: String
+    id: UUID
+    image: String
+    isAdmin: Boolean
+    isEnabled: Boolean
+    lastName: String
+}
+
 input usersOrderBy {
     email: OrderByDirection
     emailVerified: OrderByDirection
@@ -1281,4 +1677,29 @@ input usersUpdateInput {
     isAdmin: Boolean
     isEnabled: Boolean
     lastName: String
+}
+
+input verification_tokensFilter {
+    expires: DatetimeFilter
+    identifier: StringFilter
+    nodeId: IDFilter
+    token: StringFilter
+}
+
+input verification_tokensInsertInput {
+    expires: Datetime
+    identifier: String
+    token: String
+}
+
+input verification_tokensOrderBy {
+    expires: OrderByDirection
+    identifier: OrderByDirection
+    token: OrderByDirection
+}
+
+input verification_tokensUpdateInput {
+    expires: Datetime
+    identifier: String
+    token: String
 }
