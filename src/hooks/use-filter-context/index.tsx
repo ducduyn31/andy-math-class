@@ -85,7 +85,7 @@ export const FilterProvider: React.FC<PropsWithChildren> = ({ children }) => {
   } = useQuestionFilterContext();
   const { userFilterState, questionFilterState, bookFilterState } =
     useLoadSavedFilter();
-  const { page, setPage, pageSize } = usePaginationContext();
+  const { page, setPage, perPageSize, pageSize } = usePaginationContext();
 
   useEffect(() => {
     if (userFilterState) setUserFilters(new FilterBuilder(userFilterState));
@@ -115,6 +115,7 @@ export const FilterProvider: React.FC<PropsWithChildren> = ({ children }) => {
         questionFilters,
         page,
         pageSize,
+        perPageSize,
         setPage,
       }}
     >
@@ -131,7 +132,10 @@ export const useFilter = <T extends FilterType>(
   const { applyBookFilters, filteredBooks } = useBookFilter(FilterContext);
   const { applyQuestionFilters, filteredQuestions } =
     useQuestionFilter(FilterContext);
-  const { page, pageSize, setPageNumber } = usePagination(FilterContext, type);
+  const { page, pageSize, perPageSize, setPageNumber } = usePagination(
+    FilterContext,
+    type
+  );
   const { userFilters, questionFilters, bookFilters } =
     useContext(FilterContext);
   const [saveFilter] = useUpdateLastFilterMutation();
@@ -177,11 +181,11 @@ export const useFilter = <T extends FilterType>(
   const updatePagination = useCallback(
     <T,>(checkType: FilterType, filteredElements: T[]): T[] => {
       if (type !== checkType) return [];
-      const start = (page - 1) * pageSize;
-      const end = start + pageSize;
+      const start = (page - 1) * perPageSize;
+      const end = start + perPageSize;
       return filteredElements.slice(start, end);
     },
-    [page, pageSize, type]
+    [page, perPageSize, type]
   );
 
   const filteredUsersWithPagination = useMemo(
@@ -208,6 +212,7 @@ export const useFilter = <T extends FilterType>(
   return {
     type,
     page,
+    perPageSize,
     pageSize,
     totalSize,
     applyFilters,

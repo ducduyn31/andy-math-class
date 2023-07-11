@@ -4,11 +4,11 @@ import { useAdminContext } from "@/hooks/use-admin-context";
 import { useModal } from "@/hooks/use-modal";
 import { QuestionModificationModal } from "@/components/admin/table/questions-table/components/question-edit";
 import { useFilter } from "@/hooks/use-filter-context";
+import { AdminContentPageNav } from "@/components/admin/components/content-page-nav";
 
 export const AdminQuestionTable: React.FC = () => {
   const { openModal } = useModal(QuestionModificationModal);
-  const { filteredQuestions, page, pageSize, totalSize, setPageNumber } =
-    useFilter("question");
+  const { filteredQuestions } = useFilter("question");
   const { books } = useAdminContext();
 
   return (
@@ -35,19 +35,7 @@ export const AdminQuestionTable: React.FC = () => {
       </div>
 
       <div className="flex sm:flex-row flex-col sm:justify-between mt-5">
-        <div className="btn-group sm:justify-start justify-center">
-          {[...Array(Math.ceil(totalSize / pageSize))].map((_, i) => (
-            <input
-              key={i}
-              type="radio"
-              name="options"
-              data-title={i + 1}
-              className="btn flex-grow"
-              defaultChecked={i + 1 === page}
-              onChange={() => setPageNumber(i + 1)}
-            />
-          ))}
-        </div>
+        <AdminContentPageNav filterType="question" />
         <label
           htmlFor="question-modification-modal"
           className={"btn btn-primary mt-2 sm:mt-0"}

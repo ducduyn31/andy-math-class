@@ -1,9 +1,9 @@
 import { AdminUserRow } from "@/components/admin/table/users-table/components/user-row";
 import { useFilter } from "@/hooks/use-filter-context";
+import { AdminContentPageNav } from "@/components/admin/components/content-page-nav";
 
 export const AdminUserTable = () => {
-  const { filteredUsers, page, pageSize, totalSize, setPageNumber } =
-    useFilter("user");
+  const { filteredUsers } = useFilter("user");
 
   return (
     <>
@@ -31,17 +31,7 @@ export const AdminUserTable = () => {
 
       <div className={"flex sm:flex-row flex-col sm:justify-center mt-5"}>
         <div className="btn-group sm:justify-start justify-center">
-          {[...Array(Math.ceil(totalSize / pageSize))].map((_, i) => (
-            <input
-              key={i}
-              type="radio"
-              name="options"
-              data-title={i + 1}
-              className="btn flex-grow"
-              checked={i + 1 === page}
-              onChange={() => setPageNumber(i + 1)}
-            />
-          ))}
+          <AdminContentPageNav filterType="user" />
         </div>
       </div>
     </>

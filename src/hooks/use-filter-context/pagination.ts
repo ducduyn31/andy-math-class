@@ -4,12 +4,14 @@ import React, { useCallback, useContext } from "react";
 
 export type PaginationContextType = {
   pageSize: Record<FilterType, number>;
+  perPageSize: Record<FilterType, number>;
   page: Record<FilterType, number>;
   setPage: (filterType: FilterType, page: number) => void;
 };
 
 export type UsePaginationReturn = {
   pageSize: number;
+  perPageSize: number;
   page: number;
   totalSize: number;
   setPageNumber: (page: number) => void;
@@ -17,6 +19,11 @@ export type UsePaginationReturn = {
 
 export const PaginationContextDefaultValue: PaginationContextType = {
   pageSize: {
+    user: 9,
+    book: 9,
+    question: 9,
+  },
+  perPageSize: {
     user: 10,
     book: 5,
     question: 10,
@@ -31,6 +38,12 @@ export const PaginationContextDefaultValue: PaginationContextType = {
 
 export const usePaginationContext = () => {
   const [, { get: getPageSize }] = useMap({
+    user: 9,
+    book: 9,
+    question: 9,
+  });
+
+  const [, { get: getPerPageSize }] = useMap({
     user: 10,
     book: 5,
     question: 10,
@@ -48,6 +61,11 @@ export const usePaginationContext = () => {
       book: getPageSize("book"),
       question: getPageSize("question"),
     },
+    perPageSize: {
+      user: getPerPageSize("user"),
+      book: getPerPageSize("book"),
+      question: getPerPageSize("question"),
+    },
     page: {
       user: getPage("user"),
       book: getPage("book"),
@@ -61,7 +79,7 @@ export const usePagination = <C extends PaginationContextType>(
   context: React.Context<C>,
   type: FilterType
 ) => {
-  const { pageSize, setPage, page } = useContext(context);
+  const { perPageSize, setPage, page, pageSize } = useContext(context);
 
   const setPageNumber = useCallback(
     (page: number) => {
@@ -73,6 +91,7 @@ export const usePagination = <C extends PaginationContextType>(
   return {
     page: page[type],
     pageSize: pageSize[type],
+    perPageSize: perPageSize[type],
     setPageNumber,
   };
 };
