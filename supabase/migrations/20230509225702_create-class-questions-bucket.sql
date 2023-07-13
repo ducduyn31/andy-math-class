@@ -24,7 +24,7 @@ $$
     BEGIN
         IF NOT EXISTS(SELECT 1
                       FROM pg_policy
-                      WHERE polname = 'allow admin to delete images from class questions 2'
+                      WHERE polname = 'allow admin to delete images from class questions'
                         AND polrelid = 'storage.objects'::regclass) THEN
             CREATE POLICY "allow admin to delete images from class questions"
                 ON storage.objects
