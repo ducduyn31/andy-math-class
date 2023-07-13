@@ -17,7 +17,7 @@
 --
 -- Name: next_auth; Type: SCHEMA;
 --
-CREATE SCHEMA next_auth;
+CREATE SCHEMA IF NOT EXISTS next_auth;
 
 GRANT USAGE ON SCHEMA next_auth TO service_role;
 GRANT USAGE ON SCHEMA next_auth TO authenticated;
@@ -47,7 +47,7 @@ GRANT SELECT, UPDATE ON TABLE next_auth.users TO authenticated;
 ALTER TABLE next_auth.users ENABLE ROW LEVEL SECURITY;
 
 --- uid() function to be used in RLS policies
-CREATE FUNCTION next_auth.uid() RETURNS uuid
+CREATE OR REPLACE FUNCTION next_auth.uid() RETURNS uuid
     LANGUAGE sql STABLE
 AS $$
 select

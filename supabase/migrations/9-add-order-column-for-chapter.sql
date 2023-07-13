@@ -4,7 +4,7 @@ ALTER TABLE IF EXISTS chapters
 
 -- Fill order for null values based on created_at and book id
 WITH chapters_with_order AS (
-    SELECT id, created_at, book, ROW_NUMBER() OVER (PARTITION BY book ORDER BY created_at) AS "order"
+    SELECT id, created_at, book, ROW_NUMBER() OVER (PARTITION BY book, parent ORDER BY created_at) AS "order"
     FROM chapters
     WHERE "order" IS NULL
 ) UPDATE chapters
