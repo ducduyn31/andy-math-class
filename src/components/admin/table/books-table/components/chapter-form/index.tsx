@@ -1,22 +1,29 @@
 import React from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { Control, useFieldArray, useForm } from "react-hook-form";
 import {
   FormChapterValue,
   FormChapterValueSchema,
   UpsertBookFormValues,
 } from "@/helpers/admin/books/form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormToggle } from "@/components/admin/table/books-table/components/chapter-input";
+import { generateUUID } from "@/helpers/string";
+import { useToggle } from "react-use";
 
 interface Props {
-  toggleState: [FormToggle, React.Dispatch<React.SetStateAction<FormToggle>>];
+  order?: number;
+  parentId?: string;
+  bookFormControl: Control<UpsertBookFormValues>;
 }
 
 export const ChapterForm: React.FC<Props> = ({
-  toggleState: [toggleState, setToggleState],
+  bookFormControl,
+  parentId,
+  order = 0,
 }) => {
+  const [toggled, toggle] = useToggle(false);
   const { append } = useFieldArray<UpsertBookFormValues>({
     name: "chapters",
+    control: bookFormControl,
   });
 
   const subForm = useForm<FormChapterValue>({
@@ -25,15 +32,34 @@ export const ChapterForm: React.FC<Props> = ({
   });
 
   const addNewChapter = (newChapter: FormChapterValue) => {
-    append({ name: newChapter.name, parentId: toggleState.chapterId });
-    setToggleState({ type: "new", value: false });
+    append({
+      id: generateUUID(),
+      name: newChapter.name,
+      isNew: true,
+      parentId,
+      order,
+    });
+    toggle();
+    subForm.resetField("name");
   };
+
+  if (!toggled) {
+    return (
+      <button
+        type="button"
+        className="badge badge-outline badge-primary badge-lg mt-1 mr-1"
+        onClick={toggle}
+      >
+        Add new chapter
+      </button>
+    );
+  }
 
   return (
     <div className="flex w-full items-center mt-3">
       <input
         type="text"
-        placeholder="Add chapter"
+        placeholder="Chapter ..."
         className="input input-bordered"
         {...subForm.register("name")}
       />
@@ -43,7 +69,7 @@ export const ChapterForm: React.FC<Props> = ({
         onClick={subForm.handleSubmit(addNewChapter)}
         disabled={!subForm.formState.isValid}
       >
-        {toggleState.type === "new" ? "Add new chapter" : "Add child chapter"}
+        Add Chapter
       </button>
 
       {subForm.formState.errors.name && (

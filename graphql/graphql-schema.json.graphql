@@ -627,6 +627,7 @@ type chapters implements Node {
     name: String
     "Globally Unique Record Identifier"
     nodeId: ID!
+    order: Int
     parent: UUID
     questionsCollection(
         "Query values in the collection after the provided cursor"
@@ -1421,6 +1422,7 @@ input chaptersFilter {
     id: UUIDFilter
     name: StringFilter
     nodeId: IDFilter
+    order: IntFilter
     parent: UUIDFilter
 }
 
@@ -1429,6 +1431,7 @@ input chaptersInsertInput {
     created_at: Datetime
     id: UUID
     name: String
+    order: Int
     parent: UUID
 }
 
@@ -1437,6 +1440,7 @@ input chaptersOrderBy {
     created_at: OrderByDirection
     id: OrderByDirection
     name: OrderByDirection
+    order: OrderByDirection
     parent: OrderByDirection
 }
 
@@ -1445,6 +1449,7 @@ input chaptersUpdateInput {
     created_at: Datetime
     id: UUID
     name: String
+    order: Int
     parent: UUID
 }
 

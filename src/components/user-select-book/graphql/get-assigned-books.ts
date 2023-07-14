@@ -8,7 +8,7 @@ export default gql`
           id
           nodeId
           name
-          chaptersCollection(orderBy: { name: AscNullsLast }) {
+          chaptersCollection(orderBy: { order: AscNullsLast }) {
             ...chaptersInBook
           }
         }

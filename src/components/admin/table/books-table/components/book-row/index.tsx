@@ -3,6 +3,7 @@ import { useModal } from "@/hooks/use-modal";
 import { BookModificationModal } from "@/components/admin/table/books-table/components/book-edit";
 import { useRemoveBook } from "@/hooks/use-remove-book";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 interface PropType {
   book: Book;
@@ -13,18 +14,32 @@ export const AdminBookRow = ({ book }: PropType) => {
     onSuccess: () => toast.success("Book removed successfully"),
   });
 
+  const [limitShowingChapters, setLimitShowingChapters] = useState(5);
+
+  const expandLimitShowingChapters = () => {
+    setLimitShowingChapters(limitShowingChapters + 5);
+  };
+
   return (
     <tr className={"hover"}>
       <th>{book.name}</th>
       <td>
         {book.chapters.length > 0 ? (
-          book.chapters.map((each) => (
+          book.chapters.slice(0, limitShowingChapters).map((each) => (
             <span key={each.id} className={`badge badge-lg mr-1 ${book.color}`}>
               {each.name}
             </span>
           ))
         ) : (
           <i>No chapter added</i>
+        )}
+        {book.chapters.length > limitShowingChapters && (
+          <button
+            className="badge badge-lg badge-outline "
+            onClick={expandLimitShowingChapters}
+          >
+            more
+          </button>
         )}
       </td>
       <td>

@@ -37,6 +37,8 @@ export const BookModificationModal: React.FC<Props> = ({ book }: Props) => {
         book?.chapters?.map((chapter) => ({
           id: chapter.id,
           name: chapter.name,
+          parentId: chapter.parent?.id,
+          order: chapter.order,
         })) ?? [],
     },
   });

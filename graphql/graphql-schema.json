@@ -7433,6 +7433,18 @@
           },
           {
             "args": [],
+            "name": "order",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "args": [],
             "name": "books",
             "type": {
               "kind": "OBJECT",
@@ -7832,6 +7844,16 @@
             "defaultValue": null
           },
           {
+            "name": "order",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "IntFilter",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
             "name": "nodeId",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -7897,6 +7919,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "order",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
               "ofType": null
             },
             "description": null,
@@ -8012,6 +8044,16 @@
             },
             "description": null,
             "defaultValue": null
+          },
+          {
+            "name": "order",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderByDirection",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
           }
         ],
         "possibleTypes": null
@@ -8069,6 +8111,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "UUID",
+              "ofType": null
+            },
+            "description": null,
+            "defaultValue": null
+          },
+          {
+            "name": "order",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
               "ofType": null
             },
             "description": null,
