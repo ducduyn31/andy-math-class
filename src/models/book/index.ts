@@ -22,6 +22,7 @@ export interface Chapter {
   parent: Maybe<Chapter>;
   book: Maybe<Book>;
   children?: Maybe<Chapter[]>;
+  order?: number;
 }
 
 const constructChapterTrees = (chapters: Chapter[]): Chapter[] => {
@@ -74,6 +75,7 @@ export const createFullChapter = (partialChapter: PartialChapter): Chapter => {
     name: partialChapter.name || "",
     parent: partialChapter.parent || null,
     book: partialChapter.book || null,
+    order: partialChapter.order || 0,
     children: partialChapter.children || [],
   };
 };
@@ -120,6 +122,7 @@ export const mapChaptersFromChaptersInBookFragment = (
     name: chapter?.name || "",
     book: book,
     parent: chapter?.parent ? createFullChapter({ id: chapter.parent }) : null,
+    order: chapter?.order || 0,
     children: [],
   }));
 

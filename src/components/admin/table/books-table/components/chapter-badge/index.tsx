@@ -2,12 +2,18 @@ import React, { ComponentProps, useCallback } from "react";
 import { Chapter } from "@/models";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { UpsertBookFormValues } from "@/helpers/admin/books/form";
+import { DropdownIcon } from "@/components/admin/table/books-table/components/chapter-badge/components/chapter-icon";
 
 interface Props extends ComponentProps<any> {
   chapter: Chapter;
+  onDropdownToggle?: () => void;
 }
 
-export const ChapterBadge: React.FC<Props> = ({ chapter, ...props }) => {
+export const ChapterBadge: React.FC<Props> = ({
+  chapter,
+  onDropdownToggle,
+  ...props
+}) => {
   const { control, setValue } = useFormContext<UpsertBookFormValues>();
   const { remove: removeFromCurrentChapters } =
     useFieldArray<UpsertBookFormValues>({
@@ -33,26 +39,34 @@ export const ChapterBadge: React.FC<Props> = ({ chapter, ...props }) => {
   }, [chapter, chapters, removeChapters, removeFromCurrentChapters, setValue]);
 
   return (
-    <button
-      {...props}
-      type="button"
-      className={`badge badge-lg gap-2 mr-1 mt-1 ${chapter?.book?.color ?? ""}`}
-    >
-      {chapter.name}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        className="inline-block w-4 h-4 stroke-current cursor-pointer"
-        onClick={removeCurrentChapter}
+    <div className="flex items-center">
+      <DropdownIcon
+        width={20}
+        height={20}
+        className="cursor-pointer"
+        onDropdownToggle={onDropdownToggle}
+      />
+      <button
+        {...props}
+        type="button"
+        className={`text-normal gap-2 mr-1 mt-1 ${chapter?.book?.color ?? ""}`}
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M6 18L18 6M6 6l12 12"
-        ></path>
-      </svg>
-    </button>
+        {chapter.name}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          className="inline-block w-4 h-4 stroke-current cursor-pointer"
+          onClick={removeCurrentChapter}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
   );
 };

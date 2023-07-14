@@ -71,6 +71,7 @@ export default gql`
         id
         name
         parent
+        order
       }
     }
   }

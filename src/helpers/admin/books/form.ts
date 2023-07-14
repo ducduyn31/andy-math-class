@@ -5,6 +5,8 @@ export interface FormChapterValue {
   id?: string;
   name: string;
   parentId?: Maybe<string>;
+  order?: number;
+  isNew?: boolean;
 }
 
 export interface UpsertBookFormValues {
@@ -13,6 +15,12 @@ export interface UpsertBookFormValues {
   chapters: FormChapterValue[];
   removeChapters: string[];
 }
+
+export type ChapterTreeNode = FormChapterValue & {
+  children?: ChapterTreeType;
+};
+
+export type ChapterTreeType = Record<string, ChapterTreeNode>;
 
 export const FormChapterValueSchema = yup.object().shape({
   id: yup.string().nullable(),

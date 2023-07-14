@@ -57,9 +57,7 @@ export const useUpsertBook = (
     update: updateCacheOnRemoveChapters,
   });
 
-  const upsertBookWithoutChapters = async (
-    formValues: UpsertBookFormValues
-  ) => {
+  const createOrUpdateBook = async (formValues: UpsertBookFormValues) => {
     if (!formValues.id) {
       const result = await createNewBookGQL({
         variables: {
@@ -82,9 +80,9 @@ export const useUpsertBook = (
     });
     return result.data?.updatebooksCollection.records[0];
   };
-  const isNewChapter = (chapter: FormChapterValue) => !chapter.id;
+  const isNewChapter = (chapter: FormChapterValue) => !!chapter.isNew;
   const upsertBook = async (formValues: UpsertBookFormValues) => {
-    const theBook = await upsertBookWithoutChapters(formValues);
+    const theBook = await createOrUpdateBook(formValues);
     if (assureNumber(formValues.removeChapters?.length) > 0) {
       await removeChaptersGQL({
         variables: {
@@ -98,9 +96,11 @@ export const useUpsertBook = (
           chaptersInput: formValues.chapters
             .filter(isNewChapter)
             .map((chapter) => ({
+              id: chapter.id,
               book: theBook?.id,
               name: chapter.name,
               parent: chapter.parentId,
+              order: chapter.order,
             })),
         },
       });
