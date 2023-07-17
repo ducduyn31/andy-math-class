@@ -6,6 +6,7 @@ export interface FormChapterValue {
   name: string;
   parentId?: Maybe<string>;
   order?: number;
+  originalOrder?: number;
   isNew?: boolean;
 }
 

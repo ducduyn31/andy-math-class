@@ -1945,6 +1945,14 @@ export type ReplaceBooksAssignationMutationVariables = Exact<{
 
 export type ReplaceBooksAssignationMutation = { __typename?: 'Mutation', deleteFromuser_books_assignationCollection: { __typename?: 'user_books_assignationDeleteResponse', records: Array<{ __typename?: 'user_books_assignation', id: any }> }, insertIntouser_books_assignationCollection?: { __typename?: 'user_books_assignationInsertResponse', records: Array<{ __typename?: 'user_books_assignation', id: any, users?: { __typename?: 'users', id: any, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } | null }> } | null };
 
+export type UpdateChapterOrderMutationVariables = Exact<{
+  chapterId: Scalars['UUID'];
+  order: Scalars['Int'];
+}>;
+
+
+export type UpdateChapterOrderMutation = { __typename?: 'Mutation', updatechaptersCollection: { __typename?: 'chaptersUpdateResponse', affectedCount: number } };
+
 export type UpdateExistingBookMutationVariables = Exact<{
   bookId: Scalars['UUID'];
   updatedBook: BooksUpdateInput;
@@ -2819,6 +2827,40 @@ export function useReplaceBooksAssignationMutation(baseOptions?: Apollo.Mutation
 export type ReplaceBooksAssignationMutationHookResult = ReturnType<typeof useReplaceBooksAssignationMutation>;
 export type ReplaceBooksAssignationMutationResult = Apollo.MutationResult<ReplaceBooksAssignationMutation>;
 export type ReplaceBooksAssignationMutationOptions = Apollo.BaseMutationOptions<ReplaceBooksAssignationMutation, ReplaceBooksAssignationMutationVariables>;
+export const UpdateChapterOrderDocument = gql`
+    mutation UpdateChapterOrder($chapterId: UUID!, $order: Int!) {
+  updatechaptersCollection(filter: {id: {eq: $chapterId}}, set: {order: $order}) {
+    affectedCount
+  }
+}
+    `;
+export type UpdateChapterOrderMutationFn = Apollo.MutationFunction<UpdateChapterOrderMutation, UpdateChapterOrderMutationVariables>;
+
+/**
+ * __useUpdateChapterOrderMutation__
+ *
+ * To run a mutation, you first call `useUpdateChapterOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateChapterOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateChapterOrderMutation, { data, loading, error }] = useUpdateChapterOrderMutation({
+ *   variables: {
+ *      chapterId: // value for 'chapterId'
+ *      order: // value for 'order'
+ *   },
+ * });
+ */
+export function useUpdateChapterOrderMutation(baseOptions?: Apollo.MutationHookOptions<UpdateChapterOrderMutation, UpdateChapterOrderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateChapterOrderMutation, UpdateChapterOrderMutationVariables>(UpdateChapterOrderDocument, options);
+      }
+export type UpdateChapterOrderMutationHookResult = ReturnType<typeof useUpdateChapterOrderMutation>;
+export type UpdateChapterOrderMutationResult = Apollo.MutationResult<UpdateChapterOrderMutation>;
+export type UpdateChapterOrderMutationOptions = Apollo.BaseMutationOptions<UpdateChapterOrderMutation, UpdateChapterOrderMutationVariables>;
 export const UpdateExistingBookDocument = gql`
     mutation UpdateExistingBook($bookId: UUID!, $updatedBook: booksUpdateInput!) {
   updatebooksCollection(set: $updatedBook, filter: {id: {eq: $bookId}}) {

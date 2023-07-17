@@ -38,6 +38,7 @@ export const ChapterForm: React.FC<Props> = ({
       isNew: true,
       parentId,
       order,
+      originalOrder: order,
     });
     toggle();
     subForm.resetField("name");

@@ -2,6 +2,7 @@ import {
   useCreateNewBooksMutation,
   useCreateNewChaptersMutation,
   useRemoveChaptersMutation,
+  useUpdateChapterOrderMutation,
   useUpdateExistingBookMutation,
 } from "@/gql/types";
 import {
@@ -15,6 +16,7 @@ import { assureNumber } from "@/helpers/number";
 import {
   updateCacheOnInsertChapters,
   updateCacheOnRemoveChapters,
+  updateCacheOnUpdateChapterOrder,
 } from "@/hooks/use-upsert-book/cache-updater/chapters";
 import {
   updateCacheOnInsertBook,
@@ -56,6 +58,10 @@ export const useUpsertBook = (
   ] = useRemoveChaptersMutation({
     update: updateCacheOnRemoveChapters,
   });
+  const [updateChapterOrderGQL, { loading: updateChapterOrderLoading }] =
+    useUpdateChapterOrderMutation({
+      update: updateCacheOnUpdateChapterOrder,
+    });
 
   const createOrUpdateBook = async (formValues: UpsertBookFormValues) => {
     if (!formValues.id) {
@@ -80,7 +86,26 @@ export const useUpsertBook = (
     });
     return result.data?.updatebooksCollection.records[0];
   };
+
+  const updateChapterOrder = async (formValues: UpsertBookFormValues) => {
+    const orderUpdatedChapters = formValues.chapters.filter(
+      (chapter) => chapter.order !== chapter.originalOrder
+    );
+    if (orderUpdatedChapters.length > 0) {
+      const updatingPromises = orderUpdatedChapters.map((chapter) =>
+        updateChapterOrderGQL({
+          variables: {
+            chapterId: chapter.id,
+            order: chapter.order || 1,
+          },
+        })
+      );
+
+      await Promise.all(updatingPromises);
+    }
+  };
   const isNewChapter = (chapter: FormChapterValue) => !!chapter.isNew;
+
   const upsertBook = async (formValues: UpsertBookFormValues) => {
     const theBook = await createOrUpdateBook(formValues);
     if (assureNumber(formValues.removeChapters?.length) > 0) {
@@ -105,6 +130,7 @@ export const useUpsertBook = (
         },
       });
     }
+    await updateChapterOrder(formValues);
     args?.onSuccess?.();
   };
 
@@ -149,7 +175,8 @@ export const useUpsertBook = (
       insertBookLoading ||
       updateBookLoading ||
       insertChaptersLoading ||
-      removeChaptersLoading,
+      removeChaptersLoading ||
+      updateChapterOrderLoading,
     book: useMemo(() => {
       const gqlBook = getGqlBook();
       const gqlChapters = getGqlChapters();
