@@ -8,5 +8,5 @@ body {
 }
 
 .h-fullpage {
-  min-height: calc(100vh - 64px - 52px - 40px);
+  min-height: calc(100vh - 64px - 72px);
 }

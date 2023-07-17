@@ -23,8 +23,28 @@ export const AdminContentPageNav: React.FC<Props> = ({ filterType }) => {
     return allPages.slice(pageFrom, pageTo);
   }, [page, totalSize, perPageSize, pageSize]);
 
+  const inFirstInterval = useMemo(() => {
+    return pages[0] === 0;
+  }, [pages]);
+
+  const inLastInterval = useMemo(() => {
+    return pages[pages.length - 1] === Math.ceil(totalSize / perPageSize) - 1;
+  }, [pages, totalSize, perPageSize]);
+
   return (
     <div className="btn-group sm:justify-start justify-center">
+      {!inFirstInterval && (
+        <>
+          <input
+            type="radio"
+            name="options"
+            data-title="1"
+            className="btn flex-grow"
+            onChange={() => setPageNumber(1)}
+          />
+          <div className="btn btn-disabled flex-grow">...</div>
+        </>
+      )}
       {pages.map((i) => (
         <input
           key={i}
@@ -36,6 +56,18 @@ export const AdminContentPageNav: React.FC<Props> = ({ filterType }) => {
           onChange={() => setPageNumber(i + 1)}
         />
       ))}
+      {!inLastInterval && (
+        <>
+          <div className="btn btn-disabled flex-grow">...</div>
+          <input
+            type="radio"
+            name="options"
+            data-title={Math.ceil(totalSize / perPageSize)}
+            className="btn flex-grow"
+            onChange={() => setPageNumber(Math.ceil(totalSize / perPageSize))}
+          />
+        </>
+      )}
     </div>
   );
 };
