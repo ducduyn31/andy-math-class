@@ -8,6 +8,8 @@ import {
   CreateNewChaptersMutation,
   Exact,
   RemoveChaptersMutation,
+  Scalars,
+  UpdateChapterOrderMutation,
 } from "@/gql/types";
 
 export const updateCacheOnRemoveChapters: MutationUpdaterFunction<
@@ -50,6 +52,25 @@ export const updateCacheOnInsertChapters: MutationUpdaterFunction<
           },
         },
       });
+    });
+  }
+};
+
+export const updateCacheOnUpdateChapterOrder: MutationUpdaterFunction<
+  UpdateChapterOrderMutation,
+  Exact<{ chapterId: Scalars["UUID"]; order: Scalars["Int"] }>,
+  DefaultContext,
+  ApolloCache<any>
+> = (cache, { data }, { variables }) => {
+  if (
+    data?.updatechaptersCollection?.affectedCount === 1 &&
+    variables?.chapterId
+  ) {
+    cache.modify({
+      id: cache.identify({ __typename: "chapters", id: variables.chapterId }),
+      fields: {
+        order: () => variables?.order,
+      },
     });
   }
 };

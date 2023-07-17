@@ -1949,6 +1949,14 @@ export type ReplaceBooksAssignationMutationVariables = Exact<{
 
 export type ReplaceBooksAssignationMutation = { __typename?: 'Mutation', deleteFromuser_books_assignationCollection: { __typename?: 'user_books_assignationDeleteResponse', records: Array<{ __typename?: 'user_books_assignation', id: any }> }, insertIntouser_books_assignationCollection?: { __typename?: 'user_books_assignationInsertResponse', records: Array<{ __typename?: 'user_books_assignation', id: any, users?: { __typename?: 'users', id: any, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } | null }> } | null };
 
+export type UpdateChapterOrderMutationVariables = Exact<{
+  chapterId: Scalars['UUID'];
+  order: Scalars['Int'];
+}>;
+
+
+export type UpdateChapterOrderMutation = { __typename?: 'Mutation', updatechaptersCollection: { __typename?: 'chaptersUpdateResponse', affectedCount: number } };
+
 export type UpdateExistingBookMutationVariables = Exact<{
   bookId: Scalars['UUID'];
   updatedBook: BooksUpdateInput;
@@ -2115,6 +2123,7 @@ export const ssrGetLastFilter = {
       withPage: withPageGetLastFilter,
       
     }
+
 
 
 
