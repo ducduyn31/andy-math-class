@@ -11,7 +11,7 @@ export default function Home() {
   const { selectedChapters } = useBookContext();
   const [shouldShowQuestions, setShouldShowQuestions] = useState(false);
   const { getQuestions, selectedQuestions } = useGetQuestionsAsync();
-  const { saveSelectedChapters } = usePersistSelectedChapters();
+  const { saveSelectedChapters, loading } = usePersistSelectedChapters();
   const { me, isAdmin } = useGetMe();
 
   useEffect(() => {
@@ -23,6 +23,19 @@ export default function Home() {
       getQuestions(selectedChapters);
     }
   }, [shouldShowQuestions, getQuestions, selectedChapters]);
+
+  if (loading) {
+    return (
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="text-5xl font-bold">Loading</h1>
+            <p className="py-6">Please wait...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!isAdmin && !me?.isEnabled) {
     return (

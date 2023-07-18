@@ -9,13 +9,16 @@ import { useCallback, useEffect, useMemo } from "react";
 interface UsePersistSelectedChaptersReturn {
   saveSelectedChapters: (selectedChapters: Chapter[]) => void;
   lastSelectedChapters: Set<string> | null;
+  loading: boolean;
 }
 
 export const usePersistSelectedChapters =
   (): UsePersistSelectedChaptersReturn => {
     const session = useSession();
-    const [saveChapters, {}] = useSaveSelectedChaptersMutation();
-    const [loadStates, { data }] = useLoadLastSelectedChaptersLazyQuery();
+    const [saveChapters, { loading: saveStateLoading }] =
+      useSaveSelectedChaptersMutation();
+    const [loadStates, { data, loading: lastStateLoading }] =
+      useLoadLastSelectedChaptersLazyQuery();
 
     useEffect(() => {
       loadStates({
@@ -51,5 +54,6 @@ export const usePersistSelectedChapters =
     return {
       saveSelectedChapters,
       lastSelectedChapters: lastState,
+      loading: lastStateLoading || saveStateLoading,
     };
   };
