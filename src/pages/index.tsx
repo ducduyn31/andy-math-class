@@ -11,8 +11,9 @@ export default function Home() {
   const { selectedChapters } = useBookContext();
   const [shouldShowQuestions, setShouldShowQuestions] = useState(false);
   const { getQuestions, selectedQuestions } = useGetQuestionsAsync();
-  const { saveSelectedChapters, loading } = usePersistSelectedChapters();
-  const { me, isAdmin } = useGetMe();
+  const { saveSelectedChapters, loading: loadSelectedChapters } =
+    usePersistSelectedChapters();
+  const { me, isAdmin, loading: loadGetMe } = useGetMe();
 
   useEffect(() => {
     setShouldShowQuestions(false);
@@ -24,7 +25,7 @@ export default function Home() {
     }
   }, [shouldShowQuestions, getQuestions, selectedChapters]);
 
-  if (loading) {
+  if (loadSelectedChapters || loadGetMe) {
     return (
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content text-center">
