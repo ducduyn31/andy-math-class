@@ -5,6 +5,7 @@ import {
 } from "@/gql/types";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useMemo } from "react";
+import { updateSavedChapterCache } from "@/hooks/use-persist-selected-chapters/cache-updater/states";
 
 interface UsePersistSelectedChaptersReturn {
   saveSelectedChapters: (selectedChapters: Chapter[]) => void;
@@ -16,7 +17,9 @@ export const usePersistSelectedChapters =
   (): UsePersistSelectedChaptersReturn => {
     const session = useSession();
     const [saveChapters, { loading: saveStateLoading }] =
-      useSaveSelectedChaptersMutation();
+      useSaveSelectedChaptersMutation({
+        update: updateSavedChapterCache,
+      });
     const [loadStates, { data, loading: lastStateLoading }] =
       useLoadLastSelectedChaptersLazyQuery();
 
