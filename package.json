@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "e2e": "supabase start && NODE_ENV=test start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
     "generate-graph": "graphql-codegen --config graphql/codegen.ts"
   },
   "dependencies": {
@@ -47,7 +48,9 @@
     "@tanstack/eslint-plugin-query": "^4.29.4",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/lodash": "^4.14.194",
+    "cypress": "^12.17.3",
     "graphql-codegen-apollo-next-ssr": "^1.7.4",
-    "prettier": "2.8.7"
+    "prettier": "2.8.7",
+    "start-server-and-test": "^2.0.0"
   }
 }
