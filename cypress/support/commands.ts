@@ -38,6 +38,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { getLastLoginEmail, loadSession, login } from "./auth/login";
+import { faker } from "@faker-js/faker";
 
 const supabaseDomain = Cypress.env("SUPABASE_URL");
 const supabaseSvcRoleKey = Cypress.env("SUPABASE_KEY");
@@ -50,8 +51,8 @@ Cypress.Commands.add("loadUserSession", () => loadSession("e2e@example.com"));
 
 Cypress.Commands.add("loadAdminSession", () => loadSession("e2e@example.com"));
 
-Cypress.Commands.add("prepareUser", () => {
-  login("e2e@example.com");
+Cypress.Commands.add("prepareUser", (email?: string) => {
+  login(email ?? "e2e@example.com");
 });
 
 Cypress.Commands.add("prepareAdmin", () => {
@@ -102,5 +103,34 @@ Cypress.Commands.add("clearAuthDB", () => {
 
   return cy.wrap(Promise.all([sessionDelete, userDelete])).then((response) => {
     cy.log("All tables cleared");
+  });
+});
+
+Cypress.Commands.add("seedUsers", (count: number) => {
+  const supabase = createClient(supabaseDomain, supabaseSvcRoleKey, {
+    db: {
+      schema: "next_auth",
+    },
+  });
+  const userInsert = new Cypress.Promise((resolve) => {
+    const response = supabase
+      .from("users")
+      .insert(
+        Array.from({ length: count }, (_, i) => ({
+          email: `e2e-user-${i + 1}@example.com`,
+          emailVerified: "now()",
+          firstName: faker.person.firstName(),
+          lastName: faker.person.lastName(),
+          isAdmin: false,
+          isEnabled: true,
+        }))
+      )
+      .then((response) => response.count);
+
+    resolve(response);
+  });
+
+  return cy.wrap(userInsert).then((response) => {
+    cy.log("Users seeded");
   });
 });

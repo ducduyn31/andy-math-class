@@ -27,7 +27,8 @@ declare global {
       loadUserSession(): Chainable<unknown>;
       loadAdminSession(): Chainable<unknown>;
       clearAuthDB(): Chainable<unknown>;
-      prepareUser(): Chainable<unknown>;
+      prepareUser(email?: string): Chainable<unknown>;
+      seedUsers(count: number): Chainable<unknown>;
       prepareAdmin(): Chainable<unknown>;
     }
   }

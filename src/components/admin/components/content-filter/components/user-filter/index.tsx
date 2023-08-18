@@ -19,7 +19,7 @@ export const FilterUser = () => {
   const { applyFilters, setPageNumber, currentFilter } = useFilter("user");
   const { control, handleSubmit, reset } = useForm<FilterUserFormValues>({
     defaultValues: {
-      email: null,
+      email: "",
       book: "any",
       status: "any",
     },
@@ -30,7 +30,11 @@ export const FilterUser = () => {
   }, [currentFilter]);
 
   const clearFilters = () => {
-    reset({});
+    reset({
+      email: "",
+      book: "any",
+      status: "any",
+    });
     applyFilters(null);
     setPageNumber(1);
   };
