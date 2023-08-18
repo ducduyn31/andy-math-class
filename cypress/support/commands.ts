@@ -71,7 +71,7 @@ Cypress.Commands.add("prepareAdmin", () => {
 
       resolve(response);
     });
-    return cy.wrap(userUpdate).then((response) => {
+    return cy.wrap(userUpdate).then(() => {
       cy.log("Admin updated");
     });
   });
@@ -101,7 +101,7 @@ Cypress.Commands.add("clearAuthDB", () => {
     resolve(response);
   });
 
-  return cy.wrap(Promise.all([sessionDelete, userDelete])).then((response) => {
+  return cy.wrap(Promise.all([sessionDelete, userDelete])).then(() => {
     cy.log("All tables cleared");
   });
 });
@@ -130,7 +130,7 @@ Cypress.Commands.add("seedUsers", (count: number) => {
     resolve(response);
   });
 
-  return cy.wrap(userInsert).then((response) => {
+  return cy.wrap(userInsert).then(() => {
     cy.log("Users seeded");
   });
 });

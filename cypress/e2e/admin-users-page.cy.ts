@@ -1,5 +1,3 @@
-import * as Cypress from "cypress";
-
 before(() => {
   cy.clearAuthDB();
   cy.seedUsers(10);
