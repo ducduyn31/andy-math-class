@@ -25,10 +25,12 @@ declare global {
       getLastLoginEmail(): Chainable<Response<string>>;
       loadUserSession(): Chainable<unknown>;
       loadAdminSession(): Chainable<unknown>;
-      clearAuthDB(): Chainable<unknown>;
+      clearDB(): Chainable<unknown>;
       prepareUser(email?: string): Chainable<unknown>;
       seedUsers(count: number): Chainable<unknown>;
       prepareAdmin(): Chainable<unknown>;
+
+      seedBooks(count: number, chaptersCount?: number): Chainable<unknown>;
     }
   }
 }

@@ -39,6 +39,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { getLastLoginEmail, loadSession, login } from "./auth/login";
 import { faker } from "@faker-js/faker";
+import { clearAuthDB } from "./auth/db";
+import { clearPublicDB, generateRandomBooksAndChapters } from "./public/db";
 
 const supabaseDomain = Cypress.env("SUPABASE_URL");
 const supabaseSvcRoleKey = Cypress.env("SUPABASE_KEY");
@@ -77,33 +79,24 @@ Cypress.Commands.add("prepareAdmin", () => {
   });
 });
 
-Cypress.Commands.add("clearAuthDB", () => {
-  const supabase = createClient(supabaseDomain, supabaseSvcRoleKey, {
-    db: {
-      schema: "next_auth",
-    },
-  });
-  const sessionDelete = new Cypress.Promise((resolve) => {
-    const response = supabase
-      .from("sessions")
-      .delete()
-      .neq("sessionToken", "0")
-      .then((response) => response.count);
-    resolve(response);
-  });
-  const userDelete = new Cypress.Promise((resolve) => {
-    const response = supabase
-      .from("users")
-      .delete()
-      .neq("email", "")
-      .then((response) => response.count);
-
-    resolve(response);
+Cypress.Commands.add("clearDB", () => {
+  const authSchemaDelete = new Cypress.Promise((resolve) => {
+    clearAuthDB(supabaseDomain, supabaseSvcRoleKey).then(() => {
+      resolve();
+    });
   });
 
-  return cy.wrap(Promise.all([sessionDelete, userDelete])).then(() => {
-    cy.log("All tables cleared");
+  const publicSchemaDelete = new Cypress.Promise((resolve) => {
+    clearPublicDB(supabaseDomain, supabaseSvcRoleKey).then(() => {
+      resolve();
+    });
   });
+
+  return cy
+    .wrap(Promise.all([authSchemaDelete, publicSchemaDelete]))
+    .then(() => {
+      cy.log("All tables cleared");
+    });
 });
 
 Cypress.Commands.add("seedUsers", (count: number) => {
@@ -132,5 +125,22 @@ Cypress.Commands.add("seedUsers", (count: number) => {
 
   return cy.wrap(userInsert).then(() => {
     cy.log("Users seeded");
+  });
+});
+
+Cypress.Commands.add("seedBooks", (count, chaptersCount = 20) => {
+  const bookInsert = new Cypress.Promise((resolve) => {
+    generateRandomBooksAndChapters(
+      supabaseDomain,
+      supabaseSvcRoleKey,
+      count,
+      chaptersCount
+    ).then(() => {
+      resolve();
+    });
+  });
+
+  return cy.wrap(bookInsert).then(() => {
+    cy.log("Books seeded");
   });
 });

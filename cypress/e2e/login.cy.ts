@@ -1,5 +1,5 @@
 before(() => {
-  cy.clearAuthDB();
+  cy.clearDB();
 });
 
 describe("should authenticate user", () => {

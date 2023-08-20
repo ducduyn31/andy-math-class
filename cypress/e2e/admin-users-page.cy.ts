@@ -1,5 +1,5 @@
 before(() => {
-  cy.clearAuthDB();
+  cy.clearDB();
   cy.seedUsers(10);
   cy.prepareAdmin();
 });
