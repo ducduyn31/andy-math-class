@@ -6,7 +6,7 @@ const inboxId = Cypress.env("MAILTRAP_INBOX_ID");
 const supabaseDomain = Cypress.env("SUPABASE_URL");
 const supabaseSvcRoleKey = Cypress.env("SUPABASE_KEY");
 
-export const getLastLoginEmail = (email: string) =>
+export const getSignInTokenInMail = (email: string) =>
   cy
     .request({
       method: "GET",
@@ -69,7 +69,7 @@ export const login = (email: string) => {
   cy.get('input[placeholder="Type here"]').type(email);
   cy.get('button[type="submit"]').click();
   cy.wait(4000);
-  return getLastLoginEmail(email).then((content) => {
+  return getSignInTokenInMail(email).then((content) => {
     const body = content.body;
     const link = body.match(/http:\/\/localhost:3000.*example.com/gm)?.[0];
     cy.visit(link!);

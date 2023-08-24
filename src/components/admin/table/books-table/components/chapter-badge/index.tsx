@@ -132,8 +132,6 @@ export const ChapterBadge: React.FC<Props> = ({
         setValue(`chapters.${currentChapterFormIndex}.order`, temp);
         swapChapters(currentChapterFormIndex, nextChapterFormIndex);
       }
-
-      console.log(currentChapterOrder, siblingChapters);
     },
     [
       currentChapterFormIndex,
@@ -149,7 +147,7 @@ export const ChapterBadge: React.FC<Props> = ({
   );
 
   return (
-    <div className="flex items-center" data-testid="chapter-entry">
+    <div className="flex items-center">
       <DropdownIcon
         width={20}
         height={20}

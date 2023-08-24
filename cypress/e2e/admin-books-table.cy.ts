@@ -187,6 +187,7 @@ describe("Edit Chapters tests", () => {
 
     cy.get('[data-testid="chapter-entry"]')
       .contains("Chapter 1.2")
+      .parent()
       .within(() => {
         cy.get('[data-testid="chapter-dropdown"]').click();
       });

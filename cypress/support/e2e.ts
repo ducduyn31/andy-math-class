@@ -22,14 +22,13 @@ import "./commands";
 declare global {
   namespace Cypress {
     interface Chainable {
-      getLastLoginEmail(): Chainable<Response<string>>;
+      getSignInTokenInMail(): Chainable<Response<string>>;
       loadUserSession(): Chainable<unknown>;
       loadAdminSession(): Chainable<unknown>;
       clearDB(): Chainable<unknown>;
       prepareUser(email?: string): Chainable<unknown>;
       seedUsers(count: number): Chainable<unknown>;
       prepareAdmin(): Chainable<unknown>;
-
       seedBooks(count: number, chaptersCount?: number): Chainable<unknown>;
     }
   }

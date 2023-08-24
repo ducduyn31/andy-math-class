@@ -21,7 +21,7 @@ describe("should authenticate user", () => {
   });
 
   it("should send an email containing a verification link", () => {
-    cy.getLastLoginEmail().then((content) => {
+    cy.getSignInTokenInMail().then((content) => {
       const body = content.body;
       const link = body.match(/http:\/\/localhost:3000.*example.com/gm)?.[0];
 

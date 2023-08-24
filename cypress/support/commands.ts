@@ -36,48 +36,13 @@
 //   }
 // }
 
-import { createClient } from "@supabase/supabase-js";
-import { getLastLoginEmail, loadSession, login } from "./auth/login";
-import { faker } from "@faker-js/faker";
+import "./auth";
+import "./books";
 import { clearAuthDB } from "./auth/db";
-import { clearPublicDB, generateRandomBooksAndChapters } from "./public/db";
+import { clearPublicDB } from "./books/db";
 
 const supabaseDomain = Cypress.env("SUPABASE_URL");
 const supabaseSvcRoleKey = Cypress.env("SUPABASE_KEY");
-
-Cypress.Commands.add("getLastLoginEmail", () =>
-  getLastLoginEmail("e2e@example.com")
-);
-
-Cypress.Commands.add("loadUserSession", () => loadSession("e2e@example.com"));
-
-Cypress.Commands.add("loadAdminSession", () => loadSession("e2e@example.com"));
-
-Cypress.Commands.add("prepareUser", (email?: string) => {
-  login(email ?? "e2e@example.com");
-});
-
-Cypress.Commands.add("prepareAdmin", () => {
-  login("e2e-admin@example.com").then(() => {
-    const supabase = createClient(supabaseDomain, supabaseSvcRoleKey, {
-      db: {
-        schema: "next_auth",
-      },
-    });
-    const userUpdate = new Cypress.Promise((resolve) => {
-      const response = supabase
-        .from("users")
-        .update({ isAdmin: true })
-        .eq("email", "e2e-admin@example.com")
-        .then((response) => response.count);
-
-      resolve(response);
-    });
-    return cy.wrap(userUpdate).then(() => {
-      cy.log("Admin updated");
-    });
-  });
-});
 
 Cypress.Commands.add("clearDB", () => {
   const authSchemaDelete = new Cypress.Promise((resolve) => {
@@ -97,50 +62,4 @@ Cypress.Commands.add("clearDB", () => {
     .then(() => {
       cy.log("All tables cleared");
     });
-});
-
-Cypress.Commands.add("seedUsers", (count: number) => {
-  const supabase = createClient(supabaseDomain, supabaseSvcRoleKey, {
-    db: {
-      schema: "next_auth",
-    },
-  });
-  const userInsert = new Cypress.Promise((resolve) => {
-    const response = supabase
-      .from("users")
-      .insert(
-        Array.from({ length: count }, (_, i) => ({
-          email: `e2e-user-${i + 1}@example.com`,
-          emailVerified: "now()",
-          firstName: faker.person.firstName(),
-          lastName: faker.person.lastName(),
-          isAdmin: false,
-          isEnabled: true,
-        }))
-      )
-      .then((response) => response.count);
-
-    resolve(response);
-  });
-
-  return cy.wrap(userInsert).then(() => {
-    cy.log("Users seeded");
-  });
-});
-
-Cypress.Commands.add("seedBooks", (count, chaptersCount = 20) => {
-  const bookInsert = new Cypress.Promise((resolve) => {
-    generateRandomBooksAndChapters(
-      supabaseDomain,
-      supabaseSvcRoleKey,
-      count,
-      chaptersCount
-    ).then(() => {
-      resolve();
-    });
-  });
-
-  return cy.wrap(bookInsert).then(() => {
-    cy.log("Books seeded");
-  });
 });

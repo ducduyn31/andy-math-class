@@ -15,11 +15,13 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
+import "@/styles/globals.css";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-
-import { mount } from "cypress/react18";
+import { mount, MountOptions, MountReturn } from "cypress/react18";
+import { FormProvider, useForm } from "react-hook-form";
+import React, { PropsWithChildren } from "react";
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -28,12 +30,42 @@ import { mount } from "cypress/react18";
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount;
+      mountWithForm: (
+        jsx: React.ReactNode,
+        initialFormValues?: any,
+        options?: MountOptions,
+        rerenderKey?: string
+      ) => Cypress.Chainable<MountReturn>;
     }
   }
 }
 
-Cypress.Commands.add("mount", mount);
+const TestForm: React.FC<PropsWithChildren<{ initialFormValues: any }>> = ({
+  children,
+  initialFormValues,
+}) => {
+  const methods = useForm({
+    defaultValues: initialFormValues,
+  });
+  const { handleSubmit, register } = methods;
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(() => {})}>{children}</form>
+    </FormProvider>
+  );
+};
+
+Cypress.Commands.add(
+  "mountWithForm",
+  (component, initialFormValues = {}, options = {}) => {
+    const wrapped = (
+      <TestForm initialFormValues={initialFormValues}>{component}</TestForm>
+    );
+
+    return mount(wrapped, options);
+  }
+);
 
 // Example use:
 // cy.mount(<MyComponent />)

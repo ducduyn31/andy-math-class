@@ -1,5 +1,7 @@
 import * as yup from "yup";
 import { Maybe } from "@/models/types";
+import { Book } from "@/models";
+import { DefaultValues } from "react-hook-form";
 
 export interface FormChapterValue {
   id?: string;
@@ -39,6 +41,21 @@ export const UpsertBookFormValuesSchema = yup.object().shape({
       return new Set(chapterNames).size === chapterNames.length;
     }),
   removeChapters: yup.array().of(yup.string()),
+});
+
+export const mapDefaultBookFormValues = (
+  book: Maybe<Book>
+): DefaultValues<UpsertBookFormValues> => ({
+  id: book?.id,
+  name: book?.name,
+  chapters:
+    book?.chapters?.map((chapter) => ({
+      id: chapter.id,
+      name: chapter.name,
+      parentId: chapter.parent?.id,
+      order: chapter.order,
+      originalOrder: chapter.order,
+    })) ?? [],
 });
 
 export const upsertBookForm =

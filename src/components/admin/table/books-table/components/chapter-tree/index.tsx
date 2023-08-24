@@ -38,7 +38,7 @@ export const ChapterTree: React.FC<Props> = ({
   return (
     <>
       {currentChapters.map((chapter) => (
-        <div key={chapter.id || generateUUID()}>
+        <div key={chapter.id || generateUUID()} data-testid="chapter-entry">
           <ChapterBadge
             chapter={assignBookToChapter(book, createFullChapter(chapter))}
             book={book}
