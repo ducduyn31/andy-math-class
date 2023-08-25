@@ -132,8 +132,6 @@ export const ChapterBadge: React.FC<Props> = ({
         setValue(`chapters.${currentChapterFormIndex}.order`, temp);
         swapChapters(currentChapterFormIndex, nextChapterFormIndex);
       }
-
-      console.log(currentChapterOrder, siblingChapters);
     },
     [
       currentChapterFormIndex,
@@ -155,6 +153,7 @@ export const ChapterBadge: React.FC<Props> = ({
         height={20}
         className="cursor-pointer"
         onDropdownToggle={onDropdownToggle}
+        data-testid="chapter-dropdown"
       />
       <div
         {...props}
@@ -162,6 +161,7 @@ export const ChapterBadge: React.FC<Props> = ({
       >
         {chapter.name}
         <svg
+          data-testid="remove-chapter"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -177,6 +177,7 @@ export const ChapterBadge: React.FC<Props> = ({
         </svg>
         {currentChapterOrder > minOrder && (
           <svg
+            data-testid="move-chapter-up"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 50 50"
             className="w-4 h-4 inline-block stroke-current cursor-pointer"
@@ -187,6 +188,7 @@ export const ChapterBadge: React.FC<Props> = ({
         )}
         {currentChapterOrder < maxOrder && (
           <svg
+            data-testid="move-chapter-down"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 50 50"
             className="w-4 h-4 inline-block stroke-current cursor-pointer"

@@ -21,7 +21,7 @@ export const AdminUserRow = ({ user }: AdminUserRowProps) => {
   const { openModal } = useModal(UserModificationModal);
 
   return (
-    <tr className="hover">
+    <tr className="hover" data-testid="user-entry">
       <th>
         {firstName} {lastName}
       </th>

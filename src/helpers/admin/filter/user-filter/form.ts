@@ -50,9 +50,8 @@ export const buildUserFilters = (
 export const mapFilterToUserFormValues = (
   filter: FilterBuilder<User>
 ): FilterUserFormValues => {
-  const email = filter?.getMatchValueByMapper<string | null>(
-    Mappers.MAP_USER_EMAIL
-  );
+  const email =
+    filter?.getMatchValueByMapper<string | null>(Mappers.MAP_USER_EMAIL) ?? "";
   const book = filter?.getMatchValueByMapper<string | null>(
     Mappers.MAP_USER_ASSIGNED_BOOKS
   );

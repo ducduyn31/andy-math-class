@@ -2,6 +2,7 @@ import React from "react";
 import { Book } from "@/models";
 import { FormProvider, useForm } from "react-hook-form";
 import {
+  mapDefaultBookFormValues,
   upsertBookForm,
   UpsertBookFormValues,
   UpsertBookFormValuesSchema,
@@ -30,18 +31,7 @@ export const BookModificationModal: React.FC<Props> = ({ book }: Props) => {
 
   const methods = useForm<UpsertBookFormValues>({
     resolver: yupResolver(UpsertBookFormValuesSchema),
-    defaultValues: {
-      id: book?.id,
-      name: book?.name,
-      chapters:
-        book?.chapters?.map((chapter) => ({
-          id: chapter.id,
-          name: chapter.name,
-          parentId: chapter.parent?.id,
-          order: chapter.order,
-          originalOrder: chapter.order,
-        })) ?? [],
-    },
+    defaultValues: mapDefaultBookFormValues(book),
   });
 
   const {

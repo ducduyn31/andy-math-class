@@ -21,7 +21,7 @@ export const AdminBookRow = ({ book }: PropType) => {
   };
 
   return (
-    <tr className={"hover"}>
+    <tr className="hover" data-testid="book-entry">
       <th>{book.name}</th>
       <td>
         {book.chapters.length > 0 ? (

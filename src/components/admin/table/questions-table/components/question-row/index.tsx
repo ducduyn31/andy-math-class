@@ -17,7 +17,7 @@ export const AdminQuestionRow: React.FC<Props> = ({ question }) => {
   });
   const { name, chapter, book } = question;
   return (
-    <tr className={"hover"}>
+    <tr className="hover" data-testid="question-entry">
       <th>{name}</th>
       <td>
         <span className={`badge badge-lg mr-1 ${book?.color || ""}`}>

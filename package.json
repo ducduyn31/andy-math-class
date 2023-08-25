@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test:e2e": "supabase start && NODE_ENV=test start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "test:component": "supabase start && NODE_ENV=test start-server-and-test dev http://localhost:3000 \"cypress run --component\"",
     "generate-graph": "graphql-codegen --config graphql/codegen.ts"
   },
   "dependencies": {
@@ -39,15 +41,19 @@
     "yup": "^1.1.1"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "@faker-js/faker": "^8.0.2",
     "@graphql-codegen/cli": "3.3.1",
     "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript-msw": "^1.1.6",
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@tanstack/eslint-plugin-query": "^4.29.4",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/lodash": "^4.14.194",
+    "cypress": "^12.17.3",
     "graphql-codegen-apollo-next-ssr": "^1.7.4",
-    "prettier": "2.8.7"
+    "msw": "^1.2.3",
+    "prettier": "2.8.7",
+    "start-server-and-test": "^2.0.0"
   }
 }
