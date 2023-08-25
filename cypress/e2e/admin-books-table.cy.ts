@@ -5,12 +5,16 @@ beforeEach(() => {
 describe("Admin Books Page", () => {
   before(() => {
     cy.clearDB();
-    cy.prepareAdmin();
+    cy.seedAdmin();
     cy.seedBooks(10);
   });
 
   it("should render books table", () => {
     cy.visit("localhost:3000/admin/books");
+
+    cy.contains(".stat", "Total books").within(() => {
+      cy.get(".stat-value").contains("10");
+    });
 
     cy.get('[data-testid="book-entry"]').should("have.length", 5);
     cy.get('[data-title="2"]').click();
@@ -64,7 +68,7 @@ describe("Admin Books Page", () => {
 describe("Edit Chapters tests", () => {
   before(() => {
     cy.clearDB();
-    cy.prepareAdmin();
+    cy.seedAdmin();
   });
 
   it("should render books table", () => {

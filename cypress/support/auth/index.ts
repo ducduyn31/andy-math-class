@@ -67,3 +67,41 @@ Cypress.Commands.add("seedUsers", (count: number) => {
     cy.log("Users seeded");
   });
 });
+
+Cypress.Commands.add("seedAdmin", () => {
+  const supabase = createClient(supabaseDomain, supabaseSvcRoleKey, {
+    db: {
+      schema: "next_auth",
+    },
+  });
+  const adminInsert = new Cypress.Promise(async (resolve) => {
+    const response = await supabase
+      .from("users")
+      .insert({
+        email: `e2e-admin@example.com`,
+        emailVerified: "now()",
+        firstName: faker.person.firstName(),
+        lastName: faker.person.lastName(),
+        isAdmin: true,
+        isEnabled: true,
+      })
+      .select("id");
+
+    const expiredTimestamp = new Date(9999, 0).toISOString();
+
+    const session = await supabase
+      .from("sessions")
+      .insert({
+        sessionToken: faker.string.uuid(),
+        userId: response.data?.[0]?.id,
+        expires: expiredTimestamp,
+      })
+      .select("sessionToken");
+
+    resolve(session);
+  });
+
+  cy.wrap(adminInsert).then(() => {
+    cy.log("Admin seeded");
+  });
+});

@@ -29,7 +29,13 @@ declare global {
       prepareUser(email?: string): Chainable<unknown>;
       seedUsers(count: number): Chainable<unknown>;
       prepareAdmin(): Chainable<unknown>;
+      seedAdmin(): Chainable<unknown>;
       seedBooks(count: number, chaptersCount?: number): Chainable<unknown>;
+      seedQuestions(
+        count: number,
+        questionsCount?: number,
+        answersCount?: number
+      ): Chainable<unknown>;
     }
   }
 }

@@ -38,8 +38,10 @@
 
 import "./auth";
 import "./books";
+import "./questions";
 import { clearAuthDB } from "./auth/db";
-import { clearPublicDB } from "./books/db";
+import { clearBooksTable } from "./books/db";
+import { clearQuestionsTable } from "./questions/db";
 
 const supabaseDomain = Cypress.env("SUPABASE_URL");
 const supabaseSvcRoleKey = Cypress.env("SUPABASE_KEY");
@@ -51,14 +53,22 @@ Cypress.Commands.add("clearDB", () => {
     });
   });
 
-  const publicSchemaDelete = new Cypress.Promise((resolve) => {
-    clearPublicDB(supabaseDomain, supabaseSvcRoleKey).then(() => {
+  const booksSchemaDelete = new Cypress.Promise((resolve) => {
+    clearBooksTable(supabaseDomain, supabaseSvcRoleKey).then(() => {
+      resolve();
+    });
+  });
+
+  const questionsSchemaDelete = new Cypress.Promise((resolve) => {
+    clearQuestionsTable(supabaseDomain, supabaseSvcRoleKey).then(() => {
       resolve();
     });
   });
 
   return cy
-    .wrap(Promise.all([authSchemaDelete, publicSchemaDelete]))
+    .wrap(
+      Promise.all([authSchemaDelete, booksSchemaDelete, questionsSchemaDelete])
+    )
     .then(() => {
       cy.log("All tables cleared");
     });

@@ -1,7 +1,7 @@
 before(() => {
   cy.clearDB();
   cy.seedUsers(10);
-  cy.prepareAdmin();
+  cy.seedAdmin();
 });
 
 beforeEach(() => {

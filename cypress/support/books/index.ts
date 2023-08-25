@@ -5,12 +5,12 @@ const supabaseSvcRoleKey = Cypress.env("SUPABASE_KEY");
 
 Cypress.Commands.add("seedBooks", (count, chaptersCount = 20) => {
   const bookInsert = new Cypress.Promise((resolve) => {
-    generateRandomBooksAndChapters(
-      supabaseDomain,
-      supabaseSvcRoleKey,
-      count,
-      chaptersCount
-    ).then(() => {
+    generateRandomBooksAndChapters({
+      domain: supabaseDomain,
+      key: supabaseSvcRoleKey,
+      bookCount: count,
+      chapterCount: chaptersCount,
+    }).then(() => {
       resolve();
     });
   });

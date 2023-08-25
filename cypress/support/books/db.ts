@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { faker } from "@faker-js/faker";
 
-export const clearPublicDB = async (domain: string, key: string) => {
+export const clearBooksTable = async (domain: string, key: string) => {
   const supabase = createClient(domain, key, {
     db: {
       schema: "public",
@@ -13,12 +13,19 @@ export const clearPublicDB = async (domain: string, key: string) => {
   return Promise.all([deleteBooks]);
 };
 
-export const generateRandomBooksAndChapters = async (
-  domain: string,
-  key: string,
+interface GenerateRandomBooksAndChaptersArgs {
+  domain: string;
+  key: string;
+  bookCount?: number;
+  chapterCount?: number;
+}
+
+export const generateRandomBooksAndChapters = async ({
+  domain,
+  key,
   bookCount = 10,
-  chapterCount = 20
-) => {
+  chapterCount = 20,
+}: GenerateRandomBooksAndChaptersArgs) => {
   const supabase = createClient(domain, key, {
     db: {
       schema: "public",
@@ -48,7 +55,10 @@ export const generateRandomBooksAndChapters = async (
     )
     .flatMap((chapters) => chapters);
 
-  const chapters = await supabase.from("chapters").insert(prepareChapters);
+  const chapters = await supabase
+    .from("chapters")
+    .insert(prepareChapters)
+    .select("id");
 
   return {
     books,
