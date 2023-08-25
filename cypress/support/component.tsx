@@ -47,7 +47,7 @@ const TestForm: React.FC<PropsWithChildren<{ initialFormValues: any }>> = ({
   const methods = useForm({
     defaultValues: initialFormValues,
   });
-  const { handleSubmit, register } = methods;
+  const { handleSubmit } = methods;
 
   return (
     <FormProvider {...methods}>
