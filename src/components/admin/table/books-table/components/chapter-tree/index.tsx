@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import {
   FormChapterValue,
   UpsertBookFormValues,
@@ -25,13 +25,9 @@ export const ChapterTree: React.FC<Props> = ({
   book,
   parent,
 }) => {
-  const currentChapters = useMemo(
-    () =>
-      formChapters
-        .filter((chapter) => chapter.parentId === parent)
-        .sort((a, b) => assureNumber(a.order) - assureNumber(b.order)),
-    [formChapters, parent]
-  );
+  const currentChapters = formChapters
+    .filter((chapter) => chapter.parentId === parent)
+    .sort((a, b) => assureNumber(a.order) - assureNumber(b.order));
 
   const [expanded, { set }] = useMap<Record<string, boolean>>();
 
@@ -57,7 +53,6 @@ export const ChapterTree: React.FC<Props> = ({
               <ChapterForm
                 bookFormControl={bookFormControl}
                 parentId={chapter.id}
-                order={currentChapters.length + 1}
               />
             </div>
           )}

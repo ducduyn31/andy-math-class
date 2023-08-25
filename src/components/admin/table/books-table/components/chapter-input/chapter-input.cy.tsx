@@ -77,7 +77,7 @@ describe("<ChapterInput />", () => {
     cy.get('[data-testid="move-chapter-up"]').should("have.length", 1);
   });
 
-  it.only("should be able to add new child chapters", () => {
+  it("should be able to add new child chapters", () => {
     const formValues = {
       chapters: [],
     };
@@ -106,6 +106,25 @@ describe("<ChapterInput />", () => {
       cy.get('[data-testid="chapter-entry"]').should("have.length", 3);
       cy.get('[data-testid="move-chapter-down"]').should("have.length", 2);
       cy.get('[data-testid="move-chapter-up"]').should("have.length", 2);
+
+      cy.get('[data-testid="chapter-entry"]')
+        .first()
+        .within(() => {
+          cy.get('[data-testid="remove-chapter"]').click();
+        });
+
+      cy.contains("Add new chapter").click();
+      cy.get('[placeholder="Chapter ..."]').type("Chapter 1.1");
+      cy.contains("Add Chapter", { matchCase: false }).click();
+      cy.get('[data-testid="chapter-entry"]')
+        .contains("Chapter 1.1")
+        .within(() => {
+          cy.get('[data-testid="move-chapter-up"]').click();
+          cy.get('[data-testid="move-chapter-up"]').click();
+        });
+
+      cy.get('[data-testid="chapter-entry"]').first().contains("Chapter 1.1");
+      cy.get('[data-testid="chapter-entry"]').last().contains("Chapter 1.3");
     });
   });
 });

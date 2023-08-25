@@ -8,20 +8,16 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { generateUUID } from "@/helpers/string";
 import { useToggle } from "react-use";
+import { assureNumber } from "@/helpers/number";
 
 interface Props {
-  order?: number;
   parentId?: string;
   bookFormControl: Control<UpsertBookFormValues>;
 }
 
-export const ChapterForm: React.FC<Props> = ({
-  bookFormControl,
-  parentId,
-  order = 0,
-}) => {
+export const ChapterForm: React.FC<Props> = ({ bookFormControl, parentId }) => {
   const [toggled, toggle] = useToggle(false);
-  const { append } = useFieldArray<UpsertBookFormValues>({
+  const { append, fields: chapters } = useFieldArray<UpsertBookFormValues>({
     name: "chapters",
     control: bookFormControl,
   });
@@ -32,13 +28,21 @@ export const ChapterForm: React.FC<Props> = ({
   });
 
   const addNewChapter = (newChapter: FormChapterValue) => {
+    const currentChapters = chapters.filter(
+      (chapter) => chapter.parentId === parentId
+    );
+    const nextOrder =
+      currentChapters.reduce((acc, chapter) => {
+        return Math.max(acc, assureNumber(chapter.order));
+      }, 0) + 1;
+
     append({
       id: generateUUID(),
       name: newChapter.name,
       isNew: true,
       parentId,
-      order,
-      originalOrder: order,
+      order: nextOrder,
+      originalOrder: nextOrder,
     });
     toggle();
     subForm.resetField("name");
