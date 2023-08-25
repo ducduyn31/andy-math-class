@@ -5,7 +5,7 @@ before(() => {
 });
 
 beforeEach(() => {
-  cy.loadAdminSession();
+  cy.loadSession("e2e-admin@example.com");
 });
 
 describe("Admin Users Page", () => {
@@ -16,7 +16,7 @@ describe("Admin Users Page", () => {
 
   it("should have 11 seeded users", () => {
     cy.visit("localhost:3000/admin/users");
-    cy.get(".stat-value").contains("11");
+    cy.contains(".stat-value", "11").should("be.visible");
   });
 
   it("should have 10 users in first page and 1 user in second page", () => {
@@ -43,35 +43,30 @@ describe("Admin Users Page", () => {
 
   it("should be able to edit a user", () => {
     cy.visit("localhost:3000/admin/users");
-    cy.get('[data-testid="user-entry"]')
-      .first()
-      .within(() => {
-        cy.get("td").eq(2).click();
-        cy.get("td").eq(2).click();
-      });
+    cy.contains("Modify").click();
+    cy.contains("Modify").click();
+
     cy.get(".modal-box").should("be.visible");
+
     cy.get("input[name='firstName']").clear().type("E2E-Modified");
     cy.get("input[name='lastName']").clear().type("User");
 
     cy.contains("Save").click();
 
-    cy.contains("E2E-Modified User");
+    cy.contains("E2E-Modified User").should("be.visible");
   });
 
   it("should cancel user modification when cancel is clicked", () => {
     cy.visit("localhost:3000/admin/users");
-    cy.get('[data-testid="user-entry"]')
-      .first()
-      .within(() => {
-        cy.get("td").eq(2).click();
-        cy.get("td").eq(2).click();
-      });
+    cy.contains("Modify").click();
+    cy.contains("Modify").click();
+
     cy.get(".modal-box").should("be.visible");
+
     cy.get("input[name='firstName']").clear().type("Should not");
     cy.get("input[name='lastName']").clear().type("Visible");
 
-    cy.contains("Close").click();
-    cy.wait(5000);
+    cy.contains(".btn", "Close").click();
     cy.contains("Should not Visible").should("not.exist");
   });
 
@@ -81,18 +76,60 @@ describe("Admin Users Page", () => {
     cy.get('[data-testid="user-entry"]').should("have.length", 1);
 
     cy.get('input[placeholder="Search by email"]').type("admin");
-    cy.get("button").contains("Filter").click();
+    cy.contains("button", "Filter").click();
     cy.get('[data-testid="user-entry"]').should("have.length", 1);
-    cy.contains("e2e-admin@example.com");
+    cy.contains("e2e-admin@example.com").should("be.visible");
 
     cy.reload();
     cy.get('[data-testid="user-entry"]').should("have.length", 1);
-    cy.contains("e2e-admin@example.com");
+    cy.contains("e2e-admin@example.com").should("be.visible");
 
-    cy.get("button").contains("Clear filter").click();
+    cy.contains("button", "Clear filter").click();
     cy.get('[data-testid="user-entry"]').should("have.length", 10);
     cy.get('[placeholder="Search by email"]').should("have.value", "");
     cy.get('select[name="book"]').should("have.value", "any");
     cy.get('select[name="status"]').should("have.value", "any");
+  });
+});
+
+describe("User Book Assignment", () => {
+  before(() => {
+    cy.seedBooks(10);
+    cy.assignBooksToStudents();
+  });
+
+  it("should not have any unassigned students", async () => {
+    cy.visit("localhost:3000/admin/users");
+    cy.contains(".stat-value", "11").should("be.visible");
+
+    cy.contains("No book assigned").should("have.length.at.most", 1);
+  });
+
+  it("should be able to assign a book to user", async () => {
+    cy.visit("localhost:3000/admin/users");
+    cy.contains("Modify").click();
+    cy.contains("Modify").click();
+
+    cy.get(".modal-box").should("be.visible");
+    cy.get('[data-testid="book-assignment"]').should("have.length", 10);
+
+    cy.get('[data-testid="book-assignment"]')
+      .first()
+      .within(() => {
+        cy.get("span")
+          .invoke("text")
+          .then((text) => {
+            cy.wrap(text).as("bookName");
+          });
+      })
+      .click();
+    cy.contains("Save").click();
+
+    cy.wait(1000);
+    cy.get("@bookName").then((bookName) => {
+      cy.contains(".badge", (bookName as unknown as string).trim()).should(
+        "be.visible"
+      );
+    });
   });
 });

@@ -35,14 +35,26 @@ describe("<ChapterInput />", () => {
     cy.mountWithForm(<ChapterInput book={mockedBook} />, formValues);
 
     // Chapter 1 should be before Chapter 2
-    cy.get('[data-testid="chapter-entry"]').first().contains("Chapter 1");
-    cy.get('[data-testid="chapter-entry"]').last().contains("Chapter 2");
+    cy.get('[data-testid="chapter-entry"]')
+      .first()
+      .contains("Chapter 1")
+      .should("exist");
+    cy.get('[data-testid="chapter-entry"]')
+      .last()
+      .contains("Chapter 2")
+      .should("exist");
 
     cy.get('[data-testid="move-chapter-up"]').first().click();
 
     // Chapter 1 should be after Chapter 2
-    cy.get('[data-testid="chapter-entry"]').first().contains("Chapter 2");
-    cy.get('[data-testid="chapter-entry"]').last().contains("Chapter 1");
+    cy.get('[data-testid="chapter-entry"]')
+      .first()
+      .contains("Chapter 2")
+      .should("exist");
+    cy.get('[data-testid="chapter-entry"]')
+      .last()
+      .contains("Chapter 1")
+      .should("exist");
   });
 
   it("should be able to add new chapters", () => {

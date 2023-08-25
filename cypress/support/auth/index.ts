@@ -9,9 +9,7 @@ Cypress.Commands.add("getSignInTokenInMail", () =>
   getSignInTokenInMail("e2e@example.com")
 );
 
-Cypress.Commands.add("loadUserSession", () => loadSession("e2e@example.com"));
-
-Cypress.Commands.add("loadAdminSession", () => loadSession("e2e@example.com"));
+Cypress.Commands.add("loadSession", (email) => loadSession(email));
 
 Cypress.Commands.add("prepareUser", (email?: string) => {
   login(email ?? "e2e@example.com");
@@ -39,14 +37,14 @@ Cypress.Commands.add("prepareAdmin", () => {
   });
 });
 
-Cypress.Commands.add("seedUsers", (count: number) => {
+Cypress.Commands.add("seedUsers", (count: number, activated = true) => {
   const supabase = createClient(supabaseDomain, supabaseSvcRoleKey, {
     db: {
       schema: "next_auth",
     },
   });
-  const userInsert = new Cypress.Promise((resolve) => {
-    const response = supabase
+  const userInsert = new Cypress.Promise(async (resolve) => {
+    const response = await supabase
       .from("users")
       .insert(
         Array.from({ length: count }, (_, i) => ({
@@ -55,12 +53,26 @@ Cypress.Commands.add("seedUsers", (count: number) => {
           firstName: faker.person.firstName(),
           lastName: faker.person.lastName(),
           isAdmin: false,
-          isEnabled: true,
+          isEnabled: activated,
         }))
       )
-      .then((response) => response.count);
+      .select("id");
 
-    resolve(response);
+    const userIds: string[] | undefined = response.data?.map((user) => user.id);
+    const neverExpiredTimestamp = new Date(9999, 0).toISOString();
+
+    const sessions = await supabase
+      .from("sessions")
+      .insert(
+        userIds?.map((userId) => ({
+          sessionToken: faker.string.uuid(),
+          userId,
+          expires: neverExpiredTimestamp,
+        }))
+      )
+      .select("sessionToken");
+
+    resolve(sessions);
   });
 
   return cy.wrap(userInsert).then(() => {
@@ -87,14 +99,14 @@ Cypress.Commands.add("seedAdmin", () => {
       })
       .select("id");
 
-    const expiredTimestamp = new Date(9999, 0).toISOString();
+    const neverExpiredTimestamp = new Date(9999, 0).toISOString();
 
     const session = await supabase
       .from("sessions")
       .insert({
         sessionToken: faker.string.uuid(),
         userId: response.data?.[0]?.id,
-        expires: expiredTimestamp,
+        expires: neverExpiredTimestamp,
       })
       .select("sessionToken");
 

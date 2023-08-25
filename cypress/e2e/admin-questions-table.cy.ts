@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 
 beforeEach(() => {
-  cy.loadAdminSession();
+  cy.loadSession("e2e-admin@example.com");
 });
 
 describe("Admin Questions Page", () => {
@@ -15,7 +15,7 @@ describe("Admin Questions Page", () => {
     cy.visit("localhost:3000/admin/questions");
 
     cy.contains(".stat", "Total questions/answers").within(() => {
-      cy.get(".stat-value").contains("100");
+      cy.contains(".stat-value", "100").should("be.visible");
     });
 
     for (let i = 0; i < 10; i++) {
@@ -48,7 +48,7 @@ describe("Admin Questions Page", () => {
     cy.get("@chapter").then((chapter) => {
       cy.contains("[data-testid='question-entry']", "E2E-Modified").within(
         () => {
-          cy.contains(chapter as unknown as string);
+          cy.contains(chapter as unknown as string).should("be.visible");
         }
       );
     });
@@ -62,7 +62,7 @@ describe("Admin Questions Page", () => {
         cy.contains("Remove").click();
       });
     cy.contains(".stat", "Total questions/answers").within(() => {
-      cy.get(".stat-value").contains("99");
+      cy.contains(".stat-value", "99").should("be.visible");
     });
 
     cy.get('[data-title="10"]').click();
@@ -77,7 +77,7 @@ describe("Admin Questions Form", () => {
     cy.seedBooks(1);
   });
 
-  it.only("should be able to create a question", () => {
+  it("should be able to create a question", () => {
     cy.visit("localhost:3000/admin/questions");
 
     cy.wait(1000);
@@ -89,6 +89,8 @@ describe("Admin Questions Form", () => {
     cy.get("input[name='description']").clear().type("description");
     cy.contains("Save").click();
 
-    cy.contains("[data-testid='question-entry']", "Question 1");
+    cy.contains("[data-testid='question-entry']", "Question 1").should(
+      "be.visible"
+    );
   });
 });

@@ -6,7 +6,7 @@ describe("should authenticate user", () => {
   it("should redirect to login page when not logged in", () => {
     cy.visit("localhost:3000");
     cy.url().should("include", "/login");
-    cy.contains("Login");
+    cy.contains("Login").should("be.visible");
   });
 
   it("should login user", () => {
@@ -17,7 +17,7 @@ describe("should authenticate user", () => {
       .should("have.value", email);
     cy.get('button[type="submit"]').click();
     cy.wait(5000);
-    cy.contains("Check your email");
+    cy.contains("Check your email").should("be.visible");
   });
 
   it("should send an email containing a verification link", () => {
@@ -27,14 +27,14 @@ describe("should authenticate user", () => {
 
       expect(link).to.contains("/api/auth/callback/email");
       cy.visit(link!);
-      cy.contains(`Complete your Sign up`);
+      cy.contains(`Complete your Sign up`).should("be.visible");
       cy.reload();
-      cy.contains(`Complete your Sign up`);
+      cy.contains(`Complete your Sign up`).should("be.visible");
     });
   });
 
   it("should fill first name and last name", () => {
-    cy.loadUserSession();
+    cy.loadSession("e2e@example.com");
     cy.visit("localhost:3000");
     cy.url().should("include", "/register");
     cy.get('input[name="firstName"]').type("E2E");

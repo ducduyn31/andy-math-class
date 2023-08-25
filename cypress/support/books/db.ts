@@ -65,3 +65,52 @@ export const generateRandomBooksAndChapters = async ({
     chapters,
   };
 };
+
+interface RandomlyDistributionBooksToStudentsArgs {
+  domain: string;
+  key: string;
+}
+
+export const randomlyDistributionBooksToStudents = async ({
+  domain,
+  key,
+}: RandomlyDistributionBooksToStudentsArgs) => {
+  const nextAuthSchema = createClient(domain, key, {
+    db: {
+      schema: "next_auth",
+    },
+  });
+
+  const allStudents = await nextAuthSchema
+    .from("users")
+    .select("id")
+    .eq("isAdmin", false);
+
+  const studentIds: string[] = allStudents.data?.map(({ id }) => id) ?? [];
+
+  const publicSchema = createClient(domain, key, {
+    db: {
+      schema: "public",
+    },
+  });
+
+  const allBooks = await publicSchema.from("books").select("id");
+
+  const bookIds: string[] = allBooks.data?.map(({ id }) => id) ?? [];
+
+  // Randomly assign from 1 to max books to each student
+  const studentBooks = studentIds
+    .map((studentId) => {
+      const randomBookIds = faker.helpers.arrayElements(bookIds, {
+        min: 1,
+        max: bookIds.length,
+      });
+      return randomBookIds.map((bookId) => ({
+        user: studentId,
+        book: bookId,
+      }));
+    })
+    .flatMap((studentBook) => studentBook);
+
+  await publicSchema.from("user_books_assignation").insert(studentBooks);
+};

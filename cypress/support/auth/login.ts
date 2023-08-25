@@ -42,20 +42,18 @@ export const loadSession = (email: string) => {
       schema: "next_auth",
     },
   });
-  const sessionToken = new Cypress.Promise((resolve) => {
-    const token = supabase
+  const sessionToken = new Cypress.Promise(async (resolve) => {
+    const token = await supabase
       .from("sessions")
-      .select("sessionToken, users(email)")
+      .select("sessionToken, users!inner(email)")
       .eq("users.email", email)
       .order("expires", { ascending: false })
-      .limit(1)
-      .then((response) => {
-        return response.data?.[0]?.sessionToken;
-      });
-    resolve(token);
+      .limit(1);
+    resolve(token.data?.[0]?.sessionToken);
   });
 
   return cy.wrap(sessionToken).then((token) => {
+    expect(token).to.not.be.undefined;
     expect(token).to.not.be.null;
     cy.log(token as string);
     cy.setCookie("next-auth.session-token", token as string, {

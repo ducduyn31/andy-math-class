@@ -23,11 +23,10 @@ declare global {
   namespace Cypress {
     interface Chainable {
       getSignInTokenInMail(): Chainable<Response<string>>;
-      loadUserSession(): Chainable<unknown>;
-      loadAdminSession(): Chainable<unknown>;
+      loadSession(email: string): Chainable<unknown>;
       clearDB(): Chainable<unknown>;
       prepareUser(email?: string): Chainable<unknown>;
-      seedUsers(count: number): Chainable<unknown>;
+      seedUsers(count: number, activated?: boolean): Chainable<unknown>;
       prepareAdmin(): Chainable<unknown>;
       seedAdmin(): Chainable<unknown>;
       seedBooks(count: number, chaptersCount?: number): Chainable<unknown>;
@@ -36,6 +35,7 @@ declare global {
         questionsCount?: number,
         answersCount?: number
       ): Chainable<unknown>;
+      assignBooksToStudents(): Chainable<unknown>;
     }
   }
 }

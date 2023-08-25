@@ -65,9 +65,8 @@ export default function Home() {
         <div className="hero col-span-4">
           <div className="text-center hero-content">
             <button
-              className={`btn ${
-                selectedChapters.length === 0 ? "btn-disabled" : ""
-              }`}
+              className="btn"
+              disabled={selectedChapters.length === 0}
               onClick={startQuiz}
             >
               Start Quiz

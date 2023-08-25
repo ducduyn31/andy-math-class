@@ -100,7 +100,11 @@ export const UserModificationModal: React.FC<Props> = ({
             )}
 
             {availableBooks?.map((book, i) => (
-              <label key={i} className="label cursor-pointer relative">
+              <label
+                key={i}
+                className="label cursor-pointer relative"
+                data-testid="book-assignment"
+              >
                 <span className="btn w-full"> {book.name} </span>
                 <input
                   type="checkbox"
@@ -113,7 +117,7 @@ export const UserModificationModal: React.FC<Props> = ({
               </label>
             ))}
             <div className="modal-action mt-2">
-              <button onClick={closeCurrentModal} className="btn">
+              <button type="button" onClick={closeCurrentModal} className="btn">
                 Close
               </button>
 

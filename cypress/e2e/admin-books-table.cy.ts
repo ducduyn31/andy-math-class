@@ -1,5 +1,5 @@
 beforeEach(() => {
-  cy.loadAdminSession();
+  cy.loadSession("e2e-admin@example.com");
 });
 
 describe("Admin Books Page", () => {
@@ -13,7 +13,7 @@ describe("Admin Books Page", () => {
     cy.visit("localhost:3000/admin/books");
 
     cy.contains(".stat", "Total books").within(() => {
-      cy.get(".stat-value").contains("10");
+      cy.contains(".stat-value", "10").should("be.visible");
     });
 
     cy.get('[data-testid="book-entry"]').should("have.length", 5);
@@ -32,7 +32,7 @@ describe("Admin Books Page", () => {
     cy.get(".modal-box").should("be.visible");
     cy.get("input[name='name']").clear().type("E2E-Modified");
     cy.contains("Save").click();
-    cy.contains("E2E-Modified");
+    cy.contains("E2E-Modified").should("be.visible");
   });
 
   it("should be able to filter a book by name", () => {
@@ -40,12 +40,12 @@ describe("Admin Books Page", () => {
     cy.get("input[placeholder='Search by book name']")
       .clear()
       .type("E2E-Modified");
-    cy.get("button").contains("Filter").click();
+    cy.contains("button", "Filter").click();
     cy.get('[data-testid="book-entry"]').should("have.length", 1);
     cy.reload();
     cy.get('[data-testid="book-entry"]').should("have.length", 1);
     cy.get("input[placeholder='Search by book name']").clear();
-    cy.get("button").contains("Filter").click();
+    cy.contains("button", "Filter").click();
     cy.get('[data-testid="book-entry"]').should("have.length", 5);
   });
 
@@ -54,7 +54,7 @@ describe("Admin Books Page", () => {
     cy.get("input[placeholder='Search by book name']")
       .clear()
       .type("E2E-Modified");
-    cy.get("button").contains("Filter").click();
+    cy.contains("button", "Filter").click();
     cy.get('[data-testid="book-entry"]').should("have.length", 1);
     cy.get('[data-testid="book-entry"]')
       .first()
@@ -84,7 +84,7 @@ describe("Edit Chapters tests", () => {
     cy.get(".modal-box").should("be.visible");
     cy.get("input[name='name']").clear().type("E2E-Modified");
     cy.contains("Save").click();
-    cy.contains("E2E-Modified");
+    cy.contains("E2E-Modified").should("be.visible");
   });
 
   it("should be able to add a chapter", () => {
@@ -103,9 +103,9 @@ describe("Edit Chapters tests", () => {
     cy.contains("Add Chapter").click();
     cy.contains("Save").click();
 
-    cy.contains("Chapter 1");
-    cy.contains("Chapter 2");
-    cy.contains("Chapter 3");
+    cy.contains("Chapter 1").should("be.visible");
+    cy.contains("Chapter 2").should("be.visible");
+    cy.contains("Chapter 3").should("be.visible");
   });
 
   it("should be able to edit order of chapter", () => {
@@ -189,12 +189,9 @@ describe("Edit Chapters tests", () => {
     cy.get("input[placeholder='Chapter ...']").clear().type("Chapter 1.3");
     cy.contains("Add Chapter").click();
 
-    cy.get('[data-testid="chapter-entry"]')
-      .contains("Chapter 1.2")
-      .parent()
-      .within(() => {
-        cy.get('[data-testid="chapter-dropdown"]').click();
-      });
+    cy.contains('[data-testid="chapter-entry"]', "Chapter 1.2").within(() => {
+      cy.get('[data-testid="chapter-dropdown"]').click();
+    });
 
     cy.contains("Add new chapter").click();
     cy.get("input[placeholder='Chapter ...']").clear().type("Chapter 1.2.1");
