@@ -23,6 +23,7 @@ jobs:
           build: yarn build
           start: yarn start
         env:
+          NODE_ENV: test
           CYPRESS_MAILTRAP_TOKEN: ${{secrets.MAILTRAP_TOKEN}}
           CYPRESS_MAILTRAP_ACCOUNT_ID: ${{secrets.MAILTRAP_ACCOUNT_ID}}
           CYPRESS_MAILTRAP_INBOX_ID: ${{secrets.MAILTRAP_INBOX_ID}}
