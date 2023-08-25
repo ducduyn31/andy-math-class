@@ -19,13 +19,11 @@ export interface FormToggle {
 export const ChapterInput: React.FC<Props> = ({ book }) => {
   const {
     control,
-    getValues,
+    watch,
     formState: { errors },
   } = useFormContext<UpsertBookFormValues>();
 
-  const currentChapters = getValues("chapters");
-  const nextOrder =
-    currentChapters.filter((chapter) => !chapter.parentId).length + 1;
+  const currentChapters = watch("chapters");
 
   return (
     <div>
@@ -34,7 +32,7 @@ export const ChapterInput: React.FC<Props> = ({ book }) => {
         formChapters={currentChapters}
         book={book}
       />
-      <ChapterForm bookFormControl={control} order={nextOrder} />
+      <ChapterForm bookFormControl={control} />
       {errors.chapters && (
         <span className="text-xs text-error ml-2 mt-2">
           {errors.chapters.message}

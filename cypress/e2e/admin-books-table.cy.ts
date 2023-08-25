@@ -204,5 +204,13 @@ describe("Edit Chapters tests", () => {
     cy.contains("Add new chapter").click();
     cy.get("input[placeholder='Chapter ...']").clear().type("Chapter 1.2.3");
     cy.contains("Add Chapter").click();
+
+    cy.contains("Save").click();
+
+    cy.wait(1000);
+
+    cy.contains("Modify").click();
+    cy.contains("Modify").click();
+    cy.get('[data-testid="chapter-entry"]').should("have.length", 1);
   });
 });

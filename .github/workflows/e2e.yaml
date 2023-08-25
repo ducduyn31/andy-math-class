@@ -11,17 +11,27 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [ 1, 2 ]
     steps:
-      - uses: actions/checkout@v3
-      - uses: supabase/setup-cli@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Supabase
+        uses: supabase/setup-cli@v1
         with:
           version: latest
-      - run: supabase start
+      - name: Start database
+        run: supabase start
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
           build: yarn build
           start: yarn start
+          wait-on: 'http://localhost:3000'
+          record: true
+          parallel: true
         env:
           NODE_ENV: test
           CYPRESS_MAILTRAP_TOKEN: ${{secrets.MAILTRAP_TOKEN}}
@@ -29,4 +39,5 @@ jobs:
           CYPRESS_MAILTRAP_INBOX_ID: ${{secrets.MAILTRAP_INBOX_ID}}
           CYPRESS_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
           CYPRESS_SUPABASE_KEY: ${{secrets.SUPABASE_KEY}}
+          CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
 
