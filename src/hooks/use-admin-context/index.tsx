@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
-import { useGetAllForAdminQuery } from "@/gql/types";
 import {
   Book,
-  mapBooksFromGetAdminStat,
-  mapQuestionFromGetAdminStat,
-  mapUserFromGetAllForAdmin,
+  mapBooksFromQuery,
+  mapQuestionsFromQuery,
+  mapUserFromQuery,
   Question,
   User,
 } from "@/models";
+import { useFetchUsersRecursive } from "@/hooks/use-admin-context/fetch-users-recursive";
+import { useFetchBooksRecursive } from "@/hooks/use-admin-context/fetch-books-recursive";
+import { useFetchQuestionsRecursive } from "@/hooks/use-admin-context/fetch-questions-recursive";
 
 export type AdminContextType = {
   totalUsers: number;
@@ -89,24 +91,39 @@ const combineReferences = ({
 export const AdminProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const { data } = useGetAllForAdminQuery();
+  const { data: userData, completed: userFetchCompleted } =
+    useFetchUsersRecursive();
+  const { data: booksData, completed: bookFetchCompleted } =
+    useFetchBooksRecursive();
+  const { data: questionsData, completed: questionFetchCompleted } =
+    useFetchQuestionsRecursive();
 
   const { users, books, questions } = useMemo(() => {
-    if (!data)
+    const preReferencedUsers = mapUserFromQuery(userData);
+    const preReferencedBooks = mapBooksFromQuery(booksData);
+    const preReferencedQuestions = mapQuestionsFromQuery(questionsData);
+
+    if (!userFetchCompleted || !bookFetchCompleted || !questionFetchCompleted) {
       return {
         users: [],
         books: [],
         questions: [],
       };
-    const preReferencedUsers = mapUserFromGetAllForAdmin(data);
-    const preReferencedBooks = mapBooksFromGetAdminStat(data);
-    const preReferencedQuestions = mapQuestionFromGetAdminStat(data);
+    }
+
     return combineReferences({
       originUsers: preReferencedUsers,
       originBooks: preReferencedBooks,
       originQuestions: preReferencedQuestions,
     });
-  }, [data]);
+  }, [
+    bookFetchCompleted,
+    booksData,
+    questionFetchCompleted,
+    questionsData,
+    userData,
+    userFetchCompleted,
+  ]);
 
   return (
     <AdminContext.Provider

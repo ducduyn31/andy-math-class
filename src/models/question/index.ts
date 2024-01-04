@@ -2,8 +2,8 @@ import { Book, Chapter, createFullChapter, mapBook } from "@/models";
 import { Maybe } from "@/models/types";
 import {
   AnswersInQuestionFragment,
-  GetAllForAdminQuery,
   GetAnswersForQuestionQuery,
+  GetPageQuestionsQuery,
   GetQuestionsForChaptersQuery,
   ImagesOfQuestionFragment,
 } from "@/gql/types";
@@ -56,9 +56,11 @@ const mapAnswerImagesFromAnswersInQuestionFragment = (
   );
 };
 
-export const mapQuestionFromGetAdminStat = (
-  response: GetAllForAdminQuery
+export const mapQuestionsFromQuery = (
+  response?: GetPageQuestionsQuery
 ): Question[] => {
+  if (!response) return [];
+
   const questionNodes =
     response?.questionsCollection?.edges?.map((edge) => edge.node) || [];
 
