@@ -1,8 +1,8 @@
-before(() => {
-  cy.clearDB();
-});
-
 describe("should authenticate user", () => {
+  before(() => {
+    cy.clearDB();
+  });
+
   it("should redirect to login page when not logged in", () => {
     cy.visit("localhost:3000");
     cy.url().should("include", "/login");
