@@ -1,6 +1,6 @@
 import { User as _User } from "next-auth";
 import { Book, convertBook } from "@/models/book";
-import { AssignationsOfUserFragment, GetAllForAdminQuery } from "@/gql/types";
+import { AssignationsOfUserFragment, GetPageUsersQuery } from "@/gql/types";
 import { Maybe } from "@/models/types";
 
 export interface User {
@@ -37,9 +37,9 @@ const mapAssignedBooksFromAssignationsOfUserFragment = (
   );
 };
 
-export const mapUserFromGetAllForAdmin = (
-  response: GetAllForAdminQuery
-): User[] => {
+export const mapUserFromQuery = (response?: GetPageUsersQuery): User[] => {
+  if (!response) return [];
+
   const userNodes =
     response?.usersCollection?.edges.map((edge) => edge.node) || [];
 

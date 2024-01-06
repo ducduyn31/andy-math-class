@@ -2,8 +2,8 @@ import { Maybe } from "@/models/types";
 import {
   Books as _Book,
   ChaptersInBookFragment,
-  GetAllForAdminQuery,
   GetAssignedBooksQuery,
+  GetPageBooksQuery,
 } from "@/gql/types";
 import { Optionable } from "@/components/form-select-field";
 
@@ -129,9 +129,9 @@ export const mapChaptersFromChaptersInBookFragment = (
   return constructChapterTrees(chapters);
 };
 
-export const mapBooksFromGetAdminStat = (
-  response: GetAllForAdminQuery
-): Book[] => {
+export const mapBooksFromQuery = (response?: GetPageBooksQuery): Book[] => {
+  if (!response) return [];
+
   const bookNodes =
     response?.booksCollection?.edges?.map((edge) => edge?.node) || [];
 
