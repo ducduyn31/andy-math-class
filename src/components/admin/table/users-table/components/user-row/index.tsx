@@ -20,6 +20,10 @@ export const AdminUserRow = ({ user }: AdminUserRowProps) => {
   });
   const { openModal } = useModal(UserModificationModal);
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <tr className="hover" data-testid="user-entry">
       <th>
@@ -30,7 +34,7 @@ export const AdminUserRow = ({ user }: AdminUserRowProps) => {
         {assureNumber(assignedBooks?.length) > 0 ? (
           assignedBooks?.map((book, i) => (
             <span key={i} className={`badge badge-lg mr-1 ${book?.color}`}>
-              {book.name}
+              {book?.name}
             </span>
           ))
         ) : (
