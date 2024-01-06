@@ -1831,11 +1831,6 @@ export type Verification_TokensUpdateResponse = {
   records: Array<Verification_Tokens>;
 };
 
-export type CountStatQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CountStatQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', totalCount: number } | null, booksCollection?: { __typename?: 'booksConnection', totalCount: number } | null, questionsCollection?: { __typename?: 'questionsConnection', totalCount: number } | null };
-
 export type GetAssignedBooksByUserIdQueryVariables = Exact<{
   userId: Scalars['UUID'];
 }>;
@@ -2038,13 +2033,6 @@ export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null } }> } | null };
 
-export type GetUsersQueryVariables = Exact<{
-  currentCursor?: InputMaybe<Scalars['Cursor']>;
-}>;
-
-
-export type GetUsersQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', totalCount: number, edges: Array<{ __typename?: 'usersEdge', cursor: string, node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
-
 export type LoadLastSelectedChaptersQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -2067,35 +2055,6 @@ export type SignUpMutationVariables = Exact<{
 
 export type SignUpMutation = { __typename?: 'Mutation', updateusersCollection: { __typename?: 'usersUpdateResponse', records: Array<{ __typename?: 'users', id: any, firstName?: string | null, lastName?: string | null, email?: string | null, isEnabled?: boolean | null, isAdmin?: boolean | null }> } };
 
-export async function getServerPageCountStat
-    (options: Omit<Apollo.QueryOptions<CountStatQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
-        
-        
-        const data = await apolloClient.query<CountStatQuery>({ ...options, query: Operations.CountStatDocument });
-        
-        const apolloState = apolloClient.cache.extract();
-
-        return {
-            props: {
-                apolloState: apolloState,
-                data: data?.data,
-                error: data?.error ?? data?.errors ?? null,
-            },
-        };
-      }
-export type PageCountStatComp = React.FC<{data?: CountStatQuery, error?: Apollo.ApolloError}>;
-export const withPageCountStat = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<CountStatQuery, CountStatQueryVariables>) => (WrappedComponent:PageCountStatComp) : NextPage  => (props) => {
-                const router = useRouter()
-                const options = optionsFunc ? optionsFunc(router) : {};
-                const {data, error } = useQuery(Operations.CountStatDocument, options)    
-                return <WrappedComponent {...props} data={data} error={error} /> ;
-                   
-            }; 
-export const ssrCountStat = {
-      getServerPage: getServerPageCountStat,
-      withPage: withPageCountStat,
-      
-    }
 export async function getServerPageGetAssignedBooksByUserId
     (options: Omit<Apollo.QueryOptions<GetAssignedBooksByUserIdQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
         
@@ -2372,35 +2331,6 @@ export const withPageGetUser = (optionsFunc?: (router: NextRouter)=> QueryHookOp
 export const ssrGetUser = {
       getServerPage: getServerPageGetUser,
       withPage: withPageGetUser,
-      
-    }
-export async function getServerPageGetUsers
-    (options: Omit<Apollo.QueryOptions<GetUsersQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
-        
-        
-        const data = await apolloClient.query<GetUsersQuery>({ ...options, query: Operations.GetUsersDocument });
-        
-        const apolloState = apolloClient.cache.extract();
-
-        return {
-            props: {
-                apolloState: apolloState,
-                data: data?.data,
-                error: data?.error ?? data?.errors ?? null,
-            },
-        };
-      }
-export type PageGetUsersComp = React.FC<{data?: GetUsersQuery, error?: Apollo.ApolloError}>;
-export const withPageGetUsers = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) => (WrappedComponent:PageGetUsersComp) : NextPage  => (props) => {
-                const router = useRouter()
-                const options = optionsFunc ? optionsFunc(router) : {};
-                const {data, error } = useQuery(Operations.GetUsersDocument, options)    
-                return <WrappedComponent {...props} data={data} error={error} /> ;
-                   
-            }; 
-export const ssrGetUsers = {
-      getServerPage: getServerPageGetUsers,
-      withPage: withPageGetUsers,
       
     }
 export async function getServerPageLoadLastSelectedChapters

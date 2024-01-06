@@ -1827,11 +1827,6 @@ export type Verification_TokensUpdateResponse = {
   records: Array<Verification_Tokens>;
 };
 
-export type CountStatQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CountStatQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', totalCount: number } | null, booksCollection?: { __typename?: 'booksConnection', totalCount: number } | null, questionsCollection?: { __typename?: 'questionsConnection', totalCount: number } | null };
-
 export type GetAssignedBooksByUserIdQueryVariables = Exact<{
   userId: Scalars['UUID'];
 }>;
@@ -2034,13 +2029,6 @@ export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null } }> } | null };
 
-export type GetUsersQueryVariables = Exact<{
-  currentCursor?: InputMaybe<Scalars['Cursor']>;
-}>;
-
-
-export type GetUsersQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', totalCount: number, edges: Array<{ __typename?: 'usersEdge', cursor: string, node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
-
 export type LoadLastSelectedChaptersQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -2135,46 +2123,6 @@ export const AssignationsOfUserFragmentDoc = gql`
   }
 }
     `;
-export const CountStatDocument = gql`
-    query CountStat {
-  usersCollection {
-    totalCount
-  }
-  booksCollection {
-    totalCount
-  }
-  questionsCollection {
-    totalCount
-  }
-}
-    `;
-
-/**
- * __useCountStatQuery__
- *
- * To run a query within a React component, call `useCountStatQuery` and pass it any options that fit your needs.
- * When your component renders, `useCountStatQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCountStatQuery({
- *   variables: {
- *   },
- * });
- */
-export function useCountStatQuery(baseOptions?: Apollo.QueryHookOptions<CountStatQuery, CountStatQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CountStatQuery, CountStatQueryVariables>(CountStatDocument, options);
-      }
-export function useCountStatLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CountStatQuery, CountStatQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CountStatQuery, CountStatQueryVariables>(CountStatDocument, options);
-        }
-export type CountStatQueryHookResult = ReturnType<typeof useCountStatQuery>;
-export type CountStatLazyQueryHookResult = ReturnType<typeof useCountStatLazyQuery>;
-export type CountStatQueryResult = Apollo.QueryResult<CountStatQuery, CountStatQueryVariables>;
 export const GetAssignedBooksByUserIdDocument = gql`
     query GetAssignedBooksByUserId($userId: UUID!) {
   user_books_assignationCollection(filter: {user: {eq: $userId}}) {
@@ -3369,64 +3317,6 @@ export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
-export const GetUsersDocument = gql`
-    query GetUsers($currentCursor: Cursor) {
-  usersCollection(
-    orderBy: {firstName: AscNullsLast}
-    first: 50
-    after: $currentCursor
-  ) {
-    totalCount
-    edges {
-      cursor
-      node {
-        nodeId
-        id
-        firstName
-        email
-        lastName
-        isAdmin
-        isEnabled
-        user_books_assignationCollection {
-          ...assignationsOfUser
-        }
-      }
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-  }
-}
-    ${AssignationsOfUserFragmentDoc}`;
-
-/**
- * __useGetUsersQuery__
- *
- * To run a query within a React component, call `useGetUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUsersQuery({
- *   variables: {
- *      currentCursor: // value for 'currentCursor'
- *   },
- * });
- */
-export function useGetUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
-      }
-export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
-        }
-export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
-export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
-export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const LoadLastSelectedChaptersDocument = gql`
     query LoadLastSelectedChapters($email: String!) {
   chapters_select_stateCollection(
