@@ -29,7 +29,7 @@ export const AdminUserRow = ({ user }: AdminUserRowProps) => {
       <td>
         {assureNumber(assignedBooks?.length) > 0 ? (
           assignedBooks?.map((book, i) => (
-            <span key={i} className={`badge badge-lg mr-1 ${book.color}`}>
+            <span key={i} className={`badge badge-lg mr-1 ${book?.color}`}>
               {book.name}
             </span>
           ))
