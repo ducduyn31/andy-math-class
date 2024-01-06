@@ -20,16 +20,17 @@ export const AdminBookRow = ({ book }: PropType) => {
     setLimitShowingChapters(limitShowingChapters + 5);
   };
 
+  if (!book) {
+    return null;
+  }
+
   return (
     <tr className="hover" data-testid="book-entry">
       <th>{book.name}</th>
       <td>
         {book.chapters.length > 0 ? (
           book.chapters.slice(0, limitShowingChapters).map((each) => (
-            <span
-              key={each.id}
-              className={`badge badge-lg mr-1 ${book?.color}`}
-            >
+            <span key={each.id} className={`badge badge-lg mr-1 ${book.color}`}>
               {each.name}
             </span>
           ))
