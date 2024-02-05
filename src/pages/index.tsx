@@ -42,14 +42,6 @@ export default function Home() {
     return <Loading type="page" />;
   }
 
-  useEffect(() => {
-    if (hotjar.initialized() && me?.id) {
-      hotjar.identify(me.id, {
-        email: me.email,
-      });
-    }
-  }, []);
-
   if (!isAdmin && !me?.isEnabled) {
     return (
       <div className="hero min-h-screen bg-base-200">
