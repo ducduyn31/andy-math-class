@@ -11,6 +11,7 @@ export const useRemoveBook = (args?: Args) => {
         args.onSuccess();
       }
     },
+    refetchQueries: ["CountRecords"],
     update: (cache, { data }) => {
       if (!data?.deleteFrombooksCollection?.records?.[0]) return;
 

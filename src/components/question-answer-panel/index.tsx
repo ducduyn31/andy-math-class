@@ -29,7 +29,7 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
     `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/class-questions/${id}`;
 
   return (
-    <div className={"flex justify-center items-center"}>
+    <div className="flex justify-center items-center">
       <div className="card lg:w-9/12 bg-base-100 shadow-xl whitespace-normal">
         <div className="card-body">
           {!finished && (

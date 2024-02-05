@@ -3,8 +3,8 @@ import { Maybe } from "@/models/types";
 import {
   AnswersInQuestionFragment,
   GetAnswersForQuestionQuery,
-  GetPageQuestionsQuery,
   GetQuestionsForChaptersQuery,
+  GetQuestionsQuery,
   ImagesOfQuestionFragment,
 } from "@/gql/types";
 import { assureNonNull } from "@/helpers/array";
@@ -57,7 +57,7 @@ const mapAnswerImagesFromAnswersInQuestionFragment = (
 };
 
 export const mapQuestionsFromQuery = (
-  response?: GetPageQuestionsQuery
+  response?: GetQuestionsQuery
 ): Question[] => {
   if (!response) return [];
 

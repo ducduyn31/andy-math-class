@@ -1,27 +1,32 @@
 import { useGetUserQuery } from "@/gql/types";
 import { assureNumber } from "@/helpers/number";
 import { mapUser } from "@/models";
+import { useSession } from "next-auth/react";
 
 export const useGetMe = () => {
-  const { data, loading } = useGetUserQuery();
+  const { data: session } = useSession();
+  const myEmail = session?.user?.email;
+  const { data, loading } = useGetUserQuery({
+    variables: {
+      email: {
+        eq: myEmail,
+      },
+    },
+    skip: !myEmail,
+  });
 
   const currentUser = data?.usersCollection?.edges[0].node;
-  const isAdmin = assureNumber(data?.usersCollection?.edges) > 0;
-
-  const userGQL = !isAdmin ? currentUser : null;
 
   return {
     loading,
-    isAdmin,
-    me: userGQL
-      ? mapUser({
-          isAdmin,
-          isEnabled: !!currentUser?.isEnabled,
-          firstName: currentUser?.firstName || "",
-          lastName: currentUser?.lastName || "",
-          email: currentUser?.email || "",
-          id: currentUser?.id || "",
-        })
-      : null,
+    isAdmin: currentUser?.isAdmin || false,
+    me: mapUser({
+      isAdmin: !!currentUser?.isAdmin,
+      isEnabled: !!currentUser?.isEnabled,
+      firstName: currentUser?.firstName || "",
+      lastName: currentUser?.lastName || "",
+      email: currentUser?.email || "",
+      id: currentUser?.id || "",
+    }),
   };
 };

@@ -41,6 +41,7 @@ export const useUpsertBook = (
     { data: insertBookData, loading: insertBookLoading },
   ] = useCreateNewBooksMutation({
     update: updateCacheOnInsertBook,
+    refetchQueries: ["CountRecords"],
   });
   const [updateBookGQL, { data: updateBookData, loading: updateBookLoading }] =
     useUpdateExistingBookMutation({

@@ -2,22 +2,34 @@ import React from "react";
 import { Question } from "@/models";
 import { useModal } from "@/hooks/use-modal";
 import { QuestionModificationModal } from "@/components/admin/table/questions-table/components/question-edit";
-import { useAdminContext } from "@/hooks/use-admin-context";
 import { useRemoveQuestion } from "@/hooks/use-remove-question";
 import toast from "react-hot-toast";
+import { VirtualItem } from "@/helpers/virtual/core";
 
 interface Props {
   question: Question;
+  rowConfig: VirtualItem;
+  index: number;
 }
-export const AdminQuestionRow: React.FC<Props> = ({ question }) => {
+export const AdminQuestionRow: React.FC<Props> = ({
+  question,
+  rowConfig,
+  index,
+}) => {
   const { openModal } = useModal(QuestionModificationModal);
-  const { books } = useAdminContext();
   const { removeQuestion, loading } = useRemoveQuestion({
     onSuccess: () => toast.success("Question removed"),
   });
   const { name, chapter, book } = question;
   return (
-    <tr className="hover" data-testid="question-entry">
+    <tr
+      className="hover"
+      style={{
+        height: `${rowConfig.size}px`,
+        transform: `translateY(${rowConfig.start - index * rowConfig.size}px)`,
+      }}
+      data-testid="question-entry"
+    >
       <th>{name}</th>
       <td>
         <span className={`badge badge-lg mr-1 ${book?.color || ""}`}>
@@ -29,7 +41,7 @@ export const AdminQuestionRow: React.FC<Props> = ({ question }) => {
         <label
           htmlFor="question-modification-modal"
           className="flex link link-primary font-bold text-sm no-underline"
-          onClick={() => openModal({ question, books })}
+          onClick={() => openModal({ question })}
         >
           Modify
           <svg

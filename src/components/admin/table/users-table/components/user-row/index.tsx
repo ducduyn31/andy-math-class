@@ -3,15 +3,16 @@ import { User } from "@/models";
 import { useUpdateUser } from "@/hooks/use-update-user";
 import { useModal } from "@/hooks/use-modal";
 import { UserModificationModal } from "@/components/admin/table/users-table/components/user-edit";
-import { useAdminContext } from "@/hooks/use-admin-context";
-import { assureNumber } from "@/helpers/number";
+import { VirtualItem } from "@/helpers/virtual/core";
+import { AssignedBooksList } from "@/components/admin/table/users-table/components/user-row/components/assigned-books-list";
 
 interface AdminUserRowProps {
   user: User;
+  rowConfig: VirtualItem;
+  index: number;
 }
 
-export const AdminUserRow = ({ user }: AdminUserRowProps) => {
-  const { books } = useAdminContext();
+export const AdminUserRow = ({ user, rowConfig, index }: AdminUserRowProps) => {
   const { id, firstName, lastName, email, assignedBooks, isEnabled } = user;
   const { updateUser } = useUpdateUser({
     onSuccess: () => {
@@ -25,22 +26,19 @@ export const AdminUserRow = ({ user }: AdminUserRowProps) => {
   }
 
   return (
-    <tr className="hover" data-testid="user-entry">
+    <tr
+      className="hover"
+      data-testid="user-entry"
+      style={{
+        height: `${rowConfig.size}px`,
+        transform: `translateY(${rowConfig.start - index * rowConfig.size}px)`,
+      }}
+    >
       <th>
         {firstName} {lastName}
       </th>
       <td>{email}</td>
-      <td>
-        {assureNumber(assignedBooks?.length) > 0 ? (
-          assignedBooks?.map((book, i) => (
-            <span key={i} className={`badge badge-lg mr-1 ${book?.color}`}>
-              {book?.name}
-            </span>
-          ))
-        ) : (
-          <i>No book assigned</i>
-        )}
-      </td>
+      <AssignedBooksList books={assignedBooks} heightLimit={rowConfig.size} />
       <td>
         <label
           htmlFor="user-modification-modal"
@@ -48,7 +46,6 @@ export const AdminUserRow = ({ user }: AdminUserRowProps) => {
           onClick={() =>
             openModal({
               user,
-              availableBooks: books,
             })
           }
         >

@@ -1,6 +1,6 @@
 import { User as _User } from "next-auth";
 import { Book, convertBook } from "@/models/book";
-import { AssignationsOfUserFragment, GetPageUsersQuery } from "@/gql/types";
+import { AssignationsOfUserFragment, GetUsersQuery } from "@/gql/types";
 import { Maybe } from "@/models/types";
 
 export interface User {
@@ -32,12 +32,13 @@ const mapAssignedBooksFromAssignationsOfUserFragment = (
     assignations?.edges?.map((assignationNode) => {
       return convertBook({
         id: assignationNode?.node?.book || "",
+        name: assignationNode?.node?.books?.name || "",
       });
     }) || []
   );
 };
 
-export const mapUserFromQuery = (response?: GetPageUsersQuery): User[] => {
+export const mapUserFromGetUsersQuery = (response?: GetUsersQuery): User[] => {
   if (!response) return [];
 
   const userNodes =

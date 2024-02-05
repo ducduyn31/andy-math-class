@@ -21,7 +21,7 @@ export const SidedQuestionFilter: React.FC = () => {
   }, [addChaptersIgnoreChildren, assignedBooks, lastSelectedChapters]);
 
   return (
-    <aside className="bg-base-300 max-h-[90vh] overflow-y-scroll">
+    <aside className="bg-base-300 h-screen overflow-y-scroll">
       <ul className="menu">
         {assignedBooks.map((book) => (
           <li key={book.name}>

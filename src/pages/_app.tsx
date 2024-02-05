@@ -1,15 +1,15 @@
 import "@/styles/globals.css";
 
-import type { ReactElement, ReactNode } from "react";
-import { useMemo } from "react";
+import { ReactElement, ReactNode, useMemo, useState } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { SessionProvider, useSession } from "next-auth/react";
 import { SupabaseProvider } from "@/hooks/use-supabase-context";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import { QueryClient } from "@tanstack/query-core";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { ApolloClient, ApolloProvider } from "@apollo/client";
 import { ModalProvider } from "@/hooks/use-modal";
+import { prepareCache } from "@/helpers/gql_cache";
+import { Loading } from "@/components/loading";
+import { useDebounce } from "react-use";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -21,12 +21,14 @@ type AppPropsWithLayout = AppProps & {
 
 const WrappedClientProvider = ({ children }: { children: ReactNode }) => {
   const session = useSession();
+  const [loading, setLoading] = useState(false);
   const apolloClient = useMemo(() => {
+    setLoading(true);
     let client: ApolloClient<any>;
     if (session.data?.supabaseAccessToken) {
       client = new ApolloClient({
         uri: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/graphql/v1`,
-        cache: new InMemoryCache(),
+        cache: prepareCache(),
         connectToDevTools: true,
         headers: {
           apiKey: `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
@@ -36,35 +38,44 @@ const WrappedClientProvider = ({ children }: { children: ReactNode }) => {
     } else {
       client = new ApolloClient({
         uri: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/graphql/v1`,
-        cache: new InMemoryCache(),
+        cache: prepareCache(),
         connectToDevTools: false,
         headers: {
           apiKey: `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
         },
       });
     }
-    client.resetStore();
     return client;
   }, [session.data?.supabaseAccessToken]);
 
+  useDebounce(
+    () => {
+      apolloClient.clearStore().finally(() => {
+        setLoading(false);
+      });
+    },
+    200,
+    [apolloClient]
+  );
+
+  if (loading) {
+    return <Loading type="page" />;
+  }
   return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
 };
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
-  const queryClient = useMemo(() => new QueryClient({}), []);
 
   return (
     <SessionProvider session={pageProps.session}>
       <SupabaseProvider>
-        <QueryClientProvider client={queryClient}>
-          <WrappedClientProvider>
-            <ModalProvider>
-              {getLayout(<Component {...pageProps} />)}
-            </ModalProvider>
-          </WrappedClientProvider>
-        </QueryClientProvider>
+        <WrappedClientProvider>
+          <ModalProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </ModalProvider>
+        </WrappedClientProvider>
       </SupabaseProvider>
     </SessionProvider>
   );
