@@ -30,17 +30,17 @@ export default function Home() {
     }
   }, [shouldShowQuestions, getQuestions, selectedChapters]);
 
-  if (loadSelectedChapters || loadGetMe) {
-    return <Loading type="page" />;
-  }
-
   useEffect(() => {
     if (hotjar.initialized() && me?.id) {
       hotjar.identify(me.id, {
         email: me.email,
       });
     }
-  }, []);
+  }, [me.email, me.id]);
+
+  if (loadSelectedChapters || loadGetMe) {
+    return <Loading type="page" />;
+  }
 
   if (!isAdmin && !me?.isEnabled) {
     return (
