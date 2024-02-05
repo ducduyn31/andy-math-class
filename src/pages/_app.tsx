@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 
-import { ReactElement, ReactNode, useMemo, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useMemo, useState } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { SessionProvider, useSession } from "next-auth/react";
@@ -10,6 +10,7 @@ import { ModalProvider } from "@/hooks/use-modal";
 import { prepareCache } from "@/helpers/gql_cache";
 import { Loading } from "@/components/loading";
 import { useDebounce } from "react-use";
+import { hotjar } from "react-hotjar";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -67,6 +68,19 @@ const WrappedClientProvider = ({ children }: { children: ReactNode }) => {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
+
+  useEffect(() => {
+    if (
+      !hotjar.initialized() &&
+      process.env.NEXT_PUBLIC_HOTJAR_ID &&
+      process.env.NEXT_PUBLIC_HOTJAR_SV
+    ) {
+      hotjar.initialize(
+        +process.env.NEXT_PUBLIC_HOTJAR_ID,
+        +process.env.NEXT_PUBLIC_HOTJAR_SV
+      );
+    }
+  }, []);
 
   return (
     <SessionProvider session={pageProps.session}>
