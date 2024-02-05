@@ -21,6 +21,7 @@ describe("Admin Books Page", () => {
 
   it("should be able to edit a book", () => {
     cy.visit("localhost:3000/admin/books");
+    cy.toggleOffSideBarIfOn();
     cy.get('[data-testid="book-entry"]')
       .first()
       .within(() => {
@@ -35,6 +36,7 @@ describe("Admin Books Page", () => {
 
   it("should be able to filter a book by name", () => {
     cy.visit("localhost:3000/admin/books");
+    cy.toggleOffSideBarIfOn();
 
     cy.get('[data-testid="filter"]').click();
     cy.get("input[placeholder='Search by book name']")
@@ -48,6 +50,7 @@ describe("Admin Books Page", () => {
 
   it("should be able to delete a book", () => {
     cy.visit("localhost:3000/admin/books");
+    cy.toggleOffSideBarIfOn();
 
     cy.get('[data-testid="filter"]').click();
     cy.get("input[placeholder='Search by book name']")
@@ -78,6 +81,7 @@ describe("Edit Chapters tests", () => {
 
   it("should be able to add a book", () => {
     cy.visit("localhost:3000/admin/books");
+    cy.toggleOffSideBarIfOn();
     cy.contains("Add book").click();
     cy.contains("Add book").click();
     cy.get(".modal-box").should("be.visible");
@@ -88,6 +92,7 @@ describe("Edit Chapters tests", () => {
 
   it("should be able to add a chapter", () => {
     cy.visit("localhost:3000/admin/books");
+    cy.toggleOffSideBarIfOn();
     cy.contains("Modify").click();
     cy.contains("Modify").click();
     cy.get(".modal-box").should("be.visible");
@@ -109,6 +114,7 @@ describe("Edit Chapters tests", () => {
 
   it("should be able to edit order of chapter", () => {
     cy.visit("localhost:3000/admin/books");
+    cy.toggleOffSideBarIfOn();
     cy.contains("Modify").click();
     cy.contains("Modify").click();
     cy.get(".modal-box").should("be.visible");
@@ -145,6 +151,7 @@ describe("Edit Chapters tests", () => {
 
   it("should be able to delete chapters", () => {
     cy.visit("localhost:3000/admin/books");
+    cy.toggleOffSideBarIfOn();
     cy.contains("Modify").click();
     cy.contains("Modify").click();
     cy.get(".modal-box").should("be.visible");
@@ -162,6 +169,7 @@ describe("Edit Chapters tests", () => {
 
   it("should be able to add nested chapters", () => {
     cy.visit("localhost:3000/admin/books");
+    cy.toggleOffSideBarIfOn();
     cy.contains("Modify").click();
     cy.contains("Modify").click();
     cy.get(".modal-box").should("be.visible");

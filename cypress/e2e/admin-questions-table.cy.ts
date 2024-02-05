@@ -21,6 +21,7 @@ describe("Admin Questions Page", () => {
 
   it("should be able to edit a question", () => {
     cy.visit("localhost:3000/admin/questions");
+    cy.toggleOffSideBarIfOn();
 
     cy.get('[data-testid="question-entry"]')
       .first()
@@ -59,6 +60,7 @@ describe("Admin Questions Page", () => {
 
   it("should be able to delete a question", () => {
     cy.visit("localhost:3000/admin/questions");
+    cy.toggleOffSideBarIfOn();
     cy.get('[data-testid="question-entry"]')
       .first()
       .within(() => {
@@ -79,6 +81,7 @@ describe("Admin Questions Form", () => {
 
   it("should be able to create a question", () => {
     cy.visit("localhost:3000/admin/questions");
+    cy.toggleOffSideBarIfOn();
 
     cy.wait(1000);
     cy.contains("Add Question", { matchCase: false }).click();

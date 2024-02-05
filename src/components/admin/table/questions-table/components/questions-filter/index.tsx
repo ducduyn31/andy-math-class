@@ -22,9 +22,11 @@ export const QuestionsFilter: React.FC<Props> = () => {
     filterQuestions?.();
   };
 
+  const selectedBook = watch("book");
+
   useEffect(() => {
     setValue("chapter", SelectOptions.ANY_DEFAULT);
-  }, [setValue, watch("book")]);
+  }, [setValue, selectedBook]);
 
   return (
     <div
@@ -57,7 +59,7 @@ export const QuestionsFilter: React.FC<Props> = () => {
           render={({ field }) => (
             <FormSelectChapter
               label="Filter by chapter"
-              bookSelection={watch("book")}
+              bookSelection={selectedBook}
               {...field}
             />
           )}

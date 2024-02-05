@@ -17,7 +17,7 @@ export default function Home() {
   const { saveSelectedChapters, loading: loadSelectedChapters } =
     usePersistSelectedChapters();
   const { me, isAdmin, loading: loadGetMe } = useGetMe();
-  const [isToggled] = useSidebarToggle();
+  const [isToggled, setToggle] = useSidebarToggle();
 
   useEffect(() => {
     setShouldShowQuestions(false);
@@ -62,6 +62,12 @@ export default function Home() {
         checked={isToggled}
       />
       <div className="drawer-side pt-16">
+        <label
+          htmlFor="my-drawer"
+          aria-label="close sidebar"
+          className="drawer-overlay"
+          onClick={() => setToggle(false)}
+        />
         <SidedQuestionFilter />
       </div>
       {switchCaseReturn(

@@ -36,6 +36,7 @@ declare global {
         answersCount?: number
       ): Chainable<unknown>;
       assignBooksToStudents(): Chainable<unknown>;
+      toggleOffSideBarIfOn(): Chainable<unknown>;
     }
   }
 }
