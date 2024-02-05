@@ -9,7 +9,6 @@ import { usePersistSelectedChapters } from "@/hooks/use-persist-selected-chapter
 import { Loading } from "@/components/loading";
 import { useSidebarToggle } from "@/components/navbar/components/sidebar-toggle";
 import { switchCaseReturn } from "@/helpers/array";
-import { hotjar } from "react-hotjar";
 
 export default function Home() {
   const { selectedChapters } = useBookContext();
@@ -29,14 +28,6 @@ export default function Home() {
       getQuestions(selectedChapters);
     }
   }, [shouldShowQuestions, getQuestions, selectedChapters]);
-
-  useEffect(() => {
-    if (hotjar.initialized() && me?.id) {
-      hotjar.identify(me.id, {
-        email: me.email,
-      });
-    }
-  }, [me.email, me.id]);
 
   if (loadSelectedChapters || loadGetMe) {
     return <Loading type="page" />;
