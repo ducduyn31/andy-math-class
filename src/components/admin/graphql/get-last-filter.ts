@@ -50,6 +50,7 @@ export default gql`
     edges {
       node {
         nodeId
+        id
         state
         email
       }

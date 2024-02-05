@@ -28,7 +28,7 @@ const RegisterPage: NextPageWithLayout = () => {
   });
 
   return (
-    <div className="flex justify-center mt-5">
+    <div className="flex justify-center items-center h-1/2">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="card-title">Complete your Sign up</h2>

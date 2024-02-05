@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export default gql`
-  query GetUser {
-    usersCollection {
+  query GetUser($email: StringFilter!) {
+    usersCollection(filter: { email: $email }) {
       edges {
         node {
           nodeId
@@ -11,6 +11,7 @@ export default gql`
           email
           lastName
           isEnabled
+          isAdmin
         }
       }
     }

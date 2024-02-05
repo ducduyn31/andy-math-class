@@ -1831,6 +1831,11 @@ export type Verification_TokensUpdateResponse = {
   records: Array<Verification_Tokens>;
 };
 
+export type CountRecordsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CountRecordsQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', totalCount: number } | null, booksCollection?: { __typename?: 'booksConnection', totalCount: number } | null, questionsCollection?: { __typename?: 'questionsConnection', totalCount: number } | null };
+
 export type GetAssignedBooksByUserIdQueryVariables = Exact<{
   userId: Scalars['UUID'];
 }>;
@@ -1843,9 +1848,9 @@ export type GetLastFilterQueryVariables = Exact<{
 }>;
 
 
-export type GetLastFilterQuery = { __typename?: 'Query', userResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, state?: any | null, email?: string | null } }> } | null } }> } | null, bookResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, state?: any | null, email?: string | null } }> } | null } }> } | null, questionResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, state?: any | null, email?: string | null } }> } | null } }> } | null };
+export type GetLastFilterQuery = { __typename?: 'Query', userResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, id: any, state?: any | null, email?: string | null } }> } | null } }> } | null, bookResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, id: any, state?: any | null, email?: string | null } }> } | null } }> } | null, questionResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, id: any, state?: any | null, email?: string | null } }> } | null } }> } | null };
 
-export type FilterStateOfUserFragment = { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, state?: any | null, email?: string | null } }> };
+export type FilterStateOfUserFragment = { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, id: any, state?: any | null, email?: string | null } }> };
 
 export type CreateNewBooksMutationVariables = Exact<{
   booksInput: Array<BooksInsertInput> | BooksInsertInput;
@@ -1994,44 +1999,53 @@ export type GetAssignedBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null, order?: number | null } }> } | null } }> } | null };
 
-export type GetPageBooksQueryVariables = Exact<{
+export type GetBooksQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
+  bookName?: InputMaybe<StringFilter>;
+  bookIds?: InputMaybe<UuidFilter>;
 }>;
 
 
-export type GetPageBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null, order?: number | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
+export type GetBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null, order?: number | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
 
 export type ChaptersInBookFragment = { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null, order?: number | null } }> };
 
 export type AssignationsInBookFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> };
 
-export type GetPageQuestionsQueryVariables = Exact<{
+export type GetQuestionsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
+  bookId?: InputMaybe<UuidFilter>;
+  chapterId?: InputMaybe<UuidFilter>;
 }>;
 
 
-export type GetPageQuestionsQuery = { __typename?: 'Query', questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null, order?: number | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null, order?: number | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
+export type GetQuestionsQuery = { __typename?: 'Query', questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null, order?: number | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null, order?: number | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
 
 export type AnswersInQuestionFragment = { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null, order?: number | null } }> };
 
 export type ImagesOfQuestionFragment = { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null, order?: number | null } }> };
 
-export type GetPageUsersQueryVariables = Exact<{
+export type GetUsersQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
+  firstNameFilter?: InputMaybe<StringFilter>;
+  emailFilter?: InputMaybe<StringFilter>;
+  statusFilter?: InputMaybe<BooleanFilter>;
 }>;
 
 
-export type GetPageUsersQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
+export type GetUsersQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null, books?: { __typename?: 'books', name?: string | null } | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
 
-export type AssignationsOfUserFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> };
+export type AssignationsOfUserFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null, books?: { __typename?: 'books', name?: string | null } | null } }> };
 
-export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetUserQueryVariables = Exact<{
+  email: StringFilter;
+}>;
 
 
-export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null } }> } | null };
+export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null, isAdmin?: boolean | null } }> } | null };
 
 export type LoadLastSelectedChaptersQueryVariables = Exact<{
   email: Scalars['String'];
@@ -2055,6 +2069,35 @@ export type SignUpMutationVariables = Exact<{
 
 export type SignUpMutation = { __typename?: 'Mutation', updateusersCollection: { __typename?: 'usersUpdateResponse', records: Array<{ __typename?: 'users', id: any, firstName?: string | null, lastName?: string | null, email?: string | null, isEnabled?: boolean | null, isAdmin?: boolean | null }> } };
 
+export async function getServerPageCountRecords
+    (options: Omit<Apollo.QueryOptions<CountRecordsQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
+        
+        
+        const data = await apolloClient.query<CountRecordsQuery>({ ...options, query: Operations.CountRecordsDocument });
+        
+        const apolloState = apolloClient.cache.extract();
+
+        return {
+            props: {
+                apolloState: apolloState,
+                data: data?.data,
+                error: data?.error ?? data?.errors ?? null,
+            },
+        };
+      }
+export type PageCountRecordsComp = React.FC<{data?: CountRecordsQuery, error?: Apollo.ApolloError}>;
+export const withPageCountRecords = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<CountRecordsQuery, CountRecordsQueryVariables>) => (WrappedComponent:PageCountRecordsComp) : NextPage  => (props) => {
+                const router = useRouter()
+                const options = optionsFunc ? optionsFunc(router) : {};
+                const {data, error } = useQuery(Operations.CountRecordsDocument, options)    
+                return <WrappedComponent {...props} data={data} error={error} /> ;
+                   
+            }; 
+export const ssrCountRecords = {
+      getServerPage: getServerPageCountRecords,
+      withPage: withPageCountRecords,
+      
+    }
 export async function getServerPageGetAssignedBooksByUserId
     (options: Omit<Apollo.QueryOptions<GetAssignedBooksByUserIdQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
         
@@ -2218,10 +2261,10 @@ export const ssrGetAssignedBooks = {
       
     }
 export async function getServerPageGetBooks
-    (options: Omit<Apollo.QueryOptions<GetPageBooksQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
+    (options: Omit<Apollo.QueryOptions<GetBooksQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
         
         
-        const data = await apolloClient.query<GetPageBooksQuery>({ ...options, query: Operations.GetPageBooksDocument });
+        const data = await apolloClient.query<GetBooksQuery>({ ...options, query: Operations.GetBooksDocument });
         
         const apolloState = apolloClient.cache.extract();
 
@@ -2233,11 +2276,11 @@ export async function getServerPageGetBooks
             },
         };
       }
-export type PageGetBooksComp = React.FC<{data?: GetPageBooksQuery, error?: Apollo.ApolloError}>;
-export const withPageGetBooks = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<GetPageBooksQuery, GetPageBooksQueryVariables>) => (WrappedComponent:PageGetBooksComp) : NextPage  => (props) => {
+export type PageGetBooksComp = React.FC<{data?: GetBooksQuery, error?: Apollo.ApolloError}>;
+export const withPageGetBooks = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>) => (WrappedComponent:PageGetBooksComp) : NextPage  => (props) => {
                 const router = useRouter()
                 const options = optionsFunc ? optionsFunc(router) : {};
-                const {data, error } = useQuery(Operations.GetPageBooksDocument, options)    
+                const {data, error } = useQuery(Operations.GetBooksDocument, options)    
                 return <WrappedComponent {...props} data={data} error={error} /> ;
                    
             }; 
@@ -2247,10 +2290,10 @@ export const ssrGetBooks = {
       
     }
 export async function getServerPageGetQuestions
-    (options: Omit<Apollo.QueryOptions<GetPageQuestionsQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
+    (options: Omit<Apollo.QueryOptions<GetQuestionsQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
         
         
-        const data = await apolloClient.query<GetPageQuestionsQuery>({ ...options, query: Operations.GetPageQuestionsDocument });
+        const data = await apolloClient.query<GetQuestionsQuery>({ ...options, query: Operations.GetQuestionsDocument });
         
         const apolloState = apolloClient.cache.extract();
 
@@ -2262,11 +2305,11 @@ export async function getServerPageGetQuestions
             },
         };
       }
-export type PageGetQuestionsComp = React.FC<{data?: GetPageQuestionsQuery, error?: Apollo.ApolloError}>;
-export const withPageGetQuestions = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<GetPageQuestionsQuery, GetPageQuestionsQueryVariables>) => (WrappedComponent:PageGetQuestionsComp) : NextPage  => (props) => {
+export type PageGetQuestionsComp = React.FC<{data?: GetQuestionsQuery, error?: Apollo.ApolloError}>;
+export const withPageGetQuestions = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<GetQuestionsQuery, GetQuestionsQueryVariables>) => (WrappedComponent:PageGetQuestionsComp) : NextPage  => (props) => {
                 const router = useRouter()
                 const options = optionsFunc ? optionsFunc(router) : {};
-                const {data, error } = useQuery(Operations.GetPageQuestionsDocument, options)    
+                const {data, error } = useQuery(Operations.GetQuestionsDocument, options)    
                 return <WrappedComponent {...props} data={data} error={error} /> ;
                    
             }; 
@@ -2276,10 +2319,10 @@ export const ssrGetQuestions = {
       
     }
 export async function getServerPageGetUsers
-    (options: Omit<Apollo.QueryOptions<GetPageUsersQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
+    (options: Omit<Apollo.QueryOptions<GetUsersQueryVariables>, 'query'>, apolloClient: Apollo.ApolloClient<NormalizedCacheObject> ){
         
         
-        const data = await apolloClient.query<GetPageUsersQuery>({ ...options, query: Operations.GetPageUsersDocument });
+        const data = await apolloClient.query<GetUsersQuery>({ ...options, query: Operations.GetUsersDocument });
         
         const apolloState = apolloClient.cache.extract();
 
@@ -2291,11 +2334,11 @@ export async function getServerPageGetUsers
             },
         };
       }
-export type PageGetUsersComp = React.FC<{data?: GetPageUsersQuery, error?: Apollo.ApolloError}>;
-export const withPageGetUsers = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<GetPageUsersQuery, GetPageUsersQueryVariables>) => (WrappedComponent:PageGetUsersComp) : NextPage  => (props) => {
+export type PageGetUsersComp = React.FC<{data?: GetUsersQuery, error?: Apollo.ApolloError}>;
+export const withPageGetUsers = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) => (WrappedComponent:PageGetUsersComp) : NextPage  => (props) => {
                 const router = useRouter()
                 const options = optionsFunc ? optionsFunc(router) : {};
-                const {data, error } = useQuery(Operations.GetPageUsersDocument, options)    
+                const {data, error } = useQuery(Operations.GetUsersDocument, options)    
                 return <WrappedComponent {...props} data={data} error={error} /> ;
                    
             }; 

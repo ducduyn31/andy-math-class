@@ -8,12 +8,21 @@ import {
   removeAllAssignationsFromCache,
   replaceAssignationToCache,
 } from "@/hooks/use-update-user/cache-updater/assignations";
+import { SelectOption } from "@/helpers/form";
 
 interface Args {
   onSuccess?: () => void;
 }
 
-export type UseUpdateUserArgs = UpdateUserFormValues;
+export type UseUpdateUserArgs = {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  assignedBookIds?: string[];
+  isEnabled?: boolean;
+  isAdmin?: boolean;
+};
 
 export const useUpdateUser = (args?: Args) => {
   const [updateUserGQL, { data, loading: userLoading }] = useUpdateUserMutation(

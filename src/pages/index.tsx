@@ -6,6 +6,9 @@ import { useGetQuestionsAsync } from "@/hooks/use-get-questions-async";
 import { SidedQuestionFilter } from "@/components/question-filter";
 import { useGetMe } from "@/hooks/use-get-user";
 import { usePersistSelectedChapters } from "@/hooks/use-persist-selected-chapters";
+import { Loading } from "@/components/loading";
+import { useSidebarToggle } from "@/components/navbar/components/sidebar-toggle";
+import { switchCaseReturn } from "@/helpers/array";
 
 export default function Home() {
   const { selectedChapters } = useBookContext();
@@ -14,6 +17,7 @@ export default function Home() {
   const { saveSelectedChapters, loading: loadSelectedChapters } =
     usePersistSelectedChapters();
   const { me, isAdmin, loading: loadGetMe } = useGetMe();
+  const [isToggled] = useSidebarToggle();
 
   useEffect(() => {
     setShouldShowQuestions(false);
@@ -26,16 +30,7 @@ export default function Home() {
   }, [shouldShowQuestions, getQuestions, selectedChapters]);
 
   if (loadSelectedChapters || loadGetMe) {
-    return (
-      <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Loading</h1>
-            <p className="py-6">Please wait...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loading type="page" />;
   }
 
   if (!isAdmin && !me?.isEnabled) {
@@ -58,31 +53,44 @@ export default function Home() {
     saveSelectedChapters(selectedChapters);
   };
 
-  if (!shouldShowQuestions) {
-    return (
-      <div className="grid grid-cols-5 h-fullpage">
-        <SidedQuestionFilter />
-        <div className="hero col-span-4">
-          <div className="text-center hero-content">
-            <button
-              className="btn"
-              disabled={selectedChapters.length === 0}
-              onClick={startQuiz}
-            >
-              Start Quiz
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="grid grid-cols-5 h-fullpage">
-      <SidedQuestionFilter />
-      <div className="col-span-4 mt-5">
-        <QuestionAnswerPanel questions={selectedQuestions} />
+    <div className="grid grid-cols-5 h-screen drawer">
+      <input
+        id="my-drawer"
+        type="checkbox"
+        className="drawer-toggle"
+        checked={isToggled}
+      />
+      <div className="drawer-side pt-16">
+        <SidedQuestionFilter />
       </div>
+      {switchCaseReturn(
+        shouldShowQuestions,
+        {
+          case: true,
+          return: (
+            <div className="pt-16 drawer-content col-span-5">
+              <QuestionAnswerPanel questions={selectedQuestions} />
+            </div>
+          ),
+        },
+        {
+          case: false,
+          return: (
+            <div className="hero drawer-content col-span-5">
+              <div className="text-center hero-content">
+                <button
+                  className="btn btn-primary"
+                  disabled={selectedChapters.length === 0}
+                  onClick={startQuiz}
+                >
+                  Start Quiz
+                </button>
+              </div>
+            </div>
+          ),
+        }
+      )}
     </div>
   );
 }

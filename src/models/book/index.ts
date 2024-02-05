@@ -3,7 +3,7 @@ import {
   Books as _Book,
   ChaptersInBookFragment,
   GetAssignedBooksQuery,
-  GetPageBooksQuery,
+  GetBooksQuery,
 } from "@/gql/types";
 import { Optionable } from "@/components/form-select-field";
 
@@ -129,7 +129,7 @@ export const mapChaptersFromChaptersInBookFragment = (
   return constructChapterTrees(chapters);
 };
 
-export const mapBooksFromQuery = (response?: GetPageBooksQuery): Book[] => {
+export const mapBooksFromGetBooksQuery = (response?: GetBooksQuery): Book[] => {
   if (!response) return [];
 
   const bookNodes =

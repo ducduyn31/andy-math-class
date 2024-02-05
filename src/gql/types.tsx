@@ -1827,6 +1827,11 @@ export type Verification_TokensUpdateResponse = {
   records: Array<Verification_Tokens>;
 };
 
+export type CountRecordsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CountRecordsQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', totalCount: number } | null, booksCollection?: { __typename?: 'booksConnection', totalCount: number } | null, questionsCollection?: { __typename?: 'questionsConnection', totalCount: number } | null };
+
 export type GetAssignedBooksByUserIdQueryVariables = Exact<{
   userId: Scalars['UUID'];
 }>;
@@ -1839,9 +1844,9 @@ export type GetLastFilterQueryVariables = Exact<{
 }>;
 
 
-export type GetLastFilterQuery = { __typename?: 'Query', userResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, state?: any | null, email?: string | null } }> } | null } }> } | null, bookResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, state?: any | null, email?: string | null } }> } | null } }> } | null, questionResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, state?: any | null, email?: string | null } }> } | null } }> } | null };
+export type GetLastFilterQuery = { __typename?: 'Query', userResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, id: any, state?: any | null, email?: string | null } }> } | null } }> } | null, bookResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, id: any, state?: any | null, email?: string | null } }> } | null } }> } | null, questionResponse?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, filter_statesCollection?: { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, id: any, state?: any | null, email?: string | null } }> } | null } }> } | null };
 
-export type FilterStateOfUserFragment = { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, state?: any | null, email?: string | null } }> };
+export type FilterStateOfUserFragment = { __typename?: 'filter_statesConnection', edges: Array<{ __typename?: 'filter_statesEdge', node: { __typename?: 'filter_states', nodeId: string, id: any, state?: any | null, email?: string | null } }> };
 
 export type CreateNewBooksMutationVariables = Exact<{
   booksInput: Array<BooksInsertInput> | BooksInsertInput;
@@ -1990,44 +1995,53 @@ export type GetAssignedBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAssignedBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', id: any, nodeId: string, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null, order?: number | null } }> } | null } }> } | null };
 
-export type GetPageBooksQueryVariables = Exact<{
+export type GetBooksQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
+  bookName?: InputMaybe<StringFilter>;
+  bookIds?: InputMaybe<UuidFilter>;
 }>;
 
 
-export type GetPageBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null, order?: number | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
+export type GetBooksQuery = { __typename?: 'Query', booksCollection?: { __typename?: 'booksConnection', edges: Array<{ __typename?: 'booksEdge', node: { __typename?: 'books', nodeId: string, id: any, color?: string | null, name?: string | null, chaptersCollection?: { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null, order?: number | null } }> } | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
 
 export type ChaptersInBookFragment = { __typename?: 'chaptersConnection', edges: Array<{ __typename?: 'chaptersEdge', node: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null, parent?: any | null, order?: number | null } }> };
 
 export type AssignationsInBookFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, user?: any | null, book?: any | null } }> };
 
-export type GetPageQuestionsQueryVariables = Exact<{
+export type GetQuestionsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
+  bookId?: InputMaybe<UuidFilter>;
+  chapterId?: InputMaybe<UuidFilter>;
 }>;
 
 
-export type GetPageQuestionsQuery = { __typename?: 'Query', questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null, order?: number | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null, order?: number | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
+export type GetQuestionsQuery = { __typename?: 'Query', questionsCollection?: { __typename?: 'questionsConnection', edges: Array<{ __typename?: 'questionsEdge', node: { __typename?: 'questions', nodeId: string, id: any, name?: string | null, description?: string | null, books?: { __typename?: 'books', nodeId: string, id: any, name?: string | null } | null, chapters?: { __typename?: 'chapters', nodeId: string, id: any, name?: string | null } | null, answerCollection?: { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null, order?: number | null } }> } | null, question_imagesCollection?: { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null, order?: number | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
 
 export type AnswersInQuestionFragment = { __typename?: 'answerConnection', edges: Array<{ __typename?: 'answerEdge', node: { __typename?: 'answer', nodeId: string, id: any, name?: string | null, image?: string | null, order?: number | null } }> };
 
 export type ImagesOfQuestionFragment = { __typename?: 'question_imagesConnection', edges: Array<{ __typename?: 'question_imagesEdge', node: { __typename?: 'question_images', nodeId: string, id: any, image?: string | null, order?: number | null } }> };
 
-export type GetPageUsersQueryVariables = Exact<{
+export type GetUsersQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
+  firstNameFilter?: InputMaybe<StringFilter>;
+  emailFilter?: InputMaybe<StringFilter>;
+  statusFilter?: InputMaybe<BooleanFilter>;
 }>;
 
 
-export type GetPageUsersQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
+export type GetUsersQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isAdmin?: boolean | null, isEnabled?: boolean | null, user_books_assignationCollection?: { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null, books?: { __typename?: 'books', name?: string | null } | null } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
 
-export type AssignationsOfUserFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null } }> };
+export type AssignationsOfUserFragment = { __typename?: 'user_books_assignationConnection', edges: Array<{ __typename?: 'user_books_assignationEdge', node: { __typename?: 'user_books_assignation', nodeId: string, id: any, book?: any | null, books?: { __typename?: 'books', name?: string | null } | null } }> };
 
-export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetUserQueryVariables = Exact<{
+  email: StringFilter;
+}>;
 
 
-export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null } }> } | null };
+export type GetUserQuery = { __typename?: 'Query', usersCollection?: { __typename?: 'usersConnection', edges: Array<{ __typename?: 'usersEdge', node: { __typename?: 'users', nodeId: string, id: any, firstName?: string | null, email?: string | null, lastName?: string | null, isEnabled?: boolean | null, isAdmin?: boolean | null } }> } | null };
 
 export type LoadLastSelectedChaptersQueryVariables = Exact<{
   email: Scalars['String'];
@@ -2056,6 +2070,7 @@ export const FilterStateOfUserFragmentDoc = gql`
   edges {
     node {
       nodeId
+      id
       state
       email
     }
@@ -2119,10 +2134,53 @@ export const AssignationsOfUserFragmentDoc = gql`
       nodeId
       id
       book
+      books {
+        name
+      }
     }
   }
 }
     `;
+export const CountRecordsDocument = gql`
+    query CountRecords {
+  usersCollection {
+    totalCount
+  }
+  booksCollection {
+    totalCount
+  }
+  questionsCollection {
+    totalCount
+  }
+}
+    `;
+
+/**
+ * __useCountRecordsQuery__
+ *
+ * To run a query within a React component, call `useCountRecordsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCountRecordsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCountRecordsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCountRecordsQuery(baseOptions?: Apollo.QueryHookOptions<CountRecordsQuery, CountRecordsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CountRecordsQuery, CountRecordsQueryVariables>(CountRecordsDocument, options);
+      }
+export function useCountRecordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CountRecordsQuery, CountRecordsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CountRecordsQuery, CountRecordsQueryVariables>(CountRecordsDocument, options);
+        }
+export type CountRecordsQueryHookResult = ReturnType<typeof useCountRecordsQuery>;
+export type CountRecordsLazyQueryHookResult = ReturnType<typeof useCountRecordsLazyQuery>;
+export type CountRecordsQueryResult = Apollo.QueryResult<CountRecordsQuery, CountRecordsQueryVariables>;
 export const GetAssignedBooksByUserIdDocument = gql`
     query GetAssignedBooksByUserId($userId: UUID!) {
   user_books_assignationCollection(filter: {user: {eq: $userId}}) {
@@ -3091,12 +3149,13 @@ export function useGetAssignedBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetAssignedBooksQueryHookResult = ReturnType<typeof useGetAssignedBooksQuery>;
 export type GetAssignedBooksLazyQueryHookResult = ReturnType<typeof useGetAssignedBooksLazyQuery>;
 export type GetAssignedBooksQueryResult = Apollo.QueryResult<GetAssignedBooksQuery, GetAssignedBooksQueryVariables>;
-export const GetPageBooksDocument = gql`
-    query GetPageBooks($limit: Int, $cursor: Cursor) {
+export const GetBooksDocument = gql`
+    query GetBooks($limit: Int, $cursor: Cursor, $bookName: StringFilter, $bookIds: UUIDFilter) {
   booksCollection(
     orderBy: {created_at: DescNullsLast, name: AscNullsLast}
     first: $limit
     after: $cursor
+    filter: {name: $bookName, id: $bookIds}
   ) {
     edges {
       node {
@@ -3122,39 +3181,42 @@ export const GetPageBooksDocument = gql`
 ${AssignationsInBookFragmentDoc}`;
 
 /**
- * __useGetPageBooksQuery__
+ * __useGetBooksQuery__
  *
- * To run a query within a React component, call `useGetPageBooksQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPageBooksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetBooksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBooksQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetPageBooksQuery({
+ * const { data, loading, error } = useGetBooksQuery({
  *   variables: {
  *      limit: // value for 'limit'
  *      cursor: // value for 'cursor'
+ *      bookName: // value for 'bookName'
+ *      bookIds: // value for 'bookIds'
  *   },
  * });
  */
-export function useGetPageBooksQuery(baseOptions?: Apollo.QueryHookOptions<GetPageBooksQuery, GetPageBooksQueryVariables>) {
+export function useGetBooksQuery(baseOptions?: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPageBooksQuery, GetPageBooksQueryVariables>(GetPageBooksDocument, options);
+        return Apollo.useQuery<GetBooksQuery, GetBooksQueryVariables>(GetBooksDocument, options);
       }
-export function useGetPageBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageBooksQuery, GetPageBooksQueryVariables>) {
+export function useGetBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBooksQuery, GetBooksQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPageBooksQuery, GetPageBooksQueryVariables>(GetPageBooksDocument, options);
+          return Apollo.useLazyQuery<GetBooksQuery, GetBooksQueryVariables>(GetBooksDocument, options);
         }
-export type GetPageBooksQueryHookResult = ReturnType<typeof useGetPageBooksQuery>;
-export type GetPageBooksLazyQueryHookResult = ReturnType<typeof useGetPageBooksLazyQuery>;
-export type GetPageBooksQueryResult = Apollo.QueryResult<GetPageBooksQuery, GetPageBooksQueryVariables>;
-export const GetPageQuestionsDocument = gql`
-    query GetPageQuestions($limit: Int, $cursor: Cursor) {
+export type GetBooksQueryHookResult = ReturnType<typeof useGetBooksQuery>;
+export type GetBooksLazyQueryHookResult = ReturnType<typeof useGetBooksLazyQuery>;
+export type GetBooksQueryResult = Apollo.QueryResult<GetBooksQuery, GetBooksQueryVariables>;
+export const GetQuestionsDocument = gql`
+    query GetQuestions($limit: Int, $cursor: Cursor, $bookId: UUIDFilter, $chapterId: UUIDFilter) {
   questionsCollection(
-    orderBy: {created_at: DescNullsLast}
+    orderBy: {created_at: DescNullsLast, name: AscNullsFirst}
     first: $limit
     after: $cursor
+    filter: {book: $bookId, chapter: $chapterId}
   ) {
     edges {
       node {
@@ -3190,37 +3252,40 @@ export const GetPageQuestionsDocument = gql`
 ${ImagesOfQuestionFragmentDoc}`;
 
 /**
- * __useGetPageQuestionsQuery__
+ * __useGetQuestionsQuery__
  *
- * To run a query within a React component, call `useGetPageQuestionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPageQuestionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetQuestionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuestionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetPageQuestionsQuery({
+ * const { data, loading, error } = useGetQuestionsQuery({
  *   variables: {
  *      limit: // value for 'limit'
  *      cursor: // value for 'cursor'
+ *      bookId: // value for 'bookId'
+ *      chapterId: // value for 'chapterId'
  *   },
  * });
  */
-export function useGetPageQuestionsQuery(baseOptions?: Apollo.QueryHookOptions<GetPageQuestionsQuery, GetPageQuestionsQueryVariables>) {
+export function useGetQuestionsQuery(baseOptions?: Apollo.QueryHookOptions<GetQuestionsQuery, GetQuestionsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPageQuestionsQuery, GetPageQuestionsQueryVariables>(GetPageQuestionsDocument, options);
+        return Apollo.useQuery<GetQuestionsQuery, GetQuestionsQueryVariables>(GetQuestionsDocument, options);
       }
-export function useGetPageQuestionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageQuestionsQuery, GetPageQuestionsQueryVariables>) {
+export function useGetQuestionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetQuestionsQuery, GetQuestionsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPageQuestionsQuery, GetPageQuestionsQueryVariables>(GetPageQuestionsDocument, options);
+          return Apollo.useLazyQuery<GetQuestionsQuery, GetQuestionsQueryVariables>(GetQuestionsDocument, options);
         }
-export type GetPageQuestionsQueryHookResult = ReturnType<typeof useGetPageQuestionsQuery>;
-export type GetPageQuestionsLazyQueryHookResult = ReturnType<typeof useGetPageQuestionsLazyQuery>;
-export type GetPageQuestionsQueryResult = Apollo.QueryResult<GetPageQuestionsQuery, GetPageQuestionsQueryVariables>;
-export const GetPageUsersDocument = gql`
-    query GetPageUsers($limit: Int, $cursor: Cursor) {
+export type GetQuestionsQueryHookResult = ReturnType<typeof useGetQuestionsQuery>;
+export type GetQuestionsLazyQueryHookResult = ReturnType<typeof useGetQuestionsLazyQuery>;
+export type GetQuestionsQueryResult = Apollo.QueryResult<GetQuestionsQuery, GetQuestionsQueryVariables>;
+export const GetUsersDocument = gql`
+    query GetUsers($limit: Int, $cursor: Cursor, $firstNameFilter: StringFilter, $emailFilter: StringFilter, $statusFilter: BooleanFilter) {
   usersCollection(
     orderBy: {firstName: AscNullsLast}
+    filter: {firstName: $firstNameFilter, email: $emailFilter, isEnabled: $statusFilter}
     first: $limit
     after: $cursor
   ) {
@@ -3247,36 +3312,39 @@ export const GetPageUsersDocument = gql`
     ${AssignationsOfUserFragmentDoc}`;
 
 /**
- * __useGetPageUsersQuery__
+ * __useGetUsersQuery__
  *
- * To run a query within a React component, call `useGetPageUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPageUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetPageUsersQuery({
+ * const { data, loading, error } = useGetUsersQuery({
  *   variables: {
  *      limit: // value for 'limit'
  *      cursor: // value for 'cursor'
+ *      firstNameFilter: // value for 'firstNameFilter'
+ *      emailFilter: // value for 'emailFilter'
+ *      statusFilter: // value for 'statusFilter'
  *   },
  * });
  */
-export function useGetPageUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetPageUsersQuery, GetPageUsersQueryVariables>) {
+export function useGetUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPageUsersQuery, GetPageUsersQueryVariables>(GetPageUsersDocument, options);
+        return Apollo.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
       }
-export function useGetPageUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageUsersQuery, GetPageUsersQueryVariables>) {
+export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPageUsersQuery, GetPageUsersQueryVariables>(GetPageUsersDocument, options);
+          return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
         }
-export type GetPageUsersQueryHookResult = ReturnType<typeof useGetPageUsersQuery>;
-export type GetPageUsersLazyQueryHookResult = ReturnType<typeof useGetPageUsersLazyQuery>;
-export type GetPageUsersQueryResult = Apollo.QueryResult<GetPageUsersQuery, GetPageUsersQueryVariables>;
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
+export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
+export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const GetUserDocument = gql`
-    query GetUser {
-  usersCollection {
+    query GetUser($email: StringFilter!) {
+  usersCollection(filter: {email: $email}) {
     edges {
       node {
         nodeId
@@ -3285,6 +3353,7 @@ export const GetUserDocument = gql`
         email
         lastName
         isEnabled
+        isAdmin
       }
     }
   }
@@ -3303,10 +3372,11 @@ export const GetUserDocument = gql`
  * @example
  * const { data, loading, error } = useGetUserQuery({
  *   variables: {
+ *      email: // value for 'email'
  *   },
  * });
  */
-export function useGetUserQuery(baseOptions?: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+export function useGetUserQuery(baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
       }

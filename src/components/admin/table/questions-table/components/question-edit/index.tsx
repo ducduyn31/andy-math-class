@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import { Book, mapToOption, Question } from "@/models";
+import React from "react";
+import { Question } from "@/models";
 import { Maybe } from "@/models/types";
 import { useModalClose } from "@/hooks/use-modal";
-import { FormProvider, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 import {
   mapOnlineFilesToFileStates,
   UpsertQuestionFormSchema,
@@ -10,21 +10,21 @@ import {
   upsertQuestionValues,
 } from "@/helpers/admin/questions/form";
 import { FormInputField } from "@/components/form-input-field";
-import { FormSelectField } from "@/components/form-select-field";
 import { RHFormImagePicker } from "@/components/form-image-picker";
 import { useUpsertQuestions } from "@/hooks/use-upsert-questions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
+import { FormSelectBook } from "@/components/form-select-book";
+import { FormSelectChapter } from "@/components/form-select-chapter";
+import { mapBookToOption, mapChapterToOption } from "@/helpers/admin/options";
+import { useUpdateEffect } from "usehooks-ts";
+import { SelectOptions } from "@/helpers/form";
 
 interface Props {
-  books: Book[];
   question: Maybe<Question>;
 }
 
-export const QuestionModificationModal: React.FC<Props> = ({
-  question,
-  books,
-}) => {
+export const QuestionModificationModal: React.FC<Props> = ({ question }) => {
   const { closeCurrentModal } = useModalClose();
   const { upsertQuestions, loading } = useUpsertQuestions({
     onSuccess: () => {
@@ -40,25 +40,25 @@ export const QuestionModificationModal: React.FC<Props> = ({
       id: question?.id,
       name: question?.name,
       description: question?.description,
-      bookId: question?.book?.id || books[0]?.id,
-      chapterId: question?.chapter?.id || books[0]?.chapters[0]?.id,
+      bookSelection: mapBookToOption(question?.book),
+      chapterSelection: mapChapterToOption(question?.chapter),
       questionImages: mapOnlineFilesToFileStates(question?.questionImages),
       answerImages: mapOnlineFilesToFileStates(question?.answerImages),
     },
   });
   const {
     register,
+    control,
     watch,
+    getValues,
+    setValue,
     handleSubmit,
     formState: { errors, isValid },
   } = methods;
 
-  const selectedBookId = watch("bookId");
-
-  const matchCurrentBook = useCallback(
-    (book: Book) => book.id === selectedBookId,
-    [selectedBookId]
-  );
+  useUpdateEffect(() => {
+    setValue("chapterSelection", SelectOptions.ANY_DEFAULT);
+  }, [getValues("bookSelection.uniqueKey")]);
 
   return (
     <>
@@ -87,21 +87,24 @@ export const QuestionModificationModal: React.FC<Props> = ({
                 errorMessage={errors.description?.message}
                 {...register("description")}
               />
-              <FormSelectField
-                label="Book"
-                options={books.map(mapToOption) || []}
-                errorMessage={errors.bookId?.message}
-                {...register("bookId")}
+              <Controller
+                name="bookSelection"
+                control={control}
+                render={({ field }) => (
+                  <FormSelectBook label="Book" size="md" {...field} />
+                )}
               />
-              <FormSelectField
-                label="Chapter"
-                options={
-                  books
-                    .filter(matchCurrentBook)?.[0]
-                    ?.chapters.map(mapToOption) || []
-                }
-                errorMessage={errors.chapterId?.message}
-                {...register("chapterId")}
+              <Controller
+                name="chapterSelection"
+                control={control}
+                render={({ field }) => (
+                  <FormSelectChapter
+                    label="Chapter"
+                    size="md"
+                    bookSelection={watch("bookSelection")}
+                    {...field}
+                  />
+                )}
               />
               <RHFormImagePicker
                 label="Question image"

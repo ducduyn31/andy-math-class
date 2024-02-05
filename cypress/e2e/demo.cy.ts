@@ -1,21 +1,21 @@
 describe("Seed Users", () => {
-  it.skip("should seed users", () => {
+  it("should clear db", () => {
+    cy.clearDB();
+  });
+
+  it("should seed users", () => {
     cy.seedUsers(1000);
   });
 
-  it.skip("should seed admin", () => {
+  it("should seed admin", () => {
     cy.seedAdmin();
   });
 
-  it.skip("should seed books", () => {
-    cy.seedBooks(10);
+  it("should seed books", () => {
+    cy.seedBooks(50);
   });
 
   it("should seed questions", () => {
     cy.seedQuestions(1000);
-  });
-
-  it.skip("should clear db", () => {
-    cy.clearDB();
   });
 });

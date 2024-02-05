@@ -20,10 +20,10 @@ const LoginPage = () => {
   });
 
   return (
-    <div className={"flex justify-center mt-5"}>
+    <div className="h-screen flex items-center justify-center">
       <div className="card w-96 bg-base-100 shadow-xl">
-        <div className={"card-body"}>
-          <h2 className={"card-title"}>Login With Email</h2>
+        <div className="card-body">
+          <h2 className="card-title">Login With Email</h2>
           <form
             className="form-control w-full max-w-xs"
             onSubmit={handleSubmit(async (values) => {
@@ -44,7 +44,14 @@ const LoginPage = () => {
                 className="btn btn-primary w-full"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Please wait..." : "Login"}
+                {isSubmitting ? (
+                  <span className="inline-block">
+                    <span className="align-middle">Please wait</span>
+                    <i className="align-top loading loading-dots loading-sm"></i>
+                  </span>
+                ) : (
+                  "Login"
+                )}
               </button>
             </div>
           </form>

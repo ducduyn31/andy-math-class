@@ -7,8 +7,10 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <BookProvider>
       <section>
-        <Navbar />
-        <div className="h-fullpage">{children}</div>
+        <div className="fixed w-full z-50 top-0">
+          <Navbar />
+        </div>
+        <div className="h-screen mt-16 bg-base-200">{children}</div>
       </section>
       <Toaster
         position="bottom-right"

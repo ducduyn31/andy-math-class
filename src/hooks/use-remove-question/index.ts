@@ -11,6 +11,7 @@ export const useRemoveQuestion = (args?: Args) => {
       args?.onSuccess?.();
     },
     update: removeQuestionFromCache,
+    refetchQueries: ["CountRecords"],
   });
 
   const removeQuestion = async (questionId: string) => {

@@ -5,6 +5,13 @@ export const assureNonNull = <T>(array?: (T | null | undefined)[]): T[] => {
   return array.filter((item) => !!item) as T[];
 };
 
+export const assureNonNullByField = <T extends Record<string, any>>(
+  array: T[],
+  field: keyof T
+): T[] => {
+  return array.filter((item) => !!item?.[field]) as T[];
+};
+
 export const assureNonDuplicate = <T>(array: T[]): T[] =>
   Array.from(new Set(array));
 
@@ -43,6 +50,18 @@ export const createSortedArrayFromIndexMap = <T>(
     sortedArray.push(indexMap.getByIndex(i));
   }
   return sortedArray as T[];
+};
+
+export const createArrayOfUniqueField = <T>(
+  objects: T[],
+  field?: keyof T
+): T[] => {
+  const indexMap = new IndexMap(objects);
+  const array = [];
+  for (let i = 0; i < indexMap.size; i++) {
+    array.push(indexMap.getByIndex(i));
+  }
+  return array as T[];
 };
 
 interface SwitchCaseType<T, R> {

@@ -1,49 +1,6 @@
-import { Maybe } from "@/models/types";
-import { FilterBuilder } from "@/components/admin/components/content-filter/shared/filter-builder";
-import { Question } from "@/models";
-import {
-  FilterStrategy,
-  FilterStrategyCategory,
-} from "@/components/admin/components/content-filter/shared/strategies";
-import { Mappers } from "@/helpers/mappers";
+import { SelectOption } from "@/helpers/form";
 
 export interface FilterQuestionFormValues {
-  book: Maybe<string>;
-  chapter: Maybe<string>;
+  book: SelectOption;
+  chapter: SelectOption;
 }
-
-export const buildQuestionFilters = (
-  filters: FilterQuestionFormValues
-): FilterBuilder<Question> => {
-  const bookFilterStrategy: FilterStrategy<Question> = {
-    type: FilterStrategyCategory.SELECT,
-    params: {
-      match: filters.book || "any",
-      mapper: Mappers.MAP_QUESTION_BOOK_ID,
-    },
-  };
-  const chapterFilterStrategy: FilterStrategy<Question> = {
-    type: FilterStrategyCategory.SELECT,
-    params: {
-      match: filters.chapter || "any",
-      mapper: Mappers.MAP_QUESTION_CHAPTER_ID,
-    },
-  };
-
-  const filterBuilder = new FilterBuilder<Question>();
-  filterBuilder.addFilter(bookFilterStrategy, chapterFilterStrategy);
-  return filterBuilder;
-};
-
-export const mapFilterToQuestionFormValues = (
-  filter: FilterBuilder<Question>
-): FilterQuestionFormValues => ({
-  book:
-    filter?.getMatchValueByMapper<Maybe<string>>(
-      Mappers.MAP_QUESTION_BOOK_ID
-    ) || "any",
-  chapter:
-    filter?.getMatchValueByMapper<Maybe<string>>(
-      Mappers.MAP_QUESTION_CHAPTER_ID
-    ) || "any",
-});

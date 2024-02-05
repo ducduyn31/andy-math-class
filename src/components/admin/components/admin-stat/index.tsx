@@ -1,11 +1,21 @@
-import { useAdminContext } from "@/hooks/use-admin-context";
+import { useCountRecordsQuery } from "@/gql/types";
+import { assureNumber } from "@/helpers/number";
+import { useRouter } from "next/router";
+import { matchPath } from "@/helpers/path";
+import Link from "next/link";
 
 export const AdminStat = () => {
-  const { totalUsers, totalQuestions, totalBooks } = useAdminContext();
+  const router = useRouter();
+  const path = router.asPath;
+  const { data } = useCountRecordsQuery();
   return (
     <>
       <div className="stats shadow flex">
-        <div className="stat">
+        <Link
+          className={matchPath(path, "/admin/users") ? "active stat" : "stat"}
+          href="/admin/users"
+          shallow
+        >
           <div className="stat-figure text-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -23,10 +33,16 @@ export const AdminStat = () => {
             </svg>
           </div>
           <div className="stat-title">Total users</div>
-          <div className="stat-value text-primary">{totalUsers}</div>
-        </div>
+          <div className="stat-value text-primary">
+            {assureNumber(data?.usersCollection?.totalCount)}
+          </div>
+        </Link>
 
-        <div className="stat">
+        <Link
+          className={matchPath(path, "/admin/books") ? "active stat" : "stat"}
+          href="/admin/books"
+          shallow
+        >
           <div className="stat-figure text-secondary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -44,10 +60,18 @@ export const AdminStat = () => {
             </svg>
           </div>
           <div className="stat-title">Total books</div>
-          <div className="stat-value text-secondary">{totalBooks}</div>
-        </div>
+          <div className="stat-value text-secondary">
+            {assureNumber(data?.booksCollection?.totalCount)}
+          </div>
+        </Link>
 
-        <div className="stat">
+        <Link
+          className={
+            matchPath(path, "/admin/questions") ? "active stat" : "stat"
+          }
+          href="/admin/questions"
+          shallow
+        >
           <div className="stat-figure">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,8 +89,10 @@ export const AdminStat = () => {
             </svg>
           </div>
           <div className="stat-title">Total questions/answers</div>
-          <div className="stat-value">{totalQuestions}</div>
-        </div>
+          <div className="stat-value">
+            {assureNumber(data?.questionsCollection?.totalCount)}
+          </div>
+        </Link>
       </div>
     </>
   );

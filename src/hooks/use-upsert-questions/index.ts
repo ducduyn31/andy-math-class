@@ -24,6 +24,7 @@ import {
   getNewFileStates,
   NewFileState,
 } from "@/helpers/admin/questions/file-action";
+import { isSelectableOption } from "@/helpers/form";
 
 interface UpsertQuestionsArgs {
   onSuccess?: () => void;
@@ -35,6 +36,7 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
   const [createQuestionsGQL, { loading: insertQuestionsLoading }] =
     useCreateNewQuestionMutation({
       update: createNewQuestionInCache,
+      refetchQueries: ["CountRecords"],
     });
   const [updateQuestionsGQL, { loading: updateQuestionsLoading }] =
     useUpdateExistingQuestionMutation();
@@ -157,8 +159,12 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
           newQuestion: {
             name: values.name,
             description: values.description,
-            book: values.bookId,
-            chapter: values.chapterId,
+            book: isSelectableOption(values.bookSelection)
+              ? values.bookSelection.value
+              : null,
+            chapter: isSelectableOption(values.chapterSelection)
+              ? values.chapterSelection.value
+              : null,
           },
         },
       });
@@ -215,8 +221,12 @@ export const useUpsertQuestions = (args?: UpsertQuestionsArgs) => {
           question: {
             name: values.name,
             description: values.description,
-            book: values.bookId,
-            chapter: values.chapterId,
+            book: isSelectableOption(values.bookSelection)
+              ? values.bookSelection.value
+              : null,
+            chapter: isSelectableOption(values.chapterSelection)
+              ? values.chapterSelection.value
+              : null,
           },
         },
       });

@@ -6,13 +6,14 @@ import {
 } from "@/helpers/admin/questions/file-action";
 import { QuestionImage } from "@/models";
 import { createSortedArrayFromIndexMap } from "@/helpers/array";
+import { isSelectableOption, SelectOption } from "@/helpers/form";
 
 export interface UpsertQuestionFormValues {
   id?: Maybe<string>;
   name: string;
   description: Maybe<string>;
-  bookId: string;
-  chapterId: string;
+  bookSelection: SelectOption;
+  chapterSelection: SelectOption;
   questionImages: FileState[];
   answerImages: FileState[];
 }
@@ -20,8 +21,14 @@ export interface UpsertQuestionFormValues {
 export const UpsertQuestionFormSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   description: yup.string(),
-  bookId: yup.string().required("Book is required"),
-  chapterId: yup.string().required("Chapter is required"),
+  bookSelection: yup.mixed().test({
+    message: "Book is required",
+    test: (value) => isSelectableOption(value as SelectOption),
+  }),
+  chapterSelection: yup.mixed().test({
+    message: "Chapter is required",
+    test: (value) => isSelectableOption(value as SelectOption),
+  }),
 });
 
 export const mapOnlineFilesToFileStates = (

@@ -3,49 +3,35 @@ import { useModal } from "@/hooks/use-modal";
 import { BookModificationModal } from "@/components/admin/table/books-table/components/book-edit";
 import { useRemoveBook } from "@/hooks/use-remove-book";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { VirtualItem } from "@/helpers/virtual/core";
+import { BookChaptersList } from "@/components/admin/table/books-table/components/book-row/components/book-chapters-list";
 
 interface PropType {
   book: Book;
+  rowConfig: VirtualItem;
+  index: number;
 }
-export const AdminBookRow = ({ book }: PropType) => {
+export const AdminBookRow = ({ book, rowConfig, index }: PropType) => {
   const { openModal } = useModal(BookModificationModal);
   const { loading, removeBook } = useRemoveBook({
     onSuccess: () => toast.success("Book removed successfully"),
   });
-
-  const [limitShowingChapters, setLimitShowingChapters] = useState(5);
-
-  const expandLimitShowingChapters = () => {
-    setLimitShowingChapters(limitShowingChapters + 5);
-  };
 
   if (!book) {
     return null;
   }
 
   return (
-    <tr className="hover" data-testid="book-entry">
+    <tr
+      className="hover"
+      data-testid="book-entry"
+      style={{
+        height: `${rowConfig.size}px`,
+        transform: `translateY(${rowConfig.start - index * rowConfig.size}px)`,
+      }}
+    >
       <th>{book.name}</th>
-      <td>
-        {book.chapters.length > 0 ? (
-          book.chapters.slice(0, limitShowingChapters).map((each) => (
-            <span key={each.id} className={`badge badge-lg mr-1 ${book.color}`}>
-              {each.name}
-            </span>
-          ))
-        ) : (
-          <i>No chapter added</i>
-        )}
-        {book.chapters.length > limitShowingChapters && (
-          <button
-            className="badge badge-lg badge-outline "
-            onClick={expandLimitShowingChapters}
-          >
-            more
-          </button>
-        )}
-      </td>
+      <BookChaptersList chapters={book.chapters} heightLimit={rowConfig.size} />
       <td>
         <label
           htmlFor="book-modification-modal"
