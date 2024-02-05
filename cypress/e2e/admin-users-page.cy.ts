@@ -23,6 +23,7 @@ describe("Admin Users Page", () => {
 
   it("should be able to disable a user", () => {
     cy.visit("localhost:3000/admin/users");
+    cy.toggleOffSideBarIfOn();
     cy.get('[data-testid="user-entry"]')
       .first()
       .within(() => {
@@ -38,6 +39,7 @@ describe("Admin Users Page", () => {
 
   it("should be able to edit a user", () => {
     cy.visit("localhost:3000/admin/users");
+    cy.toggleOffSideBarIfOn();
     cy.contains("Modify").click();
     cy.contains("Modify").click();
 
@@ -53,6 +55,7 @@ describe("Admin Users Page", () => {
 
   it("should cancel user modification when cancel is clicked", () => {
     cy.visit("localhost:3000/admin/users");
+    cy.toggleOffSideBarIfOn();
     cy.contains("Modify").click();
     cy.contains("Modify").click();
 
@@ -67,6 +70,7 @@ describe("Admin Users Page", () => {
 
   it("should show only 1 user when being filtered by email", () => {
     cy.visit("localhost:3000/admin/users");
+    cy.toggleOffSideBarIfOn();
 
     cy.get('[data-testid="filter"]').click();
     cy.get('input[placeholder="Search by email"]').type("admin");

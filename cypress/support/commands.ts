@@ -73,3 +73,11 @@ Cypress.Commands.add("clearDB", () => {
       cy.log("All tables cleared");
     });
 });
+
+Cypress.Commands.add("toggleOffSideBarIfOn", () => {
+  cy.get('[data-testid="sidebar-toggle-off"]').then(($sidebar) => {
+    if ($sidebar.is(":visible")) {
+      cy.get('[data-testid="sidebar-toggle"]').click();
+    }
+  });
+});
