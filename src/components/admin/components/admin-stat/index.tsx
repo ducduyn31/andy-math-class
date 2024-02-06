@@ -1,7 +1,7 @@
 import { useCountRecordsQuery } from "@/gql/types";
 import { assureNumber } from "@/helpers/number";
 import { useRouter } from "next/router";
-import { matchPath } from "@/helpers/path";
+import { classNameForPath } from "@/helpers/path";
 import Link from "next/link";
 
 export const AdminStat = () => {
@@ -12,7 +12,7 @@ export const AdminStat = () => {
     <>
       <div className="stats shadow flex">
         <Link
-          className={matchPath(path, "/admin/users") ? "active stat" : "stat"}
+          className={`stat ${classNameForPath(path, "/admin/users", "active")}`}
           href="/admin/users"
           shallow
         >
@@ -39,7 +39,7 @@ export const AdminStat = () => {
         </Link>
 
         <Link
-          className={matchPath(path, "/admin/books") ? "active stat" : "stat"}
+          className={`stat ${classNameForPath(path, "/admin/books", "active")}`}
           href="/admin/books"
           shallow
         >
@@ -66,9 +66,11 @@ export const AdminStat = () => {
         </Link>
 
         <Link
-          className={
-            matchPath(path, "/admin/questions") ? "active stat" : "stat"
-          }
+          className={`stat ${classNameForPath(
+            path,
+            "/admin/questions",
+            "active"
+          )}`}
           href="/admin/questions"
           shallow
         >

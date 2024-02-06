@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FilterUserFormValues } from "@/helpers/admin/filter/user-filter/form";
-import { TextFilterField } from "../../../../../text-filter-field";
+import { TextFilterField } from "@/components/text-filter-field";
 import { getUserStatusOptions } from "@/helpers/admin/options";
 import { SelectableOption, SelectOptions } from "@/helpers/form";
 import { FormSelectDropdown } from "@/components/form-select-dropdown";
@@ -61,6 +61,7 @@ export const UsersFilter: React.FC<Props> = ({}) => {
           render={({ field }) => (
             <FormSelectDropdown
               label="Filter by user status"
+              size="sm"
               options={getUserStatusOptions()}
               {...field}
             />
