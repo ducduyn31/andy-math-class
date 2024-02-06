@@ -6,7 +6,7 @@ export const BookSelectLabel = (props: { book: Book }) => {
   const { hasBook, toggleBook } = useBookContext();
   return (
     <a
-      className="flex justify-between hover:bg-base-300"
+      className="flex justify-between hover:bg-base-300 pr-0"
       onClick={() => toggleBook(props.book)}
     >
       <p className="">{props.book.name}</p>
