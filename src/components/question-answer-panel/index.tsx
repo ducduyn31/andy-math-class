@@ -39,6 +39,7 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
               </h2>
               {currentQuestion?.questionImages?.map((image) => (
                 <Image
+                  unoptimized
                   width={500}
                   height={500}
                   key={image.path}
@@ -51,6 +52,7 @@ export const QuestionAnswerPanel: React.FC<Props> = ({ questions }) => {
               {shouldShowAnswer ? (
                 answers.map((answer) => (
                   <Image
+                    unoptimized
                     width={500}
                     height={500}
                     key={answer.id}

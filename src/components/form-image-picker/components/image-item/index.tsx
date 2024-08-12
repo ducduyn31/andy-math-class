@@ -37,6 +37,7 @@ const UploadImageItem: React.FC<UploadedImageProps> = ({
   return (
     <div className="rounded-lg w-32 h-32 relative">
       <Image
+        unoptimized
         src={imageBlob}
         alt={fileData.name}
         className="object-cover"
@@ -56,6 +57,7 @@ const DownloadedImageItem: React.FC<DownloadedImageProps> = ({
   return (
     <div className="rounded-lg w-32 h-32 relative">
       <Image
+        unoptimized
         src={imageUrl(path)}
         alt="Preview"
         className="object-cover"

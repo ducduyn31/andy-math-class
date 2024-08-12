@@ -38,6 +38,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
               case: true,
               return: (
                 <Image
+                  unoptimized
                   src={logoDark}
                   alt="Logo Dark"
                   width={128}
@@ -47,7 +48,15 @@ export const Navbar: React.FC<NavbarProps> = () => {
             },
             {
               case: false,
-              return: <Image src={logo} alt="Logo" width={128} height={128} />,
+              return: (
+                <Image
+                  unoptimized
+                  src={logo}
+                  alt="Logo"
+                  width={128}
+                  height={128}
+                />
+              ),
             }
           )}
         </div>
